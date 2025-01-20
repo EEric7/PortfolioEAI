@@ -28,3 +28,4 @@
 /Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/obj/Debug/net8.0/PortfolioEAI.pdb
 /Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/obj/Debug/net8.0/PortfolioEAI.genruntimeconfig.cache
 /Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/obj/Debug/net8.0/ref/PortfolioEAI.dll
+/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/obj/Debug/net8.0/PortfolioEAI.sourcelink.json

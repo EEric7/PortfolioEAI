@@ -1,10 +1,166 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "ELEMBA ADI Eric";
+    ViewData["SubTitle"] = "Developeur .NET";
+    ViewData["LinkGrayscale"] = "https://startbootstrap.com/theme/grayscale/";
 }
+<!--Master Head-->
+<header class="masthead">
+    <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+        <div class="d-flex justify-content-center">
+            <div class="text-center">
+                <h1 class="mx-auto my-0 text-uppercase">@ViewData["Title"]</h1>
+                <h2 class="text-white-50 mx-auto mt-2 mb-5">@ViewData["SubTitle"]</h2>
+                <a class="btn btn-primary" href="#about">Qui-suis je?</a>
+            </div>
+        </div>
+    </div>
+</header>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="about-section text-center" id="about">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-lg-8">
+                <h2 class="text-white mb-4">ELEMBA ADI Eric</h2>
+                <p class="text-white-50">
+                    Développeur .NET passionné et polyvalent avec plus de 5 ans d’expérience professionnelle et académique dans le développement de solutions innovantes. 
+                    Certifié Manager en systèmes d’information, développeur analyste développeur, j’ai construit ma carrière sur des bases solides en programmation, gestion de projets et migration vers le cloud.
+                    Je maîtrise des technologies telles que C#, SQL, HTML5/CSS3 et des frameworks comme ASP.NET Core,MVC et Blazor, en intégrant des bases de données complexes grâce à SQL Server et des outils comme Entity Framework. 
+                    Mon expertise s’étend également aux méthodes Agiles, aux principes SOLID et aux design patterns.
+                </p>
+            </div>
+        </div>
+        <img class="img-fluid" src="assets/img/ipad.png" alt="..." />
+    </div>
+</section>
+
+<section class="projects-section bg-light" id="skills">
+    <div class="container px-4 px-lg-5">
+        <!-- Featured Compétence Row-->
+        <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
+            <div class="col-xl-8 col-lg-7">
+                <img class="img-fluid mb-3 mb-lg-0" src="assets/img/skills.png" alt="..." />
+            </div>
+            <div class="col-xl-4 col-lg-5">
+                <div class="featured-text text-center text-lg-left">
+                    <h4>Compétences</h4>
+                    <p class="text-black-50 mb-0">Customize it</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="projects-section bg-light" id="projects">
+    <div class="container px-4 px-lg-5">
+        <!-- Project One Row-->
+        <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
+            <div class="col-lg-6"><img class="img-fluid" src="assets/img/Wacken.jpg" alt="..." /></div>
+            <div class="col-lg-6">
+                <div class="bg-black text-center h-100 project">
+                    <div class="d-flex h-100">
+                        <div class="project-text w-100 my-auto text-center text-lg-left">
+                            <h4 class="text-white">Service web de déploiement des solution cognitive</h4>
+                            <p class="mb-0 text-white-50">
+                                Dans le cadre d'une migration d'une solution de déploiement cognitif, le
+                                secteur h230 migre la solution webfarm vers un environement cloud
+                                propriétaire et réalise une refonte complète du projet afin
+                                de simplifier l'accès et les services deployment des outils cognitifs du
+                                groupe.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Project Two Row-->
+        <div class="row gx-0 justify-content-center">
+            <div class="col-lg-6"><img class="img-fluid" src="assets/img/Wacken2.jpg" alt="..." /></div>
+            <div class="col-lg-6 order-lg-first">
+                <div class="bg-black text-center h-100 project">
+                    <div class="d-flex h-100">
+                        <div class="project-text w-100 my-auto text-center text-lg-right">
+                            <h4 class="text-white">Service web de signature électronique</h4>
+                            <p class="mb-0 text-white-50">
+                                Dans le cadre d'un projet d'optimisassions du web service DSIG, qui offre
+                                des solutions de signature électronique évoluer via aux partis prenant
+                                certifier, une refonte des interfaces graphique, l'amélioration de
+                                plusieurs services et l'ajout d'un nouveau organisme de signature.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Project 3 Row-->
+        <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
+            <div class="col-lg-6"><img class="img-fluid" src="assets/img/PID.jpg" alt="..." /></div>
+            <div class="col-lg-6">
+                <div class="bg-black text-center h-100 project">
+                    <div class="d-flex h-100">
+                        <div class="project-text w-100 my-auto text-center text-lg-left">
+                            <h4 class="text-white">Logiciel de gestion d'impression de carte NFT.</h4>
+                            <p class="mb-0 text-white-50">
+                                Pour répondre à un besoin d'externalisation d'un procédé d'impression et 
+                                d'encodage de cartes, Paragon ID a développé un progiciel S-Printbox.
+                                Cette solution de gestion des impressions et d'encodage qui permet au client
+                                d'accéder aux services d'impression spécifique et d'utiliser les imprimantes dédiées.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Signup-->
+<section class="signup-section" id="signup">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5">
+            <div class="col-md-10 col-lg-8 mx-auto text-center">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact-->
+<section class="contact-section bg-black">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5">
+            <div class="col-md-4 mb-3 mb-md-0">
+                <div class="card py-4 h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-map-marked-alt text-primary mb-2"></i>
+                        <h4 class="text-uppercase m-0">Address</h4>
+                        <hr class="my-4 mx-auto" />
+                        <div class="small text-black-50">25 rue des carmes, 67100 Strasbourg Fr</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3 mb-md-0">
+                <div class="card py-4 h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-envelope text-primary mb-2"></i>
+                        <h4 class="text-uppercase m-0">Email</h4>
+                        <hr class="my-4 mx-auto" />
+                        <div class="small text-black-50"><a href="#!">elembaadi@icloud.com</a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3 mb-md-0">
+                <div class="card py-4 h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-mobile-alt text-primary mb-2"></i>
+                        <h4 class="text-uppercase m-0">Phone</h4>
+                        <hr class="my-4 mx-auto" />
+                        <div class="small text-black-50">+33 6 16 55 13 36</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="social d-flex justify-content-center">
+            <a class="mx-2" href="https://github.com/EEric7"><i class="fab fa-github"></i></a>
+        </div>
+    </div>
+</section>

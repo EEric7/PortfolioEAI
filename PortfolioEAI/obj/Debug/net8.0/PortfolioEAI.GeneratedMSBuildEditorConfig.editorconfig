@@ -18,6 +18,14 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = /Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI
 build_property._RazorSourceGeneratorDebug = 
 
+[/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/Pages/About.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWJvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/Pages/Contact.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ29udGFjdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -28,6 +36,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/Pages/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJpdmFjeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/Pages/Projects.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJvamVjdHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/Pages/Shared/_ValidationScriptsPartial.cshtml]

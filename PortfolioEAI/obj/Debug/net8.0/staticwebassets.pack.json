@@ -5,6 +5,70 @@
       "PackagePath": "staticwebassets/PortfolioEAI.bundle.scp.css"
     },
     {
+      "Id": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/wwwroot/assets/EAI.png",
+      "PackagePath": "staticwebassets/assets/EAI.png"
+    },
+    {
+      "Id": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/wwwroot/assets/docs/CV01:2025.pdf",
+      "PackagePath": "staticwebassets/assets/docs/CV01:2025.pdf"
+    },
+    {
+      "Id": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/wwwroot/assets/docs/Thèse Professionnelle-04:06:21.pdf",
+      "PackagePath": "staticwebassets/assets/docs/Thèse Professionnelle-04:06:21.pdf"
+    },
+    {
+      "Id": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/wwwroot/assets/favicon.ico",
+      "PackagePath": "staticwebassets/assets/favicon.ico"
+    },
+    {
+      "Id": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/wwwroot/assets/img/LandView.jpg",
+      "PackagePath": "staticwebassets/assets/img/LandView.jpg"
+    },
+    {
+      "Id": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/wwwroot/assets/img/Moi.jpeg",
+      "PackagePath": "staticwebassets/assets/img/Moi.jpeg"
+    },
+    {
+      "Id": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/wwwroot/assets/img/PID.jpg",
+      "PackagePath": "staticwebassets/assets/img/PID.jpg"
+    },
+    {
+      "Id": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/wwwroot/assets/img/Wacken.jpg",
+      "PackagePath": "staticwebassets/assets/img/Wacken.jpg"
+    },
+    {
+      "Id": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/wwwroot/assets/img/Wacken2.jpg",
+      "PackagePath": "staticwebassets/assets/img/Wacken2.jpg"
+    },
+    {
+      "Id": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/wwwroot/assets/img/Workstation.jpg",
+      "PackagePath": "staticwebassets/assets/img/Workstation.jpg"
+    },
+    {
+      "Id": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/wwwroot/assets/img/bg-signup.jpg",
+      "PackagePath": "staticwebassets/assets/img/bg-signup.jpg"
+    },
+    {
+      "Id": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/wwwroot/assets/img/demo-image-01.jpg",
+      "PackagePath": "staticwebassets/assets/img/demo-image-01.jpg"
+    },
+    {
+      "Id": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/wwwroot/assets/img/demo-image-02.jpg",
+      "PackagePath": "staticwebassets/assets/img/demo-image-02.jpg"
+    },
+    {
+      "Id": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/wwwroot/assets/img/ipad.png",
+      "PackagePath": "staticwebassets/assets/img/ipad.png"
+    },
+    {
+      "Id": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/wwwroot/assets/img/masthead.jpg",
+      "PackagePath": "staticwebassets/assets/img/masthead.jpg"
+    },
+    {
+      "Id": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/wwwroot/assets/img/skills.png",
+      "PackagePath": "staticwebassets/assets/img/skills.png"
+    },
+    {
       "Id": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/wwwroot/css/site.css",
       "PackagePath": "staticwebassets/css/site.css"
     },
