@@ -25,8 +25,8 @@
       "PackagePath": "staticwebassets/assets/img/LandView.jpg"
     },
     {
-      "Id": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/wwwroot/assets/img/Moi.jpeg",
-      "PackagePath": "staticwebassets/assets/img/Moi.jpeg"
+      "Id": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/wwwroot/assets/img/Moi.png",
+      "PackagePath": "staticwebassets/assets/img/Moi.png"
     },
     {
       "Id": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/wwwroot/assets/img/PID.jpg",
@@ -63,6 +63,10 @@
     {
       "Id": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/wwwroot/assets/img/masthead.jpg",
       "PackagePath": "staticwebassets/assets/img/masthead.jpg"
+    },
+    {
+      "Id": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/wwwroot/assets/img/skills.jpg",
+      "PackagePath": "staticwebassets/assets/img/skills.jpg"
     },
     {
       "Id": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/wwwroot/assets/img/skills.png",

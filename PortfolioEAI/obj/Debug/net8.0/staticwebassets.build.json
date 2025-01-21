@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "uOX8CYLHCs/ilZeS4VavOBoUB9zyd04Rnq8Wn2KoX1M=",
+  "Hash": "Q6iLcI2q/nnkGBNMucKpZktjbxxZvP/0oOkyPggZPq8=",
   "Source": "PortfolioEAI",
   "BasePath": "_content/PortfolioEAI",
   "Mode": "Default",
@@ -245,12 +245,12 @@
       "OriginalItemSpec": "wwwroot/assets/img/masthead.jpg"
     },
     {
-      "Identity": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/wwwroot/assets/img/Moi.jpeg",
+      "Identity": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/wwwroot/assets/img/Moi.png",
       "SourceId": "PortfolioEAI",
       "SourceType": "Discovered",
       "ContentRoot": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/wwwroot/",
       "BasePath": "_content/PortfolioEAI",
-      "RelativePath": "assets/img/Moi.jpeg",
+      "RelativePath": "assets/img/Moi.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -261,7 +261,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/assets/img/Moi.jpeg"
+      "OriginalItemSpec": "wwwroot/assets/img/Moi.png"
     },
     {
       "Identity": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/wwwroot/assets/img/PID.jpg",
@@ -281,6 +281,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/assets/img/PID.jpg"
+    },
+    {
+      "Identity": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/wwwroot/assets/img/skills.jpg",
+      "SourceId": "PortfolioEAI",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/wwwroot/",
+      "BasePath": "_content/PortfolioEAI",
+      "RelativePath": "assets/img/skills.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/assets/img/skills.jpg"
     },
     {
       "Identity": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/wwwroot/assets/img/skills.png",
