@@ -1,0 +1,54 @@
+@page
+@model PortfolioEAI.Pages.Projects.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Project</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Project.Id" />
+            <div class="form-group">
+                
+                <label asp-for="Project.Title" class="control-label"></label>
+                <input asp-for="Project.Title" class="form-control" />
+                <span asp-validation-for="Project.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                
+                <label asp-for="Project.Description" class="control-label"></label>
+                <input asp-for="Project.Description" class="form-control" />
+                <span asp-validation-for="Project.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                
+                <label asp-for="Project.ImageUrl" class="control-label"></label>
+                <input asp-for="Project.ImageUrl" class="form-control" />
+                <span asp-validation-for="Project.ImageUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                
+                <label asp-for="Project.ProjectUrl" class="control-label"></label>
+                <input asp-for="Project.ProjectUrl" class="form-control" />
+                <span asp-validation-for="Project.ProjectUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

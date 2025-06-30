@@ -1,21 +1,24 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using DbPortfolio.Data;
+using PortfolioEAI.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-var app = builder.Build();
 if (builder.Environment.IsDevelopment())
 {
-    builder.Services.AddDbContext<DbPortfolioContext>(options =>
-        options.UseSqlite(builder.Configuration.GetConnectionString("DbPortfolioContext")));
+    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DevDBContext") ?? throw new InvalidOperationException("Connection string 'DBContext' not found.")));
 }
 else
 {
-    builder.Services.AddDbContext<DbPortfolioContext>(options =>
-        options.UseSqlServer(builder.Configuration.GetConnectionString("DbPortfolioContext")));
+    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DBContext") ?? throw new InvalidOperationException("Connection string 'DBContext' not found.")));
 }
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DBContext") ?? throw new InvalidOperationException("Connection string 'DBContext' not found.")));
+var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
