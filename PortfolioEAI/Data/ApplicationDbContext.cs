@@ -1,19 +1,23 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using PortfolioEAI.Domain.Entities;
 
 namespace PortfolioEAI.Data
 {
     public class ApplicationDbContext : DbContext
     {
-         public DbSet<Models.Project> Projects { get; set; } = default!;
+         public DbSet<Project> Projects { get; set; } = default!;
         
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
-        
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Project>()
+            .OwnsOne(p => p.Url, url =>
+            {
+                url.Property(u => u.Value)
+                    .HasColumnName("Url");
+            });
+
             base.OnModelCreating(modelBuilder);
         }
     }

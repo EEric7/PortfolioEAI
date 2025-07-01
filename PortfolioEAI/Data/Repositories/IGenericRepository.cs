@@ -1,10 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using PortfolioEAI.Models;
-
-namespace PortfolioEAI.Repositories
+namespace PortfolioEAI.Data.Repositories
 {
     public interface IGenericRepository<T> where T : class
     {
@@ -19,7 +13,7 @@ namespace PortfolioEAI.Repositories
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns>The entity.</returns>
-        Task<T?> GetByIdAsync(int id);
+        Task<T?> GetByIdAsync(Guid id);
 
         /// <summary>
         /// Adds a new entity.
@@ -37,6 +31,6 @@ namespace PortfolioEAI.Repositories
         /// Deletes an entity by its identifier.
         /// </summary>
         /// <param name="id">The identifier of the entity to delete.</param>
-        Task DeleteAsync(int id);
+        Task DeleteAsync(Guid id);
     }
 }

@@ -1,36 +1,25 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using PortfolioEAI.Data;
-using PortfolioEAI.Models;
+using PortfolioEAI.Application.DTOs;
+using PortfolioEAI.Application.Services;
 
 namespace PortfolioEAI.Pages.Projects
 {
     public class EditModel : PageModel
     {
-        private readonly Services.IServices _services;
+        private readonly IServices _services;
 
-        public EditModel(Services.IServices services)
+        public EditModel(IServices services)
         {
             _services = services;
         }
 
         [BindProperty]
-        public Project Project { get; set; } = default!;
+        public ProjectDto Project { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(Guid id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var project =  await _services.Projects.GetByIdAsync((int) id);
+            var project =  await _services.Projects.GetByIdAsync(id);
             if (project == null)
             {
                 return NotFound();
@@ -44,28 +33,24 @@ namespace PortfolioEAI.Pages.Projects
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
-            {
                 return Page();
-            }
 
             if(!ProjectExists(Project.Id))
-            {
                 return NotFound();
-            }
 
             try
-                {
-                    await _services.Projects.UpdateAsync(Project);
-                }
-                catch (ArgumentNullException)
-                {
-                    throw;
-                }
+            {
+                await _services.Projects.UpdateAsync(Project);
+            }
+            catch (ArgumentNullException)
+            {
+                throw;
+            }
 
             return RedirectToPage("./Index");
         }
 
-        private bool ProjectExists(int id)
+        private bool ProjectExists(Guid id)
         {
             return _services.Projects.GetByIdAsync(Project.Id).Result != null;
         }

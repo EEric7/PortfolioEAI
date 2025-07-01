@@ -1,8 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using PortfolioEAI.Data;
-using PortfolioEAI.Models;
+using PortfolioEAI.Domain.Entities;
 
-namespace PortfolioEAI.Repositories
+namespace PortfolioEAI.Data.Repositories
 {
     public class ProjectRepository : IGenericRepository<Project>
     {
@@ -18,7 +17,7 @@ namespace PortfolioEAI.Repositories
             return await _context.Projects.ToListAsync();
         }
 
-        public async Task<Project?> GetByIdAsync(int id)
+        public async Task<Project?> GetByIdAsync(Guid id)
         {
             return await _context.Projects.FindAsync(id);
         }
@@ -35,7 +34,7 @@ namespace PortfolioEAI.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(Guid id)
         {
             var project = await _context.Projects.FindAsync(id);
             if (project != null)

@@ -1,20 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using PortfolioEAI.Data;
-using PortfolioEAI.Models;
+using PortfolioEAI.Application.DTOs;
+using PortfolioEAI.Application.Services;
 
 namespace PortfolioEAI.Pages.Projects
 {
     public class CreateModel : PageModel
     {
-        private readonly Services.IServices _services;
+        private readonly IServices _services;
 
-        public CreateModel(Services.IServices services)
+        public CreateModel(IServices services)
         {
             _services = services;
         }
@@ -25,9 +20,8 @@ namespace PortfolioEAI.Pages.Projects
         }
 
         [BindProperty]
-        public Project Project { get; set; } = default!;
+        public ProjectDto Project { get; set; } = default!;
 
-        // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)

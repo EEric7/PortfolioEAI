@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+using PortfolioEAI.Application.Services;
 using PortfolioEAI.Data;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,9 +15,8 @@ else
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DBContext") ?? throw new InvalidOperationException("Connection string 'DBContext' not found.")));
 }
+builder.Services.AddScoped<IServices, Services>();
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DBContext") ?? throw new InvalidOperationException("Connection string 'DBContext' not found.")));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

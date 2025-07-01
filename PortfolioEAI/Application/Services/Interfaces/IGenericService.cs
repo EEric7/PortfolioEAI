@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PortfolioEAI.Services
+namespace PortfolioEAI.Application.Services
 {
     public interface IGenericServices<T> where T : class
     {
@@ -32,7 +32,7 @@ namespace PortfolioEAI.Services
         /// var entity = await service.GetByIdAsync(1);
         /// </code>
         /// </example>
-        Task<T?> GetByIdAsync(int id);
+        Task<T?> GetByIdAsync(Guid id);
 
         /// <summary>
         /// Adds a new entity.
@@ -70,7 +70,7 @@ namespace PortfolioEAI.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task DeleteAsync(int id);
+        Task DeleteAsync(Guid id);
 
     }
 }

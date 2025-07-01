@@ -1,28 +1,24 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using PortfolioEAI.Models;
+using PortfolioEAI.Application.DTOs;
+using PortfolioEAI.Application.Services;
 
 namespace PortfolioEAI.Pages.Projects
 {
     public class DetailsModel : PageModel
     {
-        private readonly Services.IServices _services;
+        private readonly IServices _services;
 
-        public DetailsModel(Services.IServices services)
+        public DetailsModel(IServices services)
         {
             _services = services;
         }
 
-        public Project Project { get; set; } = default!;
+        public ProjectDto Project { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(Guid id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var project = await _services.Projects.GetByIdAsync((int)id);
+            var project = await _services.Projects.GetByIdAsync(id);
 
             if (project is not null)
             {
@@ -30,7 +26,7 @@ namespace PortfolioEAI.Pages.Projects
 
                 return Page();
             }
-
+            
             return NotFound();
         }
     }
