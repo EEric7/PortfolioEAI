@@ -24,7 +24,7 @@ namespace PortfolioEAI.Domain.Entities
         [MinLength(5)]
         [Display(Name = "Project Title")]
         [Description("Title of the project")]
-        [JsonPropertyName("title")]
+        [JsonPropertyName("Title")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonInclude]
         [JsonRequired]
@@ -70,23 +70,13 @@ namespace PortfolioEAI.Domain.Entities
         public ProjectUrl Url { get; private set; }
 
         /// <summary>
-        /// Initializes a new instance of the Project class with a unique identifier. 
-        /// /// The title, description, image URL, and project URL are required parameters.
+        /// Initializes a new instance of the Project class.
+        /// This constructor is typically used when creating a new project, where the ID is generated automatically
+        /// and the title, description, image URL, and project URL are required parameters.
         /// </summary>
-        /// <param name="title">The title of the project.</param>
-        /// <param name="description">The description of the project.</param>
-        /// <param name="imageUrl">The URL of the project image.</param>
-        /// <param name="projectUrl">The URL of the project.</param>
-        /// <exception cref="BusinessRuleViolationException">Thrown if any of the required parameters are null or whitespace, or if the image URL or project URL is not a valid absolute URI.</exception>
-        [JsonConstructor]
-        public Project(string title, string description, string imageUrl, string projectUrl)
-        {
-            Id = Guid.NewGuid();
-            Title = title;
-            Description = description;
-            ImageUrl = imageUrl;
-            Url = new ProjectUrl(projectUrl);
-        }
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+        public Project() { }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
 
         /// <summary>
         /// Initializes a new instance of the Project class with a specified identifier.
@@ -99,13 +89,13 @@ namespace PortfolioEAI.Domain.Entities
         /// <param name="description"></param>
         /// <param name="imageUrl"></param>
         /// <param name="projectUrl"></param>
-        public Project(Guid id, string title, string description, string imageUrl, string projectUrl)
+        public Project(Guid? id, string title, string description, string imageUrl, string url)
         {
-            Id = id;
+            Id = id ?? Guid.NewGuid();
             Title = title;
             Description = description;
             ImageUrl = imageUrl;
-            Url = new ProjectUrl(projectUrl);
+            Url = new ProjectUrl(url);
         }
 
         /// <summary>

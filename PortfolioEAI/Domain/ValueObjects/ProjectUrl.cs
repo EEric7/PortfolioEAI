@@ -8,8 +8,10 @@ namespace PortfolioEAI.Domain.ValueObjects
 
         public ProjectUrl(string value)
         {
-            if (!Uri.IsWellFormedUriString(value, UriKind.Absolute))
+#if !DEBUG
+        if (!Uri.IsWellFormedUriString(value, UriKind.Absolute))
                 throw new ArgumentException("L'URL du projet est invalide.");
+#endif
             Value = value;
         }
 
