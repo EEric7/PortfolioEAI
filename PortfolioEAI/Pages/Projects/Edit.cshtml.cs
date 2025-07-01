@@ -1,17 +1,17 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PortfolioEAI.Application.DTOs;
-using PortfolioEAI.Application.Services;
+using PortfolioEAI.Application.Services.Interfaces;
 
 namespace PortfolioEAI.Pages.Projects
 {
     public class EditModel : PageModel
     {
-        private readonly IServices _services;
+        private readonly IGenericServices<ProjectDto> _servicesProjectDto;
 
-        public EditModel(IServices services)
+        public EditModel(IGenericServices<ProjectDto> servicesProjectDto)
         {
-            _services = services;
+            _servicesProjectDto = servicesProjectDto;
         }
 
         [BindProperty]
@@ -19,7 +19,7 @@ namespace PortfolioEAI.Pages.Projects
 
         public async Task<IActionResult> OnGetAsync(Guid id)
         {
-            var project =  await _services.Projects.GetByIdAsync(id);
+            var project =  await _servicesProjectDto.GetByIdAsync(id);
             if (project == null)
             {
                 return NotFound();
@@ -40,7 +40,7 @@ namespace PortfolioEAI.Pages.Projects
 
             try
             {
-                await _services.Projects.UpdateAsync(Project);
+                await _servicesProjectDto.UpdateAsync(Project);
             }
             catch (ArgumentNullException)
             {
@@ -52,7 +52,7 @@ namespace PortfolioEAI.Pages.Projects
 
         private bool ProjectExists(Guid id)
         {
-            return _services.Projects.GetByIdAsync(Project.Id).Result != null;
+            return _servicesProjectDto.GetByIdAsync(Project.Id).Result != null;
         }
     }
 }

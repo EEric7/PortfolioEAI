@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace PortfolioEAI.Application.Services
+namespace PortfolioEAI.Application.Services.Interfaces
 {
     public interface IGenericServices<T> where T : class
     {

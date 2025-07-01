@@ -1,17 +1,17 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PortfolioEAI.Application.DTOs;
-using PortfolioEAI.Application.Services;
+using PortfolioEAI.Application.Services.Interfaces;
 
 namespace PortfolioEAI.Pages.Projects
 {
     public class CreateModel : PageModel
     {
-        private readonly IServices _services;
+        private readonly IGenericServices<ProjectDto> _servicesProjectDto;
 
-        public CreateModel(IServices services)
+        public CreateModel(IGenericServices<ProjectDto> servicesProjectDto)
         {
-            _services = services;
+            _servicesProjectDto = servicesProjectDto;
         }
 
         public IActionResult OnGet()
@@ -29,7 +29,7 @@ namespace PortfolioEAI.Pages.Projects
                 return Page();
             }
 
-            await _services.Projects.AddAsync(Project);
+            await _servicesProjectDto.AddAsync(Project);
 
             return RedirectToPage("./Index");
         }

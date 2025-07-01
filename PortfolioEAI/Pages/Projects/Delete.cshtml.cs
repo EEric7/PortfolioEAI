@@ -1,17 +1,17 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PortfolioEAI.Application.DTOs;
-using PortfolioEAI.Application.Services;
+using PortfolioEAI.Application.Services.Interfaces;
 
 namespace PortfolioEAI.Pages.Projects
 {
     public class DeleteModel : PageModel
     {
-        private readonly IServices _services;
+        private readonly IGenericServices<ProjectDto> _servicesProjectDto;
 
-        public DeleteModel(IServices services)
+        public DeleteModel(IGenericServices<ProjectDto> servicesProjectDto)
         {
-            _services = services;
+            _servicesProjectDto = servicesProjectDto;
         }
 
         [BindProperty]
@@ -19,7 +19,7 @@ namespace PortfolioEAI.Pages.Projects
 
         public async Task<IActionResult> OnGetAsync(Guid id)
         {
-            var project = await _services.Projects.GetByIdAsync(id);
+            var project = await _servicesProjectDto.GetByIdAsync(id);
 
             if (project is not null)
             {
@@ -33,12 +33,12 @@ namespace PortfolioEAI.Pages.Projects
 
         public async Task<IActionResult> OnPostAsync(Guid id)
         {
-            var project = await _services.Projects.GetByIdAsync(id);
+            var project = await _servicesProjectDto.GetByIdAsync(id);
 
             if (project != null)
             {
                 Project = project;
-                await _services.Projects.DeleteAsync(Project.Id);
+                await _servicesProjectDto.DeleteAsync(Project.Id);
             }
 
             return RedirectToPage("./Index");
