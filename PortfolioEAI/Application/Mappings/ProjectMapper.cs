@@ -5,6 +5,11 @@ namespace PortfolioEAI.Application.Mappings
 {
     public class ProjectMapper
     {
+        /// <summary>
+        /// Maps a Project entity to a ProjectDto.
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
         public static ProjectDto ToDto(Project p) => new()
         {
             Id = p.Id,
@@ -14,6 +19,11 @@ namespace PortfolioEAI.Application.Mappings
             Url = p.Url.ToString()
         };
 
+        /// <summary>
+        /// Maps a ProjectDto to a Project entity.
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         public static Project ToEntity(ProjectDto dto) => new(dto.Id, dto.Title ?? string.Empty, dto.Description ?? string.Empty, dto.ImageUrl ?? string.Empty, dto.Url ?? string.Empty) { };
     }
 }
