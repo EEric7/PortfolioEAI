@@ -21,7 +21,7 @@ namespace PortfolioEAI.Domain.Entities
         [Required]
         [Column("Title")]
         [MaxLength(200)]
-        [MinLength(5)]
+        [MinLength(3)]
         [Display(Name = "Project Title")]
         [Description("Title of the project")]
         [JsonPropertyName("Title")]
@@ -34,21 +34,21 @@ namespace PortfolioEAI.Domain.Entities
 
         [Column("Description")]
         [MaxLength(1000)]
-        [MinLength(10)] 
+        [MinLength(3)]
         [Display(Name = "Project Description")]
         [Description("Description of the project")]
-        [JsonPropertyName("description")]
+        [JsonPropertyName("Description")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonInclude]
         [JsonRequired]
         [DisplayFormat(ConvertEmptyStringToNull = true)]
-        [DataType(DataType.MultilineText)]
+        [DataType(DataType.Text)]
         public string Description { get; private set; }
 
         [Column("ImageUrl")]
         [Display(Name = "Project Image URL")]
         [Description("URL of the project image")]
-        [JsonPropertyName("imageUrl")]
+        [JsonPropertyName("ImageUrl")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonInclude]
         [JsonRequired]
@@ -60,7 +60,7 @@ namespace PortfolioEAI.Domain.Entities
         public string ImageUrl { get; private set; }
 
         [Column("Url")]
-        [JsonPropertyName("url")]
+        [JsonPropertyName("Url")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonInclude]
         [JsonRequired]
@@ -132,8 +132,10 @@ namespace PortfolioEAI.Domain.Entities
         /// <exception cref="BusinessRuleViolationException"></exception>
         public void SetImage(string imageUrl)
         {
+#if !DEBUG
             if (!Uri.IsWellFormedUriString(imageUrl, UriKind.Absolute))
                 throw new BusinessRuleViolationException("L'URL d'image est invalide.");
+#endif
             ImageUrl = imageUrl;
         }
         

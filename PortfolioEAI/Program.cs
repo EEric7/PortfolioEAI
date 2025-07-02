@@ -11,27 +11,31 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 
 // Configure Entity Framework Core with SQLite based on the environment
-if (builder.Environment.IsDevelopment())
+switch (builder.Environment.EnvironmentName)
 {
-    // Use a different connection string for development
-    builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DevDBContext") ?? throw new InvalidOperationException("Connection string 'DBContext' not found.")));
-}
-else if (builder.Environment.IsStaging())
-{
-    // Use a different connection string for staging
-    builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("StagingDBContext") ?? throw new InvalidOperationException("Connection string 'DBContext' not found.")));
-}
-else if (builder.Environment.IsProduction())
-{
-    // Use the production connection string
-    builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DBContext") ?? throw new InvalidOperationException("Connection string 'DBContext' not found.")));
-}
-else
-{
-    throw new InvalidOperationException("Unknown environment configuration.");
+    case "Development":
+        // Load development-specific configuration
+        builder.Configuration.AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: true);
+        // Use a different connection string for development
+        builder.Services.AddDbContext<ApplicationDbContext>(options =>
+        options.UseSqlite(builder.Configuration.GetConnectionString("DevDBContext") ?? throw new InvalidOperationException("Connection string 'DBContext' not found.")));
+        break;
+    case "Staging":
+        // Load staging-specific configuration
+        builder.Configuration.AddJsonFile("appsettings.Staging.json", optional: true, reloadOnChange: true);
+        // Use a different connection string for staging
+        builder.Services.AddDbContext<ApplicationDbContext>(options =>
+        options.UseSqlite(builder.Configuration.GetConnectionString("StagingDBContext") ?? throw new InvalidOperationException("Connection string 'DBContext' not found.")));
+        break;
+    case "Production":
+        // Load production-specific configuration
+        builder.Configuration.AddJsonFile("appsettings.Production.json", optional: true, reloadOnChange: true);
+        // Use the production connection string
+        builder.Services.AddDbContext<ApplicationDbContext>(options =>
+        options.UseSqlite(builder.Configuration.GetConnectionString("DBContext") ?? throw new InvalidOperationException("Connection string 'DBContext' not found.")));
+        break;
+    default:
+        throw new InvalidOperationException("Unknown environment configuration.");
 }
 
 // Register repositories and services

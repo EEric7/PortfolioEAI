@@ -9,6 +9,7 @@ namespace PortfolioEAI.Application.Mappings
         {
             Id = p.Id,
             Title = p.Title,
+            Description = p.Description,
             ImageUrl = p.ImageUrl,
             Url = p.Url.ToString()
         };

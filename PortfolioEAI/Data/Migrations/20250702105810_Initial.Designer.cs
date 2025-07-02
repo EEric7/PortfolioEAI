@@ -11,7 +11,7 @@ using PortfolioEAI.Data;
 namespace PortfolioEAI.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250701180524_Initial")]
+    [Migration("20250702105810_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -32,7 +32,7 @@ namespace PortfolioEAI.Data.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("TEXT")
                         .HasColumnName("Description")
-                        .HasAnnotation("Relational:JsonPropertyName", "description");
+                        .HasAnnotation("Relational:JsonPropertyName", "Description");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()

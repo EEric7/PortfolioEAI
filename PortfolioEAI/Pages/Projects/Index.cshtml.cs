@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PortfolioEAI.Application.DTOs;
-using PortfolioEAI.Application.Services;
 using PortfolioEAI.Application.Services.Interfaces;
 
 namespace PortfolioEAI.Pages.Projects
@@ -18,7 +17,8 @@ namespace PortfolioEAI.Pages.Projects
 
         public async Task OnGetAsync()
         {
-            Projects = (IList<ProjectDto>) await _servicesProjects.GetAllAsync();
+            var projects = await _servicesProjects.GetAllAsync();
+            Projects = projects.ToList();
         }
     }
 }
