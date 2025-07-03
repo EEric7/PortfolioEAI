@@ -1,8 +1,10 @@
+using PortfolioEAI.Application.DTOs;
+
 namespace PortfolioEAI.Application.Services.Interfaces
 {
-    public interface IGenericServices<T> where T : class
+    public interface IProjectService
     {
-        /// <summary>
+          /// <summary>
         /// Gets all entities.
         /// </summary>
         /// <returns>The all dataset.</returns>
@@ -12,7 +14,7 @@ namespace PortfolioEAI.Application.Services.Interfaces
         /// var allEntities = await service.GetAllAsync();
         /// </code>
         /// </example>  
-        Task<IEnumerable<T>> GetAllAsync();
+        Task<IEnumerable<ProjectDto>> GetAllAsync();
 
         /// <summary>
         /// Gets an entity by its identifier.
@@ -27,7 +29,7 @@ namespace PortfolioEAI.Application.Services.Interfaces
         /// var entity = await service.GetByIdAsync(1);
         /// </code>
         /// </example>
-        Task<T?> GetByIdAsync(Guid id);
+        Task<ProjectDto?> GetByIdAsync(Guid id);
 
         /// <summary>
         /// Adds a new entity.
@@ -46,7 +48,7 @@ namespace PortfolioEAI.Application.Services.Interfaces
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">Thrown when the entity is null.</exception>
         /// <exception cref="InvalidOperationException">Thrown when the entity cannot be added.</exception
-        Task AddAsync(T entity);
+        Task AddAsync(ProjectDto entity);
 
         /// <summary>
         /// Updates an existing entity.
@@ -58,7 +60,7 @@ namespace PortfolioEAI.Application.Services.Interfaces
         /// <example>
         /// <code>
         /// await service.UpdateAsync(existingEntity);
-        Task UpdateAsync(T entity);
+        Task UpdateAsync(ProjectDto entity);
 
         /// <summary>
         /// Deletes an entity by its identifier.
@@ -66,6 +68,5 @@ namespace PortfolioEAI.Application.Services.Interfaces
         /// <param name="id"></param>
         /// <returns></returns>
         Task DeleteAsync(Guid id);
-
     }
 }

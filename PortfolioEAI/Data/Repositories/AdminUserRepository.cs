@@ -4,9 +4,9 @@ using PortfolioEAI.Domain.Entities;
 
 namespace PortfolioEAI.Data.Repositories
 {
-    public class ProjectRepository : IProjectRepositorie
+    public class AdminUserRepository : IAdminUserRepository
     {
-        /// <summary>
+       /// <summary>
         /// Represents the database context for accessing data.
         /// This context is used to interact with the database, allowing for operations such as
         /// querying, adding, updating, and deleting entities.
@@ -17,22 +17,14 @@ namespace PortfolioEAI.Data.Repositories
         /// This constructor is typically used for dependency injection in ASP.NET Core applications.
         /// </summary>
         /// <param name="context"></param>
-        public ProjectRepository(ApplicationDbContext context)
+        public AdminUserRepository(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        /// <summary>
-        /// Adds a new entity.
-        /// This method adds the specified Project entity to the database context.
-        /// It uses the DbContext to track the new entity and saves the changes to the database.
-        /// This method is typically used to create a new project in the database.
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <returns></returns>
-        public async Task AddAsync(Project entity)
+        public async Task AddAsync(AdminUser entity)
         {
-            _context.Set<Project>().Add(entity);
+            _context.Set<AdminUser>().Add(entity);
             await _context.SaveChangesAsync();
         }
 
@@ -47,49 +39,49 @@ namespace PortfolioEAI.Data.Repositories
         /// <returns></returns>
         public async Task DeleteAsync(Guid id)
         {
-            var obj = await _context.Set<Project>().FindAsync(id);
+            var obj = await _context.Set<AdminUser>().FindAsync(id);
             if (obj != null)
             {
-                _context.Set<Project>().Remove(obj);
+                _context.Set<AdminUser>().Remove(obj);
                 await _context.SaveChangesAsync();
             }
         }
 
         /// <summary>
         /// Gets all entities.
-        /// This method retrieves all entities of type Project from the database.
-        /// It uses the DbContext to query the database and returns a list of all Project entities.
+        /// This method retrieves all entities of type AdminUser from the database.
+        /// It uses the DbContext to query the database and returns a list of all AdminUser entities.
         /// </summary>
-        /// <returns>A list of all Project entities.</returns>
-        public async Task<IEnumerable<Project>> GetAllAsync()
+        /// <returns></returns>
+        public async Task<IEnumerable<AdminUser>> GetAllAsync()
         {
-            return await _context.Set<Project>().ToListAsync();
+            return await _context.Set<AdminUser>().ToListAsync();
         }
 
         /// <summary>
         /// Gets an entity by its identifier.
-        /// This method retrieves a Project entity from the database using its unique identifier (GUID).
+        /// This method retrieves an AdminUser entity from the database using its unique identifier (GUID).
         /// It uses the DbContext to find the entity and returns it if found, or null if not found.
-        /// This method is typically used to retrieve a specific project by its ID.
+        /// This method is typically used to retrieve a specific admin user by its ID
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<Project?> GetByIdAsync(Guid id)
+        public async Task<AdminUser?> GetByIdAsync(Guid id)
         {
-            return await _context.Set<Project>().FindAsync(id);
+            return await _context.Set<AdminUser>().FindAsync(id);
         }
 
         /// <summary>
         /// Updates an existing entity.
-        /// This method updates the specified Project entity in the database.
+        /// This method updates the specified AdminUser entity in the database.
         /// It uses the DbContext to track changes to the entity and saves those changes to the database.
-        /// This method is typically used to modify an existing project with new data.
+        /// This method is typically used to modify an existing admin user with new data.
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public async Task UpdateAsync(Project entity)
+        public async Task UpdateAsync(AdminUser entity)
         {
-            _context.Set<Project>().Update(entity);
+            _context.Set<AdminUser>().Update(entity);
             await _context.SaveChangesAsync();
         }
     }

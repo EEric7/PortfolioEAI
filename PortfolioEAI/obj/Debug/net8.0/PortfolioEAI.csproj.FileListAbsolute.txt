@@ -9,6 +9,8 @@
 /Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/obj/Debug/net8.0/PortfolioEAI.sourcelink.json
 /Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/bin/Debug/net8.0/appsettings.Development.json
 /Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/bin/Debug/net8.0/appsettings.json
+/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/bin/Debug/net8.0/appsettings.Production.json
+/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/bin/Debug/net8.0/appsettings.Staging.json
 /Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/bin/Debug/net8.0/PortfolioEAI.staticwebassets.runtime.json
 /Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/bin/Debug/net8.0/PortfolioEAI
 /Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/bin/Debug/net8.0/PortfolioEAI.deps.json

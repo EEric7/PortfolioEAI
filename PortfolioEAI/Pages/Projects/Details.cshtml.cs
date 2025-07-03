@@ -7,18 +7,18 @@ namespace PortfolioEAI.Pages.Projects
 {
     public class DetailsModel : PageModel
     {
-        private readonly IGenericServices<ProjectDto> _servicesProjectDto;
+        private readonly IProjectService _servicesProjects;
 
-        public DetailsModel(IGenericServices<ProjectDto> servicesProjectDto)
+        public DetailsModel(IProjectService servicesProjects)
         {
-            _servicesProjectDto = servicesProjectDto;
+            _servicesProjects = servicesProjects;
         }
 
         public ProjectDto Project { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(Guid id)
         {
-            var project = await _servicesProjectDto.GetByIdAsync(id);
+            var project = await _servicesProjects.GetByIdAsync(id);
 
             if (project is not null)
             {

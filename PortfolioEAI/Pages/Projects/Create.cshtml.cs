@@ -7,11 +7,11 @@ namespace PortfolioEAI.Pages.Projects
 {
     public class CreateModel : PageModel
     {
-        private readonly IGenericServices<ProjectDto> _servicesProjectDto;
+        private readonly IProjectService _servicesProjects;
 
-        public CreateModel(IGenericServices<ProjectDto> servicesProjectDto)
+        public CreateModel(IProjectService servicesProjects)
         {
-            _servicesProjectDto = servicesProjectDto;
+            _servicesProjects = servicesProjects;
         }
 
         public IActionResult OnGet()
@@ -29,7 +29,7 @@ namespace PortfolioEAI.Pages.Projects
                 return Page();
             }
 
-            await _servicesProjectDto.AddAsync(Project);
+            await _servicesProjects.AddAsync(Project);
 
             return RedirectToPage("./Index");
         }

@@ -6,11 +6,11 @@ namespace PortfolioEAI.Pages.Projects
 {
     public class ProjectModel : PageModel
     {
-        private readonly IGenericServices<ProjectDto> _servicesProjects;
+        private readonly IProjectService _servicesProjects;
 
-        public ProjectModel(IGenericServices<ProjectDto> services)
+        public ProjectModel(IProjectService servicesProjects)
         {
-            _servicesProjects = services;
+            _servicesProjects = servicesProjects;
         }
 
         public IList<ProjectDto> Projects { get;set; } = default!;

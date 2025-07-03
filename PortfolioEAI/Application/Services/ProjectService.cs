@@ -2,27 +2,30 @@ using PortfolioEAI.Application.DTOs;
 using PortfolioEAI.Application.Mappings;
 using PortfolioEAI.Application.Services.Interfaces;
 using PortfolioEAI.Data.Repositories;
+using PortfolioEAI.Data.Repositories.Interfaces;
 using PortfolioEAI.Domain.Entities;
+using PortfolioEAI.Domain.Exceptions;
 
 namespace PortfolioEAI.Application.Services
 {
-    public class ProjectService : IGenericServices<ProjectDto>
+    public class ProjectService : IProjectService
     {
         /// <summary>
         /// Service for managing projects.
-        /// This service provides methods to retrieve, add, update, and delete projects.
-        /// It uses a generic repository to interact with the data layer.
         /// </summary>
-        private readonly IGenericRepository<Project> _projectRepository;
+        private readonly IRepository _repository;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProjectService"/> class.
         /// </summary>
         /// <param name="repository">The repository to use for project data operations.</param>
         /// <exception cref="ArgumentNullException">Thrown when the repository is null.</exception>
-        public ProjectService(IGenericRepository<Project> repository)
+        public ProjectService(IRepository repository)
         {
-            _projectRepository = repository;
+            _repository = repository ?? throw new BusinessRuleViolationException(
+                $"{nameof(repository)} cannot be null",
+                new ArgumentNullException(nameof(repository), "Repository cannot be null")
+            );
         }
 
         /// <summary>
@@ -33,7 +36,7 @@ namespace PortfolioEAI.Application.Services
         /// <returns></returns>
         public async Task<IEnumerable<ProjectDto>> GetAllAsync()
         {
-            var projects = await _projectRepository.GetAllAsync();
+            var projects = await _repository.Projects.GetAllAsync();
             return projects.Select(p => ProjectMapper.ToDto(p));
         }
 
@@ -47,7 +50,7 @@ namespace PortfolioEAI.Application.Services
         /// <returns></returns>
         public async Task<ProjectDto?> GetByIdAsync(Guid id)
         {
-            var p = await _projectRepository.GetByIdAsync(id);
+            var p = await _repository.Projects.GetByIdAsync(id);
 
             if (p == null) return null;
 
@@ -65,12 +68,13 @@ namespace PortfolioEAI.Application.Services
         public async Task AddAsync(ProjectDto dto)
         {
             if (dto == null)
-            {
-                throw new ArgumentNullException(nameof(dto), "Project cannot be null");
-            }
+                throw new BusinessRuleViolationException(
+                    $"{nameof(dto)} cannot be null",
+                    new ArgumentNullException(nameof(dto), "Project cannot be null")
+                );
 
             var project = ProjectMapper.ToEntity(dto);
-            await _projectRepository.AddAsync(project);
+            await _repository.Projects.AddAsync(project);
         }
         
         /// <summary>
@@ -85,11 +89,12 @@ namespace PortfolioEAI.Application.Services
         public async Task UpdateAsync(ProjectDto dto)
         {
             if (dto == null)
-            {
-                throw new ArgumentNullException(nameof(dto), "Project cannot be null");
-            }
+                throw new BusinessRuleViolationException(
+                    $"{nameof(dto)} cannot be null",
+                    new ArgumentNullException(nameof(dto), "Project cannot be null")
+                );
 
-            var existing = await _projectRepository.GetByIdAsync(dto.Id);
+            var existing = await _repository.Projects.GetByIdAsync(dto.Id);
             if (existing == null) return;
 
             if (dto.Title != null)
@@ -104,7 +109,7 @@ namespace PortfolioEAI.Application.Services
             if (dto.Url != null)
                 existing.SetUrl(dto.Url);
 
-            await _projectRepository.UpdateAsync(existing);
+            await _repository.Projects.UpdateAsync(existing);
         }
 
         /// <summary>
@@ -118,7 +123,7 @@ namespace PortfolioEAI.Application.Services
         /// <returns></returns>
         public async Task DeleteAsync(Guid id)
         {
-            await _projectRepository.DeleteAsync(id);
+            await _repository.Projects.DeleteAsync(id);
         }
     }
 }

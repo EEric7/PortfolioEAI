@@ -1,31 +1,33 @@
-namespace PortfolioEAI.Data.Repositories
+using PortfolioEAI.Domain.Entities; // Ensure this is the correct namespace for 'Project'
+
+namespace PortfolioEAI.Data.Repositories.Interfaces
 {
-    public interface IGenericRepository<T> where T : class
+    public interface IProjectRepositorie
     {
-        /// <summary>
+       /// <summary>
         /// Gets all entities.
         /// </summary>
         /// <returns>The all dataset.</returns>
-        Task<IEnumerable<T>> GetAllAsync();
+        Task<IEnumerable<Project>> GetAllAsync();
 
         /// <summary>
         /// Gets an entity by its identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns>The entity.</returns>
-        Task<T?> GetByIdAsync(Guid id);
+        Task<Project?> GetByIdAsync(Guid id);
 
         /// <summary>
         /// Adds a new entity.
         /// </summary>
         /// <param name="entity">The entity to add.</param>
-        Task AddAsync(T entity);
+        Task AddAsync(Project entity);
 
         /// <summary>
         /// Updates an existing entity.
         /// </summary>
         /// <param name="entity">The entity to update.</param>
-        Task UpdateAsync(T entity);
+        Task UpdateAsync(Project entity);
 
         /// <summary>
         /// Deletes an entity by its identifier.

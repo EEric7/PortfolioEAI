@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PortfolioEAI.Domain.ValueObjects
 {
-    public class ProjectUrl
+    public class ObjectUrl
     {
         /// <summary>
         /// Represents the URL of a project.
@@ -15,15 +15,15 @@ namespace PortfolioEAI.Domain.ValueObjects
         public string Value { get; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ProjectUrl"/> class.
+        /// Initializes a new instance of the <see cref="ObjectUrl"/> class.
         /// This constructor takes a string value representing the project URL.
         /// It validates the URL to ensure it is well-formed.
         /// If the URL is not valid, it throws an <see cref="ArgumentException"/>.
-        public ProjectUrl(string value)
+        public ObjectUrl(string value)
         {
 #if !DEBUG
         if (!Uri.IsWellFormedUriString(value, UriKind.Absolute))
-                throw new ArgumentException("L'URL du projet est invalide.");
+                throw new ArgumentException("L'URL est invalide.");
 #endif
             Value = value;
         }
@@ -38,9 +38,9 @@ namespace PortfolioEAI.Domain.ValueObjects
         /// <summary>
         /// Determines whether the specified object is equal to the current project URL.
         /// This method overrides the default Equals method to compare the URL values.
-        /// It returns true if the specified object is a <see cref="ProjectUrl"/> and
+        /// It returns true if the specified object is a <see cref="ObjectUrl"/> and
         public override bool Equals(object? obj) =>
-            obj is ProjectUrl other && Value == other.Value;
+            obj is ObjectUrl other && Value == other.Value;
         
         /// <summary>
         /// Returns a hash code for the current project URL.
@@ -50,7 +50,7 @@ namespace PortfolioEAI.Domain.ValueObjects
         /// <returns>A hash code for the current project URL.</returns>
         public override int GetHashCode() => Value.GetHashCode();
 
-        public static implicit operator string(ProjectUrl url) => url.Value;
-        public static explicit operator ProjectUrl(string value) => new(value);
+        public static implicit operator string(ObjectUrl url) => url.Value;
+        public static explicit operator ObjectUrl(string value) => new(value);
     }
 }

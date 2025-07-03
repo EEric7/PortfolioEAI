@@ -1,65 +1,54 @@
 using Microsoft.EntityFrameworkCore;
-using PortfolioEAI.Application.DTOs;
 using PortfolioEAI.Application.Services;
 using PortfolioEAI.Application.Services.Interfaces;
 using PortfolioEAI.Data;
 using PortfolioEAI.Data.Repositories;
-using PortfolioEAI.Domain.Entities;
+using PortfolioEAI.Data.Repositories.Interfaces;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 
 // Configure Entity Framework Core with SQLite based on the environment
-switch (builder.Environment.EnvironmentName)
-{
-    case "Development":
-        // Load development-specific configuration
-        builder.Configuration.AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: true);
-        // Use a different connection string for development
-        builder.Services.AddDbContext<ApplicationDbContext>(options =>
-        options.UseSqlite(builder.Configuration.GetConnectionString("DevDBContext") ?? throw new InvalidOperationException("Connection string 'DBContext' not found.")));
-        break;
-    case "Staging":
-        // Load staging-specific configuration
-        builder.Configuration.AddJsonFile("appsettings.Staging.json", optional: true, reloadOnChange: true);
-        // Use a different connection string for staging
-        builder.Services.AddDbContext<ApplicationDbContext>(options =>
-        options.UseSqlite(builder.Configuration.GetConnectionString("StagingDBContext") ?? throw new InvalidOperationException("Connection string 'DBContext' not found.")));
-        break;
-    case "Production":
-        // Load production-specific configuration
-        builder.Configuration.AddJsonFile("appsettings.Production.json", optional: true, reloadOnChange: true);
-        // Use the production connection string
-        builder.Services.AddDbContext<ApplicationDbContext>(options =>
-        options.UseSqlite(builder.Configuration.GetConnectionString("DBContext") ?? throw new InvalidOperationException("Connection string 'DBContext' not found.")));
-        break;
-    default:
-        throw new InvalidOperationException("Unknown environment configuration.");
-}
+var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Development";
 
-// Register repositories and services
-builder.Services.AddScoped<IGenericRepository<Project>, ProjectRepository>();
-builder.Services.AddScoped<IGenericServices<ProjectDto>, ProjectService>();
+builder.Configuration.AddJsonFile($"appsettings.{environment}.json", optional: true, reloadOnChange: true);
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.")));
+
+// Register repositories
+builder.Services.AddScoped<ProjectRepository, ProjectRepository>();
+builder.Services.AddScoped<ISkillRepository, SkillRepository>();
+builder.Services.AddScoped<IExperienceRepository, ExperienceRepository>();
+builder.Services.AddScoped<IAdminUserRepository, AdminUserRepository>();
+builder.Services.AddScoped<IRepository, Repository>();
+
+// Register services
+//builder.Services.AddScoped<IGenericServices<ProjectDto>, ProjectService>();
 
 // Register the main repository interface
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Error");
-    app.UseHsts();
-}
-else
-{
-    // Initialisation de la base de données
-    using (var scope = app.Services.CreateScope())
-    {
-        var services = scope.ServiceProvider;
-        var context = services.GetRequiredService<ApplicationDbContext>();
-        DbInitializer.Initialize(context);
-    }
+switch (environment) {
+    case "Development":
+        using (var scope = app.Services.CreateScope())
+        {
+            var services = scope.ServiceProvider;
+            var context = services.GetRequiredService<ApplicationDbContext>();
+            DbInitializer.Initialize(context);
+        }
+        break;
+    case "Staging":
+        app.UseExceptionHandler("/Error");
+        app.UseHsts();
+        break;
+    case "Production":
+        app.UseExceptionHandler("/Error");
+        app.UseHsts();
+        break;
+    default:
+        throw new InvalidOperationException($"Unknown environment: {environment}");
 }
 
 app.UseHttpsRedirection();

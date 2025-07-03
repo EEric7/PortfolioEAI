@@ -4,35 +4,36 @@ using PortfolioEAI.Domain.Entities;
 
 namespace PortfolioEAI.Data.Repositories
 {
-    public class ProjectRepository : IProjectRepositorie
+    public class SkillRepository : ISkillRepository
     {
         /// <summary>
         /// Represents the database context for accessing data.
         /// This context is used to interact with the database, allowing for operations such as
         /// querying, adding, updating, and deleting entities.
+        /// </summary>
         private readonly ApplicationDbContext _context;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ARepositorie{TEntity}"/> class with the specified database context.
+        /// Initializes a new instance of the <see cref="SkillRepository"/> class with the specified database context.
         /// This constructor is typically used for dependency injection in ASP.NET Core applications.
         /// </summary>
-        /// <param name="context"></param>
-        public ProjectRepository(ApplicationDbContext context)
+        /// <param name="context">The database context to be used by the repository.</param>
+        public SkillRepository(ApplicationDbContext context)
         {
             _context = context;
         }
 
         /// <summary>
         /// Adds a new entity.
-        /// This method adds the specified Project entity to the database context.
+        /// This method adds the specified Skill entity to the database context.
         /// It uses the DbContext to track the new entity and saves the changes to the database.
-        /// This method is typically used to create a new project in the database.
+        /// This method is typically used to create a new skill in the database.
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public async Task AddAsync(Project entity)
+        public async Task AddAsync(Skill entity)
         {
-            _context.Set<Project>().Add(entity);
+            _context.Set<Skill>().Add(entity);
             await _context.SaveChangesAsync();
         }
 
@@ -43,53 +44,52 @@ namespace PortfolioEAI.Data.Repositories
         /// If the entity is not found, no action is taken.
         /// This method is typically used to delete an existing entity from the database.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <param name="id">The identifier of the entity to delete.</param>
         public async Task DeleteAsync(Guid id)
         {
-            var obj = await _context.Set<Project>().FindAsync(id);
+            var obj = await _context.Set<Skill>().FindAsync(id);
             if (obj != null)
             {
-                _context.Set<Project>().Remove(obj);
+                _context.Set<Skill>().Remove(obj);
                 await _context.SaveChangesAsync();
             }
         }
 
         /// <summary>
         /// Gets all entities.
-        /// This method retrieves all entities of type Project from the database.
-        /// It uses the DbContext to query the database and returns a list of all Project entities.
+        /// This method retrieves all entities of type Skill from the database.
+        /// It uses the DbContext to query the database and returns a list of all Skill entities.
         /// </summary>
-        /// <returns>A list of all Project entities.</returns>
-        public async Task<IEnumerable<Project>> GetAllAsync()
+        /// <returns>A list of all Skill entities.</returns>    
+        public async Task<IEnumerable<Skill>> GetAllAsync()
         {
-            return await _context.Set<Project>().ToListAsync();
+            return await _context.Set<Skill>().ToListAsync();
         }
 
         /// <summary>
         /// Gets an entity by its identifier.
-        /// This method retrieves a Project entity from the database using its unique identifier (GUID).
+        /// This method retrieves a Skill entity from the database using its unique identifier (GUID).
         /// It uses the DbContext to find the entity and returns it if found, or null if not found.
-        /// This method is typically used to retrieve a specific project by its ID.
+        /// This method is typically used to retrieve a specific skill by its ID.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public async Task<Project?> GetByIdAsync(Guid id)
+        /// <param name="id">The identifier of the entity to retrieve.</param>
+        /// <returns>The Skill entity if found; otherwise, null.</returns>
+        public async Task<Skill?> GetByIdAsync(Guid id)
         {
-            return await _context.Set<Project>().FindAsync(id);
+            return await _context.Set<Skill>().FindAsync(id);
         }
 
         /// <summary>
         /// Updates an existing entity.
-        /// This method updates the specified Project entity in the database.
+        /// This method updates the specified Skill entity in the database.
         /// It uses the DbContext to track changes to the entity and saves those changes to the database.
-        /// This method is typically used to modify an existing project with new data.
+        /// This method is typically used to modify an existing skill with new data.
         /// </summary>
-        /// <param name="entity"></param>
+        /// <param name="entity">The Skill entity to update.</param>
         /// <returns></returns>
-        public async Task UpdateAsync(Project entity)
+        public async Task UpdateAsync(Skill entity)
         {
-            _context.Set<Project>().Update(entity);
+            _context.Set<Skill>().Update(entity);
             await _context.SaveChangesAsync();
         }
     }

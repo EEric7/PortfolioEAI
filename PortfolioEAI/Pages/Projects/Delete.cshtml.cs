@@ -7,11 +7,11 @@ namespace PortfolioEAI.Pages.Projects
 {
     public class DeleteModel : PageModel
     {
-        private readonly IGenericServices<ProjectDto> _servicesProjectDto;
+        private readonly IProjectService _servicesProjects;
 
-        public DeleteModel(IGenericServices<ProjectDto> servicesProjectDto)
+        public DeleteModel(IProjectService servicesProjects)
         {
-            _servicesProjectDto = servicesProjectDto;
+            _servicesProjects = servicesProjects;
         }
 
         [BindProperty]
@@ -19,7 +19,7 @@ namespace PortfolioEAI.Pages.Projects
 
         public async Task<IActionResult> OnGetAsync(Guid id)
         {
-            var project = await _servicesProjectDto.GetByIdAsync(id);
+            var project = await _servicesProjects.GetByIdAsync(id);
 
             if (project is not null)
             {
@@ -33,12 +33,12 @@ namespace PortfolioEAI.Pages.Projects
 
         public async Task<IActionResult> OnPostAsync(Guid id)
         {
-            var project = await _servicesProjectDto.GetByIdAsync(id);
+            var project = await _servicesProjects.GetByIdAsync(id);
 
             if (project != null)
             {
                 Project = project;
-                await _servicesProjectDto.DeleteAsync(Project.Id);
+                await _servicesProjects.DeleteAsync(Project.Id);
             }
 
             return RedirectToPage("./Index");

@@ -7,11 +7,11 @@ namespace PortfolioEAI.Pages.Projects
 {
     public class EditModel : PageModel
     {
-        private readonly IGenericServices<ProjectDto> _servicesProjectDto;
+        private readonly IProjectService _servicesProjects;
 
-        public EditModel(IGenericServices<ProjectDto> servicesProjectDto)
+        public EditModel(IProjectService servicesProjects)
         {
-            _servicesProjectDto = servicesProjectDto;
+            _servicesProjects = servicesProjects;
         }
 
         [BindProperty]
@@ -19,7 +19,7 @@ namespace PortfolioEAI.Pages.Projects
 
         public async Task<IActionResult> OnGetAsync(Guid id)
         {
-            var project =  await _servicesProjectDto.GetByIdAsync(id);
+            var project =  await _servicesProjects.GetByIdAsync(id);
             if (project == null)
             {
                 return NotFound();
@@ -40,7 +40,7 @@ namespace PortfolioEAI.Pages.Projects
 
             try
             {
-                await _servicesProjectDto.UpdateAsync(Project);
+                await _servicesProjects.UpdateAsync(Project);
             }
             catch (ArgumentNullException)
             {
@@ -52,7 +52,7 @@ namespace PortfolioEAI.Pages.Projects
 
         private bool ProjectExists(Guid id)
         {
-            return _servicesProjectDto.GetByIdAsync(Project.Id).Result != null;
+            return _servicesProjects.GetByIdAsync(Project.Id).Result != null;
         }
     }
 }

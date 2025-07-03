@@ -3,7 +3,7 @@ using PortfolioEAI.Domain.Entities;
 
 namespace PortfolioEAI.Application.Mappings
 {
-    public class ProjectMapper
+    public class ProjectMapper 
     {
         /// <summary>
         /// Maps a Project entity to a ProjectDto.
