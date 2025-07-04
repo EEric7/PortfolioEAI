@@ -7,6 +7,14 @@ namespace PortfolioEAI.Data.Repositories
     public class SkillRepository : ISkillRepository
     {
         /// <summary>
+        /// Logger for logging information, warnings, and errors related to project operations.
+        /// This logger is used to track the flow of operations, debug issues, and provide insights
+        /// into the behavior of the project service.
+        /// It is typically injected via dependency injection in ASP.NET Core applications.
+        /// </summary>
+        private readonly ILogger<SkillRepository> _logger;
+
+        /// <summary>
         /// Represents the database context for accessing data.
         /// This context is used to interact with the database, allowing for operations such as
         /// querying, adding, updating, and deleting entities.
@@ -18,9 +26,10 @@ namespace PortfolioEAI.Data.Repositories
         /// This constructor is typically used for dependency injection in ASP.NET Core applications.
         /// </summary>
         /// <param name="context">The database context to be used by the repository.</param>
-        public SkillRepository(ApplicationDbContext context)
+        public SkillRepository(ApplicationDbContext context, ILogger<SkillRepository> logger)
         {
-            _context = context;
+            _context = context ?? throw new ArgumentNullException(nameof(context), "Context cannot be null");
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger), "Logger cannot be null");
         }
 
         /// <summary>
@@ -33,6 +42,7 @@ namespace PortfolioEAI.Data.Repositories
         /// <returns></returns>
         public async Task AddAsync(Skill entity)
         {
+            _logger.LogInformation("Ajout d'un nouvel Skill avec Id {Id}", entity.Id);
             _context.Set<Skill>().Add(entity);
             await _context.SaveChangesAsync();
         }
@@ -47,10 +57,11 @@ namespace PortfolioEAI.Data.Repositories
         /// <param name="id">The identifier of the entity to delete.</param>
         public async Task DeleteAsync(Guid id)
         {
-            var obj = await _context.Set<Skill>().FindAsync(id);
-            if (obj != null)
+            var entity = await _context.Set<Skill>().FindAsync(id);
+            if (entity != null)
             {
-                _context.Set<Skill>().Remove(obj);
+                _logger.LogInformation("Adding a new Skill with Id {Id}", entity.Id);
+                _context.Set<Skill>().Remove(entity);
                 await _context.SaveChangesAsync();
             }
         }
@@ -63,6 +74,7 @@ namespace PortfolioEAI.Data.Repositories
         /// <returns>A list of all Skill entities.</returns>    
         public async Task<IEnumerable<Skill>> GetAllAsync()
         {
+            _logger.LogInformation("Retrieving all Skills");
             return await _context.Set<Skill>().ToListAsync();
         }
 
@@ -76,6 +88,7 @@ namespace PortfolioEAI.Data.Repositories
         /// <returns>The Skill entity if found; otherwise, null.</returns>
         public async Task<Skill?> GetByIdAsync(Guid id)
         {
+            _logger.LogInformation("Retrieving Skill with Id {Id}", id);
             return await _context.Set<Skill>().FindAsync(id);
         }
 
@@ -89,6 +102,7 @@ namespace PortfolioEAI.Data.Repositories
         /// <returns></returns>
         public async Task UpdateAsync(Skill entity)
         {
+            _logger.LogInformation("Updating Skill with Id {Id}", entity.Id);
             _context.Set<Skill>().Update(entity);
             await _context.SaveChangesAsync();
         }

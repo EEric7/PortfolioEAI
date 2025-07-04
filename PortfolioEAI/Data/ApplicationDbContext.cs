@@ -6,25 +6,16 @@ namespace PortfolioEAI.Data
 {
     public class ApplicationDbContext : DbContext
     {
+        #region DbSets
         /// <summary>
-        /// Represents the collection of AdminUser entities in the database.
+        /// Gets the DbSet for AdminUser entities.
+        /// This property provides access to the collection of AdminUser entities in the database.
         /// </summary>
         public DbSet<AdminUser> AdminUsers => Set<AdminUser>();
-
-        /// <summary>
-        /// Represents the collection of Project entities in the database.
-        /// </summary>
         public DbSet<Project> Projects => Set<Project>();
-
-        /// <summary>
-        /// Represents the collection of Skill entities in the database.
-        /// </summary>
         public DbSet<Skill> Skills => Set<Skill>();
-
-        /// <summary>
-        /// Represents the collection of Experience entities in the database.
-        /// </summary>
         public DbSet<Experience> Experiences => Set<Experience>();
+        #endregion
 
         /// <summary>
         /// Initializes a new instance of the ApplicationDbContext class.
@@ -47,7 +38,7 @@ namespace PortfolioEAI.Data
             modelBuilder.ApplyConfiguration(new ProjectConfiguration());
             modelBuilder.ApplyConfiguration(new ExperienceConfiguration());
             modelBuilder.ApplyConfiguration(new AdminUserConfiguration());
-
+            // Additional configurations can be added here as needed
             base.OnModelCreating(modelBuilder);
         }
     }

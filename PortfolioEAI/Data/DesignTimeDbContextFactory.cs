@@ -12,12 +12,17 @@ namespace PortfolioEAI.Data
 
             // Use the appsettings.json file to configure the DbContext
             var config = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
+                .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "Properties"))
                 .AddJsonFile($"appsettings.{environment}.json")
                 .Build();
 
+            // Create the DbContextOptionsBuilder and configure it to use SQLite using the connection string from the configuration file.
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            optionsBuilder.UseSqlite(config.GetConnectionString("DefaultConnection"));
+
+            // Use the connection string from the configuration and log SQL commands to the console.
+            optionsBuilder
+                .UseSqlite(config.GetConnectionString("DefaultConnection"))
+                .LogTo(Console.WriteLine, LogLevel.Information);
 
             return new ApplicationDbContext(optionsBuilder.Options);
         }

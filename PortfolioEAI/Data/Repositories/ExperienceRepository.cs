@@ -7,6 +7,14 @@ namespace PortfolioEAI.Data.Repositories
     public class ExperienceRepository : IExperienceRepository
     {
         /// <summary>
+        /// Logger for logging information, warnings, and errors related to project operations.
+        /// This logger is used to track the flow of operations, debug issues, and provide insights
+        /// into the behavior of the project service.
+        /// It is typically injected via dependency injection in ASP.NET Core applications.
+        /// </summary>
+        private readonly ILogger<ExperienceRepository> _logger;
+
+        /// <summary>
         /// Represents the database context for accessing data.
         /// This context is used to interact with the database, allowing for operations such as
         /// querying, adding, updating, and deleting entities.  
@@ -19,9 +27,10 @@ namespace PortfolioEAI.Data.Repositories
         /// </summary>
         /// <param name="context">The database context to be used by the repository.</param>
         /// <returns></returns>
-        public ExperienceRepository(ApplicationDbContext context)
+        public ExperienceRepository(ApplicationDbContext context, ILogger<ExperienceRepository> logger)
         {
-            _context = context;
+            _context = context ?? throw new ArgumentNullException(nameof(context), "Context cannot be null");
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger), "Logger cannot be null");
         }
 
         /// <summary>
@@ -34,6 +43,7 @@ namespace PortfolioEAI.Data.Repositories
         /// <returns></returns>
         public async Task AddAsync(Experience entity)
         {
+            _logger.LogInformation("Ajout d'un nouvel Experience avec Id {Id}", entity.Id);
             _context.Set<Experience>().Add(entity);
             await _context.SaveChangesAsync();
         }
@@ -49,10 +59,11 @@ namespace PortfolioEAI.Data.Repositories
         /// <returns></returns>
         public async Task DeleteAsync(Guid id)
         {
-            var obj = await _context.Set<Experience>().FindAsync(id);
-            if (obj != null)
+            var entity = await _context.Set<Experience>().FindAsync(id);
+            if (entity != null)
             {
-                _context.Set<Experience>().Remove(obj);
+                _logger.LogInformation("Adding a new Experience with Id {Id}", entity.Id);
+                _context.Set<Experience>().Remove(entity);
                 await _context.SaveChangesAsync();
             }
         }
@@ -65,6 +76,7 @@ namespace PortfolioEAI.Data.Repositories
         /// <returns>A list of all Experience entities.</returns>
         public async Task<IEnumerable<Experience>> GetAllAsync()
         {
+            _logger.LogInformation("Retrieving all Experience");
             return await _context.Set<Experience>().ToListAsync();
         }
 
@@ -75,6 +87,7 @@ namespace PortfolioEAI.Data.Repositories
         /// This method is typically used to retrieve a specific experience by its ID.
         public async Task<Experience?> GetByIdAsync(Guid id)
         {
+            _logger.LogInformation("Retrieving AdminUser with Id {Id}", id);
             return await _context.Set<Experience>().FindAsync(id);
         }
 
@@ -88,6 +101,7 @@ namespace PortfolioEAI.Data.Repositories
         /// /// <returns></returns>
         public async Task UpdateAsync(Experience entity)
         {
+            _logger.LogInformation("Updating AdminUser with Id {Id}", entity.Id);
             _context.Set<Experience>().Update(entity);
             await _context.SaveChangesAsync();
         }

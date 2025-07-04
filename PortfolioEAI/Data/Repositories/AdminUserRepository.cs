@@ -1,11 +1,20 @@
 using Microsoft.EntityFrameworkCore;
 using PortfolioEAI.Data.Repositories.Interfaces;
 using PortfolioEAI.Domain.Entities;
+using PortfolioEAI.Domain.Exceptions;
 
 namespace PortfolioEAI.Data.Repositories
 {
     public class AdminUserRepository : IAdminUserRepository
     {
+        /// <summary>
+        /// Logger for logging information, warnings, and errors related to project operations.
+        /// This logger is used to track the flow of operations, debug issues, and provide insights
+        /// into the behavior of the project service.
+        /// It is typically injected via dependency injection in ASP.NET Core applications.
+        /// </summary>
+        private readonly ILogger<AdminUserRepository> _logger;
+
        /// <summary>
         /// Represents the database context for accessing data.
         /// This context is used to interact with the database, allowing for operations such as
@@ -17,13 +26,15 @@ namespace PortfolioEAI.Data.Repositories
         /// This constructor is typically used for dependency injection in ASP.NET Core applications.
         /// </summary>
         /// <param name="context"></param>
-        public AdminUserRepository(ApplicationDbContext context)
+        public AdminUserRepository(ApplicationDbContext context, ILogger<AdminUserRepository> logger)
         {
-            _context = context;
+            context = context ?? throw new ArgumentNullException(nameof(context), "Context cannot be null");
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger), "Logger cannot be null");
         }
 
         public async Task AddAsync(AdminUser entity)
         {
+            _logger.LogInformation("Ajout d'un nouvel AdminUser avec Id {Id}", entity.Id);
             _context.Set<AdminUser>().Add(entity);
             await _context.SaveChangesAsync();
         }
@@ -39,10 +50,11 @@ namespace PortfolioEAI.Data.Repositories
         /// <returns></returns>
         public async Task DeleteAsync(Guid id)
         {
-            var obj = await _context.Set<AdminUser>().FindAsync(id);
-            if (obj != null)
+            var entity = await _context.Set<AdminUser>().FindAsync(id);
+            if (entity != null)
             {
-                _context.Set<AdminUser>().Remove(obj);
+                _logger.LogInformation("Adding a new AdminUser with Id {Id}", entity.Id);
+                _context.Set<AdminUser>().Remove(entity);
                 await _context.SaveChangesAsync();
             }
         }
@@ -55,6 +67,7 @@ namespace PortfolioEAI.Data.Repositories
         /// <returns></returns>
         public async Task<IEnumerable<AdminUser>> GetAllAsync()
         {
+            _logger.LogInformation("Retrieving all AdminUsers");
             return await _context.Set<AdminUser>().ToListAsync();
         }
 
@@ -68,6 +81,7 @@ namespace PortfolioEAI.Data.Repositories
         /// <returns></returns>
         public async Task<AdminUser?> GetByIdAsync(Guid id)
         {
+            _logger.LogInformation("Retrieving AdminUser with Id {Id}", id);
             return await _context.Set<AdminUser>().FindAsync(id);
         }
 
@@ -81,6 +95,7 @@ namespace PortfolioEAI.Data.Repositories
         /// <returns></returns>
         public async Task UpdateAsync(AdminUser entity)
         {
+            _logger.LogInformation("Updating AdminUser with Id {Id}", entity.Id);
             _context.Set<AdminUser>().Update(entity);
             await _context.SaveChangesAsync();
         }

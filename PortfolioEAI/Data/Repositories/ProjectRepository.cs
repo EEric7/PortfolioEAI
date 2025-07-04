@@ -7,6 +7,14 @@ namespace PortfolioEAI.Data.Repositories
     public class ProjectRepository : IProjectRepositorie
     {
         /// <summary>
+        /// Logger for logging information, warnings, and errors related to project operations.
+        /// This logger is used to track the flow of operations, debug issues, and provide insights
+        /// into the behavior of the project service.
+        /// It is typically injected via dependency injection in ASP.NET Core applications.
+        /// </summary>
+        private readonly ILogger<AdminUserRepository> _logger;
+
+        /// <summary>
         /// Represents the database context for accessing data.
         /// This context is used to interact with the database, allowing for operations such as
         /// querying, adding, updating, and deleting entities.
@@ -17,9 +25,10 @@ namespace PortfolioEAI.Data.Repositories
         /// This constructor is typically used for dependency injection in ASP.NET Core applications.
         /// </summary>
         /// <param name="context"></param>
-        public ProjectRepository(ApplicationDbContext context)
+        public ProjectRepository(ApplicationDbContext context, ILogger<AdminUserRepository> logger)
         {
-            _context = context;
+            _context = context ?? throw new ArgumentNullException(nameof(context), "Context cannot be null");
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger), "Logger cannot be null");
         }
 
         /// <summary>
@@ -32,6 +41,7 @@ namespace PortfolioEAI.Data.Repositories
         /// <returns></returns>
         public async Task AddAsync(Project entity)
         {
+            _logger.LogInformation("Ajout d'un nouvel Experience avec Id {Id}", entity.Id);
             _context.Set<Project>().Add(entity);
             await _context.SaveChangesAsync();
         }
@@ -47,10 +57,11 @@ namespace PortfolioEAI.Data.Repositories
         /// <returns></returns>
         public async Task DeleteAsync(Guid id)
         {
-            var obj = await _context.Set<Project>().FindAsync(id);
-            if (obj != null)
+            var entity = await _context.Set<Project>().FindAsync(id);
+            if (entity != null)
             {
-                _context.Set<Project>().Remove(obj);
+                _logger.LogInformation("Adding a new Project with Id {Id}", entity.Id);
+                _context.Set<Project>().Remove(entity);
                 await _context.SaveChangesAsync();
             }
         }
@@ -63,6 +74,7 @@ namespace PortfolioEAI.Data.Repositories
         /// <returns>A list of all Project entities.</returns>
         public async Task<IEnumerable<Project>> GetAllAsync()
         {
+            _logger.LogInformation("Retrieving all Project");
             return await _context.Set<Project>().ToListAsync();
         }
 
@@ -76,6 +88,7 @@ namespace PortfolioEAI.Data.Repositories
         /// <returns></returns>
         public async Task<Project?> GetByIdAsync(Guid id)
         {
+            _logger.LogInformation("Retrieving Project with Id {Id}", id);
             return await _context.Set<Project>().FindAsync(id);
         }
 
@@ -89,6 +102,7 @@ namespace PortfolioEAI.Data.Repositories
         /// <returns></returns>
         public async Task UpdateAsync(Project entity)
         {
+            _logger.LogInformation("Updating Project with Id {Id}", entity.Id);
             _context.Set<Project>().Update(entity);
             await _context.SaveChangesAsync();
         }

@@ -11,7 +11,6 @@ builder.Services.AddRazorPages();
 
 // Configure Entity Framework Core with SQLite based on the environment
 var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Development";
-
 builder.Configuration.AddJsonFile($"appsettings.{environment}.json", optional: true, reloadOnChange: true);
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.")));
@@ -24,13 +23,14 @@ builder.Services.AddScoped<IAdminUserRepository, AdminUserRepository>();
 builder.Services.AddScoped<IRepository, Repository>();
 
 // Register services
-//builder.Services.AddScoped<IGenericServices<ProjectDto>, ProjectService>();
+builder.Services.AddScoped<IProjectService, ProjectService>();
 
 // Register the main repository interface
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-switch (environment) {
+switch (environment)
+{
     case "Development":
         using (var scope = app.Services.CreateScope())
         {
@@ -40,15 +40,17 @@ switch (environment) {
         }
         break;
     case "Staging":
-        app.UseExceptionHandler("/Error");
-        app.UseHsts();
-        break;
+        throw new InvalidOperationException("Staging environment is not configured for database initialization.");
     case "Production":
-        app.UseExceptionHandler("/Error");
-        app.UseHsts();
-        break;
+        throw new InvalidOperationException("Production environment is not configured for database initialization.");
     default:
         throw new InvalidOperationException($"Unknown environment: {environment}");
+}
+
+if (environment != "Development")
+{
+    app.UseExceptionHandler("/Error");
+    app.UseHsts();
 }
 
 app.UseHttpsRedirection();

@@ -2,7 +2,6 @@ using PortfolioEAI.Application.DTOs;
 using PortfolioEAI.Application.Mappings;
 using PortfolioEAI.Application.Services.Interfaces;
 using PortfolioEAI.Data.Repositories;
-using PortfolioEAI.Data.Repositories.Interfaces;
 using PortfolioEAI.Domain.Entities;
 using PortfolioEAI.Domain.Exceptions;
 
@@ -10,6 +9,14 @@ namespace PortfolioEAI.Application.Services
 {
     public class ProjectService : IProjectService
     {
+        /// <summary>
+        /// Logger for logging information, warnings, and errors related to project operations.
+        /// This logger is used to track the flow of operations, debug issues, and provide insights
+        /// into the behavior of the project service.
+        /// It is typically injected via dependency injection in ASP.NET Core applications.
+        /// </summary>
+        private readonly ILogger<ProjectService> _logger;
+        
         /// <summary>
         /// Service for managing projects.
         /// </summary>
@@ -20,8 +27,14 @@ namespace PortfolioEAI.Application.Services
         /// </summary>
         /// <param name="repository">The repository to use for project data operations.</param>
         /// <exception cref="ArgumentNullException">Thrown when the repository is null.</exception>
-        public ProjectService(IRepository repository)
+        public ProjectService(ILogger<ProjectService> logger, IRepository repository)
         {
+            // Validate the logger and repository parameters and throw BusinessRuleViolationException if they are null.
+            _logger = logger?? throw new BusinessRuleViolationException(
+                $"{nameof(logger)} cannot be null", new ArgumentNullException(nameof(logger),
+                "Logger cannot be null"));
+            
+            // Validate the repository parameter and throw BusinessRuleViolationException if it is null.
             _repository = repository ?? throw new BusinessRuleViolationException(
                 $"{nameof(repository)} cannot be null",
                 new ArgumentNullException(nameof(repository), "Repository cannot be null")
@@ -36,6 +49,7 @@ namespace PortfolioEAI.Application.Services
         /// <returns></returns>
         public async Task<IEnumerable<ProjectDto>> GetAllAsync()
         {
+            _logger.LogInformation("Fetching all projects.");
             var projects = await _repository.Projects.GetAllAsync();
             return projects.Select(p => ProjectMapper.ToDto(p));
         }
@@ -50,10 +64,9 @@ namespace PortfolioEAI.Application.Services
         /// <returns></returns>
         public async Task<ProjectDto?> GetByIdAsync(Guid id)
         {
+            _logger.LogInformation("Fetching project with Id {Id}", id);
             var p = await _repository.Projects.GetByIdAsync(id);
-
             if (p == null) return null;
-
             return ProjectMapper.ToDto(p);
         }
 
@@ -72,7 +85,8 @@ namespace PortfolioEAI.Application.Services
                     $"{nameof(dto)} cannot be null",
                     new ArgumentNullException(nameof(dto), "Project cannot be null")
                 );
-
+            
+            _logger.LogInformation("Adding new project: {Title}", dto.Title);
             var project = ProjectMapper.ToEntity(dto);
             await _repository.Projects.AddAsync(project);
         }
@@ -95,10 +109,14 @@ namespace PortfolioEAI.Application.Services
                 );
 
             var existing = await _repository.Projects.GetByIdAsync(dto.Id);
-            if (existing == null) return;
+            if (existing == null)
+            {
+                _logger.LogWarning("Project with Id {Id} not found for update.", dto.Id);
+                return;
+            }
 
             if (dto.Title != null)
-                existing.SetTitle(dto.Title);
+                    existing.SetTitle(dto.Title);
 
             if (dto.ImageUrl != null)
                 existing.SetImage(dto.ImageUrl);
@@ -109,6 +127,7 @@ namespace PortfolioEAI.Application.Services
             if (dto.Url != null)
                 existing.SetUrl(dto.Url);
 
+            _logger.LogInformation("Updating project with Id {Id}", dto.Id);
             await _repository.Projects.UpdateAsync(existing);
         }
 
@@ -123,6 +142,7 @@ namespace PortfolioEAI.Application.Services
         /// <returns></returns>
         public async Task DeleteAsync(Guid id)
         {
+            _logger.LogInformation("Deleting project with Id {Id}", id);
             await _repository.Projects.DeleteAsync(id);
         }
     }
