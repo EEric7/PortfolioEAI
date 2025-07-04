@@ -38,6 +38,7 @@ namespace PortfolioEAI.Data
             modelBuilder.ApplyConfiguration(new ProjectConfiguration());
             modelBuilder.ApplyConfiguration(new ExperienceConfiguration());
             modelBuilder.ApplyConfiguration(new AdminUserConfiguration());
+            
             // Additional configurations can be added here as needed
             base.OnModelCreating(modelBuilder);
         }

@@ -66,7 +66,7 @@ namespace PortfolioEAI.Domain.Entities
         public void SetCompany(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
-                throw new BusinessRuleViolationException("The company name is required.", new ArgumentNullException(nameof(name)));
+                throw new BusinessRuleViolationException("The company name is required.");
             Name = name;
         }
 
@@ -81,7 +81,7 @@ namespace PortfolioEAI.Domain.Entities
         public void SetLevel(SkillLevel level)
         {
             if (!Enum.IsDefined(typeof(SkillLevel), level))
-                throw new BusinessRuleViolationException("Invalid skill level.", new ArgumentOutOfRangeException(nameof(level)));
+                throw new BusinessRuleViolationException("Invalid skill level.");
             Level = level;
         }
 
@@ -96,7 +96,7 @@ namespace PortfolioEAI.Domain.Entities
         public void SetCategory(SkillCategory category)
         {
             if (!Enum.IsDefined(typeof(SkillCategory), category))
-                throw new BusinessRuleViolationException("Invalid skill category.", new ArgumentOutOfRangeException(nameof(category)));
+                throw new BusinessRuleViolationException("Invalid skill category.");
             Category = category;
         }
 

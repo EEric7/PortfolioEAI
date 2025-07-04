@@ -103,7 +103,7 @@ namespace PortfolioEAI.Domain.Entities
         public void SetCompany(string company)
         {
             if (string.IsNullOrWhiteSpace(company))
-                throw new BusinessRuleViolationException("The company name is required.", new ArgumentNullException(nameof(company)));
+                throw new BusinessRuleViolationException("The company name is required.");
             Company = company;
         }
         
@@ -117,7 +117,7 @@ namespace PortfolioEAI.Domain.Entities
         public void SetPosition(string position)
         {
             if (string.IsNullOrWhiteSpace(position))
-                throw new BusinessRuleViolationException("The position is required.", new ArgumentNullException(nameof(position)));
+                throw new BusinessRuleViolationException("The position is required.");
             Position = position;
         }
 
@@ -133,7 +133,7 @@ namespace PortfolioEAI.Domain.Entities
         public void SetStartDate(DateOnly startDate)
         {
             if (startDate == default)
-                throw new BusinessRuleViolationException("Start date cannot be default value.", new ArgumentNullException(nameof(startDate)));
+                throw new BusinessRuleViolationException("Start date cannot be default value.");
             StartDate = startDate;
         }
 
@@ -150,7 +150,7 @@ namespace PortfolioEAI.Domain.Entities
         public void SetEndDate(DateOnly? endDate)
         {
             if (endDate == default)
-                throw new BusinessRuleViolationException("End date cannot be default value.", new ArgumentNullException(nameof(endDate)));
+                throw new BusinessRuleViolationException("End date cannot be default value.");
             EndDate = endDate;
         }
 
@@ -166,7 +166,7 @@ namespace PortfolioEAI.Domain.Entities
         public void SetDescription(string description)
         {
             if (string.IsNullOrWhiteSpace(description))
-                throw new BusinessRuleViolationException("Description is requeried.", new ArgumentNullException(nameof(description)));
+                throw new BusinessRuleViolationException("Description is requeried.");
                 
             Description = description;
         }
@@ -185,7 +185,7 @@ namespace PortfolioEAI.Domain.Entities
         {
 #if DEBUG
             if (!Uri.IsWellFormedUriString(imageUrl, UriKind.Absolute))
-                throw new BusinessRuleViolationException("The image URL must be valid.", new ArgumentNullException(nameof(imageUrl)));
+                throw new BusinessRuleViolationException("The image URL must be valid.");
 #endif
             ImageUrl = imageUrl;
         }
@@ -202,7 +202,7 @@ namespace PortfolioEAI.Domain.Entities
         public void AddProject(Project project)
         {
             if (project == null)
-                throw new BusinessRuleViolationException("Project must't be null", new ArgumentNullException(nameof(project)));
+                throw new BusinessRuleViolationException("Project must't be null");
             Projects.Add(project);
         }
 
@@ -218,7 +218,7 @@ namespace PortfolioEAI.Domain.Entities
         public void RemoveProject(Project project)
         {
             if (project == null)
-                throw new BusinessRuleViolationException("Project must't be null", new ArgumentNullException(nameof(project)));
+                throw new BusinessRuleViolationException("Project must't be null");
 
             Projects.Remove(project);
         }

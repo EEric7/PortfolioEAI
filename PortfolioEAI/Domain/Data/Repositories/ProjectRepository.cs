@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using PortfolioEAI.Data.Repositories.Interfaces;
 using PortfolioEAI.Domain.Entities;
+using PortfolioEAI.Domain.Ressources;
 
 namespace PortfolioEAI.Data.Repositories
 {
@@ -25,10 +26,11 @@ namespace PortfolioEAI.Data.Repositories
         /// This constructor is typically used for dependency injection in ASP.NET Core applications.
         /// </summary>
         /// <param name="context"></param>
+        /// <param name="logger"></param>
         public ProjectRepository(ApplicationDbContext context, ILogger<AdminUserRepository> logger)
         {
-            _context = context ?? throw new ArgumentNullException(nameof(context), "Context cannot be null");
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger), "Logger cannot be null");
+            _context = context ?? throw new ArgumentNullException(nameof(context), Messages.NullError);
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger), Messages.NullError);
         }
 
         /// <summary>
@@ -41,9 +43,23 @@ namespace PortfolioEAI.Data.Repositories
         /// <returns></returns>
         public async Task AddAsync(Project entity)
         {
-            _logger.LogInformation("Ajout d'un nouvel Experience avec Id {Id}", entity.Id);
-            _context.Set<Project>().Add(entity);
-            await _context.SaveChangesAsync();
+            if (entity == null)
+            {
+                _logger.LogError(Messages.AddNullError, nameof(Project));
+                throw new ArgumentNullException(nameof(entity), Messages.NullError);
+            }
+
+            try
+            {
+                _logger.LogInformation(Messages.AddEntityInfo, nameof(Project), entity.Id);
+                _context.Set<Project>().Add(entity);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, Messages.AddError, nameof(Project), ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -57,12 +73,27 @@ namespace PortfolioEAI.Data.Repositories
         /// <returns></returns>
         public async Task DeleteAsync(Guid id)
         {
-            var entity = await _context.Set<Project>().FindAsync(id);
-            if (entity != null)
+             if (id == Guid.Empty)
             {
-                _logger.LogInformation("Adding a new Project with Id {Id}", entity.Id);
-                _context.Set<Project>().Remove(entity);
-                await _context.SaveChangesAsync();
+                _logger.LogError(Messages.DeleteNullIdError, nameof(Project));
+                throw new ArgumentException(nameof(id), Messages.NullError);
+            }
+
+            try
+            {
+                _logger.LogInformation(Messages.DeleteAttemptEntityInfo, nameof(Project), id);
+                var entity = await _context.Set<Project>().FindAsync(id);
+                if (entity != null)
+                {
+                    _logger.LogInformation("Delete {EntityType} with Id {Id}", nameof(Project), entity.Id);
+                    _context.Set<Project>().Remove(entity);
+                    await _context.SaveChangesAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, Messages.DeleteError, nameof(Project), ex.Message);
+                throw;
             }
         }
 
@@ -74,8 +105,16 @@ namespace PortfolioEAI.Data.Repositories
         /// <returns>A list of all Project entities.</returns>
         public async Task<IEnumerable<Project>> GetAllAsync()
         {
-            _logger.LogInformation("Retrieving all Project");
-            return await _context.Set<Project>().ToListAsync();
+            try
+            {
+                _logger.LogInformation(Messages.GetAllEntityInfo, nameof(Project));
+                return await _context.Set<Project>().ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, Messages.GetAllError, nameof(Project), ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -88,8 +127,22 @@ namespace PortfolioEAI.Data.Repositories
         /// <returns></returns>
         public async Task<Project?> GetByIdAsync(Guid id)
         {
-            _logger.LogInformation("Retrieving Project with Id {Id}", id);
-            return await _context.Set<Project>().FindAsync(id);
+            if (id == Guid.Empty)
+            {
+                _logger.LogError(Messages.GetNullIdError, nameof(Project));
+                throw new ArgumentException(Messages.NullError, nameof(id));
+            }
+
+            try
+            {
+                _logger.LogInformation(Messages.GetEntityInfo, nameof(Project), id);
+                return await _context.Set<Project>().FindAsync(id);
+            }
+            catch (ArgumentException ex)
+            {
+                _logger.LogError(ex, Messages.GetError, nameof(Project), id, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -102,9 +155,29 @@ namespace PortfolioEAI.Data.Repositories
         /// <returns></returns>
         public async Task UpdateAsync(Project entity)
         {
-            _logger.LogInformation("Updating Project with Id {Id}", entity.Id);
-            _context.Set<Project>().Update(entity);
-            await _context.SaveChangesAsync();
+            if (entity == null)
+            {
+                _logger.LogError(Messages.UpdateNullError, nameof(Project));
+                throw new ArgumentNullException(nameof(entity), Messages.NullError);
+            }
+
+            if (entity.Id == Guid.Empty)
+            {
+                _logger.LogError(Messages.UpdateNullIdError, nameof(Project));
+                throw new ArgumentException(Messages.NullError, nameof(entity.Id));
+            }
+
+            try
+            {
+                _logger.LogInformation(Messages.UpdateEntityInfo, nameof(Project), entity.Id);
+                _context.Set<Project>().Update(entity);
+                await _context.SaveChangesAsync();
+            }
+            catch (ArgumentException ex)
+            {
+                _logger.LogError(ex, Messages.UpdateError, nameof(Project), ex.Message);
+                throw;
+            }
         }
     }
 }

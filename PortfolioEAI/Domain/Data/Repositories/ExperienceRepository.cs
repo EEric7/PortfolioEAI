@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using PortfolioEAI.Data.Repositories.Interfaces;
 using PortfolioEAI.Domain.Entities;
+using PortfolioEAI.Domain.Ressources;
 
 namespace PortfolioEAI.Data.Repositories
 {
@@ -26,7 +27,8 @@ namespace PortfolioEAI.Data.Repositories
         /// This constructor is typically used for dependency injection in ASP.NET Core applications.
         /// </summary>
         /// <param name="context">The database context to be used by the repository.</param>
-        /// <returns></returns>
+        /// <param name="logger">The logger to be used for logging operations.</param>
+        /// <exception cref="ArgumentNullException">Thrown when the context or logger is null.</exception>
         public ExperienceRepository(ApplicationDbContext context, ILogger<ExperienceRepository> logger)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context), "Context cannot be null");
@@ -43,9 +45,23 @@ namespace PortfolioEAI.Data.Repositories
         /// <returns></returns>
         public async Task AddAsync(Experience entity)
         {
-            _logger.LogInformation("Ajout d'un nouvel Experience avec Id {Id}", entity.Id);
-            _context.Set<Experience>().Add(entity);
-            await _context.SaveChangesAsync();
+             if (entity == null)
+            {
+                _logger.LogError(Messages.AddNullError, nameof(Experience));
+                throw new ArgumentNullException(nameof(entity), Messages.NullError);
+            }
+
+            try
+            {
+                _logger.LogInformation(Messages.AddEntityInfo, nameof(Experience), entity.Id);
+                _context.Set<Experience>().Add(entity);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, Messages.AddError, nameof(Experience), ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -59,12 +75,27 @@ namespace PortfolioEAI.Data.Repositories
         /// <returns></returns>
         public async Task DeleteAsync(Guid id)
         {
-            var entity = await _context.Set<Experience>().FindAsync(id);
-            if (entity != null)
+            if (id == Guid.Empty)
             {
-                _logger.LogInformation("Adding a new Experience with Id {Id}", entity.Id);
-                _context.Set<Experience>().Remove(entity);
-                await _context.SaveChangesAsync();
+                _logger.LogError(Messages.DeleteNullIdError, nameof(Experience));
+                throw new ArgumentException(Messages.NullError, nameof(id));
+            }
+
+            try
+            {
+                _logger.LogInformation(Messages.DeleteAttemptEntityInfo, nameof(Experience), id);
+                var entity = await _context.Set<Experience>().FindAsync(id);
+                if (entity != null)
+                {
+                    _logger.LogInformation(Messages.DeleteEntityInfo, nameof(Experience), entity.Id);
+                    _context.Set<Experience>().Remove(entity);
+                    await _context.SaveChangesAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, Messages.DeleteError, nameof(Experience), ex.Message);
+                throw;
             }
         }
         
@@ -76,8 +107,16 @@ namespace PortfolioEAI.Data.Repositories
         /// <returns>A list of all Experience entities.</returns>
         public async Task<IEnumerable<Experience>> GetAllAsync()
         {
-            _logger.LogInformation("Retrieving all Experience");
-            return await _context.Set<Experience>().ToListAsync();
+            try
+            {
+                _logger.LogInformation(Messages.GetAllEntityInfo, nameof(Experience));
+                return await _context.Set<Experience>().ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, Messages.GetAllError, nameof(Experience), ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -87,8 +126,22 @@ namespace PortfolioEAI.Data.Repositories
         /// This method is typically used to retrieve a specific experience by its ID.
         public async Task<Experience?> GetByIdAsync(Guid id)
         {
-            _logger.LogInformation("Retrieving AdminUser with Id {Id}", id);
-            return await _context.Set<Experience>().FindAsync(id);
+            if (id == Guid.Empty)
+            {
+                _logger.LogError(Messages.GetNullIdError, nameof(Experience));
+                throw new ArgumentException(Messages.NullError, nameof(id));
+            }
+
+            try
+            {
+                _logger.LogInformation(Messages.GetEntityInfo, nameof(Experience), id);
+                return await _context.Set<Experience>().FindAsync(id);
+            }
+            catch (ArgumentException ex)
+            {
+                _logger.LogError(ex, Messages.GetError, nameof(Experience), id, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -101,9 +154,29 @@ namespace PortfolioEAI.Data.Repositories
         /// /// <returns></returns>
         public async Task UpdateAsync(Experience entity)
         {
-            _logger.LogInformation("Updating AdminUser with Id {Id}", entity.Id);
-            _context.Set<Experience>().Update(entity);
-            await _context.SaveChangesAsync();
+            if (entity == null)
+            {
+                _logger.LogError(Messages.UpdateNullError, nameof(Experience));
+                throw new ArgumentNullException(nameof(entity), Messages.NullError);
+            }
+
+            if (entity.Id == Guid.Empty)
+            {
+                _logger.LogError(Messages.UpdateNullIdError, nameof(Experience));
+                throw new ArgumentException(Messages.NullError, nameof(entity.Id));
+            }
+
+            try
+            {
+                _logger.LogInformation(Messages.UpdateEntityInfo, nameof(AdminUser), entity.Id);
+                _context.Set<Experience>().Update(entity);
+                await _context.SaveChangesAsync();
+            }
+            catch (ArgumentException ex)
+            {
+                _logger.LogError(ex, Messages.UpdateError, nameof(AdminUser), ex.Message);
+                throw;
+            }
         }
     }
 }

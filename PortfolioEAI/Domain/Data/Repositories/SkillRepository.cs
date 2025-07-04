@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using PortfolioEAI.Data.Repositories.Interfaces;
 using PortfolioEAI.Domain.Entities;
+using PortfolioEAI.Domain.Ressources;
 
 namespace PortfolioEAI.Data.Repositories
 {
@@ -28,8 +29,9 @@ namespace PortfolioEAI.Data.Repositories
         /// <param name="context">The database context to be used by the repository.</param>
         public SkillRepository(ApplicationDbContext context, ILogger<SkillRepository> logger)
         {
-            _context = context ?? throw new ArgumentNullException(nameof(context), "Context cannot be null");
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger), "Logger cannot be null");
+            // Validate that the context and logger are not null
+            _context = context ?? throw new ArgumentNullException(nameof(context), "Cannot be null");
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger), "Cannot be null");
         }
 
         /// <summary>
@@ -42,9 +44,23 @@ namespace PortfolioEAI.Data.Repositories
         /// <returns></returns>
         public async Task AddAsync(Skill entity)
         {
-            _logger.LogInformation("Ajout d'un nouvel Skill avec Id {Id}", entity.Id);
-            _context.Set<Skill>().Add(entity);
-            await _context.SaveChangesAsync();
+            if (entity == null)
+            {
+                _logger.LogError(Messages.AddNullError, nameof(Skill));
+                throw new ArgumentNullException(nameof(entity), Messages.NullError);
+            }
+
+            try
+            {
+                _logger.LogInformation(Messages.AddEntityInfo, nameof(Skill), entity.Id);
+                _context.Set<Skill>().Add(entity);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, Messages.AddError, nameof(Skill), ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -57,12 +73,27 @@ namespace PortfolioEAI.Data.Repositories
         /// <param name="id">The identifier of the entity to delete.</param>
         public async Task DeleteAsync(Guid id)
         {
-            var entity = await _context.Set<Skill>().FindAsync(id);
-            if (entity != null)
+            if (id == Guid.Empty)
             {
-                _logger.LogInformation("Adding a new Skill with Id {Id}", entity.Id);
-                _context.Set<Skill>().Remove(entity);
-                await _context.SaveChangesAsync();
+                _logger.LogError(Messages.DeleteNullIdError, nameof(Skill));
+                throw new ArgumentException(nameof(id), Messages.NullError);
+            }
+
+            try
+            {
+                _logger.LogInformation(Messages.DeleteAttemptEntityInfo, nameof(Skill), id);
+                var entity = await _context.Set<Skill>().FindAsync(id);
+                if (entity != null)
+                {
+                    _logger.LogInformation(Messages.DeleteEntityInfo, nameof(Skill), entity.Id);
+                    _context.Set<Skill>().Remove(entity);
+                    await _context.SaveChangesAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, Messages.DeleteError, nameof(Skill), ex.Message);
+                throw;
             }
         }
 
@@ -74,8 +105,16 @@ namespace PortfolioEAI.Data.Repositories
         /// <returns>A list of all Skill entities.</returns>    
         public async Task<IEnumerable<Skill>> GetAllAsync()
         {
-            _logger.LogInformation("Retrieving all Skills");
-            return await _context.Set<Skill>().ToListAsync();
+            try
+            {
+                _logger.LogInformation(Messages.GetAllEntityInfo, nameof(Skill));
+                return await _context.Set<Skill>().ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, Messages.GetAllError, nameof(Skill), ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -88,8 +127,22 @@ namespace PortfolioEAI.Data.Repositories
         /// <returns>The Skill entity if found; otherwise, null.</returns>
         public async Task<Skill?> GetByIdAsync(Guid id)
         {
-            _logger.LogInformation("Retrieving Skill with Id {Id}", id);
-            return await _context.Set<Skill>().FindAsync(id);
+           if (id == Guid.Empty)
+            {
+                _logger.LogError(Messages.GetNullIdError, nameof(Skill));
+                throw new ArgumentException(Messages.NullError, nameof(id));
+            }
+
+            try
+            {
+                _logger.LogInformation(Messages.GetEntityInfo, nameof(Skill), id);
+                return await _context.Set<Skill>().FindAsync(id);
+            }
+            catch (ArgumentException ex)
+            {
+                _logger.LogError(ex, Messages.GetError, nameof(Skill), id, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -102,9 +155,29 @@ namespace PortfolioEAI.Data.Repositories
         /// <returns></returns>
         public async Task UpdateAsync(Skill entity)
         {
-            _logger.LogInformation("Updating Skill with Id {Id}", entity.Id);
-            _context.Set<Skill>().Update(entity);
-            await _context.SaveChangesAsync();
+            if (entity == null)
+            {
+                _logger.LogError(Messages.UpdateNullError, nameof(Skill));
+                throw new ArgumentNullException(nameof(entity), Messages.NullError);
+            }
+
+            if (entity.Id == Guid.Empty)
+            {
+                _logger.LogError(Messages.UpdateNullIdError, nameof(Skill));
+                throw new ArgumentException(Messages.NullError, nameof(entity.Id));
+            }
+
+            try
+            {
+               _logger.LogInformation(Messages.UpdateEntityInfo, nameof(Skill), entity.Id);
+                _context.Set<Skill>().Update(entity);
+                await _context.SaveChangesAsync();
+            }
+            catch (ArgumentException ex)
+            {
+                _logger.LogError(ex, Messages.UpdateError, nameof(Skill), ex.Message);
+                throw;
+            }
         }
     }
 }
