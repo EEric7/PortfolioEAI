@@ -8,10 +8,14 @@ using Serilog;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
-    .WriteTo.File(Path.Combine(AppContext.BaseDirectory, $"wwwroot/Logs/{DateTime.Now:ddMMyyyy}.txt"), rollingInterval: RollingInterval.Day)
+    .WriteTo.File(Path.Combine(AppContext.BaseDirectory, "wwwroot", "Logs", $"Log-{DateTime.Now:ddMMyyyy}.txt"),
+    rollingInterval: RollingInterval.Day)
     .CreateLogger();
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Utilise Serilog comme logger principal
+builder.Host.UseSerilog();
 
 // Add services to the container.
 builder.Services.AddRazorPages();
