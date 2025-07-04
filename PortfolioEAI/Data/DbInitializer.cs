@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using PortfolioEAI.Domain.Entities;
 using PortfolioEAI.Domain.Enums;
 
@@ -7,6 +8,9 @@ namespace PortfolioEAI.Data
     {
         public static void Initialize(ApplicationDbContext context)
         {
+            // Assure que la base de données et le schéma existent
+            context.Database.Migrate();
+
             // BDD déjà initialisée
             if (context.Projects.Any()) return;
 

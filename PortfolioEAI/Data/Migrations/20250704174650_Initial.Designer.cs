@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PortfolioEAI.Data;
 
@@ -10,9 +11,11 @@ using PortfolioEAI.Data;
 namespace PortfolioEAI.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250704174650_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.6");
@@ -97,7 +100,7 @@ namespace PortfolioEAI.Data.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("Description");
 
-                    b.Property<Guid?>("ExperienceId")
+                    b.Property<Guid?>("IdExperience")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ImageUrl")
@@ -115,9 +118,9 @@ namespace PortfolioEAI.Data.Migrations
                     b.HasKey("Id")
                         .HasName("IdProject");
 
-                    b.HasIndex("ExperienceId");
+                    b.HasIndex("IdExperience");
 
-                    b.ToTable("Customers", (string)null);
+                    b.ToTable("Projects");
                 });
 
             modelBuilder.Entity("PortfolioEAI.Domain.Entities.Skill", b =>
@@ -179,9 +182,8 @@ namespace PortfolioEAI.Data.Migrations
                 {
                     b.HasOne("PortfolioEAI.Domain.Entities.Experience", null)
                         .WithMany("Projects")
-                        .HasForeignKey("ExperienceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .HasConstraintName("FK_Experience_Projects");
+                        .HasForeignKey("IdExperience")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.OwnsOne("PortfolioEAI.Domain.ValueObjects.ObjectUrl", "Url", b1 =>
                         {
@@ -195,7 +197,7 @@ namespace PortfolioEAI.Data.Migrations
 
                             b1.HasKey("ProjectId");
 
-                            b1.ToTable("Customers");
+                            b1.ToTable("Projects");
 
                             b1.WithOwner()
                                 .HasForeignKey("ProjectId");

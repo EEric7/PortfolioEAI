@@ -7,10 +7,6 @@ namespace PortfolioEAI.Data
     public class ApplicationDbContext : DbContext
     {
         #region DbSets
-        /// <summary>
-        /// Gets the DbSet for AdminUser entities.
-        /// This property provides access to the collection of AdminUser entities in the database.
-        /// </summary>
         public DbSet<AdminUser> AdminUsers => Set<AdminUser>();
         public DbSet<Project> Projects => Set<Project>();
         public DbSet<Skill> Skills => Set<Skill>();

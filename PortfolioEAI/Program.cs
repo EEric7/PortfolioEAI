@@ -2,8 +2,15 @@ using Microsoft.EntityFrameworkCore;
 using PortfolioEAI.Application.Services;
 using PortfolioEAI.Application.Services.Interfaces;
 using PortfolioEAI.Data;
-using PortfolioEAI.Data.Repositories;
-using PortfolioEAI.Data.Repositories.Interfaces;
+using PortfolioEAI.Data.Repositorys;
+using PortfolioEAI.Data.Repositorys.Interfaces;
+using Serilog;
+
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .WriteTo.File(Path.Combine(AppContext.BaseDirectory, $"wwwroot/Logs/{DateTime.Now:ddMMyyyy}.txt"), rollingInterval: RollingInterval.Day)
+    .CreateLogger();
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -11,12 +18,17 @@ builder.Services.AddRazorPages();
 
 // Configure Entity Framework Core with SQLite based on the environment
 var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Development";
-builder.Configuration.AddJsonFile($"appsettings.{environment}.json", optional: true, reloadOnChange: true);
+
+// Load configuration files based on the environment
+builder.Configuration
+    .SetBasePath(Path.Combine(AppContext.BaseDirectory, "Properties"))
+    .AddJsonFile($"appsettings.{environment}.json", optional: false, reloadOnChange: true);
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.")));
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Register repositories
-builder.Services.AddScoped<ProjectRepository, ProjectRepository>();
+builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 builder.Services.AddScoped<ISkillRepository, SkillRepository>();
 builder.Services.AddScoped<IExperienceRepository, ExperienceRepository>();
 builder.Services.AddScoped<IAdminUserRepository, AdminUserRepository>();
@@ -40,9 +52,9 @@ switch (environment)
         }
         break;
     case "Staging":
-        throw new InvalidOperationException("Staging environment is not configured for database initialization.");
+        break;
     case "Production":
-        throw new InvalidOperationException("Production environment is not configured for database initialization.");
+        break;
     default:
         throw new InvalidOperationException($"Unknown environment: {environment}");
 }

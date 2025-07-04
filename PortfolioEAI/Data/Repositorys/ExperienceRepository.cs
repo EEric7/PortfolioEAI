@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using PortfolioEAI.Data.Repositories.Interfaces;
+using PortfolioEAI.Data.Repositorys.Interfaces;
 using PortfolioEAI.Domain.Entities;
 using PortfolioEAI.Domain.Ressources;
 
-namespace PortfolioEAI.Data.Repositories
+namespace PortfolioEAI.Data.Repositorys
 {
     public class ExperienceRepository : IExperienceRepository
     {

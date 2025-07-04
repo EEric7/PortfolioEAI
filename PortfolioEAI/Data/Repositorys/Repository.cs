@@ -1,15 +1,15 @@
-using PortfolioEAI.Data.Repositories.Interfaces;
+using PortfolioEAI.Data.Repositorys.Interfaces;
 
-namespace PortfolioEAI.Data.Repositories
+namespace PortfolioEAI.Data.Repositorys
 {
     public class Repository : IRepository
     {
-        public IProjectRepositorie Projects { get; set; }
+        public IProjectRepository Projects { get; set; }
         public ISkillRepository Skills { get; set; }
         public IExperienceRepository Experiences { get; set; }
         public IAdminUserRepository AdminUsers { get; set; } 
 
-        public Repository(IProjectRepositorie projects, ISkillRepository skills, IExperienceRepository experiences, IAdminUserRepository adminUsers)
+        public Repository(IProjectRepository projects, ISkillRepository skills, IExperienceRepository experiences, IAdminUserRepository adminUsers)
         {
             Projects = projects;
             Skills = skills;

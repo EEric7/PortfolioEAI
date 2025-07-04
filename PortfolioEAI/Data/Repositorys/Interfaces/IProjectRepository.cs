@@ -1,8 +1,8 @@
 using PortfolioEAI.Domain.Entities; // Ensure this is the correct namespace for 'Project'
 
-namespace PortfolioEAI.Data.Repositories.Interfaces
+namespace PortfolioEAI.Data.Repositorys.Interfaces
 {
-    public interface IProjectRepositorie
+    public interface IProjectRepository
     {
        /// <summary>
         /// Gets all entities.

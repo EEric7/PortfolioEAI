@@ -1,33 +1,33 @@
 using PortfolioEAI.Domain.Entities;
 
-namespace PortfolioEAI.Data.Repositories.Interfaces
+namespace PortfolioEAI.Data.Repositorys.Interfaces
 {
-    public interface ISkillRepository
+    public interface IExperienceRepository
     {
         /// <summary>
         /// Gets all entities.
         /// </summary>
         /// <returns>The all dataset.</returns>
-        Task<IEnumerable<Skill>> GetAllAsync();
+        Task<IEnumerable<Experience>> GetAllAsync();
 
         /// <summary>
         /// Gets an entity by its identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns>The entity.</returns>
-        Task<Skill?> GetByIdAsync(Guid id);
+        Task<Experience?> GetByIdAsync(Guid id);
 
         /// <summary>
         /// Adds a new entity.
         /// </summary>
         /// <param name="entity">The entity to add.</param>
-        Task AddAsync(Skill entity);
+        Task AddAsync(Experience entity);
 
         /// <summary>
         /// Updates an existing entity.
         /// </summary>
         /// <param name="entity">The entity to update.</param>
-        Task UpdateAsync(Skill entity);
+        Task UpdateAsync(Experience entity);
 
         /// <summary>
         /// Deletes an entity by its identifier.

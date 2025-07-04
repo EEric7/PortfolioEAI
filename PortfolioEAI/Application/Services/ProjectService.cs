@@ -1,7 +1,7 @@
 using PortfolioEAI.Application.DTOs;
 using PortfolioEAI.Application.Mappings;
 using PortfolioEAI.Application.Services.Interfaces;
-using PortfolioEAI.Data.Repositories;
+using PortfolioEAI.Data.Repositorys.Interfaces;
 using PortfolioEAI.Domain.Entities;
 using PortfolioEAI.Domain.Ressources;
 
