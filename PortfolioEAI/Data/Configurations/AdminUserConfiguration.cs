@@ -35,7 +35,8 @@ namespace PortfolioEAI.Data.Configurations
             builder.HasMany(a => a.Skills)
                 .WithOne()
                 .OnDelete(DeleteBehavior.Cascade)
-                .HasForeignKey("AdminUserId");
+                .HasForeignKey("AdminUserId")
+                .IsRequired(false);
         }
     }
 }

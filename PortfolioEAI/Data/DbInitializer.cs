@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.EntityFrameworkCore;
 using PortfolioEAI.Domain.Entities;
 using PortfolioEAI.Domain.Enums;
@@ -33,12 +34,19 @@ namespace PortfolioEAI.Data
                 new(new Guid(),"Entreprise B", "Consultant", DateOnly.Parse("2021/1/1"), DateOnly.Parse("2022/12/31"), "Création de jeux mobiles", "/images/p4.jpg")
             };
 
-            var admin = new AdminUser(new Guid(), "admin", "admin123", "elembaadi@icloud.com");
+            var admin = new AdminUser(new Guid(), "Admin", "admin321", "elembaadi@icloud.com");
 
             foreach (var skill in skills)
                 admin.AddSkill(skill);
 
+            for (int i = 0; i < experiences.Length; i++)
+                experiences[i].AddProject(projects[i]);
+
+
             context.Projects.AddRange(projects);
+            context.Skills.AddRange(skills);
+            context.Experiences.AddRange(experiences);
+            context.AdminUsers.Add(admin);
             context.SaveChanges();
         }
     }

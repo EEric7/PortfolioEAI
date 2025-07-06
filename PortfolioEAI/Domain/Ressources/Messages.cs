@@ -52,12 +52,15 @@ namespace PortfolioEAI.Domain.Ressources
 
         //General services messages
         public const string AddDTOInfo = "Adding a new {DTOType}: {Id}";
+        public const string AddNotFound = "The {EntityType} with Id: {Id} not found for adding in {EntityType1} with Id:";
+
         public const string DeleteAttemptDTOInfo = "Attempting to delete {DTOType} with Id: {Id}";
         public const string DeleteDTONotFound = "The {DTOType} with Id: {Id} not found for deletion.";
         public const string DeleteDTOInfo = "Delete {DTOType} with Id: {Id}";
         public const string GetDTOInfo = "Retrieving {DTOType} with Id: {Id}";
         public const string GetAllDTOInfo = "Fetching all {DTOType}s";
         public const string UpdateDTOInfo = "Updating {DTOType} with Id: {Id}";
+        public const string UpdateDTOInEntityInfo = "Updating {DTOType} with Id: {Id} in {EntityType} entity.";
         public const string UpdateDTONotFound = "The {DTOType} with Id: {Id} not found for update.";
 
 

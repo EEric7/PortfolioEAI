@@ -61,7 +61,7 @@ namespace PortfolioEAI.Domain.Entities
         /// It allows for the association of multiple projects with a single experience,
         /// enabling better organization and retrieval of related information.
         /// </summary>
-        public ICollection<Project> Projects { get; private set; } = new List<Project>();
+        public IList<Project> Projects { get; private set; } = new List<Project>();
 
 // Default constructor for EF Core
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
@@ -130,11 +130,11 @@ namespace PortfolioEAI.Domain.Entities
         /// </summary>
         /// <param name="startDate"></param>
         /// <exception cref="BusinessRuleViolationException"></exception>
-        public void SetStartDate(DateOnly startDate)
+        public void SetStartDate(DateOnly? startDate)
         {
-            if (startDate == default)
-                throw new BusinessRuleViolationException("Start date cannot be default value.");
-            StartDate = startDate;
+            if (startDate == null || startDate == DateOnly.MinValue)
+                throw new BusinessRuleViolationException("Start date cannot be null or default value.");
+            StartDate = startDate.Value;
         }
 
         /// <summary>

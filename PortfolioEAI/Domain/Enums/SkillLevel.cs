@@ -3,6 +3,11 @@ namespace PortfolioEAI.Domain.Enums
     public enum SkillLevel
     {
         /// <summary>
+        /// Represents no skill level specified.
+        /// </summary>
+        None = 0,
+
+        /// <summary>
         /// Represents a beginner skill level.
         /// </summary>
         Beginner,

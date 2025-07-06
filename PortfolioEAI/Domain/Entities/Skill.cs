@@ -37,7 +37,7 @@ namespace PortfolioEAI.Domain.Entities
 
         // Default constructor for EF Core
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
-        public Skill() : base() { } 
+        public Skill() : base() { }
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace PortfolioEAI.Domain.Entities
         public Skill(Guid id, string? name, SkillLevel level, SkillCategory category)
         {
             Id = id;
-            Name = name?? string.Empty;
+            Name = name ?? string.Empty;
             Level = level;
             Category = category;
         }
@@ -63,7 +63,7 @@ namespace PortfolioEAI.Domain.Entities
         /// </summary>
         /// <param name="name"></param>
         /// <exception cref="BusinessRuleViolationException"></exception>
-        public void SetCompany(string name)
+        public void SetName(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new BusinessRuleViolationException("The company name is required.");
@@ -86,6 +86,21 @@ namespace PortfolioEAI.Domain.Entities
         }
 
         /// <summary>
+        /// Sets the level of the skill.
+        /// This method allows you to change the level of the skill to a new value.
+        /// It validates that the level is a defined value in the SkillLevel enum.
+        /// If the level is not defined, it throws a BusinessRuleViolationException.
+        /// </summary>
+        /// <param name="level"></param>
+        /// <exception cref="BusinessRuleViolationException"></exception>
+        public void SetLevel(string level)
+        {
+            if (!Enum.TryParse<SkillLevel>(level, true, out var parsedLevel) || !Enum.IsDefined(typeof(SkillLevel), parsedLevel))
+                throw new BusinessRuleViolationException("Invalid skill level.");
+            Level = parsedLevel;
+        }
+
+        /// <summary>
         /// Sets the category of the skill.
         /// This method allows you to change the category of the skill to a new value.
         /// It validates that the category is a defined value in the SkillCategory enum.
@@ -98,6 +113,21 @@ namespace PortfolioEAI.Domain.Entities
             if (!Enum.IsDefined(typeof(SkillCategory), category))
                 throw new BusinessRuleViolationException("Invalid skill category.");
             Category = category;
+        }
+        
+        /// <summary>
+        /// Sets the category of the skill.
+        /// This method allows you to change the category of the skill to a new value.
+        /// It validates that the category is a defined value in the SkillCategory enum.
+        /// If the category is not defined, it throws a BusinessRuleViolationException.
+        /// </summary>
+        /// <param name="category"></param>
+        /// <exception cref="BusinessRuleViolationException"></exception>
+        public void SetCategory(string category)
+        {
+            if (!Enum.TryParse<SkillCategory>(category, true, out var parsedCategory) || !Enum.IsDefined(typeof(SkillCategory), parsedCategory))
+                throw new BusinessRuleViolationException("Invalid skill level.");
+            Category = parsedCategory;
         }
 
     }

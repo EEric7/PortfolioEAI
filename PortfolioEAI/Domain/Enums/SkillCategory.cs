@@ -3,6 +3,11 @@ namespace PortfolioEAI.Domain.Enums
     public enum SkillCategory
     {
         /// <summary>
+        /// Represents no specific skill category.
+        /// </summary>
+        None,
+
+        /// <summary>
         /// Represents skills related to frontend development, including HTML, CSS, and JavaScript.
         /// </summary>
         Frontend,

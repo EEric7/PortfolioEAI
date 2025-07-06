@@ -24,6 +24,11 @@ namespace PortfolioEAI.Application.Mappings
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>
-        public static Project ToEntity(ProjectDto dto) => new(dto.Id, dto.Title ?? string.Empty, dto.Description ?? string.Empty, dto.ImageUrl ?? string.Empty, dto.Url ?? string.Empty) { };
+        public static Project ToEntity(ProjectDto dto) => new(
+            dto.Id != Guid.Empty ? dto.Id : Guid.NewGuid(),
+            dto.Title ?? string.Empty,
+            dto.Description ?? string.Empty,
+            dto.ImageUrl ?? string.Empty,
+            dto.Url ?? string.Empty) { };
     }
 }

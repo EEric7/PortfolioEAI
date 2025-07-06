@@ -47,7 +47,8 @@ namespace PortfolioEAI.Data.Configurations
             builder.HasMany(e => e.Projects)
                 .WithOne()
                 .OnDelete(DeleteBehavior.Cascade)
-                .HasForeignKey("IdExperience");
+                .HasForeignKey("IdExperience")
+                .IsRequired(false);
         }
     }
 }

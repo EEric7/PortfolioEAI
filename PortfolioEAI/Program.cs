@@ -41,6 +41,20 @@ builder.Services.AddScoped<IRepository, Repository>();
 // Register services
 builder.Services.AddScoped<IProjectService, ProjectService>();
 
+// Configure authentication and authorization
+builder.Services.AddAuthentication("MyCookieAuth")
+    .AddCookie("MyCookieAuth", options =>
+    {
+        options.Cookie.Name = "MyCookieAuth";
+        options.Cookie.HttpOnly = true;
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+        options.SlidingExpiration = true;
+        options.LoginPath = "/SignIn_Page";
+        options.AccessDeniedPath = "/AccessDenied";
+    });
+
+builder.Services.AddAuthorization();
+
 // Register the main repository interface
 var app = builder.Build();
 
@@ -72,6 +86,7 @@ if (environment != "Development")
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapRazorPages();
 app.Run();

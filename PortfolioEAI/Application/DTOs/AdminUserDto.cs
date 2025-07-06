@@ -9,12 +9,12 @@ namespace PortfolioEAI.Application.DTOs
         /// </summary>
         public Guid Id { get; set; }
         /// <summary>
-        /// Name of the admin user.
+        /// UserName of the admin user.
         /// This property represents the name of the admin user.
         /// It is typically used for display purposes in user interfaces.
         /// The name can be a full name or a username, depending on the application's requirements.
         /// </summary>
-        public string? Name { get; set; }
+        public string? UserName { get; set; }
 
         /// <summary>
         /// Email address of the admin user.
@@ -50,20 +50,9 @@ namespace PortfolioEAI.Application.DTOs
         public bool IsActive { get; set; }
 
         /// <summary>
-        /// Date and time when the admin user was created.
-        /// This property represents the timestamp of when the admin user account was created in the system.
-        /// It is typically used for auditing purposes and to track the history of user accounts.
-        /// The value is usually set automatically when the account is created and can be used to determine
-        /// how long the account has been active.
+        /// List of skills associated with the admin user.
+        /// This property holds a collection of skills that the admin user possesses.
         /// </summary>
-        public DateTime CreatedAt { get; set; }
-
-        /// <summary>
-        /// Date and time when the admin user was last updated.
-        /// This property represents the timestamp of the last update made to the admin user account.
-        /// It is useful for tracking changes to user information, such as updates to the name,
-        /// email, password, or role. This value is typically set automatically whenever the user account
-        /// is modified, allowing administrators to see when the last change occurred.
-        public DateTime UpdatedAt { get; set; }
+        public IList<Guid> Skills { get; set; } = new List<Guid>();
     }
 }
