@@ -4,7 +4,7 @@ using PortfolioEAI.Domain.Enums;
 
 namespace PortfolioEAI.Application.Mappings
 {
-    public class AdminUserMapper
+    internal class AdminUserMapper
     {
         public static AdminUser ToEntity(AdminUserDto dto)
         {

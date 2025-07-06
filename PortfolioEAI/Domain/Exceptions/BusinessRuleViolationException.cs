@@ -1,6 +1,6 @@
 namespace PortfolioEAI.Domain.Exceptions
 {
-    public class BusinessRuleViolationException : Exception
+    internal class BusinessRuleViolationException : Exception
     {
         /// <summary>
         /// Represents an exception that is thrown when a business rule is violated.

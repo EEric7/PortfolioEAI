@@ -3,7 +3,7 @@ using PortfolioEAI.Domain.Entities;
 
 namespace PortfolioEAI.Application.Mappings
 {
-    public class ExperienceMapper
+    internal class ExperienceMapper
     {
         public static Experience ToEntity(ExperienceDto dto)
         {

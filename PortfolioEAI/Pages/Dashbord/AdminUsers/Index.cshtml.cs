@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 using PortfolioEAI.Application.DTOs;
 using PortfolioEAI.Application.Services.Interfaces;
 

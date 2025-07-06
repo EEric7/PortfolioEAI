@@ -4,7 +4,7 @@ using PortfolioEAI.Domain.Enums;
 
 namespace PortfolioEAI.Application.Mappings
 {
-    public class SkillMapper
+    internal class SkillMapper
     {
         public static Skill ToEntity(SkillDto dto) => new Skill(
             dto.Id != Guid.Empty ? dto.Id : Guid.NewGuid(),
