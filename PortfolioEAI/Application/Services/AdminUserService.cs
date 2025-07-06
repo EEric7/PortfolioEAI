@@ -1,12 +1,13 @@
 using PortfolioEAI.Application.DTOs;
 using PortfolioEAI.Application.Mappings;
+using PortfolioEAI.Application.Services.Interfaces;
 using PortfolioEAI.Data.Repositorys.Interfaces;
 using PortfolioEAI.Domain.Entities;
 using PortfolioEAI.Domain.Ressources;
 
 namespace PortfolioEAI.Application.Services
 {
-    public class AdminUserService
+    public class AdminUserService : IAdminUserService
     {
         /// <summary>
         /// Logger for logging information, warnings, and errors related to project operations.

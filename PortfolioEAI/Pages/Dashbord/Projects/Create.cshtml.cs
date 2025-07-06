@@ -7,9 +7,9 @@ namespace PortfolioEAI.Pages.Projects
 {
     public class CreateModel : PageModel
     {
-        private readonly IProjectService _servicesProjects;
+        private readonly IService _servicesProjects;
 
-        public CreateModel(IProjectService servicesProjects)
+        public CreateModel(IService servicesProjects)
         {
             _servicesProjects = servicesProjects;
         }
