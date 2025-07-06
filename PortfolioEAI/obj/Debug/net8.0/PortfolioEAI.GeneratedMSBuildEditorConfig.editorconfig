@@ -26,6 +26,26 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = /Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI
 build_property._RazorSourceGeneratorDebug = 
 
+[/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/Pages/Dashbord/AdminUsers/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRGFzaGJvcmQvQWRtaW5Vc2Vycy9DcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/Pages/Dashbord/AdminUsers/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRGFzaGJvcmQvQWRtaW5Vc2Vycy9EZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/Pages/Dashbord/AdminUsers/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRGFzaGJvcmQvQWRtaW5Vc2Vycy9EZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/Pages/Dashbord/AdminUsers/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRGFzaGJvcmQvQWRtaW5Vc2Vycy9FZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/Pages/Dashbord/AdminUsers/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRGFzaGJvcmQvQWRtaW5Vc2Vycy9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/Pages/Dashbord/Projects/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRGFzaGJvcmQvUHJvamVjdHMvQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

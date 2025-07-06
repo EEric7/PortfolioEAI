@@ -7,9 +7,9 @@ namespace PortfolioEAI.Pages.Projects
 {
     public class DeleteModel : PageModel
     {
-        private readonly IService _servicesProjects;
+        private readonly IProjectService _servicesProjects;
 
-        public DeleteModel(IService servicesProjects)
+        public DeleteModel(IProjectService servicesProjects)
         {
             _servicesProjects = servicesProjects;
         }
