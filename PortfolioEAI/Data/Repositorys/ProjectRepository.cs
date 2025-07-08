@@ -138,7 +138,7 @@ namespace PortfolioEAI.Data.Repositorys
                 _logger.LogInformation(Messages.GetEntityInfo, nameof(Project), id);
                 return await _context.Set<Project>().FindAsync(id);
             }
-            catch (ArgumentException ex)
+            catch (Exception ex)
             {
                 _logger.LogError(ex, Messages.GetError, nameof(Project), id, ex.Message);
                 throw;
@@ -173,7 +173,7 @@ namespace PortfolioEAI.Data.Repositorys
                 _context.Set<Project>().Update(entity);
                 await _context.SaveChangesAsync();
             }
-            catch (ArgumentException ex)
+            catch (Exception ex)
             {
                 _logger.LogError(ex, Messages.UpdateError, nameof(Project), ex.Message);
                 throw;

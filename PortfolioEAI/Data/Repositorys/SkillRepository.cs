@@ -138,7 +138,7 @@ namespace PortfolioEAI.Data.Repositorys
                 _logger.LogInformation(Messages.GetEntityInfo, nameof(Skill), id);
                 return await _context.Set<Skill>().FindAsync(id);
             }
-            catch (ArgumentException ex)
+            catch (Exception ex)
             {
                 _logger.LogError(ex, Messages.GetError, nameof(Skill), id, ex.Message);
                 throw;
@@ -173,7 +173,7 @@ namespace PortfolioEAI.Data.Repositorys
                 _context.Set<Skill>().Update(entity);
                 await _context.SaveChangesAsync();
             }
-            catch (ArgumentException ex)
+            catch (Exception ex)
             {
                 _logger.LogError(ex, Messages.UpdateError, nameof(Skill), ex.Message);
                 throw;

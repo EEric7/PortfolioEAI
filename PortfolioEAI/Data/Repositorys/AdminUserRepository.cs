@@ -136,7 +136,7 @@ namespace PortfolioEAI.Data.Repositorys
                 _logger.LogInformation(Messages.GetEntityInfo, nameof(AdminUser), id);
                 return await _context.Set<AdminUser>().FindAsync(id);
             }
-            catch (ArgumentException ex)
+            catch (Exception ex)
             {
                 _logger.LogError(ex, Messages.GetError, nameof(AdminUser), id, ex.Message);
                 throw;
@@ -171,7 +171,7 @@ namespace PortfolioEAI.Data.Repositorys
                 _context.Set<AdminUser>().Update(entity);
                 await _context.SaveChangesAsync();
             }
-            catch (ArgumentException ex)
+            catch (Exception ex)
             {
                 _logger.LogError(ex, Messages.UpdateError, nameof(AdminUser), ex.Message);
                 throw;
