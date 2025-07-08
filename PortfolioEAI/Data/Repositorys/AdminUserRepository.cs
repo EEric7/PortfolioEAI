@@ -162,7 +162,7 @@ namespace PortfolioEAI.Data.Repositorys
             if (entity.Id == Guid.Empty)
             {
                 _logger.LogError(Messages.UpdateNullIdError, nameof(AdminUser));
-                throw new ArgumentException(Messages.NullError, nameof(entity.Id));
+                throw new ArgumentNullException(nameof(entity.Id), Messages.NullError);
             }
 
             try

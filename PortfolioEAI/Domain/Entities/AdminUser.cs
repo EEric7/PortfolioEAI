@@ -54,6 +54,11 @@ namespace PortfolioEAI.Domain.Entities
         /// </summary>
         public IList<Skill> Skills { get; set; } = new List<Skill>();
 
+        /// <summary>
+        /// Gets or sets the list of experiences associated with the admin user.
+        /// </summary>
+        public IList<Experience> Experiences { get; set; } = new List<Experience>();
+
         // Default constructor for EF Core
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
         public AdminUser() : base() { }
@@ -137,6 +142,9 @@ namespace PortfolioEAI.Domain.Entities
         {
             if (skill == null)
                 throw new BusinessRuleViolationException("Skill cannot be null.", new ArgumentNullException(nameof(skill)));
+            
+            if (Skills.Contains(skill))
+                throw new BusinessRuleViolationException("Skill already exists in the admin user's skills.", new Exception(nameof(skill)));
 
             Skills.Add(skill);
         }
@@ -156,7 +164,32 @@ namespace PortfolioEAI.Domain.Entities
             if (skill == null)
                 throw new BusinessRuleViolationException("Skill cannot be null.", new ArgumentNullException(nameof(skill)));
 
+            if (!Skills.Contains(skill))
+                throw new BusinessRuleViolationException("Skill not found in the admin user's skills.", new Exception(nameof(skill)));
+
             Skills.Remove(skill);
+        }
+
+        public void AddExperience(Experience experience)
+        {
+            if (experience == null)
+                throw new BusinessRuleViolationException("Experience cannot be null.", new ArgumentNullException(nameof(experience)));
+
+            if (Experiences.Contains(experience))
+                throw new BusinessRuleViolationException("Experience already exists in the admin user's experiences.", new Exception(nameof(experience)));
+
+            Experiences.Add(experience);
+        }
+
+        public void RemoveExperience(Experience experience)
+        {
+            if (experience == null)
+                throw new BusinessRuleViolationException("Experience cannot be null.", new ArgumentNullException(nameof(experience)));
+
+            if (!Experiences.Contains(experience))
+                throw new BusinessRuleViolationException("Experience not found in the admin user's experiences.", new Exception(nameof(experience)));
+
+            Experiences.Remove(experience);
         }
         
         /// <summary>

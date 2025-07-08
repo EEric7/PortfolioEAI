@@ -21,7 +21,7 @@ builder.Host.UseSerilog();
 builder.Services.AddRazorPages();
 
 // Configure Entity Framework Core with SQLite based on the environment
-var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Development";
+var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? throw new InvalidOperationException($"Unknown environment: {Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}");
 
 // Load configuration files based on the environment
 builder.Configuration
@@ -61,23 +61,12 @@ builder.Services.AddAuthorization();
 // Register the main repository interface
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-switch (environment)
+// Initialize the database
+using (var scope = app.Services.CreateScope())
 {
-    case "Development":
-        using (var scope = app.Services.CreateScope())
-        {
-            var services = scope.ServiceProvider;
-            var context = services.GetRequiredService<ApplicationDbContext>();
-            DbInitializer.Initialize(context);
-        }
-        break;
-    case "Staging":
-        break;
-    case "Production":
-        break;
-    default:
-        throw new InvalidOperationException($"Unknown environment: {environment}");
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<ApplicationDbContext>();
+    DbInitializer.Initialize(context);
 }
 
 if (environment != "Development")
