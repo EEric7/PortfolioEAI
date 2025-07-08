@@ -35,11 +35,18 @@ namespace PortfolioEAI.Data.Migrations
                     StartDate = table.Column<DateOnly>(type: "date", nullable: false),
                     EndDate = table.Column<DateOnly>(type: "date", nullable: false),
                     Description = table.Column<string>(type: "varchar(1000)", maxLength: 1000, nullable: false),
-                    ImageUrl = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: false)
+                    ImageUrl = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: false),
+                    IdAdminUser = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("IdExperience", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Experiences_AdminUsers_IdAdminUser",
+                        column: x => x.IdAdminUser,
+                        principalTable: "AdminUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -50,14 +57,14 @@ namespace PortfolioEAI.Data.Migrations
                     Name = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
                     Level = table.Column<int>(type: "int", nullable: false),
                     Category = table.Column<int>(type: "INTEGER", nullable: false),
-                    AdminUserId = table.Column<Guid>(type: "TEXT", nullable: true)
+                    SkillId = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("IdSkill", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Skills_AdminUsers_AdminUserId",
-                        column: x => x.AdminUserId,
+                        name: "FK_Skills_AdminUsers_SkillId",
+                        column: x => x.SkillId,
                         principalTable: "AdminUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -86,14 +93,19 @@ namespace PortfolioEAI.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Experiences_IdAdminUser",
+                table: "Experiences",
+                column: "IdAdminUser");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Projects_IdExperience",
                 table: "Projects",
                 column: "IdExperience");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Skills_AdminUserId",
+                name: "IX_Skills_SkillId",
                 table: "Skills",
-                column: "AdminUserId");
+                column: "SkillId");
         }
 
         /// <inheritdoc />

@@ -35,13 +35,13 @@ namespace PortfolioEAI.Data.Configurations
             builder.HasMany(a => a.Skills)
                 .WithOne()
                 .OnDelete(DeleteBehavior.Cascade)
-                .HasForeignKey("SkillId")
+                .HasForeignKey("IdAdminUser")
                 .IsRequired(false);
-            
+
             builder.HasMany(a => a.Experiences)
                 .WithOne()
                 .OnDelete(DeleteBehavior.Cascade)
-                .HasForeignKey("ExperienceId")
+                .HasForeignKey("IdAdminUser")
                 .IsRequired(false);
         }
     }

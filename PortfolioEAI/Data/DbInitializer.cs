@@ -18,10 +18,17 @@ namespace PortfolioEAI.Data
                     if (context.Database.EnsureCreated())
                         context.Database.Migrate();
 
-                    context.AdminUsers.RemoveRange(context.AdminUsers);
-                    context.Skills.RemoveRange(context.Skills);
-                    context.Experiences.RemoveRange(context.Experiences);
-                    context.Projects.RemoveRange(context.Projects);
+                    if (!context.AdminUsers.Any())
+                        context.AdminUsers.RemoveRange(context.AdminUsers);
+
+                    if( !context.Skills.Any())
+                        context.Skills.RemoveRange(context.Skills);
+
+                    if (!context.Experiences.Any())
+                        context.Experiences.RemoveRange(context.Experiences);
+                        
+                    if (!context.Projects.Any())
+                        context.Projects.RemoveRange(context.Projects);
                     
                     AddPlayGroundData(context);
                     break;

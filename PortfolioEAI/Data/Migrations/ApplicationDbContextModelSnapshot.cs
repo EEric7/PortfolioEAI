@@ -63,7 +63,7 @@ namespace PortfolioEAI.Data.Migrations
                         .HasColumnType("date")
                         .HasColumnName("EndDate");
 
-                    b.Property<Guid?>("ExperienceId")
+                    b.Property<Guid?>("IdAdminUser")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ImageUrl")
@@ -85,7 +85,7 @@ namespace PortfolioEAI.Data.Migrations
                     b.HasKey("Id")
                         .HasName("IdExperience");
 
-                    b.HasIndex("ExperienceId");
+                    b.HasIndex("IdAdminUser");
 
                     b.ToTable("Experiences");
                 });
@@ -102,7 +102,7 @@ namespace PortfolioEAI.Data.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("Description");
 
-                    b.Property<Guid?>("IdProject")
+                    b.Property<Guid?>("IdExperience")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ImageUrl")
@@ -120,7 +120,7 @@ namespace PortfolioEAI.Data.Migrations
                     b.HasKey("Id")
                         .HasName("IdProject");
 
-                    b.HasIndex("IdProject");
+                    b.HasIndex("IdExperience");
 
                     b.ToTable("Projects");
                 });
@@ -134,6 +134,9 @@ namespace PortfolioEAI.Data.Migrations
                     b.Property<int>("Category")
                         .HasColumnType("INTEGER");
 
+                    b.Property<Guid?>("IdAdminUser")
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("Level")
                         .HasColumnType("int")
                         .HasColumnName("Level");
@@ -144,13 +147,10 @@ namespace PortfolioEAI.Data.Migrations
                         .HasColumnType("varchar(50)")
                         .HasColumnName("Name");
 
-                    b.Property<Guid?>("SkillId")
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id")
                         .HasName("IdSkill");
 
-                    b.HasIndex("SkillId");
+                    b.HasIndex("IdAdminUser");
 
                     b.ToTable("Skills");
                 });
@@ -184,7 +184,7 @@ namespace PortfolioEAI.Data.Migrations
                 {
                     b.HasOne("PortfolioEAI.Domain.Entities.AdminUser", null)
                         .WithMany("Experiences")
-                        .HasForeignKey("ExperienceId")
+                        .HasForeignKey("IdAdminUser")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -192,7 +192,7 @@ namespace PortfolioEAI.Data.Migrations
                 {
                     b.HasOne("PortfolioEAI.Domain.Entities.Experience", null)
                         .WithMany("Projects")
-                        .HasForeignKey("IdProject")
+                        .HasForeignKey("IdExperience")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.OwnsOne("PortfolioEAI.Domain.ValueObjects.ObjectUrl", "Url", b1 =>
@@ -221,7 +221,7 @@ namespace PortfolioEAI.Data.Migrations
                 {
                     b.HasOne("PortfolioEAI.Domain.Entities.AdminUser", null)
                         .WithMany("Skills")
-                        .HasForeignKey("SkillId")
+                        .HasForeignKey("IdAdminUser")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

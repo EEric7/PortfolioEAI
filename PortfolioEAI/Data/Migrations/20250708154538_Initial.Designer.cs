@@ -11,7 +11,7 @@ using PortfolioEAI.Data;
 namespace PortfolioEAI.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250704174650_Initial")]
+    [Migration("20250708154538_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -66,6 +66,9 @@ namespace PortfolioEAI.Data.Migrations
                         .HasColumnType("date")
                         .HasColumnName("EndDate");
 
+                    b.Property<Guid?>("IdAdminUser")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasMaxLength(500)
@@ -84,6 +87,8 @@ namespace PortfolioEAI.Data.Migrations
 
                     b.HasKey("Id")
                         .HasName("IdExperience");
+
+                    b.HasIndex("IdAdminUser");
 
                     b.ToTable("Experiences");
                 });
@@ -129,9 +134,6 @@ namespace PortfolioEAI.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("AdminUserId")
-                        .HasColumnType("TEXT");
-
                     b.Property<int>("Category")
                         .HasColumnType("INTEGER");
 
@@ -145,10 +147,13 @@ namespace PortfolioEAI.Data.Migrations
                         .HasColumnType("varchar(50)")
                         .HasColumnName("Name");
 
+                    b.Property<Guid?>("SkillId")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id")
                         .HasName("IdSkill");
 
-                    b.HasIndex("AdminUserId");
+                    b.HasIndex("SkillId");
 
                     b.ToTable("Skills");
                 });
@@ -176,6 +181,14 @@ namespace PortfolioEAI.Data.Migrations
 
                     b.Navigation("Email")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("PortfolioEAI.Domain.Entities.Experience", b =>
+                {
+                    b.HasOne("PortfolioEAI.Domain.Entities.AdminUser", null)
+                        .WithMany("Experiences")
+                        .HasForeignKey("IdAdminUser")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("PortfolioEAI.Domain.Entities.Project", b =>
@@ -211,12 +224,14 @@ namespace PortfolioEAI.Data.Migrations
                 {
                     b.HasOne("PortfolioEAI.Domain.Entities.AdminUser", null)
                         .WithMany("Skills")
-                        .HasForeignKey("AdminUserId")
+                        .HasForeignKey("SkillId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("PortfolioEAI.Domain.Entities.AdminUser", b =>
                 {
+                    b.Navigation("Experiences");
+
                     b.Navigation("Skills");
                 });
 
