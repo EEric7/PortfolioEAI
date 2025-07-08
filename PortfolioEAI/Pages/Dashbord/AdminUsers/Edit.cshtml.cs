@@ -1,77 +1,75 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 using PortfolioEAI.Application.DTOs;
 using PortfolioEAI.Application.Services.Interfaces;
-using PortfolioEAI.Domain.Entities;
 
 namespace PortfolioEAI.Pages.Dashbord.AdminUsers
 {
     public class EditModel : PageModel
     {
-        private readonly IAdminUserService _servicesAdminUsers;
+        private readonly IAdminUserService _adminUserService;
 
-        public EditModel(IAdminUserService servicesAdminUsersand)
+        public EditModel(IAdminUserService adminUserService)
         {
-            _servicesAdminUsers = servicesAdminUsersand;
+            _adminUserService = adminUserService;
         }
 
         [BindProperty]
         public AdminUserDto AdminUser { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(Guid? id)
+        public async Task<IActionResult> OnGetAsync(Guid id)
         {
-            if (id == null)
-                return NotFound();
-
-            if(!AdminUserExists(AdminUser.Id))
-                return NotFound();
-
             try
             {
-                await _servicesAdminUsers.UpdateAsync(AdminUser);
-            }
-            catch (ArgumentNullException)
-            {
-                throw;
-            }
+                // Fetch the admin user by ID
+                var adminUser = await _adminUserService.GetByIdAsync(id);
 
-            return Page();
-        }
+                if (adminUser == null)
+                {
+                    ModelState.AddModelError(string.Empty, "Admin user not found.");
+                    return RedirectToPage("./Index");
+                }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more information, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
-        {
-            if (!ModelState.IsValid)
-            {
+                AdminUser = adminUser;
                 return Page();
             }
-            if (!AdminUserExists(AdminUser.Id))
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, $"An error occurred while retrieving the admin user: {ex.Message}");
                 return NotFound();
-
-            try
-            {
-                await _servicesAdminUsers.UpdateAsync(AdminUser);
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AdminUserExists(AdminUser.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return RedirectToPage("./Index");
         }
 
-        private bool AdminUserExists(Guid id)
+    
+        public async Task<IActionResult> OnPostAsync()
         {
-            return _servicesAdminUsers.GetByIdAsync(AdminUser.Id).Result != null;
+            try
+            {
+                // Validate the model state
+                if (!ModelState.IsValid)
+                    return Page();
+
+                // Check if the admin user exists
+                if (!await AdminUserExistsAsync(AdminUser.Id))
+                {
+                    ModelState.AddModelError(string.Empty, "Admin user not found.");
+                    return Page();
+                }
+
+                // Call the service to update the admin user
+                await _adminUserService.UpdateAsync(AdminUser);
+                return Page();
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, $"An error occurred while updating the admin user: {ex.Message}");
+                return Page();
+            }  
+        }
+
+        private async Task<bool> AdminUserExistsAsync(Guid id)
+        {
+            return await _adminUserService.GetByIdAsync(id) != null;
         }
     }
 }

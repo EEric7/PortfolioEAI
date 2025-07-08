@@ -18,16 +18,24 @@ namespace PortfolioEAI.Pages.Projects
 
         public async Task<IActionResult> OnGetAsync(Guid id)
         {
-            var project = await _servicesProjects.GetByIdAsync(id);
-
-            if (project is not null)
+            try
             {
-                Project = project;
+                var project = await _servicesProjects.GetByIdAsync(id);
 
+                if (project is null)
+                {
+                    ModelState.AddModelError(string.Empty, "Project not found.");
+                    return RedirectToPage("./Index");
+                }
+                
+                Project = project;
                 return Page();
             }
-            
-            return NotFound();
+            catch (Exception)
+            {
+                ModelState.AddModelError(string.Empty, "An error occurred while retrieving the project details.");
+                return NotFound();
+            }
         }
     }
 }

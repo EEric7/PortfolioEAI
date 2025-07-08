@@ -1,24 +1,17 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using PortfolioEAI.Application.DTOs;
 using PortfolioEAI.Application.Services.Interfaces;
-using PortfolioEAI.Data;
-using PortfolioEAI.Domain.Entities;
 
 namespace PortfolioEAI.Pages.Dashbord.AdminUsers
 {
     public class CreateModel : PageModel
     {
-        private readonly IAdminUserService _servicesAdminUsers;
+        private readonly IAdminUserService _adminUserService;
 
-        public CreateModel(IAdminUserService servicesAdminUsers)
+        public CreateModel(IAdminUserService adminUserService)
         {
-            _servicesAdminUsers = servicesAdminUsers;
+            _adminUserService = adminUserService;
         }
 
         public IActionResult OnGet()
@@ -29,13 +22,38 @@ namespace PortfolioEAI.Pages.Dashbord.AdminUsers
         [BindProperty]
         public AdminUserDto AdminUser { get; set; } = default!;
 
+        // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-                return Page();
+            try
+            {
+                // Validate the model state
+                if (!ModelState.IsValid)
+                    return Page();
 
-            await _servicesAdminUsers.AddAsync(AdminUser);
-            return RedirectToPage("./Index");
+                // Check if the admin user already exists
+                if (await AdminUserExistsAsync(AdminUser))
+                {
+                    ModelState.AddModelError(string.Empty, "An admin user with the same username and email already exists.");
+                    return Page();
+                }
+
+                // Call the service to create the admin user
+                await _adminUserService.AddAsync(AdminUser);
+                return Page();
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, $"An error occurred while creating the admin user: {ex.Message}");
+                return Page();
+            }
+        }
+
+        private async Task<bool> AdminUserExistsAsync(AdminUserDto dto)
+        {
+            var adminUsers = await _adminUserService.GetAllAsync();
+            var existingAdminUser = adminUsers.FirstOrDefault(e => e.UserName == dto.UserName && e.Email == dto.Email);
+            return existingAdminUser is not null;
         }
     }
 }

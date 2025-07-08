@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using PortfolioEAI.Application.DTOs;
 using PortfolioEAI.Application.Services.Interfaces;
 
-namespace PortfolioEAI.Pages.Projects
+namespace PortfolioEAI.Pages.Dashbord.Projects
 {
     public class ProjectModel : PageModel
     {
@@ -17,8 +17,15 @@ namespace PortfolioEAI.Pages.Projects
 
         public async Task OnGetAsync()
         {
-            var projects = await _servicesProjects.GetAllAsync();
-            Projects = projects.ToList();
+            try
+            {
+                var projects = await _servicesProjects.GetAllAsync();
+                Projects = projects.ToList();
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, $"An error occurred while retrieving the projects: {ex.Message}");
+            }
         }
     }
 }

@@ -1,0 +1,66 @@
+@page
+@model PortfolioEAI.Pages.Dashbord.Experiences.ExperienceModel
+
+@{
+    ViewData["Title"] = "Experiences";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ExperiencesDto[0].Company)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExperiencesDto[0].Position)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExperiencesDto[0].StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExperiencesDto[0].EndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExperiencesDto[0].Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExperiencesDto[0].ImageUrl)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.ExperiencesDto) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Company)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Position)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImageUrl)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -17,8 +17,16 @@ namespace PortfolioEAI.Pages.Dashbord.AdminUsers
 
         public async Task OnGetAsync()
         {
-            var projects = await _adminUserService.GetAllAsync();
-            AdminUsers = projects.ToList();
+            try
+            {
+                ModelState.Clear();
+                var AdminUsers = await _adminUserService.GetAllAsync();
+                AdminUsers = AdminUsers.ToList();
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, $"An error occurred while retrieving AdminUser: {ex.Message}");
+            }
         }
     }
 }
