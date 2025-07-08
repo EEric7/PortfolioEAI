@@ -13,15 +13,14 @@ namespace PortfolioEAI.Pages.Dashbord.AdminUsers
             _adminUserService = adminUserService;
         }
 
-        public IList<AdminUserDto> AdminUsers { get;set; } = default!;
+        public IList<AdminUserDto> AdminUsers { get;set; } = new List<AdminUserDto>();
 
         public async Task OnGetAsync()
         {
             try
             {
                 ModelState.Clear();
-                var AdminUsers = await _adminUserService.GetAllAsync();
-                AdminUsers = AdminUsers.ToList();
+                AdminUsers = (await _adminUserService.GetAllAsync()).ToList();
             }
             catch (Exception ex)
             {
