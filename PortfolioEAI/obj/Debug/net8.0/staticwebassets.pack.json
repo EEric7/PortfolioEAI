@@ -9,6 +9,10 @@
       "PackagePath": "staticwebassets/assets/EAI.png"
     },
     {
+      "Id": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/wwwroot/assets/cv.ico",
+      "PackagePath": "staticwebassets/assets/cv.ico"
+    },
+    {
       "Id": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/wwwroot/assets/docs/CV01:2025.pdf",
       "PackagePath": "staticwebassets/assets/docs/CV01:2025.pdf"
     },

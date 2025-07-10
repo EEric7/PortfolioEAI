@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Q6iLcI2q/nnkGBNMucKpZktjbxxZvP/0oOkyPggZPq8=",
+  "Hash": "zl3niGRj1U8irDAk5D6XtGdTknf2no6200mhypHICYU=",
   "Source": "PortfolioEAI",
   "BasePath": "_content/PortfolioEAI",
   "Mode": "Default",
@@ -53,6 +53,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/obj/Debug/net8.0/scopedcss/projectbundle/PortfolioEAI.bundle.scp.css"
+    },
+    {
+      "Identity": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/wwwroot/assets/cv.ico",
+      "SourceId": "PortfolioEAI",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/wwwroot/",
+      "BasePath": "_content/PortfolioEAI",
+      "RelativePath": "assets/cv.ico",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/assets/cv.ico"
     },
     {
       "Identity": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/wwwroot/assets/docs/CV01:2025.pdf",

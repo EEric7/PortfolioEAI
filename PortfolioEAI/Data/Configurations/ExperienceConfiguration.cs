@@ -48,7 +48,7 @@ namespace PortfolioEAI.Data.Configurations
                 .WithOne()
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasForeignKey("IdExperience")
-                .IsRequired(false);
+                .IsRequired(true);
         }
     }
 }

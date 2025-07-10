@@ -28,6 +28,16 @@ namespace PortfolioEAI.Domain.Enums
         DevOps,
 
         /// <summary>
+        /// Represents skills related to database management, including SQL and NoSQL databases.
+        /// </summary>
+        Framwork,
+
+        /// <summary>
+        /// Represents skills related to programming languages, such as Python, Java, C#, etc.
+        /// </summary>
+        Languages,
+
+        /// <summary>
         /// Represents skills related to mobile application development.
         /// </summary>
         Mobile,

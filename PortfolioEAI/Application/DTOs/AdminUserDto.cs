@@ -53,6 +53,11 @@ namespace PortfolioEAI.Application.DTOs
         /// List of skills associated with the admin user.
         /// This property holds a collection of skills that the admin user possesses.
         /// </summary>
-        public IList<Guid> Skills { get; set; } = new List<Guid>();
+        public IList<SkillDto> Skills { get; set; } = new List<SkillDto>();
+
+        /// <summary>
+        /// List of experiences associated with the admin user.
+        /// </summary>
+        public IList<ExperienceDto> Experiences { get; set; } = new List<ExperienceDto>();
     }
 }

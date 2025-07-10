@@ -110,7 +110,9 @@ namespace PortfolioEAI.Data.Repositorys
             try
             {
                 _logger.LogInformation(Messages.GetAllEntityInfo, nameof(Experience));
-                return await _context.Set<Experience>().ToListAsync();
+                return await _context.Set<Experience>()
+                    .Include(e => e.Projects) // Include related Projects
+                    .ToListAsync();
             }
             catch (Exception ex)
             {
@@ -135,7 +137,9 @@ namespace PortfolioEAI.Data.Repositorys
             try
             {
                 _logger.LogInformation(Messages.GetEntityInfo, nameof(Experience), id);
-                return await _context.Set<Experience>().FindAsync(id);
+                return await _context.Set<Experience>()
+                    .Include(e => e.Projects) // Include related Projects
+                    .FirstOrDefaultAsync(e => e.Id == id);
             }
             catch (Exception ex)
             {

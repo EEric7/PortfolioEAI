@@ -10,21 +10,21 @@ namespace PortfolioEAI.Domain.Enums
         /// <summary>
         /// Represents a beginner skill level.
         /// </summary>
-        Beginner,
+        Beginner = 25,
 
         /// <summary>
         /// Represents an intermediate skill level.
         /// </summary>
-        Intermediate,
+        Intermediate = 50,
 
         /// <summary>
         /// Represents an advanced skill level.
         /// </summary>
-        Advanced,
+        Advanced = 75,
 
         /// <summary>
         /// Represents an expert skill level.
         /// </summary>
-        Expert
+        Expert = 100
     }
 }

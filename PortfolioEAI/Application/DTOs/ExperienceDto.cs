@@ -53,6 +53,6 @@ namespace PortfolioEAI.Application.DTOs
         /// <summary>
         /// List of project identifiers associated with the experience.
         /// </summary>
-        public IList<Guid>? Projects { get; set; }
+        public IList<ProjectDto>? Projects { get; set; }
     }
 }

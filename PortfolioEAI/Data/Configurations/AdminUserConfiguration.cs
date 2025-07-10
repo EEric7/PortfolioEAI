@@ -29,7 +29,7 @@ namespace PortfolioEAI.Data.Configurations
                     .HasColumnName("Email")
                     .HasColumnType("varchar(100)")
                     .HasMaxLength(100)
-                    .IsRequired();
+                    .IsRequired(true);
             });
 
             builder.HasMany(a => a.Skills)

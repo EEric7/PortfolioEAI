@@ -2879,3 +2879,158 @@ FROM "AdminUsers" AS "a"
 2025-07-08 18:16:37.923 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7095/Dashbord/ - null null
 2025-07-08 18:16:37.996 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7095/Dashbord/ - 404 0 null 73.086ms
 2025-07-08 18:16:37.996 +02:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7095/Dashbord/, Response status code: 404
+2025-07-08 18:23:07.032 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL;
+2025-07-08 18:23:07.155 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "AdminUsers" AS "a")
+2025-07-08 18:23:07.182 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."Password", "a"."UserName", "a"."Email"
+FROM "AdminUsers" AS "a"
+2025-07-08 18:23:07.212 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Skills" AS "s")
+2025-07-08 18:23:07.215 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "s"."Id", "s"."Category", "s"."IdAdminUser", "s"."Level", "s"."Name"
+FROM "Skills" AS "s"
+2025-07-08 18:23:07.225 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Experiences" AS "e")
+2025-07-08 18:23:07.227 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "e"."Id", "e"."Company", "e"."Description", "e"."EndDate", "e"."IdAdminUser", "e"."ImageUrl", "e"."Position", "e"."StartDate"
+FROM "Experiences" AS "e"
+2025-07-08 18:23:07.237 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Projects" AS "p")
+2025-07-08 18:23:07.240 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."Description", "p"."IdExperience", "p"."ImageUrl", "p"."Title", "p"."Url"
+FROM "Projects" AS "p"
+2025-07-08 18:23:07.295 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Projects"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-07-08 18:23:07.296 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Skills"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-07-08 18:23:07.296 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Skills"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-07-08 18:23:07.296 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Projects"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-07-08 18:23:07.296 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Skills"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-07-08 18:23:07.296 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Experiences"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-07-08 18:23:07.296 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Experiences"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-07-08 18:23:07.297 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AdminUsers"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-07-08 18:23:07.298 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 8), @p2='?' (Size = 5), @p3='?' (Size = 20)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AdminUsers" ("Id", "Password", "UserName", "Email")
+VALUES (@p0, @p1, @p2, @p3);
+2025-07-08 18:23:07.298 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 12), @p2='?' (Size = 24), @p3='?' (DbType = Date), @p4='?' (DbType = Guid), @p5='?' (Size = 14), @p6='?' (Size = 10), @p7='?' (DbType = Date)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Experiences" ("Id", "Company", "Description", "EndDate", "IdAdminUser", "ImageUrl", "Position", "StartDate")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+2025-07-08 18:23:07.298 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 12), @p2='?' (Size = 32), @p3='?' (DbType = Date), @p4='?' (DbType = Guid), @p5='?' (Size = 14), @p6='?' (Size = 13), @p7='?' (DbType = Date)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Experiences" ("Id", "Company", "Description", "EndDate", "IdAdminUser", "ImageUrl", "Position", "StartDate")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+2025-07-08 18:23:07.299 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?' (DbType = Guid), @p3='?' (DbType = Int32), @p4='?' (Size = 2)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Skills" ("Id", "Category", "IdAdminUser", "Level", "Name")
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2025-07-08 18:23:07.299 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?' (DbType = Guid), @p3='?' (DbType = Int32), @p4='?' (Size = 5)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Skills" ("Id", "Category", "IdAdminUser", "Level", "Name")
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2025-07-08 18:23:07.299 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?' (DbType = Guid), @p3='?' (DbType = Int32), @p4='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Skills" ("Id", "Category", "IdAdminUser", "Level", "Name")
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2025-07-08 18:23:07.300 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 14), @p2='?' (DbType = Guid), @p3='?' (Size = 14), @p4='?' (Size = 13), @p5='?' (Size = 22)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Projects" ("Id", "Description", "IdExperience", "ImageUrl", "Title", "Url")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2025-07-08 18:23:07.300 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 15), @p2='?' (DbType = Guid), @p3='?' (Size = 14), @p4='?' (Size = 9), @p5='?' (Size = 14)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Projects" ("Id", "Description", "IdExperience", "ImageUrl", "Title", "Url")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2025-07-08 18:23:07.341 +02:00 [INF] User profile is available. Using '/Users/Eric/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2025-07-08 18:23:07.540 +02:00 [INF] Now listening on: https://localhost:7095
+2025-07-08 18:23:07.540 +02:00 [INF] Now listening on: http://localhost:5168
+2025-07-08 18:23:07.542 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-07-08 18:23:07.543 +02:00 [INF] Hosting environment: Development
+2025-07-08 18:23:07.543 +02:00 [INF] Content root path: /Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI
+2025-07-08 18:23:07.728 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7095/ - null null
+2025-07-08 18:23:07.739 +02:00 [INF] Executing endpoint '/Index'
+2025-07-08 18:23:07.750 +02:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2025-07-08 18:23:07.752 +02:00 [INF] Executing handler method PortfolioEAI.Pages.IndexModel.OnGet - ModelState is "Valid"
+2025-07-08 18:23:07.753 +02:00 [INF] Executed handler method OnGet, returned result .
+2025-07-08 18:23:07.754 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-07-08 18:23:07.754 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-07-08 18:23:07.874 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7095/js/scripts.js - null null
+2025-07-08 18:23:07.875 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7095/PortfolioEAI.styles.css?v=9OLkGPtUaGYe-NlCzLU7keEZVUOBFqCyeu9Fbj2qQr8 - null null
+2025-07-08 18:23:07.875 +02:00 [INF] Executed page /Index in 103.0751ms
+2025-07-08 18:23:07.877 +02:00 [INF] Executed endpoint '/Index'
+2025-07-08 18:23:07.907 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7095/js/scripts.js - 404 0 null 5.9262ms
+2025-07-08 18:23:07.907 +02:00 [INF] The file /PortfolioEAI.styles.css was not modified
+2025-07-08 18:23:07.907 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7095/ - 200 null text/html; charset=utf-8 180.3911ms
+2025-07-08 18:23:07.908 +02:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7095/js/scripts.js, Response status code: 404
+2025-07-08 18:23:07.908 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7095/PortfolioEAI.styles.css?v=9OLkGPtUaGYe-NlCzLU7keEZVUOBFqCyeu9Fbj2qQr8 - 304 null text/css 33.1099ms
+2025-07-08 18:23:12.749 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7095/ - null null
+2025-07-08 18:23:12.753 +02:00 [INF] Executing endpoint '/Index'
+2025-07-08 18:23:12.754 +02:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2025-07-08 18:23:12.755 +02:00 [INF] Executing handler method PortfolioEAI.Pages.IndexModel.OnGet - ModelState is "Valid"
+2025-07-08 18:23:12.755 +02:00 [INF] Executed handler method OnGet, returned result .
+2025-07-08 18:23:12.756 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-07-08 18:23:12.756 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-07-08 18:23:12.765 +02:00 [INF] Executed page /Index in 10.5476ms
+2025-07-08 18:23:12.766 +02:00 [INF] Executed endpoint '/Index'
+2025-07-08 18:23:12.766 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7095/ - 200 null text/html; charset=utf-8 42.4073ms
+2025-07-08 18:23:12.790 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7095/js/scripts.js - null null
+2025-07-08 18:23:12.791 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7095/js/scripts.js - 404 0 null 1.5066ms
+2025-07-08 18:23:12.791 +02:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7095/js/scripts.js, Response status code: 404
+2025-07-08 18:28:26.058 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7095/ - null null
+2025-07-08 18:28:26.090 +02:00 [INF] Executing endpoint '/Index'
+2025-07-08 18:28:26.090 +02:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2025-07-08 18:28:26.090 +02:00 [INF] Executing handler method PortfolioEAI.Pages.IndexModel.OnGet - ModelState is "Valid"
+2025-07-08 18:28:26.090 +02:00 [INF] Executed handler method OnGet, returned result .
+2025-07-08 18:28:26.090 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-07-08 18:28:26.090 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-07-08 18:28:26.221 +02:00 [INF] Executed page /Index in 130.7345ms
+2025-07-08 18:28:26.224 +02:00 [INF] Executed endpoint '/Index'
+2025-07-08 18:28:26.225 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7095/ - 200 null text/html; charset=utf-8 167.274ms
+2025-07-08 18:28:26.235 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7095/js/scripts.js - null null
+2025-07-08 18:28:26.261 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7095/js/scripts.js - 404 0 null 26.0722ms
+2025-07-08 18:28:26.261 +02:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7095/js/scripts.js, Response status code: 404
+2025-07-08 18:28:28.068 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7095/Dashbord/AdminUsers - null null
+2025-07-08 18:28:28.090 +02:00 [INF] Executing endpoint '/Dashbord/AdminUsers/Index'
+2025-07-08 18:28:28.095 +02:00 [INF] Route matched with {page = "/Dashbord/AdminUsers/Index"}. Executing page /Dashbord/AdminUsers/Index
+2025-07-08 18:28:28.097 +02:00 [INF] Executing handler method PortfolioEAI.Pages.Dashbord.AdminUsers.IndexModel.OnGetAsync - ModelState is "Valid"
+2025-07-08 18:28:28.100 +02:00 [INF] Fetching all AdminUserDtos
+2025-07-08 18:28:28.101 +02:00 [INF] Retrieving all AdminUsers
+2025-07-08 18:28:28.130 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."Password", "a"."UserName", "a"."Email"
+FROM "AdminUsers" AS "a"
+2025-07-08 18:28:28.136 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2025-07-08 18:28:28.136 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-07-08 18:28:28.136 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-07-08 18:28:28.145 +02:00 [INF] Executed page /Dashbord/AdminUsers/Index in 50.3728ms
+2025-07-08 18:28:28.145 +02:00 [INF] Executed endpoint '/Dashbord/AdminUsers/Index'
+2025-07-08 18:28:28.147 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7095/Dashbord/AdminUsers - 200 null text/html; charset=utf-8 79.3487ms
+2025-07-08 18:28:28.148 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7095/Dashbord/assets/EAI.png - null null
+2025-07-08 18:28:28.150 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7095/Dashbord/js/scripts.js - null null
+2025-07-08 18:28:28.150 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7095/Dashbord/assets/EAI.png - 404 0 null 1.4914ms
+2025-07-08 18:28:28.150 +02:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7095/Dashbord/assets/EAI.png, Response status code: 404
+2025-07-08 18:28:28.151 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7095/Dashbord/js/scripts.js - 404 0 null 1.0795ms
+2025-07-08 18:28:28.151 +02:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7095/Dashbord/js/scripts.js, Response status code: 404

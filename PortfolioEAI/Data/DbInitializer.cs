@@ -45,35 +45,38 @@ namespace PortfolioEAI.Data
 
         private static void AddPlayGroundData(ApplicationDbContext context)
         {
-            var admin = new AdminUser(new Guid(), "Admin", "admin321", "elembaadi@icloud.com");
-
             var skills = new Skill[]
             {
-                new(new Guid(),"C#", SkillLevel.Advanced, SkillCategory.Fullstack),
-                new(new Guid(),"JavaScript", SkillLevel.Advanced, SkillCategory.Fullstack),
-                new(new Guid(),"Unity", SkillLevel.Beginner, SkillCategory.Fullstack)
+                new(new Guid(),"C#", SkillLevel.Advanced, SkillCategory.Languages),
+                new(new Guid(),"SQL", SkillLevel.Intermediate, SkillCategory.Languages),
+                new(new Guid(),"HTML5, CSS3", SkillLevel.Intermediate, SkillCategory.Languages),
+                new(new Guid(),"DotNet Core Framwork", SkillLevel.Advanced, SkillCategory.Framwork),
+                new(new Guid(),"Entity Framwork", SkillLevel.Advanced, SkillCategory.Framwork),
+                new(new Guid(),"xUnit", SkillLevel.Intermediate, SkillCategory.Framwork),
+                new(new Guid(),"SQL Server", SkillLevel.Beginner, SkillCategory.Backend),
+                new(new Guid(),"Agiles développement & Scrum", SkillLevel.Advanced, SkillCategory.Design),
+                new(new Guid(),"Testing & Debugging", SkillLevel.Intermediate, SkillCategory.Design),
+                new(new Guid(),"SOLID Principales", SkillLevel.Advanced, SkillCategory.Design)
             };
 
-            foreach (var skill in skills)
-                admin.AddSkill(skill);
+            var projectsParagon = new Project[]
+            {
+                new(new Guid(),"Logiciel de gestion d'impression de carte NFT.", "Pour répondre à un besoin d'externalisation d'un procédé d'impression et d'encodage de cartes, Paragon ID a développé un progiciel S-Printbox. Cette solution de gestion des impressions et d'encodage qui permet au client d'accéder aux services d'impression spécifique et d'utiliser les imprimantes dédiées.", "assets/img/PID.jpg", "https://github.com/...")
+            };
+
+            var projectsEID = new Project[]
+            {
+                new(new Guid(),"Service web de déploiement des solution cognitive", "Dans le cadre d'une migration d'une solution de déploiement cognitif, le secteur h230 migre la solution webfarm vers un environement cloud propriétaire et réalise une refonte complète du projet afin de simplifier l'accès et les services deployment des outils cognitifs du groupe.", "assets/img/Wacken.jpg", "https://github.com/..."),
+                new(new Guid(),"Service web de signature électronique", "Dans le cadre d'un projet d'optimisassions du web service DSIG, qui offre des solutions de signature électronique évoluer via aux partis prenant certifier, une refonte des interfaces graphique, l'amélioration de plusieurs services et l'ajout d'un nouveau organisme de signature.", "assets/img/Wacken2.jpg", "https://github.com/..."),
+            };
 
             var experiences = new Experience[]
             {
-                new(new Guid(),"Entreprise A", "Consultant It", DateOnly.Parse("2020/1/1"), DateOnly.Parse("2021/12/31"), "Développement d'applications web", "/images/p2.jpg"),
-                new(new Guid(),"Entreprise B", "Consultant", DateOnly.Parse("2021/1/1"), DateOnly.Parse("2022/12/31"), "Création de jeux mobiles", "/images/p4.jpg")
+                new(new Guid(),"Euro Information", "Consultant It", DateOnly.Parse("2022/3/1"), DateOnly.Parse("2024/12/31"), "Développement d'applications web", "/images/p2.jpg", projectsEID),
+                new(new Guid(),"Paragon ID", "Apprentis manager en systèmes d’information", DateOnly.Parse("2018/9/1"), DateOnly.Parse("2021/7/25"), "Développement d'applications logiciel", "/images/p4.jpg", projectsParagon)
             };
 
-            var projects = new Project[]
-            {
-                new(new Guid(),"Portfolio Web", "Site personnel", "/images/p1.jpg", "https://github.com/..."),
-                new(new Guid(),"Jeu Unity", "Mini-jeu mobile", "/images/p1.jpg", "/images/p2.jpg")
-            };
-
-            for (int i = 0; i < experiences.Length; i++)
-                experiences[i].AddProject(projects[i]);
-            
-            foreach (var experience in experiences)
-                admin.AddExperience(experience);
+            var admin = new AdminUser(new Guid(), "Admin", "admin321", "elembaadi@icloud.com",skills,experiences);
 
             context.AdminUsers.Add(admin);
             context.SaveChanges();

@@ -2,6 +2,7 @@ using PortfolioEAI.Application.DTOs;
 using PortfolioEAI.Application.Mappings;
 using PortfolioEAI.Application.Services.Interfaces;
 using PortfolioEAI.Data.Repositorys.Interfaces;
+using PortfolioEAI.Domain.Enums;
 using PortfolioEAI.Domain.Ressources;
 
 namespace PortfolioEAI.Application.Services
@@ -140,10 +141,10 @@ namespace PortfolioEAI.Application.Services
                     existing.SetName(dto.Name);
 
                 if (dto.Level != null)
-                    existing.SetLevel(dto.Level);
+                    existing.SetLevel(dto.Level?? SkillLevel.None);
 
-                if (dto.Category != default)
-                    existing.SetCategory(dto.Category);
+                if (dto.Category != null)
+                    existing.SetCategory(dto.Category?? SkillCategory.None);
                 
                 _logger.LogInformation(Messages.UpdateDTOInfo, nameof(SkillDto), dto.Id);
                 await _repository.Skills.UpdateAsync(existing);

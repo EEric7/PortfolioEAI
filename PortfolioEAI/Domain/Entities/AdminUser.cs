@@ -77,12 +77,14 @@ namespace PortfolioEAI.Domain.Entities
         /// <param name="username"></param>
         /// <param name="password"></param>
         /// <param name="email"></param>
-        public AdminUser(Guid id, string username, string password, string email)
+        public AdminUser(Guid id, string username, string password, string email, IList<Skill> skills, IList<Experience> experiences)
         {
             Id = id;
             Username = username;
             Password = password;
             Email = new Email(email);
+            Skills = skills ?? new List<Skill>();
+            Experiences = experiences ?? new List<Experience>();
         }
 
         /// <summary>

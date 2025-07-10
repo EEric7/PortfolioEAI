@@ -96,18 +96,17 @@ namespace PortfolioEAI.Data.Repositorys
             }
         }
 
-        /// <summary>
-        /// Gets all entities.
-        /// This method retrieves all entities of type AdminUser from the database.
-        /// It uses the DbContext to query the database and returns a list of all AdminUser entities.
-        /// </summary>
-        /// <returns></returns>
+        
         public async Task<IEnumerable<AdminUser>> GetAllAsync()
         {
             try
             {
                 _logger.LogInformation(Messages.GetAllEntityInfo, nameof(AdminUser));
-                return await _context.Set<AdminUser>().ToListAsync();
+                return await _context.Set<AdminUser>()
+                    .Include(u => u.Skills)
+                    .Include(u => u.Experiences)
+                    .ThenInclude(exp => exp.Projects)
+                    .ToListAsync();
             }
             catch (Exception ex)
             {
@@ -116,14 +115,7 @@ namespace PortfolioEAI.Data.Repositorys
             }
         }
 
-        /// <summary>
-        /// Gets an entity by its identifier.
-        /// This method retrieves an AdminUser entity from the database using its unique identifier (GUID).
-        /// It uses the DbContext to find the entity and returns it if found, or null if not found.
-        /// This method is typically used to retrieve a specific admin user by its ID
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        
         public async Task<AdminUser?> GetByIdAsync(Guid id)
         {
             if (id == Guid.Empty)
@@ -134,7 +126,11 @@ namespace PortfolioEAI.Data.Repositorys
             try
             {
                 _logger.LogInformation(Messages.GetEntityInfo, nameof(AdminUser), id);
-                return await _context.Set<AdminUser>().FindAsync(id);
+                return await _context.Set<AdminUser>()
+                    .Include(u => u.Skills)
+                    .Include(u => u.Experiences)
+                    .ThenInclude(exp => exp.Projects)
+                    .FirstOrDefaultAsync(u => u.Id == id);
             }
             catch (Exception ex)
             {

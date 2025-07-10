@@ -82,7 +82,7 @@ namespace PortfolioEAI.Domain.Entities
         /// <param name="imageUrl">The URL of the image representing the experience.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the required parameters (company, position, startDate, description, or imageUrl) are null or empty.</exception>
         /// <exception cref="BusinessRuleViolationException">Thrown when the start date or end date is the default value (DateOnly.MinValue), or when the image URL is not a valid absolute URI in debug mode.</exception>>
-        public Experience(Guid id, string company, string position, DateOnly startDate, DateOnly? endDate, string description, string imageUrl)
+        public Experience(Guid id, string company, string position, DateOnly startDate, DateOnly? endDate, string description, string imageUrl, IList<Project> projects)
         {
             Id = id;
             Company = company;
@@ -91,6 +91,7 @@ namespace PortfolioEAI.Domain.Entities
             EndDate = endDate;
             Description = description;
             ImageUrl = imageUrl;
+            Projects = projects;
         }
         
         /// <summary>

@@ -97,20 +97,7 @@ namespace PortfolioEAI.Application.Services
             {
                 _logger.LogInformation(Messages.AddDTOInfo, nameof(ExperienceDto), dto.Id);
                 var entity = ExperienceMapper.ToEntity(dto);
-                if (dto.Projects != null && dto.Projects.Any())
-                {
-                    foreach (var projectId in dto.Projects)
-                    {
-                        var project = await _repository.Projects.GetByIdAsync(projectId);
-                        if (project == null)
-                        {
-                            _logger.LogWarning(Messages.GetDTOError, nameof(Project), projectId, Messages.NullError);
-                            throw new ArgumentException(string.Format(Messages.AddNotFound, nameof(Project), projectId, nameof(Experience), entity.Id));
-                        }
-                        entity.Projects.Add(project);
-                    }
-                    await _repository.Experiences.AddAsync(entity);
-                }
+                await _repository.Experiences.AddAsync(entity);
             }
             catch (Exception ex)
             {

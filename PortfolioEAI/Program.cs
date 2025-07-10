@@ -43,6 +43,7 @@ builder.Services.AddScoped<IAdminUserService, AdminUserService>();
 builder.Services.AddScoped<IExperienceService, ExperienceService>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<ISkillService, SkillService>();
+builder.Services.AddScoped<IService, Services>();
 
 // Configure authentication and authorization
 builder.Services.AddAuthentication("MyCookieAuth")

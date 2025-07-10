@@ -68,7 +68,10 @@ namespace PortfolioEAI.Application.Services
             {
                 _logger.LogInformation(Messages.GetEntityInfo, nameof(AdminUserDto), id);
                 var entity = await _repository.AdminUsers.GetByIdAsync(id);
+
                 if (entity == null) return null;
+
+                _logger.LogInformation(Messages.GetDTOInfo, nameof(AdminUserDto), id);
                 return AdminUserMapper.ToDto(entity);
             }
             catch (Exception ex)
@@ -97,16 +100,6 @@ namespace PortfolioEAI.Application.Services
             {
                 _logger.LogInformation(Messages.AddDTOInfo, nameof(AdminUserDto), dto.Id);
                 var project = AdminUserMapper.ToEntity(dto);
-                foreach (var skillId in dto.Skills)
-                {
-                    var entity = await _repository.Skills.GetByIdAsync(skillId);
-                    if (entity == null)
-                    {
-                        _logger.LogWarning(Messages.GetDTOError, nameof(Skill), skillId, Messages.NullError);
-                        throw new ArgumentException(string.Format(Messages.AddNotFound, nameof(skillId), skillId));
-                    }
-                    project.AddSkill(entity);
-                }
                 await _repository.AdminUsers.AddAsync(project);
             }
             catch (Exception ex)
