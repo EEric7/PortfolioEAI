@@ -8,7 +8,7 @@ using Serilog;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
-    .WriteTo.File(Path.Combine(AppContext.BaseDirectory, "wwwroot", "Logs", $"Log-{DateTime.Now:ddMMyyyy}.txt"),
+    .WriteTo.File(Path.Combine(AppContext.BaseDirectory,"Logs", $"Log-{DateTime.Now:ddMMyyyy}.txt"),
     rollingInterval: RollingInterval.Day)
     .CreateLogger();
 
@@ -72,10 +72,11 @@ using (var scope = app.Services.CreateScope())
 
 if (environment != "Development")
 {
-    app.UseExceptionHandler("/Error");
     app.UseHsts();
 }
 
+app.UseExceptionHandler("/Errors/Error");
+app.UseStatusCodePagesWithReExecute("/Errors/Error404");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();

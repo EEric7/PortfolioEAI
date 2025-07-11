@@ -24,9 +24,9 @@ About-->
     <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-lg-8">
-                <h2 class="text-white mb-4">@((Model.AccueilModel.AdminUserModel != null && Model.AccueilModel.AdminUserModel.UserName != null) ? Model.AccueilModel.AdminUserModel.UserName : string.Empty)</h2>
+                <h2 class="text-white mb-4">@((Model.AccueilModel?.AdminUserModel?.UserName) ?? string.Empty)</h2>
                 <p class="text-white-50">
-                    @((Model.AccueilModel.AdminUserModel != null && Model.AccueilModel.AdminUserModel.Description != null) ? Model.AccueilModel.AdminUserModel.Description : string.Empty)
+                    @((Model.AccueilModel?.AdminUserModel != null && Model.AccueilModel.AdminUserModel.Description != null) ? Model.AccueilModel.AdminUserModel.Description : string.Empty)
                 </p>
             </div>
         </div>
@@ -40,7 +40,7 @@ About-->
          <!-- Featured Compétence Row-->
         <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
             <div class="col-xl-8 col-lg-7">
-                @if (Model.AccueilModel.AdminUserModel != null && Model.AccueilModel.AdminUserModel.Skills != null)
+                @if (Model.AccueilModel?.AdminUserModel != null && Model.AccueilModel.AdminUserModel.Skills != null)
                 {
                     <h2 class="text-black mb-4">PROGRAMMING LANGUAGE & TOOLS</h2>
                     <div class="col-xl-8 col-lg-7">
@@ -105,7 +105,7 @@ About-->
         </div>
 
         <h2 class="text-black mb-4" id="projects">EXPERIENCE</h2>
-        @if (Model.AccueilModel.ProjectsModel != null && Model.AccueilModel.ProjectsModel.Any())
+        @if (Model.AccueilModel?.ProjectsModel != null && Model.AccueilModel.ProjectsModel.Any())
         {
             <!-- Project One Row-->
             @if (Model.AccueilModel.ProjectsModel.Count >= 1 && Model.AccueilModel.ProjectsModel[0] != null)
@@ -212,7 +212,7 @@ About-->
                         <i class="fas fa-envelope text-primary mb-2"></i>
                         <h4 class="text-uppercase m-0">Email</h4>
                         <hr class="my-4 mx-auto" />
-                        <div class="small text-black-50"><a href="#!">@((Model.AdminUser != null && Model.AdminUser.Email != null) ? Model.AdminUser.Email : string.Empty)</a></div>
+                        <div class="small text-black-50"><a href="#!">@((Model.AccueilModel?.AdminUserModel != null && Model.AccueilModel.AdminUserModel.Email != null) ? Model.AccueilModel.AdminUserModel.Email : string.Empty)</a></div>
                     </div>
                 </div>
             </div>
@@ -222,13 +222,13 @@ About-->
                         <i class="fas fa-mobile-alt text-primary mb-2"></i>
                         <h4 class="text-uppercase m-0">Phone</h4>
                         <hr class="my-4 mx-auto" />
-                        <div class="small text-black-50">+33 6 16 55 13 36</div>
+                        <div class="small text-black-50">@((Model.AccueilModel?.AdminUserModel != null && Model.AccueilModel.AdminUserModel.Number != null) ? Model.AccueilModel.AdminUserModel.Number : string.Empty)</div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="social d-flex justify-content-center"></div>
-            <a class="mx-2" href="https://github.com/EEric7"><i class="fab fa-github"></i></a>
+            <a class="mx-2" href=@((Model.AccueilModel?.AdminUserModel != null && Model.AccueilModel.AdminUserModel.EmailGitHub != null) ? Model.AccueilModel.AdminUserModel.Number : string.Empty)><i class="fab fa-github"></i></a>
         </div>
     </div>
 </section>

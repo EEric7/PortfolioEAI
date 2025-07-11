@@ -1,19 +1,18 @@
 ﻿@page
 @model ErrorModel
 @{
-    ViewData["Title"] = "Error";
-    ViewData["SubTitle"] = "An error occurred while processing your request.";
+    ViewData["Title"] = "An error occurred while processing your request.";
 }
 
 <section class="error-section">
-    <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+    <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center" style="background-color: rgba(240, 248, 255, 0.80)">
         <div class="d-flex justify-content-center">
-            <div class="text-center">
+            <div class="text-center" style="margin: 30px;">
                 <h1 class="text-black mb-4">
                     @ViewData["Title"]
                 </h1>
                 <h2 class="text-black mb-4">
-                    @ViewData["SubTitle"]
+                    Implémenter le message d'erreur!
                 </h2>
                 <a class="btn btn-primary" asp-area="" asp-page="/Index">Back</a>
             </div>

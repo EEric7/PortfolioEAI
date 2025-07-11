@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PortfolioEAI.Application.DTOs;
 using PortfolioEAI.Application.Models;
@@ -11,12 +9,15 @@ public class IndexModel : PageModel
 {
     private readonly IService _services;
 
-    public IndexModel(IService services)
+    private ILogger<IndexModel> _logger;
+
+    public IndexModel(IService services, ILogger<IndexModel> logger)
     {
+        _logger = logger;
         _services = services;
     }
     
-    public AdminUserDto? AdminUser { get; set; } = default;
+    private AdminUserDto? AdminUser { get; set; } = default;
 
     public AccueilModel? AccueilModel { get; set; } = default;
 
@@ -30,14 +31,19 @@ public class IndexModel : PageModel
         {
             ModelState.Clear();
             var adminUser = (await _services.AdminUserService.GetAllAsync()).ToList().FirstOrDefault();
+
             if (adminUser != null)
                 AccueilModel = new AccueilModel(adminUser);
             else
-                ModelState.AddModelError(string.Empty, "AdminUser not found.");
+            {
+                _logger.LogWarning("AdminUser not found.");
+                RedirectToPage("/Errors/Error404");
+            }
         }
         catch (Exception ex)
         {
-            ModelState.AddModelError(string.Empty, $"An error occurred while retrieving AdminUser: {ex.Message}");
+            _logger.LogError($"An error occurred while retrieving AdminUser: {ex.Message}");
+            RedirectToPage("/Errors/Error");
         }
     }
 }
