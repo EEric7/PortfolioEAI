@@ -12,6 +12,7 @@ namespace PortfolioEAI.Application.Mappings
                 dto.UserName ?? string.Empty,
                 dto.Password ?? string.Empty,
                 dto.Email ?? string.Empty,
+                dto.Description ?? string.Empty,
                 (dto.Skills ?? new List<SkillDto>()).Select(s => SkillMapper.ToEntity(s)).ToList(),
                 (dto.Experiences ?? new List<ExperienceDto>()).Select(e => ExperienceMapper.ToEntity(e)).ToList()
             );
@@ -25,6 +26,7 @@ namespace PortfolioEAI.Application.Mappings
             UserName = user.Username,
             Email = user.Email.Value,
             Password = user.Password,
+            Description = user.Description,
             Skills = user.Skills.Select(s => SkillMapper.ToDto(s)).ToList(),
             Experiences = user.Experiences.Select(e => ExperienceMapper.ToDto(e)).ToList()
         };

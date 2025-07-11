@@ -25,6 +25,10 @@
       "PackagePath": "staticwebassets/assets/favicon.ico"
     },
     {
+      "Id": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/wwwroot/assets/img/ErrorPage.jpg",
+      "PackagePath": "staticwebassets/assets/img/ErrorPage.jpg"
+    },
+    {
       "Id": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/wwwroot/assets/img/LandView.jpg",
       "PackagePath": "staticwebassets/assets/img/LandView.jpg"
     },

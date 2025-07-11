@@ -46,6 +46,9 @@ namespace PortfolioEAI.Domain.Entities
         
         public Email Email { get; private set; }
 
+ 
+        public string? Description { get; private set; }
+
         /// <summary>
         /// Gets or sets the list of skills associated with the admin user.
         /// This property represents the skills that the admin user possesses.
@@ -77,12 +80,13 @@ namespace PortfolioEAI.Domain.Entities
         /// <param name="username"></param>
         /// <param name="password"></param>
         /// <param name="email"></param>
-        public AdminUser(Guid id, string username, string password, string email, IList<Skill> skills, IList<Experience> experiences)
+        public AdminUser(Guid id, string username, string password, string email, string description,IList<Skill> skills, IList<Experience> experiences)
         {
             Id = id;
             Username = username;
             Password = password;
             Email = new Email(email);
+            Description = description;
             Skills = skills ?? new List<Skill>();
             Experiences = experiences ?? new List<Experience>();
         }
@@ -120,6 +124,13 @@ namespace PortfolioEAI.Domain.Entities
             if (string.IsNullOrWhiteSpace(password))
                 throw new BusinessRuleViolationException("The company name is required.", new ArgumentNullException(nameof(password)));
             Password = password;
+        }
+
+        public void SetDescription(string description)
+        {
+            if (string.IsNullOrWhiteSpace(description))
+                throw new BusinessRuleViolationException("The description is required.", new ArgumentNullException(nameof(description)));
+            Description = description;
         }
 
         /// <summary>

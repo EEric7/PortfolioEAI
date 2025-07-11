@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using PortfolioEAI.Domain.Enums;
 
 namespace PortfolioEAI.Application.DTOs
@@ -27,5 +23,15 @@ namespace PortfolioEAI.Application.DTOs
         /// Category of the skill, such as frontend, backend, fullstack, devops, etc.
         /// </summary>
         public SkillCategory? Category { get; set; }
+
+        public SkillDto() {}
+
+        public SkillDto(SkillDto skillDto)
+        {
+            Id = skillDto.Id;
+            Name = skillDto.Name;
+            Level = skillDto.Level;
+            Category = skillDto.Category;
+        }
     }
 }

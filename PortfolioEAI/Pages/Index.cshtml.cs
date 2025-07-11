@@ -1,5 +1,8 @@
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PortfolioEAI.Application.DTOs;
+using PortfolioEAI.Application.Models;
 using PortfolioEAI.Application.Services.Interfaces;
 
 namespace PortfolioEAI.Pages;
@@ -12,24 +15,25 @@ public class IndexModel : PageModel
     {
         _services = services;
     }
+    
     public AdminUserDto? AdminUser { get; set; } = default;
-    public List<ProjectDto> Projects { get; set; } = new List<ProjectDto>();
+
+    public AccueilModel? AccueilModel { get; set; } = default;
+
+    /// <summary>
+    /// Handles the GET request for the Index page.
+    /// </summary>
+    /// <returns></returns>
     public async Task OnGetAsync()
     {
         try
         {
             ModelState.Clear();
-            AdminUser = (await _services.AdminUserService.GetAllAsync()).ToList().FirstOrDefault();
-            if (AdminUser != null)
-            {
-                foreach (var experience in AdminUser.Experiences)
-                {
-                    if (experience.Projects != null && experience.Projects.Any())
-                    {
-                        Projects.AddRange(experience.Projects);
-                    }
-                }
-            }
+            var adminUser = (await _services.AdminUserService.GetAllAsync()).ToList().FirstOrDefault();
+            if (adminUser != null)
+                AccueilModel = new AccueilModel(adminUser);
+            else
+                ModelState.AddModelError(string.Empty, "AdminUser not found.");
         }
         catch (Exception ex)
         {

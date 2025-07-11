@@ -8,7 +8,7 @@ namespace PortfolioEAI.Application.DTOs
         /// It is typically a GUID (Globally Unique Identifier) that is generated when the project is created.
         /// </summary>
         public Guid Id { get; set; }
-        
+
         /// <summary>
         /// Title of the project.
         /// This property represents the name or title of the project.
@@ -38,5 +38,16 @@ namespace PortfolioEAI.Application.DTOs
         /// It is important that this URL is valid and accessible.
         /// </summary>
         public string? Url { get; set; }
+
+        public ProjectDto() {}
+        
+        public ProjectDto(ProjectDto dto)
+        {
+            Id = dto.Id;
+            Title = dto.Title;
+            Description = dto.Description;
+            ImageUrl = dto.ImageUrl;
+            Url = dto.Url;
+        }
     }
 }

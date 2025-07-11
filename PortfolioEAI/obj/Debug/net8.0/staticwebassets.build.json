@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "zl3niGRj1U8irDAk5D6XtGdTknf2no6200mhypHICYU=",
+  "Hash": "5rPQ14Ge15WBy5ZBIfc8/T1iMmMiZkXdq2wQQ4uEEJQ=",
   "Source": "PortfolioEAI",
   "BasePath": "_content/PortfolioEAI",
   "Mode": "Default",
@@ -205,6 +205,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/assets/img/demo-image-02.jpg"
+    },
+    {
+      "Identity": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/wwwroot/assets/img/ErrorPage.jpg",
+      "SourceId": "PortfolioEAI",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/wwwroot/",
+      "BasePath": "_content/PortfolioEAI",
+      "RelativePath": "assets/img/ErrorPage.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/assets/img/ErrorPage.jpg"
     },
     {
       "Identity": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/wwwroot/assets/img/ipad.png",

@@ -76,7 +76,12 @@ namespace PortfolioEAI.Data
                 new(new Guid(),"Paragon ID", "Apprentis manager en systèmes d’information", DateOnly.Parse("2018/9/1"), DateOnly.Parse("2021/7/25"), "Développement d'applications logiciel", "/images/p4.jpg", projectsParagon)
             };
 
-            var admin = new AdminUser(new Guid(), "Admin", "admin321", "elembaadi@icloud.com",skills,experiences);
+            string description = @"Développeur .NET passionné et polyvalent avec plus de 5 ans d’expérience professionnelle et académique dans le développement de solutions innovantes.\r\n 
+                                    Certifié Manager en systèmes d’information, développeur analyste développeur, j’ai construit ma carrière sur des bases solides en programmation, gestion de projets et migration vers le cloud.\r\n
+                                    Je maîtrise des technologies telles que C#, SQL, HTML5/CSS3 et des frameworks comme ASP.NET Core,MVC et Blazor, en intégrant des bases de données complexes grâce à SQL Server et des outils comme Entity Framework.\r\n
+                                    Mon expertise s’étend également aux méthodes Agiles, aux principes SOLID et aux design patterns.";
+                                    
+            var admin = new AdminUser(new Guid(), "ELEMBA ADI Eric", "admin321", "elembaadi@icloud.com", description,skills,experiences);
 
             context.AdminUsers.Add(admin);
             context.SaveChanges();

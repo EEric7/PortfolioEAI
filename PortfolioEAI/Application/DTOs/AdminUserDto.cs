@@ -42,6 +42,11 @@ namespace PortfolioEAI.Application.DTOs
         public string? Role { get; set; }
 
         /// <summary>
+        ///  Description of the admin user.
+        /// </summary>
+        public string? Description { get; set; }
+
+        /// <summary>
         /// Indicates whether the admin user is active.
         /// This property is a boolean value that specifies if the admin user account is currently active or not.
         /// An active user can log in and perform actions, while an inactive user may be restricted from accessing the system.
@@ -59,5 +64,20 @@ namespace PortfolioEAI.Application.DTOs
         /// List of experiences associated with the admin user.
         /// </summary>
         public IList<ExperienceDto> Experiences { get; set; } = new List<ExperienceDto>();
+
+        public AdminUserDto() { }
+
+        public AdminUserDto(AdminUserDto dto)
+        {
+            Id = dto.Id;
+            UserName = dto.UserName;
+            Email = dto.Email;
+            Password = dto.Password;
+            Role = dto.Role;
+            Description = dto.Description;
+            IsActive = dto.IsActive;
+            Skills = dto.Skills;
+            Experiences = dto.Experiences;
+        }
     }
 }

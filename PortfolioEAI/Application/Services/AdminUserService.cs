@@ -148,6 +148,9 @@ namespace PortfolioEAI.Application.Services
                 if (dto.Email != null)
                     existing.SetEmail(dto.Email);
 
+                if (dto.Description != null)
+                    existing.SetDescription(dto.Description);
+
                 _logger.LogInformation(Messages.UpdateDTOInfo, nameof(AdminUserDto), dto.Id);
                 await _repository.AdminUsers.UpdateAsync(existing);
             }
