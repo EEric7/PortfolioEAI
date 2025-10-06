@@ -1,11 +1,9 @@
-using PortfolioEAI.Application.DTOs;
-using PortfolioEAI.Application.Mappings;
-using PortfolioEAI.Application.Services.Interfaces;
 using PortfolioEAI.Data.Repositorys.Interfaces;
-using PortfolioEAI.Domain.Entities;
+using PortfolioEAI.Domain.Services.Interfaces;
 using PortfolioEAI.Domain.Ressources;
+using PortfolioEAI.Domain.Entities;
 
-namespace PortfolioEAI.Application.Services
+namespace PortfolioEAI.Domain.Services
 {
     public class ExperienceService : IExperienceService
     {
@@ -34,17 +32,16 @@ namespace PortfolioEAI.Application.Services
         /// It returns an enumerable collection of <see cref="ExperienceDto"/> objects.
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<ExperienceDto>> GetAllAsync()
+        public async Task<IEnumerable<Experience>> GetAllAsync()
         {
             try
             {
-                _logger.LogInformation(Messages.GetAllDTOInfo, nameof(ExperienceDto));
-                var entitys = await _repository.Experiences.GetAllAsync();
-                return entitys.Select(entity => ExperienceMapper.ToDto(entity));
+                _logger.LogInformation(Messages.GetAllDTOInfo, nameof(Experience));
+                return await _repository.Experiences.GetAllAsync();
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, Messages.GetAllDTOError, nameof(ExperienceDto), ex.Message);
+                _logger.LogError(ex, Messages.GetAllDTOError, nameof(Experience), ex.Message);
                 throw;
             }
         }
@@ -52,114 +49,111 @@ namespace PortfolioEAI.Application.Services
         /// <summary>
         /// Retrieves a project by its identifier.
         /// This method fetches a project from the repository using its unique identifier.
-        /// If the project is found, it is mapped to a <see cref="ExperienceDto"/> and returned.
+        /// If the project is found, it is mapped to a <see cref="Experience"/> and returned.
         /// If the project is not found, it returns null.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<ExperienceDto?> GetByIdAsync(Guid id)
+        public async Task<Experience?> GetByIdAsync(Guid id)
         {
             if (id == Guid.Empty)
             {
-                _logger.LogError(Messages.GetNullIdDTOError, nameof(ExperienceDto));
+                _logger.LogError(Messages.GetNullIdDTOError, nameof(Experience));
                 throw new ArgumentException(Messages.NullError, nameof(id));
             }
             try
             {
-                _logger.LogInformation(Messages.GetEntityInfo, nameof(ExperienceDto), id);
-                var entity = await _repository.Experiences.GetByIdAsync(id);
-                if (entity == null) return null;
-                return ExperienceMapper.ToDto(entity);
+                _logger.LogInformation(Messages.GetEntityInfo, nameof(Experience), id);
+                return await _repository.Experiences.GetByIdAsync(id);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, Messages.GetDTOError, nameof(ExperienceDto), id, ex.Message);
+                _logger.LogError(ex, Messages.GetDTOError, nameof(Experience), id, ex.Message);
                 throw;
             }
         }
 
         /// <summary>
         /// Adds a new project.
-        /// This method takes a <see cref="ExperienceDto"/> as input, maps it to a <see cref="Project"/> entity,
+        /// This method takes a <see cref="Experience"/> as input, maps it to a <see cref="Project"/> entity,
         /// and adds it to the repository. It throws an <see cref="ArgumentNullException"/> if the DTO is null.
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public async Task AddAsync(ExperienceDto dto)
+        public async Task AddAsync(Experience entity)
         {
-            if (dto == null)
+            if (entity == null)
             {
-                _logger.LogError(Messages.AddNullError, nameof(ExperienceDto));
-                throw new ArgumentNullException(nameof(dto), Messages.NullError);
+                _logger.LogError(Messages.AddNullError, nameof(Experience));
+                throw new ArgumentNullException(nameof(entity), Messages.NullError);
             }
             try
             {
-                _logger.LogInformation(Messages.AddDTOInfo, nameof(ExperienceDto), dto.Id);
-                var entity = ExperienceMapper.ToEntity(dto);
+                _logger.LogInformation(Messages.AddDTOInfo, nameof(Experience), entity.Id);
                 await _repository.Experiences.AddAsync(entity);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, Messages.AddDTOError, nameof(ExperienceDto), ex.Message);
+                _logger.LogError(ex, Messages.AddDTOError, nameof(Experience), ex.Message);
                 throw;
             }
         }
         
         /// <summary>
         /// Updates an existing project.
-        /// This method takes a <see cref="ExperienceDto"/> as input, retrieves the existing project by its identifier,
+        /// This method takes a <see cref="Experience"/> as input, retrieves the existing project by its identifier,
         /// and updates its properties based on the values in the DTO. It throws an <see cref="ArgumentNullException"/> if the DTO is null.
         /// If the project with the specified identifier does not exist, it does nothing.
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public async Task UpdateAsync(ExperienceDto dto)
+        public async Task UpdateAsync(Experience entity)
         {
-            if (dto == null)
+            if (entity == null)
             {
-                _logger.LogError(Messages.UpdateDTONullError, nameof(ExperienceDto));
-                throw new ArgumentNullException(nameof(dto), Messages.NullError);
+                _logger.LogError(Messages.UpdateDTONullError, nameof(Experience));
+                throw new ArgumentNullException(nameof(entity), Messages.NullError);
             }
-            if (dto.Id == Guid.Empty)
+            if (entity.Id == Guid.Empty)
             {
-                _logger.LogError(Messages.UpdateNullIdError, nameof(ExperienceDto));
-                throw new ArgumentException(Messages.NullError, nameof(dto.Id));
+                _logger.LogError(Messages.UpdateNullIdError, nameof(Experience));
+                throw new ArgumentException(Messages.NullError, nameof(entity.Id));
             }
             try
             {
-                _logger.LogInformation(Messages.UpdateDTOInfo, nameof(ExperienceDto), dto.Id);
-                var existing = await _repository.Experiences.GetByIdAsync(dto.Id);
+                _logger.LogInformation(Messages.UpdateDTOInfo, nameof(Experience), entity.Id);
+                var existing = await _repository.Experiences.GetByIdAsync(entity.Id);
                 if (existing == null)
                 {
-                    _logger.LogWarning(Messages.UpdateDTONotFound, nameof(ExperienceDto), dto.Id);
+                    _logger.LogWarning(Messages.UpdateDTONotFound, nameof(Experience), entity.Id);
                     return;
                 }
-                if (dto.Company != null)
-                    existing.SetCompany(dto.Company);
+                if (entity.Company != null)
+                    existing.SetCompany(entity.Company);
 
-                if (dto.Position != null)
-                    existing.SetPosition(dto.Position);
+                if (entity.Position != null)
+                    existing.SetPosition(entity.Position);
 
-                if (dto.StartDate != default)
-                    existing.SetStartDate(dto.StartDate);
+                if (entity.StartDate != default)
+                    existing.SetStartDate(entity.StartDate);
                 
-                if (dto.EndDate != default)
-                    existing.SetStartDate(dto.EndDate);
+                if (entity.EndDate != default)
+                    existing.SetStartDate(entity.EndDate);
 
-                if (dto.Description != null)
-                    existing.SetDescription(dto.Description);
+                if (entity.Description != null)
+                    existing.SetDescription(entity.Description);
                 
-                if (dto.ImageUrl != null)
-                    existing.SetImageUrl(dto.ImageUrl);
+                if (entity.ImageUrl != null)
+                    existing.SetImageUrl(entity.ImageUrl);
                 
-                _logger.LogInformation(Messages.UpdateDTOInfo, nameof(ExperienceDto), dto.Id);
+                _logger.LogInformation(Messages.UpdateDTOInfo, nameof(Experience), entity.Id);
                 await _repository.Experiences.UpdateAsync(existing);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, Messages.UpdateDTOError, nameof(ExperienceDto), dto.Id, ex.Message);
+                _logger.LogError(ex, Messages.UpdateDTOError, nameof(Experience), entity.Id, ex.Message);
                 throw;
             }
         }
@@ -177,24 +171,24 @@ namespace PortfolioEAI.Application.Services
         {
              if (id == Guid.Empty)
             {
-                _logger.LogError(Messages.DeleteDTOEmptyIdError, nameof(ExperienceDto));
+                _logger.LogError(Messages.DeleteDTOEmptyIdError, nameof(Experience));
                 throw new ArgumentException(nameof(id), Messages.NullError);
             }
             try
             {
-                _logger.LogInformation(Messages.DeleteAttemptDTOInfo, nameof(ExperienceDto), id);
+                _logger.LogInformation(Messages.DeleteAttemptDTOInfo, nameof(Experience), id);
                 var existing = await _repository.Experiences.GetByIdAsync(id);
                 if (existing == null)
                 {
-                    _logger.LogWarning(Messages.DeleteDTONotFound, nameof(ExperienceDto), id);
+                    _logger.LogWarning(Messages.DeleteDTONotFound, nameof(Experience), id);
                     return;
                 }
-                _logger.LogInformation(Messages.DeleteDTOInfo, nameof(ExperienceDto), id);
+                _logger.LogInformation(Messages.DeleteDTOInfo, nameof(Experience), id);
                 await _repository.Experiences.DeleteAsync(id);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, Messages.DeleteDTOError, nameof(ExperienceDto), ex.Message);
+                _logger.LogError(ex, Messages.DeleteDTOError, nameof(Experience), ex.Message);
                 throw;
             }
         }

@@ -28,10 +28,12 @@
             
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contacts">Contact</a></li>
+                    @foreach(var item in Model.MenuModel)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="@item.Item2">@item.Item1</a>
+                        </li>
+                    }
                 </ul>
             </div>
         </div>
@@ -43,7 +45,7 @@
     <!-- Footer-->
     <footer class="footer bg-black small text-center text-white-50">
         <div class="container px-4 px-lg-5">
-            Copyright &copy; Portfolio EAI Website 2025 var(--bs-blue)
+            Copyright &copy; Portfolio EAI Website @(DateTime.Now.Year)
         </div>
     </footer>
 

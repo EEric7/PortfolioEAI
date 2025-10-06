@@ -1,11 +1,9 @@
-using PortfolioEAI.Application.DTOs;
-using PortfolioEAI.Application.Mappings;
-using PortfolioEAI.Application.Services.Interfaces;
 using PortfolioEAI.Data.Repositorys.Interfaces;
-using PortfolioEAI.Domain.Entities;
+using PortfolioEAI.Domain.Services.Interfaces;
 using PortfolioEAI.Domain.Ressources;
+using PortfolioEAI.Domain.Entities;
 
-namespace PortfolioEAI.Application.Services
+namespace PortfolioEAI.Domain.Services
 {
     public class AdminUserService : IAdminUserService
     {
@@ -30,21 +28,20 @@ namespace PortfolioEAI.Application.Services
         
         /// <summary>
         /// Retrieves all AdminUsers.
-        /// This method fetches all AdminUsers from the repository and maps them to DTOs.
-        /// It returns an enumerable collection of <see cref="AdminUserDto"/> objects.
+        /// This method fetches all AdminUsers from the repository.
+        /// It returns an enumerable collection of <see cref="AdminUser"/> objects.
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<AdminUserDto>> GetAllAsync()
+        public async Task<IEnumerable<AdminUser>> GetAllAsync()
         {
             try
             {
-                _logger.LogInformation(Messages.GetAllDTOInfo, nameof(AdminUserDto));
-                var entitys = await _repository.AdminUsers.GetAllAsync();
-                return entitys.Select(entity => AdminUserMapper.ToDto(entity));
+                _logger.LogInformation(Messages.GetAllDTOInfo, nameof(AdminUser));
+                return await _repository.AdminUsers.GetAllAsync();
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, Messages.GetAllDTOError, nameof(AdminUserDto), ex.Message);
+                _logger.LogError(ex, Messages.GetAllDTOError, nameof(AdminUser), ex.Message);
                 throw;
             }
         }
@@ -52,111 +49,111 @@ namespace PortfolioEAI.Application.Services
         /// <summary>
         /// Retrieves a project by its identifier.
         /// This method fetches a project from the repository using its unique identifier.
-        /// If the project is found, it is mapped to a <see cref="AdminUserDto"/> and returned.
+        /// If the project is found and returned.
         /// If the project is not found, it returns null.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<AdminUserDto?> GetByIdAsync(Guid id)
+        public async Task<AdminUser?> GetByIdAsync(Guid id)
         {
             if (id == Guid.Empty)
             {
-                _logger.LogError(Messages.GetNullIdDTOError, nameof(AdminUserDto));
+                _logger.LogError(Messages.GetNullIdDTOError, nameof(AdminUser));
                 throw new ArgumentException(Messages.NullError, nameof(id));
             }
             try
             {
-                _logger.LogInformation(Messages.GetEntityInfo, nameof(AdminUserDto), id);
+                _logger.LogInformation(Messages.GetEntityInfo, nameof(AdminUser), id);
                 var entity = await _repository.AdminUsers.GetByIdAsync(id);
 
-                if (entity == null) return null;
+                if (entity == null)
+                    return null;
 
-                _logger.LogInformation(Messages.GetDTOInfo, nameof(AdminUserDto), id);
-                return AdminUserMapper.ToDto(entity);
+                _logger.LogInformation(Messages.GetDTOInfo, nameof(AdminUser), id);
+                return entity;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, Messages.GetDTOError, nameof(AdminUserDto), id, ex.Message);
+                _logger.LogError(ex, Messages.GetDTOError, nameof(AdminUser), id, ex.Message);
                 throw;
             }
         }
 
         /// <summary>
         /// Adds a new project.
-        /// This method takes a <see cref="AdminUserDto"/> as input, maps it to a <see cref="Project"/> entity,
+        /// This method takes a <see cref="AdminUser"/> as input, maps it to a <see cref="Project"/> entity,
         /// and adds it to the repository. It throws an <see cref="ArgumentNullException"/> if the DTO is null.
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public async Task AddAsync(AdminUserDto dto)
+        public async Task AddAsync(AdminUser entity)
         {
-            if (dto == null)
+            if (entity == null)
             {
-                _logger.LogError(Messages.AddNullError, nameof(AdminUserDto));
-                throw new ArgumentNullException(nameof(dto), Messages.NullError);
+                _logger.LogError(Messages.AddNullError, nameof(AdminUser));
+                throw new ArgumentNullException(nameof(entity), Messages.NullError);
             }
             try
             {
-                _logger.LogInformation(Messages.AddDTOInfo, nameof(AdminUserDto), dto.Id);
-                var project = AdminUserMapper.ToEntity(dto);
-                await _repository.AdminUsers.AddAsync(project);
+                _logger.LogInformation(Messages.AddDTOInfo, nameof(AdminUser), entity.Id);
+                await _repository.AdminUsers.AddAsync(entity);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, Messages.AddDTOError, nameof(AdminUserDto), ex.Message);
+                _logger.LogError(ex, Messages.AddDTOError, nameof(AdminUser), ex.Message);
                 throw;
             }
         }
         
         /// <summary>
         /// Updates an existing project.
-        /// This method takes a <see cref="AdminUserDto"/> as input, retrieves the existing project by its identifier,
-        /// and updates its properties based on the values in the DTO. It throws an <see cref="ArgumentNullException"/> if the DTO is null.
+        /// This method takes a <see cref="AdminUser"/> as input, retrieves the existing project by its identifier,
+        /// and updates its properties based on the values in the entity. It throws an <see cref="ArgumentNullException"/> if the entity is null.
         /// If the project with the specified identifier does not exist, it does nothing.
         /// </summary>
-        /// <param name="dto"></param>
+        /// <param name="entity"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public async Task UpdateAsync(AdminUserDto dto)
+        public async Task UpdateAsync(AdminUser entity)
         {
-            if (dto == null)
+            if (entity == null)
             {
-                _logger.LogError(Messages.UpdateDTONullError, nameof(AdminUserDto));
-                throw new ArgumentNullException(nameof(dto), Messages.NullError);
+                _logger.LogError(Messages.UpdateDTONullError, nameof(AdminUser));
+                throw new ArgumentNullException(nameof(entity), Messages.NullError);
             }
-            if (dto.Id == Guid.Empty)
+            if (entity.Id == Guid.Empty)
             {
-                _logger.LogError(Messages.UpdateNullIdError, nameof(AdminUserDto));
-                throw new ArgumentException(Messages.NullError, nameof(dto.Id));
+                _logger.LogError(Messages.UpdateNullIdError, nameof(AdminUser));
+                throw new ArgumentException(Messages.NullError, nameof(entity.Id));
             }
             try
             {
-                _logger.LogInformation(Messages.UpdateDTOInfo, nameof(AdminUserDto), dto.Id);
-                var existing = await _repository.AdminUsers.GetByIdAsync(dto.Id);
+                _logger.LogInformation(Messages.UpdateDTOInfo, nameof(AdminUser), entity.Id);
+                var existing = await _repository.AdminUsers.GetByIdAsync(entity.Id);
                 if (existing == null)
                 {
-                    _logger.LogWarning(Messages.UpdateDTONotFound, nameof(AdminUserDto), dto.Id);
+                    _logger.LogWarning(Messages.UpdateDTONotFound, nameof(AdminUser), entity.Id);
                     return;
                 }
-                if (dto.UserName != null)
-                    existing.SetUsername(dto.UserName);
+                if (entity.Username != null)
+                    existing.SetUsername(entity.Username);
 
-                if (dto.Password != null)
-                    existing.SetPassword(dto.Password);
+                if (entity.Password != null)
+                    existing.SetPassword(entity.Password);
 
-                if (dto.Email != null)
-                    existing.SetEmail(dto.Email);
+                if (entity.Email != null)
+                    existing.SetEmail(entity.Email);
 
-                if (dto.Description != null)
-                    existing.SetDescription(dto.Description);
+                if (entity.Description != null)
+                    existing.SetDescription(entity.Description);
 
-                _logger.LogInformation(Messages.UpdateDTOInfo, nameof(AdminUserDto), dto.Id);
+                _logger.LogInformation(Messages.UpdateDTOInfo, nameof(AdminUser), entity.Id);
                 await _repository.AdminUsers.UpdateAsync(existing);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, Messages.UpdateDTOError, nameof(AdminUserDto), dto.Id, ex.Message);
+                _logger.LogError(ex, Messages.UpdateDTOError, nameof(AdminUser), entity.Id, ex.Message);
                 throw;
             }
         }
@@ -174,24 +171,24 @@ namespace PortfolioEAI.Application.Services
         {
              if (id == Guid.Empty)
             {
-                _logger.LogError(Messages.DeleteDTOEmptyIdError, nameof(AdminUserDto));
+                _logger.LogError(Messages.DeleteDTOEmptyIdError, nameof(AdminUser));
                 throw new ArgumentException(nameof(id), Messages.NullError);
             }
             try
             {
-                _logger.LogInformation(Messages.DeleteAttemptDTOInfo, nameof(AdminUserDto), id);
+                _logger.LogInformation(Messages.DeleteAttemptDTOInfo, nameof(AdminUser), id);
                 var existing = await _repository.AdminUsers.GetByIdAsync(id);
                 if (existing == null)
                 {
-                    _logger.LogWarning(Messages.DeleteDTONotFound, nameof(AdminUserDto), id);
+                    _logger.LogWarning(Messages.DeleteDTONotFound, nameof(AdminUser), id);
                     return;
                 }
-                _logger.LogInformation(Messages.DeleteDTOInfo, nameof(AdminUserDto), id);
+                _logger.LogInformation(Messages.DeleteDTOInfo, nameof(AdminUser), id);
                 await _repository.AdminUsers.DeleteAsync(id);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, Messages.DeleteDTOError, nameof(AdminUserDto), ex.Message);
+                _logger.LogError(ex, Messages.DeleteDTOError, nameof(AdminUser), ex.Message);
                 throw;
             }
         }

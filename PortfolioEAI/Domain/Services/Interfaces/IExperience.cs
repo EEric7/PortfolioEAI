@@ -1,10 +1,12 @@
-using PortfolioEAI.Application.DTOs;
 
-namespace PortfolioEAI.Application.Services.Interfaces
+
+using PortfolioEAI.Domain.Entities;
+
+namespace PortfolioEAI.Domain.Services.Interfaces
 {
-    public interface ISkillService
+    public interface IExperienceService
     {
-         /// <summary>
+        /// <summary>
         /// Gets all entities.
         /// </summary>
         /// <returns>The all dataset.</returns>
@@ -14,7 +16,7 @@ namespace PortfolioEAI.Application.Services.Interfaces
         /// var allEntities = await service.GetAllAsync();
         /// </code>
         /// </example>  
-        Task<IEnumerable<SkillDto>> GetAllAsync();
+        Task<IEnumerable<Experience>> GetAllAsync();
 
         /// <summary>
         /// Gets an entity by its identifier.
@@ -29,7 +31,7 @@ namespace PortfolioEAI.Application.Services.Interfaces
         /// var entity = await service.GetByIdAsync(1);
         /// </code>
         /// </example>
-        Task<SkillDto?> GetByIdAsync(Guid id);
+        Task<Experience?> GetByIdAsync(Guid id);
 
         /// <summary>
         /// Adds a new entity.
@@ -48,7 +50,7 @@ namespace PortfolioEAI.Application.Services.Interfaces
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">Thrown when the entity is null.</exception>
         /// <exception cref="InvalidOperationException">Thrown when the entity cannot be added.</exception
-        Task AddAsync(SkillDto entity);
+        Task AddAsync(Experience entity);
 
         /// <summary>
         /// Updates an existing entity.
@@ -60,7 +62,7 @@ namespace PortfolioEAI.Application.Services.Interfaces
         /// <example>
         /// <code>
         /// await service.UpdateAsync(existingEntity);
-        Task UpdateAsync(SkillDto entity);
+        Task UpdateAsync(Experience entity);
 
         /// <summary>
         /// Deletes an entity by its identifier.

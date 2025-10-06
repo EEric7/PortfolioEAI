@@ -1,11 +1,9 @@
-using PortfolioEAI.Application.DTOs;
-using PortfolioEAI.Application.Mappings;
-using PortfolioEAI.Application.Services.Interfaces;
 using PortfolioEAI.Data.Repositorys.Interfaces;
-using PortfolioEAI.Domain.Enums;
+using PortfolioEAI.Domain.Services.Interfaces;
 using PortfolioEAI.Domain.Ressources;
+using PortfolioEAI.Domain.Entities;
 
-namespace PortfolioEAI.Application.Services
+namespace PortfolioEAI.Domain.Services
 {
     public class SkillService : ISkillService
     {
@@ -32,20 +30,19 @@ namespace PortfolioEAI.Application.Services
         /// <summary>
         /// Retrieves all Skills.
         /// This method fetches all Skills from the repository and maps them to DTOs.
-        /// It returns an enumerable collection of <see cref="SkillDto"/> objects.
+        /// It returns an enumerable collection of <see cref="Skill"/> objects.
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<SkillDto>> GetAllAsync()
+        public async Task<IEnumerable<Skill>> GetAllAsync()
         {
             try
             {
-                _logger.LogInformation(Messages.GetAllDTOInfo, nameof(SkillDto));
-                var entitys = await _repository.Skills.GetAllAsync();
-                return entitys.Select(entity => SkillMapper.ToDto(entity));
+                _logger.LogInformation(Messages.GetAllDTOInfo, nameof(Skill));
+                return await _repository.Skills.GetAllAsync();
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, Messages.GetAllDTOError, nameof(SkillDto), ex.Message);
+                _logger.LogError(ex, Messages.GetAllDTOError, nameof(Skill), ex.Message);
                 throw;
             }
         }
@@ -53,105 +50,96 @@ namespace PortfolioEAI.Application.Services
         /// <summary>
         /// Retrieves a project by its identifier.
         /// This method fetches a project from the repository using its unique identifier.
-        /// If the project is found, it is mapped to a <see cref="SkillDto"/> and returned.
+        /// If the project is found, it is mapped to a <see cref="Skill"/> and returned.
         /// If the project is not found, it returns null.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<SkillDto?> GetByIdAsync(Guid id)
+        public async Task<Skill?> GetByIdAsync(Guid id)
         {
             if (id == Guid.Empty)
             {
-                _logger.LogError(Messages.GetNullIdDTOError, nameof(SkillDto));
+                _logger.LogError(Messages.GetNullIdDTOError, nameof(Skill));
                 throw new ArgumentException(Messages.NullError, nameof(id));
             }
             try
             {
-                _logger.LogInformation(Messages.GetEntityInfo, nameof(SkillDto), id);
-                var entity = await _repository.Skills.GetByIdAsync(id);
-                if (entity == null) return null;
-                return SkillMapper.ToDto(entity);
+                _logger.LogInformation(Messages.GetEntityInfo, nameof(Skill), id);
+                return await _repository.Skills.GetByIdAsync(id);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, Messages.GetDTOError, nameof(SkillDto), id, ex.Message);
+                _logger.LogError(ex, Messages.GetDTOError, nameof(Skill), id, ex.Message);
                 throw;
             }
         }
 
         /// <summary>
         /// Adds a new project.
-        /// This method takes a <see cref="SkillDto"/> as input, maps it to a <see cref="Project"/> entity,
-        /// and adds it to the repository. It throws an <see cref="ArgumentNullException"/> if the DTO is null.
+        /// This method takes a <see cref="Skill"/> as input, maps it to a <see cref="Project"/> entity,
+        /// and adds it to the repository. It throws an <see cref="ArgumentNullException"/> if the entity is null.
         /// </summary>
-        /// <param name="dto"></param>
+        /// <param name="entity"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public async Task AddAsync(SkillDto dto)
+        public async Task AddAsync(Skill entity)
         {
-            if (dto == null)
+            if (entity == null)
             {
-                _logger.LogError(Messages.AddNullError, nameof(SkillDto));
-                throw new ArgumentNullException(nameof(dto), Messages.NullError);
+                _logger.LogError(Messages.AddNullError, nameof(Skill));
+                throw new ArgumentNullException(nameof(entity), Messages.NullError);
             }
             try
             {
-                _logger.LogInformation(Messages.AddDTOInfo, nameof(SkillDto), dto.Id);
-                var entity = SkillMapper.ToEntity(dto);
+                _logger.LogInformation(Messages.AddDTOInfo, nameof(Skill), entity.Id);
                 await _repository.Skills.AddAsync(entity);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, Messages.AddDTOError, nameof(SkillDto), ex.Message);
+                _logger.LogError(ex, Messages.AddDTOError, nameof(Skill), ex.Message);
                 throw;
             }
         }
-        
+
         /// <summary>
         /// Updates an existing project.
-        /// This method takes a <see cref="SkillDto"/> as input, retrieves the existing project by its identifier,
-        /// and updates its properties based on the values in the DTO. It throws an <see cref="ArgumentNullException"/> if the DTO is null.
+        /// This method takes a <see cref="Skill"/> as input, retrieves the existing project by its identifier,
+        /// and updates its properties based on the values in the entity. It throws an <see cref="ArgumentNullException"/> if the entity is null.
         /// If the project with the specified identifier does not exist, it does nothing.
         /// </summary>
-        /// <param name="dto"></param>
+        /// <param name="entity"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public async Task UpdateAsync(SkillDto dto)
+        public async Task UpdateAsync(Skill entity)
         {
-            if (dto == null)
+            if (entity == null)
             {
-                _logger.LogError(Messages.UpdateDTONullError, nameof(SkillDto));
-                throw new ArgumentNullException(nameof(dto), Messages.NullError);
+                _logger.LogError(Messages.UpdateDTONullError, nameof(Skill));
+                throw new ArgumentNullException(nameof(entity), Messages.NullError);
             }
-            if (dto.Id == Guid.Empty)
+            if (entity.Id == Guid.Empty)
             {
-                _logger.LogError(Messages.UpdateNullIdError, nameof(SkillDto));
-                throw new ArgumentException(Messages.NullError, nameof(dto.Id));
+                _logger.LogError(Messages.UpdateNullIdError, nameof(Skill));
+                throw new ArgumentException(Messages.NullError, nameof(entity.Id));
             }
             try
             {
-                _logger.LogInformation(Messages.UpdateDTOInfo, nameof(SkillDto), dto.Id);
-                var existing = await _repository.Skills.GetByIdAsync(dto.Id);
+                _logger.LogInformation(Messages.UpdateDTOInfo, nameof(Skill), entity.Id);
+                var existing = await _repository.Skills.GetByIdAsync(entity.Id);
                 if (existing == null)
                 {
-                    _logger.LogWarning(Messages.UpdateDTONotFound, nameof(SkillDto), dto.Id);
+                    _logger.LogWarning(Messages.UpdateDTONotFound, nameof(Skill), entity.Id);
                     return;
                 }
-                if (dto.Name != null)
-                    existing.SetName(dto.Name);
+                if (entity.Name != null)
+                    existing.SetName(entity.Name);
 
-                if (dto.Level != null)
-                    existing.SetLevel(dto.Level?? SkillLevel.None);
-
-                if (dto.Category != null)
-                    existing.SetCategory(dto.Category?? SkillCategory.None);
-                
-                _logger.LogInformation(Messages.UpdateDTOInfo, nameof(SkillDto), dto.Id);
+                _logger.LogInformation(Messages.UpdateDTOInfo, nameof(Skill), entity.Id);
                 await _repository.Skills.UpdateAsync(existing);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, Messages.UpdateDTOError, nameof(SkillDto), dto.Id, ex.Message);
+                _logger.LogError(ex, Messages.UpdateDTOError, nameof(Skill), entity.Id, ex.Message);
                 throw;
             }
         }
@@ -167,26 +155,26 @@ namespace PortfolioEAI.Application.Services
         /// <returns></returns>
         public async Task DeleteAsync(Guid id)
         {
-             if (id == Guid.Empty)
+            if (id == Guid.Empty)
             {
-                _logger.LogError(Messages.DeleteDTOEmptyIdError, nameof(SkillDto));
+                _logger.LogError(Messages.DeleteDTOEmptyIdError, nameof(Skill));
                 throw new ArgumentException(nameof(id), Messages.NullError);
             }
             try
             {
-                _logger.LogInformation(Messages.DeleteAttemptDTOInfo, nameof(SkillDto), id);
+                _logger.LogInformation(Messages.DeleteAttemptDTOInfo, nameof(Skill), id);
                 var existing = await _repository.Skills.GetByIdAsync(id);
                 if (existing == null)
                 {
-                    _logger.LogWarning(Messages.DeleteDTONotFound, nameof(SkillDto), id);
+                    _logger.LogWarning(Messages.DeleteDTONotFound, nameof(Skill), id);
                     return;
                 }
-                _logger.LogInformation(Messages.DeleteDTOInfo, nameof(SkillDto), id);
+                _logger.LogInformation(Messages.DeleteDTOInfo, nameof(Skill), id);
                 await _repository.Skills.DeleteAsync(id);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, Messages.DeleteDTOError, nameof(SkillDto), ex.Message);
+                _logger.LogError(ex, Messages.DeleteDTOError, nameof(Skill), ex.Message);
                 throw;
             }
         }

@@ -1,4 +1,4 @@
-namespace PortfolioEAI.Application.Services.Interfaces
+namespace PortfolioEAI.Domain.Services.Interfaces
 {
     public interface IService
     {

@@ -1,11 +1,9 @@
-using PortfolioEAI.Application.DTOs;
-using PortfolioEAI.Application.Mappings;
-using PortfolioEAI.Application.Services.Interfaces;
 using PortfolioEAI.Data.Repositorys.Interfaces;
-using PortfolioEAI.Domain.Entities;
+using PortfolioEAI.Domain.Services.Interfaces;
 using PortfolioEAI.Domain.Ressources;
+using PortfolioEAI.Domain.Entities;
 
-namespace PortfolioEAI.Application.Services
+namespace PortfolioEAI.Domain.Services
 {
     public class ProjectService : IProjectService
     {
@@ -40,20 +38,19 @@ namespace PortfolioEAI.Application.Services
         /// <summary>
         /// Retrieves all projects.
         /// This method fetches all projects from the repository and maps them to DTOs.
-        /// It returns an enumerable collection of <see cref="ProjectDto"/> objects.
+        /// It returns an enumerable collection of <see cref="Project"/> objects.
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<ProjectDto>> GetAllAsync()
+        public async Task<IEnumerable<Project>> GetAllAsync()
         {
             try
             {
-                _logger.LogInformation(Messages.GetAllDTOInfo, nameof(ProjectDto));
-                var projects = await _repository.Projects.GetAllAsync();
-                return projects.Select(p => ProjectMapper.ToDto(p));
+                _logger.LogInformation(Messages.GetAllDTOInfo, nameof(Project));
+                return await _repository.Projects.GetAllAsync();
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, Messages.GetAllDTOError, nameof(ProjectDto), ex.Message);
+                _logger.LogError(ex, Messages.GetAllDTOError, nameof(Project), ex.Message);
                 throw;
             }
         }
@@ -61,12 +58,12 @@ namespace PortfolioEAI.Application.Services
         /// <summary>
         /// Retrieves a project by its identifier.
         /// This method fetches a project from the repository using its unique identifier.
-        /// If the project is found, it is mapped to a <see cref="ProjectDto"/> and returned.
+        /// If the project is found, it is mapped to a <see cref="Project"/> and returned.
         /// If the project is not found, it returns null.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<ProjectDto?> GetByIdAsync(Guid id)
+        public async Task<Project?> GetByIdAsync(Guid id)
         {
             if (id == Guid.Empty)
             {
@@ -75,94 +72,91 @@ namespace PortfolioEAI.Application.Services
             }
             try
             {
-                _logger.LogInformation(Messages.GetEntityInfo, nameof(ProjectDto), id);
-                var p = await _repository.Projects.GetByIdAsync(id);
-                if (p == null) return null;
-                return ProjectMapper.ToDto(p);
+                _logger.LogInformation(Messages.GetEntityInfo, nameof(Project), id);
+                return await _repository.Projects.GetByIdAsync(id);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, Messages.GetDTOError, nameof(ProjectDto), id, ex.Message);
+                _logger.LogError(ex, Messages.GetDTOError, nameof(Project), id, ex.Message);
                 throw;
             }
         }
 
         /// <summary>
         /// Adds a new project.
-        /// This method takes a <see cref="ProjectDto"/> as input, maps it to a <see cref="Project"/> entity,
-        /// and adds it to the repository. It throws an <see cref="ArgumentNullException"/> if the DTO is null.
+        /// This method takes a <see cref="Project"/> as input, maps it to a <see cref="Project"/> entity,
+        /// and adds it to the repository. It throws an <see cref="ArgumentNullException"/> if the entity is null.
         /// </summary>
-        /// <param name="dto"></param>
+        /// <param name="entity"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public async Task AddAsync(ProjectDto dto)
+        public async Task AddAsync(Project entity)
         {
-            if (dto == null)
+            if (entity == null)
             {
-                _logger.LogError(Messages.AddNullError, nameof(ProjectDto));
-                throw new ArgumentNullException(nameof(dto), Messages.NullError);
+                _logger.LogError(Messages.AddNullError, nameof(Project));
+                throw new ArgumentNullException(nameof(entity), Messages.NullError);
             }
             try
             {
-                _logger.LogInformation(Messages.AddDTOInfo, nameof(ProjectDto), dto.Title);
-                var project = ProjectMapper.ToEntity(dto);
-                await _repository.Projects.AddAsync(project);
+                _logger.LogInformation(Messages.AddDTOInfo, nameof(Project), entity.Title);
+                await _repository.Projects.AddAsync(entity);
             }
             catch (ArgumentException ex)
             {
-                _logger.LogError(ex, Messages.AddDTOError, nameof(ProjectDto), ex.Message);
+                _logger.LogError(ex, Messages.AddDTOError, nameof(Project), ex.Message);
                 throw;
             }
         }
         
         /// <summary>
         /// Updates an existing project.
-        /// This method takes a <see cref="ProjectDto"/> as input, retrieves the existing project by its identifier,
-        /// and updates its properties based on the values in the DTO. It throws an <see cref="ArgumentNullException"/> if the DTO is null.
+        /// This method takes a <see cref="Project"/> as input, retrieves the existing project by its identifier,
+        /// and updates its properties based on the values in the entity. It throws an <see cref="ArgumentNullException"/> if the entity is null.
         /// If the project with the specified identifier does not exist, it does nothing.
         /// </summary>
-        /// <param name="dto"></param>
+        /// <param name="entity"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public async Task UpdateAsync(ProjectDto dto)
+        public async Task UpdateAsync(Project entity)
         {
-            if (dto == null)
+            if (entity == null)
             {
-                _logger.LogError(Messages.UpdateDTONullError, nameof(ProjectDto));
-                throw new ArgumentNullException(nameof(dto), Messages.NullError);
+                _logger.LogError(Messages.UpdateDTONullError, nameof(Project));
+                throw new ArgumentNullException(nameof(entity), Messages.NullError);
             }
-            if (dto.Id == Guid.Empty)
+            if (entity.Id == Guid.Empty)
             {
-                _logger.LogError(Messages.UpdateNullIdError, nameof(ProjectDto));
-                throw new ArgumentException(Messages.NullError, nameof(dto.Id));
+                _logger.LogError(Messages.UpdateNullIdError, nameof(Project));
+                throw new ArgumentException(Messages.NullError, nameof(entity.Id));
             }
             try
             {
-                _logger.LogInformation(Messages.UpdateDTOInfo, nameof(ProjectDto), dto.Id);
-                var existing = await _repository.Projects.GetByIdAsync(dto.Id);
+                _logger.LogInformation(Messages.UpdateDTOInfo, nameof(Project), entity.Id);
+                var existing = await _repository.Projects.GetByIdAsync(entity.Id);
                 if (existing == null)
                 {
-                    _logger.LogWarning(Messages.UpdateDTONotFound, nameof(ProjectDto), dto.Id);
+                    _logger.LogWarning(Messages.UpdateDTONotFound, nameof(Project), entity.Id);
                     return;
                 }
-                if (dto.Title != null)
-                    existing.SetTitle(dto.Title);
+                if (entity.Title != null)
+                    existing.SetTitle(entity.Title);
 
-                if (dto.ImageUrl != null)
-                    existing.SetImage(dto.ImageUrl);
+                if (entity.ImageUrl != null)
+                    existing.SetImage(entity.ImageUrl);
 
-                if (dto.Description != null)
-                    existing.SetDescription(dto.Description);
+                if (entity.Description != null)
+                    existing.SetDescription(entity.Description);
 
-                if (dto.Url != null)
-                    existing.SetUrl(dto.Url);
+                if (entity.Url != null)
+                    existing.SetUrl(entity.Url);
 
-                _logger.LogInformation(Messages.UpdateDTOInfo, nameof(ProjectDto), dto.Id);
+                _logger.LogInformation(Messages.UpdateDTOInfo, nameof(Project), entity.Id);
                 await _repository.Projects.UpdateAsync(existing);
             }
             catch (ArgumentException ex)
             {
-                _logger.LogError(ex, Messages.UpdateDTOError, nameof(ProjectDto), dto.Id, ex.Message);
+                _logger.LogError(ex, Messages.UpdateDTOError, nameof(Project), entity.Id, ex.Message);
                 throw;
             }
         }
@@ -180,24 +174,24 @@ namespace PortfolioEAI.Application.Services
         {
              if (id == Guid.Empty)
             {
-                _logger.LogError(Messages.DeleteDTOEmptyIdError, nameof(ProjectDto));
+                _logger.LogError(Messages.DeleteDTOEmptyIdError, nameof(Project));
                 throw new ArgumentException(nameof(id), Messages.NullError);
             }
             try
             {
-                _logger.LogInformation(Messages.DeleteAttemptDTOInfo, nameof(ProjectDto), id);
+                _logger.LogInformation(Messages.DeleteAttemptDTOInfo, nameof(Project), id);
                 var existing = await _repository.Projects.GetByIdAsync(id);
                 if (existing == null)
                 {
-                    _logger.LogWarning(Messages.DeleteDTONotFound, nameof(ProjectDto), id);
+                    _logger.LogWarning(Messages.DeleteDTONotFound, nameof(Project), id);
                     return;
                 }
-                _logger.LogInformation(Messages.DeleteDTOInfo, nameof(ProjectDto), id);
+                _logger.LogInformation(Messages.DeleteDTOInfo, nameof(Project), id);
                 await _repository.Projects.DeleteAsync(id);
             }
             catch (ArgumentException ex)
             {
-                _logger.LogError(ex, Messages.DeleteDTOError, nameof(ProjectDto), ex.Message);
+                _logger.LogError(ex, Messages.DeleteDTOError, nameof(Project), ex.Message);
                 throw;
             }
         }

@@ -1,23 +1,30 @@
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using PortfolioEAI.Application.DTOs;
-using PortfolioEAI.Application.Models;
 using PortfolioEAI.Application.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using PortfolioEAI.Application.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace PortfolioEAI.Pages;
 
 public class IndexModel : PageModel
 {
-    private readonly IService _services;
+    private readonly IHomepageService _services;
 
     private ILogger<IndexModel> _logger;
 
-    public IndexModel(IService services, ILogger<IndexModel> logger)
+    public IndexModel(IHomepageService services, ILogger<IndexModel> logger)
     {
         _logger = logger;
         _services = services;
     }
-    
-    private AdminUserDto? AdminUser { get; set; } = default;
+
+    [BindProperty]
+    public List<Tuple<string, string>> MenuModel { get; set; } = new List<Tuple<string, string>>()
+    {
+        new Tuple<string, string>("About", "#about"),
+        new Tuple<string, string>("Skills", "#skills"),
+        new Tuple<string, string>("Projects", "#projects"),
+        new Tuple<string, string>("Contacts", "#contacts")
+    };
 
     public AccueilModel? AccueilModel { get; set; } = default;
 
@@ -30,19 +37,15 @@ public class IndexModel : PageModel
         try
         {
             ModelState.Clear();
-            var adminUser = (await _services.AdminUserService.GetAllAsync()).ToList().FirstOrDefault();
+            var adminUser = (await _services.GetAdminUser()).ToList().FirstOrDefault();
 
             if (adminUser != null)
                 AccueilModel = new AccueilModel(adminUser);
             else
-            {
-                _logger.LogWarning("AdminUser not found.");
                 RedirectToPage("/Errors/Error404");
-            }
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            _logger.LogError($"An error occurred while retrieving AdminUser: {ex.Message}");
             RedirectToPage("/Errors/Error");
         }
     }
