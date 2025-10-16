@@ -30,6 +30,9 @@ namespace PortfolioEAI.Data.Configurations
                     .HasColumnType("varchar(100)")
                     .HasMaxLength(100)
                     .IsRequired(true);
+                
+                email.HasIndex(e => e.Value)
+                    .IsUnique();
             });
 
             builder.HasMany(a => a.Skills)

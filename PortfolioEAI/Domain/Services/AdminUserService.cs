@@ -25,7 +25,7 @@ namespace PortfolioEAI.Domain.Services
             _logger = logger ?? throw new ArgumentNullException(nameof(logger), Messages.NullError);
             _repository = repository ?? throw new ArgumentNullException(nameof(repository), Messages.NullError);
         }
-        
+
         /// <summary>
         /// Retrieves all AdminUsers.
         /// This method fetches all AdminUsers from the repository.
@@ -56,21 +56,10 @@ namespace PortfolioEAI.Domain.Services
         /// <returns></returns>
         public async Task<AdminUser?> GetByIdAsync(Guid id)
         {
-            if (id == Guid.Empty)
-            {
-                _logger.LogError(Messages.GetNullIdDTOError, nameof(AdminUser));
-                throw new ArgumentException(Messages.NullError, nameof(id));
-            }
             try
             {
                 _logger.LogInformation(Messages.GetEntityInfo, nameof(AdminUser), id);
-                var entity = await _repository.AdminUsers.GetByIdAsync(id);
-
-                if (entity == null)
-                    return null;
-
-                _logger.LogInformation(Messages.GetDTOInfo, nameof(AdminUser), id);
-                return entity;
+                return await _repository.AdminUsers.GetByIdAsync(id);
             }
             catch (Exception ex)
             {
@@ -89,11 +78,6 @@ namespace PortfolioEAI.Domain.Services
         /// <exception cref="ArgumentNullException"></exception>
         public async Task AddAsync(AdminUser entity)
         {
-            if (entity == null)
-            {
-                _logger.LogError(Messages.AddNullError, nameof(AdminUser));
-                throw new ArgumentNullException(nameof(entity), Messages.NullError);
-            }
             try
             {
                 _logger.LogInformation(Messages.AddDTOInfo, nameof(AdminUser), entity.Id);
@@ -105,7 +89,7 @@ namespace PortfolioEAI.Domain.Services
                 throw;
             }
         }
-        
+
         /// <summary>
         /// Updates an existing project.
         /// This method takes a <see cref="AdminUser"/> as input, retrieves the existing project by its identifier,
@@ -117,16 +101,6 @@ namespace PortfolioEAI.Domain.Services
         /// <exception cref="ArgumentNullException"></exception>
         public async Task UpdateAsync(AdminUser entity)
         {
-            if (entity == null)
-            {
-                _logger.LogError(Messages.UpdateDTONullError, nameof(AdminUser));
-                throw new ArgumentNullException(nameof(entity), Messages.NullError);
-            }
-            if (entity.Id == Guid.Empty)
-            {
-                _logger.LogError(Messages.UpdateNullIdError, nameof(AdminUser));
-                throw new ArgumentException(Messages.NullError, nameof(entity.Id));
-            }
             try
             {
                 _logger.LogInformation(Messages.UpdateDTOInfo, nameof(AdminUser), entity.Id);
@@ -136,16 +110,17 @@ namespace PortfolioEAI.Domain.Services
                     _logger.LogWarning(Messages.UpdateDTONotFound, nameof(AdminUser), entity.Id);
                     return;
                 }
-                if (entity.Username != null)
+
+                if (entity.Username != existing.Username)
                     existing.SetUsername(entity.Username);
 
-                if (entity.Password != null)
+                if (entity.Password != existing.Password)
                     existing.SetPassword(entity.Password);
 
-                if (entity.Email != null)
-                    existing.SetEmail(entity.Email);
+                if (entity.Email != existing.Email)
+                    existing.Email.SetValue(entity.Email);
 
-                if (entity.Description != null)
+                if (entity.Description != existing.Description)
                     existing.SetDescription(entity.Description);
 
                 _logger.LogInformation(Messages.UpdateDTOInfo, nameof(AdminUser), entity.Id);
@@ -169,11 +144,6 @@ namespace PortfolioEAI.Domain.Services
         /// <returns></returns>
         public async Task DeleteAsync(Guid id)
         {
-             if (id == Guid.Empty)
-            {
-                _logger.LogError(Messages.DeleteDTOEmptyIdError, nameof(AdminUser));
-                throw new ArgumentException(nameof(id), Messages.NullError);
-            }
             try
             {
                 _logger.LogInformation(Messages.DeleteAttemptDTOInfo, nameof(AdminUser), id);

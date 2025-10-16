@@ -16,7 +16,7 @@ namespace PortfolioEAI.Domain.Entities
         /// This property represents the name of the company or organization where the experience was gained.
         /// It is a required field and should be descriptive enough to give an idea of the company's identity.
         /// </summary>
-        public string Company { get; private set; }
+        public string Company { get; private set; } = string.Empty;
 
         /// <summary>
         /// Position held during the experience.
@@ -24,7 +24,7 @@ namespace PortfolioEAI.Domain.Entities
         /// It is a required field and should be descriptive enough to give an idea of the role
         /// and responsibilities associated with the experience.
         /// </summary>
-        public string Position { get; private set; }
+        public string Position { get; private set; } = string.Empty;
 
         /// <summary>
         /// Start date of the experience.
@@ -46,14 +46,14 @@ namespace PortfolioEAI.Domain.Entities
         /// This property provides a detailed description of the experience, including the tasks performed,
         /// skills acquired, and any notable achievements.
         /// </summary>
-        public string Description { get; private set; }
+        public string Description { get; private set; } = string.Empty;
 
         /// <summary>
         /// URL of the image representing the experience.  
         /// This property holds the URL of an image associated with the experience.
         /// It is typically used to display a visual representation of the experience in user interfaces.
         /// </summary>
-        public string ImageUrl { get; private set; }
+        public string ImageUrl { get; private set; } = string.Empty;
 
         /// <summary>
         /// Collection of projects associated with the experience.
@@ -85,13 +85,15 @@ namespace PortfolioEAI.Domain.Entities
         public Experience(Guid id, string company, string position, DateOnly startDate, DateOnly? endDate, string description, string imageUrl, IList<Project> projects)
         {
             Id = id;
-            Company = company;
-            Position = position;
-            StartDate = startDate;
-            EndDate = endDate;
-            Description = description;
-            ImageUrl = imageUrl;
-            Projects = projects;
+            SetCompany(company);
+            SetPosition(position);
+            SetStartDate(startDate);
+            SetEndDate(endDate);
+            SetDescription(description);
+            SetImageUrl(imageUrl);
+            
+            foreach (var project in projects)
+                AddProject(project);
         }
         
         /// <summary>
@@ -184,7 +186,7 @@ namespace PortfolioEAI.Domain.Entities
         /// <exception cref="BusinessRuleViolationException"></exception>
         public void SetImageUrl(string imageUrl)
         {
-#if DEBUG
+#if !DEBUG
             if (!Uri.IsWellFormedUriString(imageUrl, UriKind.Absolute))
                 throw new BusinessRuleViolationException("The image URL must be valid.");
 #endif

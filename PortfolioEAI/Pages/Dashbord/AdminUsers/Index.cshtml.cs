@@ -7,21 +7,22 @@ namespace PortfolioEAI.Pages.Dashbord.AdminUsers
 {
     public class IndexModel : PageModel
     {
-        private readonly IAdminUserService _adminUserService;
+        private readonly IDashbordService _services;
 
-        public IndexModel(IAdminUserService adminUserService)
+        public IndexModel(IDashbordService services)
         {
-            _adminUserService = adminUserService;
+            _services = services;
         }
-        
+
         [BindProperty]
         public List<Tuple<string, string>> MenuModel { get; set; } = new List<Tuple<string, string>>()
         {
-            new Tuple<string, string>("Dashbord", "#"),
-            new Tuple<string, string>("Skills", "#"),
-            new Tuple<string, string>("Experiences", "#"),
-            new Tuple<string, string>("Setting", "#"),
-            new Tuple<string, string>("SignOut", "#")
+            new Tuple<string, string>("Dashbord", "/Dashbord/Home"),
+            new Tuple<string, string>("Experiences", "/Dashbord/Experiences/"),
+            new Tuple<string, string>("Projects", "/Dashbord/Projects/"),
+            new Tuple<string, string>("Skills", "/Dashbord/Skills/"),
+            new Tuple<string, string>("Setting", "/Dashbord/AdminUsers/"),
+            new Tuple<string, string>("SignOut", "/Authentication/SignInOut")
         };
 
         public IList<AdminUserDto> AdminUsers { get; set; } = new List<AdminUserDto>();
@@ -31,7 +32,7 @@ namespace PortfolioEAI.Pages.Dashbord.AdminUsers
             try
             {
                 ModelState.Clear();
-                AdminUsers = (await _adminUserService.GetAllAsync()).ToList();
+                AdminUsers = await _services.GetAllAdminUsersAsync();
             }
             catch (Exception ex)
             {

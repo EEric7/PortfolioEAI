@@ -45,10 +45,13 @@ namespace PortfolioEAI.Data.Repositorys
         public async Task AddAsync(AdminUser entity)
         {
             if (entity == null)
-            {
-                _logger.LogError(Messages.AddNullError, nameof(AdminUser));
                 throw new ArgumentNullException(nameof(entity), Messages.NullError);
-            }
+            
+            bool exists = await _context.Set<AdminUser>().AnyAsync(u => u.Email.Value == entity.Email.Value);
+
+            if (exists)
+                throw new InvalidOperationException($"Un utilisateur avec l'email {entity.Email.Value} existe déjà.");
+                
             try
             {
                 _logger.LogInformation(Messages.AddEntityInfo, nameof(AdminUser), entity.Id);
@@ -96,7 +99,6 @@ namespace PortfolioEAI.Data.Repositorys
             }
         }
 
-        
         public async Task<IEnumerable<AdminUser>> GetAllAsync()
         {
             try
@@ -115,7 +117,6 @@ namespace PortfolioEAI.Data.Repositorys
             }
         }
 
-        
         public async Task<AdminUser?> GetByIdAsync(Guid id)
         {
             if (id == Guid.Empty)

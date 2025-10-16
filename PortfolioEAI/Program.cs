@@ -1,9 +1,11 @@
 using Microsoft.EntityFrameworkCore;
-using PortfolioEAI.Application.Services;
-using PortfolioEAI.Application.Services.Interfaces;
-using PortfolioEAI.Data;
 using PortfolioEAI.Data.Repositorys;
 using PortfolioEAI.Data.Repositorys.Interfaces;
+using PortfolioEAI.Data;
+using PortfolioEAI.Application.Services.Interfaces;
+using PortfolioEAI.Application.Services;
+using PortfolioEAI.Domain.Services.Interfaces;
+using PortfolioEAI.Domain.Services;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration()
@@ -38,12 +40,16 @@ builder.Services.AddScoped<IExperienceRepository, ExperienceRepository>();
 builder.Services.AddScoped<IAdminUserRepository, AdminUserRepository>();
 builder.Services.AddScoped<IRepository, Repository>();
 
-// Register services
+// Register Application Services
+builder.Services.AddScoped<IDashbordService, DashbordService>();
+builder.Services.AddScoped<IHomepageService, HomepageService>();
+
+// Register Service Domain
 builder.Services.AddScoped<IAdminUserService, AdminUserService>();
-builder.Services.AddScoped<IExperienceService, ExperienceService>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<ISkillService, SkillService>();
-builder.Services.AddScoped<IService, Services>();
+builder.Services.AddScoped<IExperienceService, ExperienceService>();
+builder.Services.AddScoped<IServices, Services>();
 
 // Configure authentication and authorization
 builder.Services.AddAuthentication("MyCookieAuth")

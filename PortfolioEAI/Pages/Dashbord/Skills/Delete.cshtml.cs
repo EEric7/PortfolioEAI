@@ -7,12 +7,23 @@ namespace PortfolioEAI.Pages.Dashbord.Skills
 {
     public class DeleteModel : PageModel
     {
-        private readonly ISkillService _skillService;
+        private readonly IDashbordService _services;
 
-        public DeleteModel(ISkillService skillService)
+        public DeleteModel(IDashbordService services)
         {
-            _skillService = skillService;
+            _services = services;
         }
+
+        [BindProperty]
+        public List<Tuple<string, string>> MenuModel { get; set; } = new List<Tuple<string, string>>()
+        {
+            new Tuple<string, string>("Dashbord", "/Dashbord/Home"),
+            new Tuple<string, string>("Experiences", "/Dashbord/Experiences/"),
+            new Tuple<string, string>("Projects", "/Dashbord/Projects/"),
+            new Tuple<string, string>("Skills", "/Dashbord/Skills/"),
+            new Tuple<string, string>("Setting", "/Dashbord/AdminUsers/"),
+            new Tuple<string, string>("SignOut", "/Authentication/SignInOut")
+        };
 
         [BindProperty]
         public SkillDto Skill { get; set; } = default!;
@@ -21,7 +32,7 @@ namespace PortfolioEAI.Pages.Dashbord.Skills
         {
             try
             {
-                var skill = await _skillService.GetByIdAsync(id);
+                var skill = await _services.GetSkillByIdAsync(id);
 
                 if (skill is null)
                 {
@@ -43,13 +54,12 @@ namespace PortfolioEAI.Pages.Dashbord.Skills
         {
             try
             {
-                bool existingDto = await SkillExistsAsync(Skill);
-                if (!existingDto)
+                if (!await _services.SkillExistsAsync(Skill))
                 {
                     ModelState.AddModelError(string.Empty, "The skill does not exist or has already been deleted.");
                     return Page();
                 }
-                await _skillService.DeleteAsync(id);
+                await _services.DeleteSkillAsync(id);
                 return RedirectToPage("./Index");
             }
             catch (Exception ex)
@@ -57,14 +67,6 @@ namespace PortfolioEAI.Pages.Dashbord.Skills
                 ModelState.AddModelError(string.Empty, $"An error occurred while deleting the skill: {ex.Message}");
                 return NotFound();
             }
-        }
-        
-        private async Task<bool> SkillExistsAsync(SkillDto dto)
-        {
-            var skills = await _skillService.GetAllAsync();
-            var existingSkills = skills.FirstOrDefault(e => e.Name == dto.Name && e.Id == dto.Id);
-
-            return existingSkills is not null;
         }
     }
 }

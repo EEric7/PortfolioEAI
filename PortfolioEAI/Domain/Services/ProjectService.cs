@@ -65,11 +65,6 @@ namespace PortfolioEAI.Domain.Services
         /// <returns></returns>
         public async Task<Project?> GetByIdAsync(Guid id)
         {
-            if (id == Guid.Empty)
-            {
-                _logger.LogError(Messages.GetNullIdDTOError, nameof(AdminUser));
-                throw new ArgumentException(Messages.NullError, nameof(id));
-            }
             try
             {
                 _logger.LogInformation(Messages.GetEntityInfo, nameof(Project), id);
@@ -92,11 +87,6 @@ namespace PortfolioEAI.Domain.Services
         /// <exception cref="ArgumentNullException"></exception>
         public async Task AddAsync(Project entity)
         {
-            if (entity == null)
-            {
-                _logger.LogError(Messages.AddNullError, nameof(Project));
-                throw new ArgumentNullException(nameof(entity), Messages.NullError);
-            }
             try
             {
                 _logger.LogInformation(Messages.AddDTOInfo, nameof(Project), entity.Title);
@@ -120,35 +110,27 @@ namespace PortfolioEAI.Domain.Services
         /// <exception cref="ArgumentNullException"></exception>
         public async Task UpdateAsync(Project entity)
         {
-            if (entity == null)
-            {
-                _logger.LogError(Messages.UpdateDTONullError, nameof(Project));
-                throw new ArgumentNullException(nameof(entity), Messages.NullError);
-            }
-            if (entity.Id == Guid.Empty)
-            {
-                _logger.LogError(Messages.UpdateNullIdError, nameof(Project));
-                throw new ArgumentException(Messages.NullError, nameof(entity.Id));
-            }
             try
             {
                 _logger.LogInformation(Messages.UpdateDTOInfo, nameof(Project), entity.Id);
                 var existing = await _repository.Projects.GetByIdAsync(entity.Id);
+
                 if (existing == null)
                 {
                     _logger.LogWarning(Messages.UpdateDTONotFound, nameof(Project), entity.Id);
                     return;
                 }
-                if (entity.Title != null)
+
+                if (entity.Title != existing.Title)
                     existing.SetTitle(entity.Title);
 
-                if (entity.ImageUrl != null)
+                if (entity.ImageUrl != existing.ImageUrl)
                     existing.SetImage(entity.ImageUrl);
 
-                if (entity.Description != null)
+                if (entity.Description != existing.Description)
                     existing.SetDescription(entity.Description);
 
-                if (entity.Url != null)
+                if (entity.Url != existing.Url)
                     existing.SetUrl(entity.Url);
 
                 _logger.LogInformation(Messages.UpdateDTOInfo, nameof(Project), entity.Id);
@@ -172,20 +154,17 @@ namespace PortfolioEAI.Domain.Services
         /// <returns></returns>
         public async Task DeleteAsync(Guid id)
         {
-             if (id == Guid.Empty)
-            {
-                _logger.LogError(Messages.DeleteDTOEmptyIdError, nameof(Project));
-                throw new ArgumentException(nameof(id), Messages.NullError);
-            }
             try
             {
                 _logger.LogInformation(Messages.DeleteAttemptDTOInfo, nameof(Project), id);
                 var existing = await _repository.Projects.GetByIdAsync(id);
+
                 if (existing == null)
                 {
                     _logger.LogWarning(Messages.DeleteDTONotFound, nameof(Project), id);
                     return;
                 }
+                
                 _logger.LogInformation(Messages.DeleteDTOInfo, nameof(Project), id);
                 await _repository.Projects.DeleteAsync(id);
             }

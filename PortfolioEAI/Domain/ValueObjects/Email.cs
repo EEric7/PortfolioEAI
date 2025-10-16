@@ -20,7 +20,7 @@ namespace PortfolioEAI.Domain.ValueObjects
         /// This property holds the actual email address as a string.
         /// It is set during the construction of the Email object and is validated to ensure it meets the required format.
         /// </summary>
-        public string Value { get; }
+        public string Value { get; private set; } = string.Empty;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Email"/> class.
@@ -30,17 +30,21 @@ namespace PortfolioEAI.Domain.ValueObjects
         /// </summary>
         /// <param name="value">The email address to be encapsulated by this value object.</param>
         /// <exception cref="ArgumentException">Thrown when the email address is null, empty, or not well-formed.</exception>
-        public Email(string value)
+        public Email(string? value)
+        {
+            SetValue(value);
+        }
+
+        public void SetValue(string? value)
         {
 #if !DEBUG
             if (string.IsNullOrWhiteSpace(value))
-                throw new BusinessRuleViolationException("L'adresse e-mail est requise.", new ArgumentNullException(nameof(value)));
+                throw new BusinessRuleViolationException("L'adresse e-mail est requise.", new ArgumentNullException(nameof(value)));      
 
             if (!EmailRegex.IsMatch(value))
                 throw new BusinessRuleViolationException("L'adresse e-mail n'est pas valide.", new ArgumentNullException(nameof(value)));
 #endif
-            // Trim and convert to lowercase to ensure consistency
-            Value = value.Trim().ToLowerInvariant();
+            Value = (value ?? string.Empty).Trim().ToLowerInvariant();
         }
 
         public override string ToString() => Value;

@@ -1,23 +1,26 @@
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PortfolioEAI.Application.Models;
-using System.ComponentModel.DataAnnotations;
-using System.Security.Claims;
 
-namespace PortfolioEAI.Pages
+namespace PortfolioEAI.Pages.Authentication
 {
-    public class SignIn_Page : PageModel
+    public class SignInOutModel : PageModel
     {
         [BindProperty]
         public InputModel Input { get; set; } = new();
 
         public string? ErrorMessage { get; set; }
-        
-        private readonly ILogger<SignIn_Page> _logger;
 
-        public SignIn_Page(ILogger<SignIn_Page> logger)
+        private readonly ILogger<SignInOutModel> _logger;
+        
+        [BindProperty]
+        public List<Tuple<string, string>> MenuModel { get; set; } = new List<Tuple<string, string>>()
+        {
+            new Tuple<string, string>("Page Vitrine", "/Index"),
+            new Tuple<string, string>("Sign In", "/Dashbord/Home")
+        };
+
+        public SignInOutModel(ILogger<SignInOutModel> logger)
         {
             _logger = logger;
         }

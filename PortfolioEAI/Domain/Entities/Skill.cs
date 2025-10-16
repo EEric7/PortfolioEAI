@@ -17,14 +17,14 @@ namespace PortfolioEAI.Domain.Entities
         /// This property represents the name or title of the skill.
         /// It is a required field and should be descriptive enough to give an idea of what the skill is about.
         /// </summary>
-        public string Name { get; private set; }
+        public string Name { get; private set; } = string.Empty;
 
         /// <summary>
         /// Description of the skill.
         /// This property provides a detailed description of the skill, including its purpose, features, and any other relevant information.
         /// /// It is a required field and should be descriptive enough to give an idea of what the skill is about.
         /// </summary> 
-        public SkillLevel Level { get; private set; }
+        public SkillLevel Level { get; private set; } = SkillLevel.None;
 
         /// <summary>
         /// Category of the skill.
@@ -33,7 +33,7 @@ namespace PortfolioEAI.Domain.Entities
         /// It is used to classify the skill for better organization and retrieval in applications,
         /// such as in a portfolio, resume, or skills management system.
         /// </summary>
-        public SkillCategory Category { get; private set; }
+        public SkillCategory Category { get; private set; } = SkillCategory.None;
 
         // Default constructor for EF Core
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
@@ -49,12 +49,12 @@ namespace PortfolioEAI.Domain.Entities
         /// <param name="level">The level of the skill, represented by the SkillLevel enum.</param>
         /// <param name="category">The category of the skill, represented by the SkillCategory enum.</param>
         /// <exception cref="BusinessRuleViolationException">Thrown when the name is null or empty.</exception>
-        public Skill(Guid id, string? name, SkillLevel level, SkillCategory category)
+        public Skill(Guid id, string name, SkillLevel level, SkillCategory category)
         {
             Id = id;
-            Name = name ?? string.Empty;
-            Level = level;
-            Category = category;
+            SetName(name);
+            SetLevel(level);
+            SetCategory(category);
         }
 
         /// <summary>
@@ -129,6 +129,5 @@ namespace PortfolioEAI.Domain.Entities
                 throw new BusinessRuleViolationException("Invalid skill level.");
             Category = parsedCategory;
         }
-
     }
 }

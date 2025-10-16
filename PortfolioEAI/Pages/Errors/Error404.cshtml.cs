@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace PortfolioEAI.Pages;
@@ -9,7 +10,10 @@ public class Error404Model : PageModel
 
     public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 
-    public Error404Model(){ }
+    [BindProperty]
+    public List<Tuple<string, string>> MenuModel { get; set; } = new List<Tuple<string, string>>() {};
+
+    public Error404Model() { }
 
     public void OnGet()
     {

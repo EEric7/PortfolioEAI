@@ -7,17 +7,28 @@ namespace PortfolioEAI.Pages.Projects
 {
     public class CreateModel : PageModel
     {
-        private readonly IProjectService _servicesProjects;
+        private readonly IDashbordService _services;
 
-        public CreateModel(IProjectService servicesProjects)
+        public CreateModel(IDashbordService services)
         {
-            _servicesProjects = servicesProjects;
+            _services = services;
         }
 
         public IActionResult OnGet()
         {
             return Page();
         }
+
+        [BindProperty]
+        public List<Tuple<string, string>> MenuModel { get; set; } = new List<Tuple<string, string>>()
+        {
+            new Tuple<string, string>("Dashbord", "/Dashbord/Home"),
+            new Tuple<string, string>("Experiences", "/Dashbord/Experiences/"),
+            new Tuple<string, string>("Projects", "/Dashbord/Projects/"),
+            new Tuple<string, string>("Skills", "/Dashbord/Skills/"),
+            new Tuple<string, string>("Setting", "/Dashbord/AdminUsers/"),
+            new Tuple<string, string>("SignOut", "/Authentication/SignInOut")
+        };
 
         [BindProperty]
         public ProjectDto Project { get; set; } = default!;
@@ -35,7 +46,7 @@ namespace PortfolioEAI.Pages.Projects
                     return Page();
                 }
 
-                await _servicesProjects.AddAsync(Project);
+                await _services.AddProjectAsync(Project);
                 return Page();
             }
             catch (Exception ex)
@@ -47,10 +58,10 @@ namespace PortfolioEAI.Pages.Projects
 
         private async Task<bool> ProjectExistsAsync(ProjectDto dto)
         {
-            var experiences = await _servicesProjects.GetAllAsync();
-            var existingExperience = experiences.FirstOrDefault(e => e.Title == dto.Title && e.Description == dto.Description);
+            var projects = await _services.GetAllProjectsAsync();
+            var existingProject = projects.FirstOrDefault(e => e.Title == dto.Title && e.Description == dto.Description);
 
-            return existingExperience != null;
+            return existingProject != null;
         }
     }
 }

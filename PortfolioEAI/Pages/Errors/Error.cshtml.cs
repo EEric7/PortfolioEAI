@@ -14,6 +14,9 @@ public class ErrorModel : PageModel
 
     private readonly ILogger<ErrorModel> _logger;
 
+    [BindProperty]
+    public List<Tuple<string, string>> MenuModel { get; set; } = new List<Tuple<string, string>>() { };
+    
     public ErrorModel(ILogger<ErrorModel> logger)
     {
         _logger = logger;

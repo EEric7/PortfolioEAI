@@ -57,11 +57,6 @@ namespace PortfolioEAI.Domain.Services
         /// <returns></returns>
         public async Task<Skill?> GetByIdAsync(Guid id)
         {
-            if (id == Guid.Empty)
-            {
-                _logger.LogError(Messages.GetNullIdDTOError, nameof(Skill));
-                throw new ArgumentException(Messages.NullError, nameof(id));
-            }
             try
             {
                 _logger.LogInformation(Messages.GetEntityInfo, nameof(Skill), id);
@@ -84,11 +79,6 @@ namespace PortfolioEAI.Domain.Services
         /// <exception cref="ArgumentNullException"></exception>
         public async Task AddAsync(Skill entity)
         {
-            if (entity == null)
-            {
-                _logger.LogError(Messages.AddNullError, nameof(Skill));
-                throw new ArgumentNullException(nameof(entity), Messages.NullError);
-            }
             try
             {
                 _logger.LogInformation(Messages.AddDTOInfo, nameof(Skill), entity.Id);
@@ -112,27 +102,25 @@ namespace PortfolioEAI.Domain.Services
         /// <exception cref="ArgumentNullException"></exception>
         public async Task UpdateAsync(Skill entity)
         {
-            if (entity == null)
-            {
-                _logger.LogError(Messages.UpdateDTONullError, nameof(Skill));
-                throw new ArgumentNullException(nameof(entity), Messages.NullError);
-            }
-            if (entity.Id == Guid.Empty)
-            {
-                _logger.LogError(Messages.UpdateNullIdError, nameof(Skill));
-                throw new ArgumentException(Messages.NullError, nameof(entity.Id));
-            }
             try
             {
                 _logger.LogInformation(Messages.UpdateDTOInfo, nameof(Skill), entity.Id);
                 var existing = await _repository.Skills.GetByIdAsync(entity.Id);
+
                 if (existing == null)
                 {
                     _logger.LogWarning(Messages.UpdateDTONotFound, nameof(Skill), entity.Id);
                     return;
                 }
-                if (entity.Name != null)
+
+                if (entity.Name != existing.Name)
                     existing.SetName(entity.Name);
+
+                if (entity.Level != existing.Level)
+                    existing.SetLevel(entity.Level);
+
+                if (entity.Category != existing.Category)
+                    existing.SetCategory(entity.Category);
 
                 _logger.LogInformation(Messages.UpdateDTOInfo, nameof(Skill), entity.Id);
                 await _repository.Skills.UpdateAsync(existing);
@@ -155,20 +143,17 @@ namespace PortfolioEAI.Domain.Services
         /// <returns></returns>
         public async Task DeleteAsync(Guid id)
         {
-            if (id == Guid.Empty)
-            {
-                _logger.LogError(Messages.DeleteDTOEmptyIdError, nameof(Skill));
-                throw new ArgumentException(nameof(id), Messages.NullError);
-            }
             try
             {
                 _logger.LogInformation(Messages.DeleteAttemptDTOInfo, nameof(Skill), id);
                 var existing = await _repository.Skills.GetByIdAsync(id);
+
                 if (existing == null)
                 {
                     _logger.LogWarning(Messages.DeleteDTONotFound, nameof(Skill), id);
                     return;
                 }
+
                 _logger.LogInformation(Messages.DeleteDTOInfo, nameof(Skill), id);
                 await _repository.Skills.DeleteAsync(id);
             }

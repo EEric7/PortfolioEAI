@@ -23,7 +23,8 @@ public class IndexModel : PageModel
         new Tuple<string, string>("About", "#about"),
         new Tuple<string, string>("Skills", "#skills"),
         new Tuple<string, string>("Projects", "#projects"),
-        new Tuple<string, string>("Contacts", "#contacts")
+        new Tuple<string, string>("Contacts", "#contacts"),
+        new Tuple<string, string>("SignIn", "/Authentication/SignInOut")
     };
 
     public AccueilModel? AccueilModel { get; set; } = default;

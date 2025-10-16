@@ -1,6 +1,6 @@
 namespace PortfolioEAI.Domain.Services.Interfaces
 {
-    public interface IService
+    public interface IServices
     {
         public IProjectService ProjectService { get; set; }
         public ISkillService SkillService { get; set; }

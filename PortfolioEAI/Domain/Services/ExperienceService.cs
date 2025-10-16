@@ -56,11 +56,6 @@ namespace PortfolioEAI.Domain.Services
         /// <returns></returns>
         public async Task<Experience?> GetByIdAsync(Guid id)
         {
-            if (id == Guid.Empty)
-            {
-                _logger.LogError(Messages.GetNullIdDTOError, nameof(Experience));
-                throw new ArgumentException(Messages.NullError, nameof(id));
-            }
             try
             {
                 _logger.LogInformation(Messages.GetEntityInfo, nameof(Experience), id);
@@ -83,11 +78,6 @@ namespace PortfolioEAI.Domain.Services
         /// <exception cref="ArgumentNullException"></exception>
         public async Task AddAsync(Experience entity)
         {
-            if (entity == null)
-            {
-                _logger.LogError(Messages.AddNullError, nameof(Experience));
-                throw new ArgumentNullException(nameof(entity), Messages.NullError);
-            }
             try
             {
                 _logger.LogInformation(Messages.AddDTOInfo, nameof(Experience), entity.Id);
@@ -111,41 +101,33 @@ namespace PortfolioEAI.Domain.Services
         /// <exception cref="ArgumentNullException"></exception>
         public async Task UpdateAsync(Experience entity)
         {
-            if (entity == null)
-            {
-                _logger.LogError(Messages.UpdateDTONullError, nameof(Experience));
-                throw new ArgumentNullException(nameof(entity), Messages.NullError);
-            }
-            if (entity.Id == Guid.Empty)
-            {
-                _logger.LogError(Messages.UpdateNullIdError, nameof(Experience));
-                throw new ArgumentException(Messages.NullError, nameof(entity.Id));
-            }
             try
             {
                 _logger.LogInformation(Messages.UpdateDTOInfo, nameof(Experience), entity.Id);
                 var existing = await _repository.Experiences.GetByIdAsync(entity.Id);
+
                 if (existing == null)
                 {
                     _logger.LogWarning(Messages.UpdateDTONotFound, nameof(Experience), entity.Id);
                     return;
                 }
-                if (entity.Company != null)
+
+                if (entity.Company != existing.Company)
                     existing.SetCompany(entity.Company);
 
-                if (entity.Position != null)
+                if (entity.Position != existing.Position)
                     existing.SetPosition(entity.Position);
 
-                if (entity.StartDate != default)
+                if (entity.StartDate != existing.StartDate)
                     existing.SetStartDate(entity.StartDate);
                 
-                if (entity.EndDate != default)
-                    existing.SetStartDate(entity.EndDate);
+                if (entity.EndDate != existing.EndDate)
+                    existing.SetEndDate(entity.EndDate);
 
-                if (entity.Description != null)
+                if (entity.Description != existing.Description)
                     existing.SetDescription(entity.Description);
                 
-                if (entity.ImageUrl != null)
+                if (entity.ImageUrl != existing.ImageUrl)
                     existing.SetImageUrl(entity.ImageUrl);
                 
                 _logger.LogInformation(Messages.UpdateDTOInfo, nameof(Experience), entity.Id);
@@ -169,20 +151,17 @@ namespace PortfolioEAI.Domain.Services
         /// <returns></returns>
         public async Task DeleteAsync(Guid id)
         {
-             if (id == Guid.Empty)
-            {
-                _logger.LogError(Messages.DeleteDTOEmptyIdError, nameof(Experience));
-                throw new ArgumentException(nameof(id), Messages.NullError);
-            }
             try
             {
                 _logger.LogInformation(Messages.DeleteAttemptDTOInfo, nameof(Experience), id);
                 var existing = await _repository.Experiences.GetByIdAsync(id);
+
                 if (existing == null)
                 {
                     _logger.LogWarning(Messages.DeleteDTONotFound, nameof(Experience), id);
                     return;
                 }
+                
                 _logger.LogInformation(Messages.DeleteDTOInfo, nameof(Experience), id);
                 await _repository.Experiences.DeleteAsync(id);
             }

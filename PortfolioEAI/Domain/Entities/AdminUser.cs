@@ -17,7 +17,7 @@ namespace PortfolioEAI.Domain.Entities
         /// This property represents the unique identifier for the admin user.
         /// It is a required field and should be unique across all admin users.
         /// </summary>
-        public string? Username { get; private set; }
+        public string? Username { get; private set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the password of the admin user.
@@ -28,7 +28,7 @@ namespace PortfolioEAI.Domain.Entities
         /// It is important to ensure that the password meets security requirements,
         /// such as minimum length and complexity, to enhance the security of the admin user account.
         /// </summary>
-        public string? Password { get; private set; }
+        public string? Password { get; private set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the email address of the admin user.
@@ -43,11 +43,10 @@ namespace PortfolioEAI.Domain.Entities
         /// The email address is stored as a value object of type <see cref="Email"/>
         /// which encapsulates the validation logic for email addresses.
         /// </summary>
-        
-        public Email Email { get; private set; }
+        public Email Email { get; private set; } = default!;
 
- 
-        public string? Description { get; private set; }
+
+        public string? Description { get; private set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the list of skills associated with the admin user.
@@ -55,12 +54,12 @@ namespace PortfolioEAI.Domain.Entities
         /// It is a collection of <see cref="Skill"/> objects, allowing the admin user
         /// to have multiple skills associated with their profile.
         /// </summary>
-        public IList<Skill> Skills { get; set; } = new List<Skill>();
+        public IList<Skill> Skills { get; private set; } = new List<Skill>();
 
         /// <summary>
         /// Gets or sets the list of experiences associated with the admin user.
         /// </summary>
-        public IList<Experience> Experiences { get; set; } = new List<Experience>();
+        public IList<Experience> Experiences { get; private set; } = new List<Experience>();
 
         // Default constructor for EF Core
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
@@ -83,12 +82,16 @@ namespace PortfolioEAI.Domain.Entities
         public AdminUser(Guid id, string username, string password, string email, string description,IList<Skill> skills, IList<Experience> experiences)
         {
             Id = id;
-            Username = username;
-            Password = password;
-            Email = new Email(email);
-            Description = description;
-            Skills = skills ?? new List<Skill>();
-            Experiences = experiences ?? new List<Experience>();
+            SetUsername(username);
+            SetPassword(password);
+            SetEmail(email);
+            SetDescription(description);
+
+            foreach (var skill in skills)
+                AddSkill(skill);
+
+            foreach (var experience in experiences)
+                AddExperience(experience);
         }
 
         /// <summary>
@@ -101,7 +104,7 @@ namespace PortfolioEAI.Domain.Entities
         /// <param name="username"></param>
         /// <exception cref="BusinessRuleViolationException"></exception>
         /// <exception cref="ArgumentNullException">Thrown when the username is null.</exception>
-        public void SetUsername(string username)
+        public void SetUsername(string? username)
         {
             if (string.IsNullOrWhiteSpace(username))
                 throw new BusinessRuleViolationException("The company name is required.", new ArgumentNullException(nameof(username)));
@@ -119,14 +122,14 @@ namespace PortfolioEAI.Domain.Entities
         /// <exception cref="BusinessRuleViolationException"></exception>
         /// <exception cref="ArgumentNullException">Thrown when the password is null.</exception>
         /// <exception cref="ArgumentException">Thrown when the password is not well-formed.</exception>
-        public void SetPassword(string password)
+        public void SetPassword(string? password)
         {
             if (string.IsNullOrWhiteSpace(password))
                 throw new BusinessRuleViolationException("The company name is required.", new ArgumentNullException(nameof(password)));
             Password = password;
         }
 
-        public void SetDescription(string description)
+        public void SetDescription(string? description)
         {
             if (string.IsNullOrWhiteSpace(description))
                 throw new BusinessRuleViolationException("The description is required.", new ArgumentNullException(nameof(description)));
@@ -136,7 +139,7 @@ namespace PortfolioEAI.Domain.Entities
         /// <summary>
         /// Sets the email address of the admin user.
         /// </summary>
-        public void SetEmail(string email)
+        public void SetEmail(string? email)
         {
             Email = new Email(email);
         }

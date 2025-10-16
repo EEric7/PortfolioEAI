@@ -7,12 +7,23 @@ namespace PortfolioEAI.Pages.Dashbord.AdminUsers
 {
     public class EditModel : PageModel
     {
-        private readonly IAdminUserService _adminUserService;
+        private readonly IDashbordService _services;
 
-        public EditModel(IAdminUserService adminUserService)
+        public EditModel(IDashbordService services)
         {
-            _adminUserService = adminUserService;
+            _services = services;
         }
+
+        [BindProperty]
+        public List<Tuple<string, string>> MenuModel { get; set; } = new List<Tuple<string, string>>()
+        {
+            new Tuple<string, string>("Dashbord", "/Dashbord/Home"),
+            new Tuple<string, string>("Experiences", "/Dashbord/Experiences/"),
+            new Tuple<string, string>("Projects", "/Dashbord/Projects/"),
+            new Tuple<string, string>("Skills", "/Dashbord/Skills/"),
+            new Tuple<string, string>("Setting", "/Dashbord/AdminUsers/"),
+            new Tuple<string, string>("SignOut", "/Authentication/SignInOut")
+        };
 
         [BindProperty]
         public AdminUserDto AdminUser { get; set; } = default!;
@@ -22,7 +33,7 @@ namespace PortfolioEAI.Pages.Dashbord.AdminUsers
             try
             {
                 // Fetch the admin user by ID
-                var adminUser = await _adminUserService.GetByIdAsync(id);
+                var adminUser = await _services.GetAdminUserByIdAsync(id);
 
                 if (adminUser == null)
                 {
@@ -50,14 +61,14 @@ namespace PortfolioEAI.Pages.Dashbord.AdminUsers
                     return Page();
 
                 // Check if the admin user exists
-                if (!await AdminUserExistsAsync(AdminUser.Id))
+                if (!await _services.AdminUserExistsAsync(AdminUser))
                 {
                     ModelState.AddModelError(string.Empty, "Admin user not found.");
                     return Page();
                 }
 
                 // Call the service to update the admin user
-                await _adminUserService.UpdateAsync(AdminUser);
+                await _services.UpdateAdminUserAsync(AdminUser);
                 return Page();
             }
             catch (Exception ex)
@@ -65,11 +76,6 @@ namespace PortfolioEAI.Pages.Dashbord.AdminUsers
                 ModelState.AddModelError(string.Empty, $"An error occurred while updating the admin user: {ex.Message}");
                 return Page();
             }  
-        }
-
-        private async Task<bool> AdminUserExistsAsync(Guid id)
-        {
-            return await _adminUserService.GetByIdAsync(id) != null;
         }
     }
 }

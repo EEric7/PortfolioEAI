@@ -12,12 +12,26 @@
     <div class="row">
     <div class="col-md-4">
     <form method="post">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div asp-validation-summary="ModelOnly" class="text-danger">
+    </div>
             <div class="form-group">
                 <label asp-for="AdminUser.UserName" class="control-label"></label>
                 <input asp-for="AdminUser.UserName" class="form-control" />
                 <span asp-validation-for="AdminUser.UserName" class="text-danger"></span>
             </div>
+
+            <div class="form-group">
+                <label asp-for="AdminUser.Description" class="control-label"></label>
+                <input asp-for="AdminUser.Description" class="form-control" />
+                <span asp-validation-for="AdminUser.Description" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="AdminUser.Email" class="control-label"></label>
+                <input asp-for="AdminUser.Email" class="form-control" />
+                <span asp-validation-for="AdminUser.Email" class="text-danger"></span>
+            </div>
+
             <div class="form-group">
                 <label asp-for="AdminUser.Password" class="control-label"></label>
                 <input asp-for="AdminUser.Password" class="form-control" />

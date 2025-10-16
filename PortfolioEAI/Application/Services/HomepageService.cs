@@ -7,9 +7,9 @@ namespace PortfolioEAI.Application.Services
     public class HomepageService : IHomepageService
     {
         private readonly ILogger<HomepageService> _logger;
-        private readonly IService _serviceDomain;
+        private readonly IServices _serviceDomain;
 
-        public HomepageService(ILogger<HomepageService> logger, IService serviceDomain)
+        public HomepageService(ILogger<HomepageService> logger, IServices serviceDomain)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger), "");
             _serviceDomain = serviceDomain ?? throw new ArgumentNullException(nameof(serviceDomain), "");

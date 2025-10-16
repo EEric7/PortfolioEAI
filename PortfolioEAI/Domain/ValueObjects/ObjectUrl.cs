@@ -12,7 +12,7 @@ namespace PortfolioEAI.Domain.ValueObjects
         /// It is important that the URL is an absolute URI, and it is validated upon instantiation.
         /// If the URL is not well-formed, an exception will be thrown.
         /// </summary>
-        public string Value { get; }
+        public string Value { get; private set; } = string.Empty;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ObjectUrl"/> class.
@@ -20,6 +20,11 @@ namespace PortfolioEAI.Domain.ValueObjects
         /// It validates the URL to ensure it is well-formed.
         /// If the URL is not valid, it throws an <see cref="ArgumentException"/>.
         public ObjectUrl(string value)
+        {
+            SetValue(value);
+        }
+
+        public void SetValue(string value)
         {
 #if !DEBUG
         if (!Uri.IsWellFormedUriString(value, UriKind.Absolute))

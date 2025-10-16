@@ -7,12 +7,23 @@ namespace PortfolioEAI.Pages.Projects
 {
     public class EditModel : PageModel
     {
-        private readonly IProjectService _servicesProjects;
+        private readonly IDashbordService _services;
 
-        public EditModel(IProjectService servicesProjects)
+        public EditModel(IDashbordService services)
         {
-            _servicesProjects = servicesProjects;
+            _services = services;
         }
+
+        [BindProperty]
+        public List<Tuple<string, string>> MenuModel { get; set; } = new List<Tuple<string, string>>()
+        {
+            new Tuple<string, string>("Dashbord", "/Dashbord/Home"),
+            new Tuple<string, string>("Experiences", "/Dashbord/Experiences/"),
+            new Tuple<string, string>("Projects", "/Dashbord/Projects/"),
+            new Tuple<string, string>("Skills", "/Dashbord/Skills/"),
+            new Tuple<string, string>("Setting", "/Dashbord/AdminUsers/"),
+            new Tuple<string, string>("SignOut", "/Authentication/SignInOut")
+        };
 
         [BindProperty]
         public ProjectDto Project { get; set; } = default!;
@@ -21,7 +32,7 @@ namespace PortfolioEAI.Pages.Projects
         {
             try
             {
-                var project = await _servicesProjects.GetByIdAsync(id);
+                var project = await _services.GetProjectByIdAsync(id);
 
                 if (project is null)
                 {
@@ -46,13 +57,13 @@ namespace PortfolioEAI.Pages.Projects
                 if (!ModelState.IsValid)
                     return Page();
 
-                if (!await ProjectExistsAsync(Project))
+                if (!await _services.ProjectExistsAsync(Project))
                 {
                     ModelState.AddModelError(string.Empty, "The project does not exist.");
                     return RedirectToPage("./Index");
                 }
 
-                await _servicesProjects.UpdateAsync(Project);
+                await _services.UpdateProjectAsync(Project);
                 return RedirectToPage("./Index");
             }
             catch (Exception ex)
@@ -60,14 +71,6 @@ namespace PortfolioEAI.Pages.Projects
                 ModelState.AddModelError(string.Empty, $"An error occurred while updating the project: {ex.Message}");
                 return Page();
             }
-        }
-
-        private async Task<bool> ProjectExistsAsync(ProjectDto dto)
-        {
-            var skills = await _servicesProjects.GetAllAsync();
-            var existingSkills = skills.FirstOrDefault(e => e.Title == dto.Title && e.Description == dto.Description);
-
-            return existingSkills is not null;
         }
     }
 }

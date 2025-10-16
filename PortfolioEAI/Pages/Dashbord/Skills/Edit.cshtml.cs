@@ -8,12 +8,23 @@ namespace PortfolioEAI.Pages.Dashbord.Skills
 {
     public class EditModel : PageModel
     {
-        private readonly ISkillService _skillService;
+        private readonly IDashbordService _services;
 
-        public EditModel(ISkillService skillService)
+        public EditModel(IDashbordService services)
         {
-            _skillService = skillService;
+            _services = services;
         }
+
+        [BindProperty]
+        public List<Tuple<string, string>> MenuModel { get; set; } = new List<Tuple<string, string>>()
+        {
+            new Tuple<string, string>("Dashbord", "/Dashbord/Home"),
+            new Tuple<string, string>("Experiences", "/Dashbord/Experiences/"),
+            new Tuple<string, string>("Projects", "/Dashbord/Projects/"),
+            new Tuple<string, string>("Skills", "/Dashbord/Skills/"),
+            new Tuple<string, string>("Setting", "/Dashbord/AdminUsers/"),
+            new Tuple<string, string>("SignOut", "/Authentication/SignInOut")
+        };
 
         [BindProperty]
         public SkillDto Skill { get; set; } = default!;
@@ -22,8 +33,7 @@ namespace PortfolioEAI.Pages.Dashbord.Skills
         {
             try
             {
-                var skill =  await _skillService.GetByIdAsync(id);
-
+                var skill =  await _services.GetSkillByIdAsync(id);
                 if (skill is null)
                 {
                     ModelState.AddModelError(string.Empty, "Skill not found.");
@@ -47,15 +57,14 @@ namespace PortfolioEAI.Pages.Dashbord.Skills
             try
             {
                 if (!ModelState.IsValid)
-                return Page();
+                    return Page();
 
-                if (!await SkillExistsAsync(Skill))
+                if (!await _services.SkillExistsAsync(Skill))
                 {
                     ModelState.AddModelError(string.Empty, "The skill does not exist.");
                     return RedirectToPage("./Index");
                 }
-
-                await _skillService.UpdateAsync(Skill);
+                await _services.UpdateSkillAsync(Skill);
                 return Page();
             }
             catch (Exception ex)
@@ -63,14 +72,6 @@ namespace PortfolioEAI.Pages.Dashbord.Skills
                 ModelState.AddModelError(string.Empty, $"An error occurred while checking for existing skills: {ex.Message}");
                 return NotFound();
             }
-        }
-
-       private async Task<bool> SkillExistsAsync(SkillDto dto)
-        {
-            var skills = await _skillService.GetAllAsync();
-            var existingSkills = skills.FirstOrDefault(e => e.Name == dto.Name && e.Id == dto.Id);
-
-            return existingSkills is not null;
         }
     }
 }

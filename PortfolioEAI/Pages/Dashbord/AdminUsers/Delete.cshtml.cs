@@ -7,12 +7,23 @@ namespace PortfolioEAI.Pages.Dashbord.AdminUsers
 {
     public class DeleteModel : PageModel
     {
-        private readonly IAdminUserService _adminUserService;
+        private readonly IDashbordService _services;
 
-        public DeleteModel(IAdminUserService adminUserService)
+        public DeleteModel(IDashbordService services)
         {
-            _adminUserService = adminUserService;
+            _services = services;
         }
+
+        [BindProperty]
+        public List<Tuple<string, string>> MenuModel { get; set; } = new List<Tuple<string, string>>()
+        {
+            new Tuple<string, string>("Dashbord", "/Dashbord/Home"),
+            new Tuple<string, string>("Experiences", "/Dashbord/Experiences/"),
+            new Tuple<string, string>("Projects", "/Dashbord/Projects/"),
+            new Tuple<string, string>("Skills", "/Dashbord/Skills/"),
+            new Tuple<string, string>("Setting", "/Dashbord/AdminUsers/"),
+            new Tuple<string, string>("SignOut", "/Authentication/SignInOut")
+        };
 
         [BindProperty]
         public AdminUserDto AdminUser { get; set; } = default!;
@@ -22,7 +33,7 @@ namespace PortfolioEAI.Pages.Dashbord.AdminUsers
             try
             {
                 // Get the admin user by ID
-                var adminUser = await _adminUserService.GetByIdAsync(id);
+                var adminUser = await _services.GetAdminUserByIdAsync(id);
 
                 // Check if the admin user exists
                 if (adminUser == null)
@@ -51,14 +62,14 @@ namespace PortfolioEAI.Pages.Dashbord.AdminUsers
                     return Page();
 
                 // Check if the admin user exists
-                if (!await AdminUserExistsAsync(id))
+                if (!await _services.AdminUserExistsAsync(AdminUser))
                 {
                     ModelState.AddModelError(string.Empty, "Admin user not found.");
                     return RedirectToPage("./Index");
                 }
 
                 // Call the service to delete the admin user
-                await _adminUserService.DeleteAsync(id);
+                await _services.DeleteAdminUserByIdAsync(id);
                 return RedirectToPage("./Index");
             }
             catch (Exception ex)
@@ -66,11 +77,6 @@ namespace PortfolioEAI.Pages.Dashbord.AdminUsers
                 ModelState.AddModelError(string.Empty, $"An error occurred while checking for existing admin users: {ex.Message}");
                 return NotFound();
             }
-        }
-
-        private async Task<bool> AdminUserExistsAsync(Guid id)
-        {
-            return await _adminUserService.GetByIdAsync(id) != null;
         }
     }
 }

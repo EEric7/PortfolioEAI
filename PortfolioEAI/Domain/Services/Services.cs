@@ -2,7 +2,7 @@ using PortfolioEAI.Domain.Services.Interfaces;
 
 namespace PortfolioEAI.Domain.Services
 {
-    public class Services : IService
+    public class Services : IServices
     {
         public IProjectService ProjectService { get; set; }
         public ISkillService SkillService { get; set; }

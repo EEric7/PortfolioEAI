@@ -16,7 +16,7 @@ namespace PortfolioEAI.Domain.Entities
         /// Title of the project.
         /// This property represents the name or title of the project.
         /// </summary>
-        public string Title { get; private set; }
+        public string Title { get; private set; } = string.Empty;
 
         /// <summary>
         /// Description of the project.
@@ -24,7 +24,7 @@ namespace PortfolioEAI.Domain.Entities
         /// It is typically used to give users an understanding of what the project is about and what it aims to achieve.
         /// The description should be concise yet informative, allowing users to grasp the essence of the project quickly.
         /// </summary>
-        public string Description { get; private set; }
+        public string Description { get; private set; } = string.Empty;
 
         /// <summary>
         /// URL of the project image.
@@ -34,7 +34,7 @@ namespace PortfolioEAI.Domain.Entities
         /// It is important to ensure that the image URL is accessible and points to a valid image file format (e.g., JPEG, PNG).
         /// This property is used to enhance the visual appeal of the project and provide users with a quick overview of its appearance.
         /// </summary>
-        public string ImageUrl { get; private set; }
+        public string ImageUrl { get; private set; } = string.Empty;
 
         /// <summary>
         /// URL of the project.
@@ -44,7 +44,7 @@ namespace PortfolioEAI.Domain.Entities
         /// It is important to ensure that the project URL is accessible and points to a valid resource.
         /// This property is used to facilitate easy access to the project for users who are interested in learning more about it or contributing to its development.
         /// </summary>
-        public ObjectUrl Url { get; private set; }
+        public ObjectUrl Url { get; private set; } = default!;
 
         // Default constructor for EF Core
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
@@ -65,10 +65,10 @@ namespace PortfolioEAI.Domain.Entities
         public Project(Guid id, string title, string description, string imageUrl, string url)
         {
             Id = id;
-            Title = title;
-            Description = description;
-            ImageUrl = imageUrl;
-            Url = new ObjectUrl(url);
+            SetTitle(title);
+            SetDescription(description);
+            SetImage(imageUrl);
+            SetUrl(url);
         }
 
         /// <summary>

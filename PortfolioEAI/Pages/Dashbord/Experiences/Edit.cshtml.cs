@@ -7,12 +7,23 @@ namespace PortfolioEAI.Pages.Dashbord.Experiences
 {
     public class EditModel : PageModel
     {
-        private readonly IExperienceService _experienceService;
+        private readonly IDashbordService _services;
 
-        public EditModel(IExperienceService experienceService)
+        public EditModel(IDashbordService services)
         {
-            _experienceService = experienceService;
+            _services = services;
         }
+
+        [BindProperty]
+        public List<Tuple<string, string>> MenuModel { get; set; } = new List<Tuple<string, string>>()
+        {
+            new Tuple<string, string>("Dashbord", "/Dashbord/Home"),
+            new Tuple<string, string>("Experiences", "/Dashbord/Experiences/"),
+            new Tuple<string, string>("Projects", "/Dashbord/Projects/"),
+            new Tuple<string, string>("Skills", "/Dashbord/Skills/"),
+            new Tuple<string, string>("Setting", "/Dashbord/AdminUsers/"),
+            new Tuple<string, string>("SignOut", "/Authentication/SignInOut")
+        };
 
         [BindProperty]
         public ExperienceDto Experience { get; set; } = default!;
@@ -22,7 +33,7 @@ namespace PortfolioEAI.Pages.Dashbord.Experiences
             try
             {
                 // Attempt to retrieve the experience by ID
-                var experience = await _experienceService.GetByIdAsync(id);
+                var experience = await _services.GetExperienceByIdAsync(id);
 
                 if (experience is null)
                 {
@@ -49,21 +60,16 @@ namespace PortfolioEAI.Pages.Dashbord.Experiences
                 if (!ModelState.IsValid)
                 return Page();
 
-                if (!ExperienceExists(Experience.Id))
+                if (await _services.ExperienceExistsAsync(Experience))
                     return NotFound();
 
-                await _experienceService.UpdateAsync(Experience);
+                await _services.UpdateExperienceAsync(Experience);
                 return RedirectToPage("./Index");
             }
             catch (Exception)
             {
                return NotFound();
             }
-        }
-
-        private bool ExperienceExists(Guid id)
-        {
-            return _experienceService.GetByIdAsync(id) != null;
         }
     }
 }
