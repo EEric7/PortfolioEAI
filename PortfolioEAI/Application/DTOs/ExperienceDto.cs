@@ -53,6 +53,21 @@ namespace PortfolioEAI.Application.DTOs
         /// <summary>
         /// List of project identifiers associated with the experience.
         /// </summary>
-        public IList<ProjectDto>? Projects { get; set; }
+        public IList<ProjectDto> Projects { get; set; } = new List<ProjectDto>();
+
+        public ExperienceDto() { }
+
+        public ExperienceDto(ExperienceDto experienceDto)
+        {
+            Id = experienceDto.Id;
+            Title = experienceDto.Title;
+            Company = experienceDto.Company;
+            Position = experienceDto.Position;
+            StartDate = experienceDto.StartDate;
+            EndDate = experienceDto.EndDate;
+            Description = experienceDto.Description;
+            ImageUrl = experienceDto.ImageUrl;
+            Projects = experienceDto.Projects;
+        }
     }
 }

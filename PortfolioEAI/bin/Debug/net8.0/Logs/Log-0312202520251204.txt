@@ -1,0 +1,717 @@
+2025-12-04 15:40:50.750 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/Experiences/ - null null
+2025-12-04 15:40:50.763 +01:00 [INF] Executing endpoint '/Dashbord/Experiences/Index'
+2025-12-04 15:40:50.764 +01:00 [INF] Route matched with {page = "/Dashbord/Experiences/Index"}. Executing page /Dashbord/Experiences/Index
+2025-12-04 15:40:50.766 +01:00 [INF] Executing handler method PortfolioEAI.Pages.Dashbord.Experiences.ExperienceModel.OnGetAsync - ModelState is "Valid"
+2025-12-04 15:40:50.767 +01:00 [INF] Retrieving all experiences.
+2025-12-04 15:40:50.767 +01:00 [INF] Fetching all Experiences
+2025-12-04 15:40:50.767 +01:00 [INF] Retrieving all Experiences
+2025-12-04 15:40:50.783 +01:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "e"."Id", "e"."Company", "e"."Description", "e"."EndDate", "e"."IdAdminUser", "e"."ImageUrl", "e"."Position", "e"."StartDate", "p"."Id", "p"."Description", "p"."IdExperience", "p"."ImageUrl", "p"."Title", "p"."Url"
+FROM "Experiences" AS "e"
+LEFT JOIN "Projects" AS "p" ON "e"."Id" = "p"."IdExperience"
+ORDER BY "e"."Id"
+2025-12-04 15:40:50.786 +01:00 [INF] Successfully retrieved 2 experiences.
+2025-12-04 15:40:50.787 +01:00 [INF] Executed handler method OnGetAsync, returned result .
+2025-12-04 15:40:50.787 +01:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-12-04 15:40:50.787 +01:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-04 15:40:50.911 +01:00 [INF] Executed page /Dashbord/Experiences/Index in 147.1252ms
+2025-12-04 15:40:50.935 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/Experiences/js/scripts.js - null null
+2025-12-04 15:40:50.935 +01:00 [INF] Executed endpoint '/Dashbord/Experiences/Index'
+2025-12-04 15:40:50.988 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/css/site.css?v=-F9S0eUE-MaQ4t0i9k77_OAVODu_oEnfB-7EkgMDl6w - null null
+2025-12-04 15:40:51.013 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/PortfolioEAI.styles.css?v=9OLkGPtUaGYe-NlCzLU7keEZVUOBFqCyeu9Fbj2qQr8 - null null
+2025-12-04 15:40:51.014 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/_framework/aspnetcore-browser-refresh.js - null null
+2025-12-04 15:40:51.061 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/Experiences/ - 200 null text/html; charset=utf-8 359.591ms
+2025-12-04 15:40:51.061 +01:00 [INF] Executing endpoint '/Errors/Error404'
+2025-12-04 15:40:51.063 +01:00 [INF] The file /css/site.css was not modified
+2025-12-04 15:40:51.064 +01:00 [INF] The file /PortfolioEAI.styles.css was not modified
+2025-12-04 15:40:51.065 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/css/site.css?v=-F9S0eUE-MaQ4t0i9k77_OAVODu_oEnfB-7EkgMDl6w - 304 null text/css 76.425ms
+2025-12-04 15:40:51.065 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/PortfolioEAI.styles.css?v=9OLkGPtUaGYe-NlCzLU7keEZVUOBFqCyeu9Fbj2qQr8 - 304 null text/css 51.1104ms
+2025-12-04 15:40:51.065 +01:00 [INF] Route matched with {page = "/Errors/Error404"}. Executing page /Errors/Error404
+2025-12-04 15:40:51.067 +01:00 [INF] Executing handler method PortfolioEAI.Pages.Error404Model.OnGet - ModelState is "Valid"
+2025-12-04 15:40:51.067 +01:00 [INF] Executed handler method OnGet, returned result .
+2025-12-04 15:40:51.067 +01:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-12-04 15:40:51.067 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/_framework/aspnetcore-browser-refresh.js - 200 16459 application/javascript; charset=utf-8 53.6592ms
+2025-12-04 15:40:51.067 +01:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-04 15:40:51.069 +01:00 [INF] Executed page /Errors/Error404 in 4.1336ms
+2025-12-04 15:40:51.069 +01:00 [INF] Executed endpoint '/Errors/Error404'
+2025-12-04 15:40:51.069 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/Experiences/js/scripts.js - 404 null text/html; charset=utf-8 158.6792ms
+2025-12-04 15:40:51.070 +01:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5168/Dashbord/Experiences/js/scripts.js, Response status code: 404
+2025-12-04 15:40:58.815 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/Experiences/Details?id=0b230f75-f35f-4ab5-be68-3f72d7a2134d - null null
+2025-12-04 15:40:58.842 +01:00 [INF] Executing endpoint '/Dashbord/Experiences/Details'
+2025-12-04 15:40:58.842 +01:00 [INF] Route matched with {page = "/Dashbord/Experiences/Details"}. Executing page /Dashbord/Experiences/Details
+2025-12-04 15:40:58.844 +01:00 [INF] Executing handler method PortfolioEAI.Pages.Dashbord.Experiences.DetailsModel.OnGetAsync - ModelState is "Valid"
+2025-12-04 15:40:58.844 +01:00 [INF] Retrieving experience with ID: "0b230f75-f35f-4ab5-be68-3f72d7a2134d"
+2025-12-04 15:40:58.844 +01:00 [INF] Retrieving Experience with Id: "0b230f75-f35f-4ab5-be68-3f72d7a2134d"
+2025-12-04 15:40:58.844 +01:00 [INF] Retrieving Experience with Id: "0b230f75-f35f-4ab5-be68-3f72d7a2134d"
+2025-12-04 15:40:58.854 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT "e0"."Id", "e0"."Company", "e0"."Description", "e0"."EndDate", "e0"."IdAdminUser", "e0"."ImageUrl", "e0"."Position", "e0"."StartDate", "p"."Id", "p"."Description", "p"."IdExperience", "p"."ImageUrl", "p"."Title", "p"."Url"
+FROM (
+    SELECT "e"."Id", "e"."Company", "e"."Description", "e"."EndDate", "e"."IdAdminUser", "e"."ImageUrl", "e"."Position", "e"."StartDate"
+    FROM "Experiences" AS "e"
+    WHERE "e"."Id" = @__id_0
+    LIMIT 1
+) AS "e0"
+LEFT JOIN "Projects" AS "p" ON "e0"."Id" = "p"."IdExperience"
+ORDER BY "e0"."Id"
+2025-12-04 15:40:58.856 +01:00 [INF] Successfully retrieved experience with ID: "0b230f75-f35f-4ab5-be68-3f72d7a2134d"
+2025-12-04 15:40:58.856 +01:00 [INF] Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-04 15:40:58.863 +01:00 [INF] Executed page /Dashbord/Experiences/Details in 20.3284ms
+2025-12-04 15:40:58.863 +01:00 [INF] Executed endpoint '/Dashbord/Experiences/Details'
+2025-12-04 15:40:58.865 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/Experiences/Details?id=0b230f75-f35f-4ab5-be68-3f72d7a2134d - 200 null text/html; charset=utf-8 71ms
+2025-12-04 15:40:58.888 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/Experiences/js/scripts.js - null null
+2025-12-04 15:40:58.914 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/PortfolioEAI.styles.css?v=9OLkGPtUaGYe-NlCzLU7keEZVUOBFqCyeu9Fbj2qQr8 - null null
+2025-12-04 15:40:58.914 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/css/site.css?v=-F9S0eUE-MaQ4t0i9k77_OAVODu_oEnfB-7EkgMDl6w - null null
+2025-12-04 15:40:58.914 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/_framework/aspnetcore-browser-refresh.js - null null
+2025-12-04 15:40:58.914 +01:00 [INF] Executing endpoint '/Errors/Error404'
+2025-12-04 15:40:58.914 +01:00 [INF] Route matched with {page = "/Errors/Error404"}. Executing page /Errors/Error404
+2025-12-04 15:40:58.936 +01:00 [INF] The file /css/site.css was not modified
+2025-12-04 15:40:58.958 +01:00 [INF] The file /PortfolioEAI.styles.css was not modified
+2025-12-04 15:40:58.958 +01:00 [INF] Executing handler method PortfolioEAI.Pages.Error404Model.OnGet - ModelState is "Valid"
+2025-12-04 15:40:58.959 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/PortfolioEAI.styles.css?v=9OLkGPtUaGYe-NlCzLU7keEZVUOBFqCyeu9Fbj2qQr8 - 304 null text/css 44.5977ms
+2025-12-04 15:40:58.958 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/css/site.css?v=-F9S0eUE-MaQ4t0i9k77_OAVODu_oEnfB-7EkgMDl6w - 304 null text/css 44.2918ms
+2025-12-04 15:40:58.959 +01:00 [INF] Executed handler method OnGet, returned result .
+2025-12-04 15:40:58.959 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/_framework/aspnetcore-browser-refresh.js - 200 16459 application/javascript; charset=utf-8 45.0552ms
+2025-12-04 15:40:58.959 +01:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-12-04 15:40:58.959 +01:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-04 15:40:58.960 +01:00 [INF] Executed page /Errors/Error404 in 1.7841ms
+2025-12-04 15:40:58.960 +01:00 [INF] Executed endpoint '/Errors/Error404'
+2025-12-04 15:40:58.960 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/Experiences/js/scripts.js - 404 null text/html; charset=utf-8 71.5807ms
+2025-12-04 15:40:58.960 +01:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5168/Dashbord/Experiences/js/scripts.js, Response status code: 404
+2025-12-04 15:41:30.890 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/Experiences/Details?id=0b230f75-f35f-4ab5-be68-3f72d7a2134d - null null
+2025-12-04 15:41:30.968 +01:00 [INF] Executing endpoint '/Dashbord/Experiences/Details'
+2025-12-04 15:41:30.969 +01:00 [INF] Route matched with {page = "/Dashbord/Experiences/Details"}. Executing page /Dashbord/Experiences/Details
+2025-12-04 15:41:30.970 +01:00 [INF] Executing handler method PortfolioEAI.Pages.Dashbord.Experiences.DetailsModel.OnGetAsync - ModelState is "Valid"
+2025-12-04 15:41:30.970 +01:00 [INF] Retrieving experience with ID: "0b230f75-f35f-4ab5-be68-3f72d7a2134d"
+2025-12-04 15:41:30.970 +01:00 [INF] Retrieving Experience with Id: "0b230f75-f35f-4ab5-be68-3f72d7a2134d"
+2025-12-04 15:41:30.970 +01:00 [INF] Retrieving Experience with Id: "0b230f75-f35f-4ab5-be68-3f72d7a2134d"
+2025-12-04 15:41:30.974 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT "e0"."Id", "e0"."Company", "e0"."Description", "e0"."EndDate", "e0"."IdAdminUser", "e0"."ImageUrl", "e0"."Position", "e0"."StartDate", "p"."Id", "p"."Description", "p"."IdExperience", "p"."ImageUrl", "p"."Title", "p"."Url"
+FROM (
+    SELECT "e"."Id", "e"."Company", "e"."Description", "e"."EndDate", "e"."IdAdminUser", "e"."ImageUrl", "e"."Position", "e"."StartDate"
+    FROM "Experiences" AS "e"
+    WHERE "e"."Id" = @__id_0
+    LIMIT 1
+) AS "e0"
+LEFT JOIN "Projects" AS "p" ON "e0"."Id" = "p"."IdExperience"
+ORDER BY "e0"."Id"
+2025-12-04 15:41:30.975 +01:00 [INF] Successfully retrieved experience with ID: "0b230f75-f35f-4ab5-be68-3f72d7a2134d"
+2025-12-04 15:41:30.975 +01:00 [INF] Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-04 15:41:31.107 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/Experiences/js/scripts.js - null null
+2025-12-04 15:41:31.107 +01:00 [INF] Executed page /Dashbord/Experiences/Details in 138.5725ms
+2025-12-04 15:41:31.134 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/_framework/aspnetcore-browser-refresh.js - null null
+2025-12-04 15:41:31.134 +01:00 [INF] Executed endpoint '/Dashbord/Experiences/Details'
+2025-12-04 15:41:31.137 +01:00 [INF] Executing endpoint '/Errors/Error404'
+2025-12-04 15:41:31.137 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/Experiences/Details?id=0b230f75-f35f-4ab5-be68-3f72d7a2134d - 200 null text/html; charset=utf-8 247.1881ms
+2025-12-04 15:41:31.137 +01:00 [INF] Route matched with {page = "/Errors/Error404"}. Executing page /Errors/Error404
+2025-12-04 15:41:31.137 +01:00 [INF] Executing handler method PortfolioEAI.Pages.Error404Model.OnGet - ModelState is "Valid"
+2025-12-04 15:41:31.161 +01:00 [INF] Executed handler method OnGet, returned result .
+2025-12-04 15:41:31.164 +01:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-12-04 15:41:31.164 +01:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-04 15:41:31.164 +01:00 [INF] Executed page /Errors/Error404 in 26.9699ms
+2025-12-04 15:41:31.167 +01:00 [INF] Executed endpoint '/Errors/Error404'
+2025-12-04 15:41:31.167 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/Experiences/js/scripts.js - 404 null text/html; charset=utf-8 86.91ms
+2025-12-04 15:41:31.167 +01:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5168/Dashbord/Experiences/js/scripts.js, Response status code: 404
+2025-12-04 15:41:31.167 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/_framework/aspnetcore-browser-refresh.js - 200 16459 application/javascript; charset=utf-8 32.7787ms
+2025-12-04 15:41:39.282 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/Experiences - null null
+2025-12-04 15:41:39.283 +01:00 [INF] Executing endpoint '/Dashbord/Experiences/Index'
+2025-12-04 15:41:39.283 +01:00 [INF] Route matched with {page = "/Dashbord/Experiences/Index"}. Executing page /Dashbord/Experiences/Index
+2025-12-04 15:41:39.283 +01:00 [INF] Executing handler method PortfolioEAI.Pages.Dashbord.Experiences.ExperienceModel.OnGetAsync - ModelState is "Valid"
+2025-12-04 15:41:39.283 +01:00 [INF] Retrieving all experiences.
+2025-12-04 15:41:39.283 +01:00 [INF] Fetching all Experiences
+2025-12-04 15:41:39.283 +01:00 [INF] Retrieving all Experiences
+2025-12-04 15:41:39.285 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "e"."Id", "e"."Company", "e"."Description", "e"."EndDate", "e"."IdAdminUser", "e"."ImageUrl", "e"."Position", "e"."StartDate", "p"."Id", "p"."Description", "p"."IdExperience", "p"."ImageUrl", "p"."Title", "p"."Url"
+FROM "Experiences" AS "e"
+LEFT JOIN "Projects" AS "p" ON "e"."Id" = "p"."IdExperience"
+ORDER BY "e"."Id"
+2025-12-04 15:41:39.285 +01:00 [INF] Successfully retrieved 2 experiences.
+2025-12-04 15:41:39.285 +01:00 [INF] Executed handler method OnGetAsync, returned result .
+2025-12-04 15:41:39.286 +01:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-12-04 15:41:39.286 +01:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-04 15:41:39.288 +01:00 [INF] Executed page /Dashbord/Experiences/Index in 5.3347ms
+2025-12-04 15:41:39.289 +01:00 [INF] Executed endpoint '/Dashbord/Experiences/Index'
+2025-12-04 15:41:39.289 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/Experiences - 200 null text/html; charset=utf-8 7.0485ms
+2025-12-04 15:41:39.302 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/js/scripts.js - null null
+2025-12-04 15:41:39.302 +01:00 [INF] Executing endpoint '/Errors/Error404'
+2025-12-04 15:41:39.328 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/_framework/aspnetcore-browser-refresh.js - null null
+2025-12-04 15:41:39.328 +01:00 [INF] Route matched with {page = "/Errors/Error404"}. Executing page /Errors/Error404
+2025-12-04 15:41:39.353 +01:00 [INF] Executing handler method PortfolioEAI.Pages.Error404Model.OnGet - ModelState is "Valid"
+2025-12-04 15:41:39.375 +01:00 [INF] Executed handler method OnGet, returned result .
+2025-12-04 15:41:39.375 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/_framework/aspnetcore-browser-refresh.js - 200 16459 application/javascript; charset=utf-8 47.5583ms
+2025-12-04 15:41:39.375 +01:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-12-04 15:41:39.375 +01:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-04 15:41:39.376 +01:00 [INF] Executed page /Errors/Error404 in 22.8748ms
+2025-12-04 15:41:39.376 +01:00 [INF] Executed endpoint '/Errors/Error404'
+2025-12-04 15:41:39.376 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/js/scripts.js - 404 null text/html; charset=utf-8 74.5815ms
+2025-12-04 15:41:39.377 +01:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5168/Dashbord/js/scripts.js, Response status code: 404
+2025-12-04 15:41:42.095 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/Experiences/Details?id=0b230f75-f35f-4ab5-be68-3f72d7a2134d - null null
+2025-12-04 15:41:42.120 +01:00 [INF] Executing endpoint '/Dashbord/Experiences/Details'
+2025-12-04 15:41:42.120 +01:00 [INF] Route matched with {page = "/Dashbord/Experiences/Details"}. Executing page /Dashbord/Experiences/Details
+2025-12-04 15:41:42.121 +01:00 [INF] Executing handler method PortfolioEAI.Pages.Dashbord.Experiences.DetailsModel.OnGetAsync - ModelState is "Valid"
+2025-12-04 15:41:42.122 +01:00 [INF] Retrieving experience with ID: "0b230f75-f35f-4ab5-be68-3f72d7a2134d"
+2025-12-04 15:41:42.122 +01:00 [INF] Retrieving Experience with Id: "0b230f75-f35f-4ab5-be68-3f72d7a2134d"
+2025-12-04 15:41:42.122 +01:00 [INF] Retrieving Experience with Id: "0b230f75-f35f-4ab5-be68-3f72d7a2134d"
+2025-12-04 15:41:42.124 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT "e0"."Id", "e0"."Company", "e0"."Description", "e0"."EndDate", "e0"."IdAdminUser", "e0"."ImageUrl", "e0"."Position", "e0"."StartDate", "p"."Id", "p"."Description", "p"."IdExperience", "p"."ImageUrl", "p"."Title", "p"."Url"
+FROM (
+    SELECT "e"."Id", "e"."Company", "e"."Description", "e"."EndDate", "e"."IdAdminUser", "e"."ImageUrl", "e"."Position", "e"."StartDate"
+    FROM "Experiences" AS "e"
+    WHERE "e"."Id" = @__id_0
+    LIMIT 1
+) AS "e0"
+LEFT JOIN "Projects" AS "p" ON "e0"."Id" = "p"."IdExperience"
+ORDER BY "e0"."Id"
+2025-12-04 15:41:42.124 +01:00 [INF] Successfully retrieved experience with ID: "0b230f75-f35f-4ab5-be68-3f72d7a2134d"
+2025-12-04 15:41:42.124 +01:00 [INF] Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-04 15:41:42.154 +01:00 [INF] Executed page /Dashbord/Experiences/Details in 33.9941ms
+2025-12-04 15:41:42.155 +01:00 [INF] Executed endpoint '/Dashbord/Experiences/Details'
+2025-12-04 15:41:42.203 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/Experiences/Details?id=0b230f75-f35f-4ab5-be68-3f72d7a2134d - 200 null text/html; charset=utf-8 108.398ms
+2025-12-04 15:41:42.229 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/Experiences/js/scripts.js - null null
+2025-12-04 15:41:42.229 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/_framework/aspnetcore-browser-refresh.js - null null
+2025-12-04 15:41:42.254 +01:00 [INF] Executing endpoint '/Errors/Error404'
+2025-12-04 15:41:42.255 +01:00 [INF] Route matched with {page = "/Errors/Error404"}. Executing page /Errors/Error404
+2025-12-04 15:41:42.255 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/_framework/aspnetcore-browser-refresh.js - 200 16459 application/javascript; charset=utf-8 26.6977ms
+2025-12-04 15:41:42.256 +01:00 [INF] Executing handler method PortfolioEAI.Pages.Error404Model.OnGet - ModelState is "Valid"
+2025-12-04 15:41:42.256 +01:00 [INF] Executed handler method OnGet, returned result .
+2025-12-04 15:41:42.256 +01:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-12-04 15:41:42.256 +01:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-04 15:41:42.257 +01:00 [INF] Executed page /Errors/Error404 in 1.4215ms
+2025-12-04 15:41:42.257 +01:00 [INF] Executed endpoint '/Errors/Error404'
+2025-12-04 15:41:42.257 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/Experiences/js/scripts.js - 404 null text/html; charset=utf-8 53.9004ms
+2025-12-04 15:41:42.257 +01:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5168/Dashbord/Experiences/js/scripts.js, Response status code: 404
+2025-12-04 15:41:44.867 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/Experiences - null null
+2025-12-04 15:41:44.914 +01:00 [INF] Executing endpoint '/Dashbord/Experiences/Index'
+2025-12-04 15:41:44.914 +01:00 [INF] Route matched with {page = "/Dashbord/Experiences/Index"}. Executing page /Dashbord/Experiences/Index
+2025-12-04 15:41:44.915 +01:00 [INF] Executing handler method PortfolioEAI.Pages.Dashbord.Experiences.ExperienceModel.OnGetAsync - ModelState is "Valid"
+2025-12-04 15:41:44.915 +01:00 [INF] Retrieving all experiences.
+2025-12-04 15:41:44.915 +01:00 [INF] Fetching all Experiences
+2025-12-04 15:41:44.915 +01:00 [INF] Retrieving all Experiences
+2025-12-04 15:41:44.926 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "e"."Id", "e"."Company", "e"."Description", "e"."EndDate", "e"."IdAdminUser", "e"."ImageUrl", "e"."Position", "e"."StartDate", "p"."Id", "p"."Description", "p"."IdExperience", "p"."ImageUrl", "p"."Title", "p"."Url"
+FROM "Experiences" AS "e"
+LEFT JOIN "Projects" AS "p" ON "e"."Id" = "p"."IdExperience"
+ORDER BY "e"."Id"
+2025-12-04 15:41:44.930 +01:00 [INF] Successfully retrieved 2 experiences.
+2025-12-04 15:41:44.930 +01:00 [INF] Executed handler method OnGetAsync, returned result .
+2025-12-04 15:41:44.930 +01:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-12-04 15:41:44.930 +01:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-04 15:41:44.934 +01:00 [INF] Executed page /Dashbord/Experiences/Index in 19.0956ms
+2025-12-04 15:41:44.934 +01:00 [INF] Executed endpoint '/Dashbord/Experiences/Index'
+2025-12-04 15:41:44.936 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/js/scripts.js - null null
+2025-12-04 15:41:44.936 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/Experiences - 200 null text/html; charset=utf-8 68.7705ms
+2025-12-04 15:41:44.936 +01:00 [INF] Executing endpoint '/Errors/Error404'
+2025-12-04 15:41:44.962 +01:00 [INF] Route matched with {page = "/Errors/Error404"}. Executing page /Errors/Error404
+2025-12-04 15:41:44.962 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/_framework/aspnetcore-browser-refresh.js - null null
+2025-12-04 15:41:44.962 +01:00 [INF] Executing handler method PortfolioEAI.Pages.Error404Model.OnGet - ModelState is "Valid"
+2025-12-04 15:41:44.962 +01:00 [INF] Executed handler method OnGet, returned result .
+2025-12-04 15:41:44.963 +01:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-12-04 15:41:44.963 +01:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-04 15:41:44.964 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/_framework/aspnetcore-browser-refresh.js - 200 16459 application/javascript; charset=utf-8 1.8207ms
+2025-12-04 15:41:44.964 +01:00 [INF] Executed page /Errors/Error404 in 1.8822ms
+2025-12-04 15:41:44.964 +01:00 [INF] Executed endpoint '/Errors/Error404'
+2025-12-04 15:41:44.964 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/js/scripts.js - 404 null text/html; charset=utf-8 28.3407ms
+2025-12-04 15:41:44.964 +01:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5168/Dashbord/js/scripts.js, Response status code: 404
+2025-12-04 15:41:55.062 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/Experiences/Details?id=0b230f75-f35f-4ab5-be68-3f72d7a2134d - null null
+2025-12-04 15:41:55.107 +01:00 [INF] Executing endpoint '/Dashbord/Experiences/Details'
+2025-12-04 15:41:55.107 +01:00 [INF] Route matched with {page = "/Dashbord/Experiences/Details"}. Executing page /Dashbord/Experiences/Details
+2025-12-04 15:41:55.108 +01:00 [INF] Executing handler method PortfolioEAI.Pages.Dashbord.Experiences.DetailsModel.OnGetAsync - ModelState is "Valid"
+2025-12-04 15:41:55.108 +01:00 [INF] Retrieving experience with ID: "0b230f75-f35f-4ab5-be68-3f72d7a2134d"
+2025-12-04 15:41:55.108 +01:00 [INF] Retrieving Experience with Id: "0b230f75-f35f-4ab5-be68-3f72d7a2134d"
+2025-12-04 15:41:55.108 +01:00 [INF] Retrieving Experience with Id: "0b230f75-f35f-4ab5-be68-3f72d7a2134d"
+2025-12-04 15:41:55.110 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT "e0"."Id", "e0"."Company", "e0"."Description", "e0"."EndDate", "e0"."IdAdminUser", "e0"."ImageUrl", "e0"."Position", "e0"."StartDate", "p"."Id", "p"."Description", "p"."IdExperience", "p"."ImageUrl", "p"."Title", "p"."Url"
+FROM (
+    SELECT "e"."Id", "e"."Company", "e"."Description", "e"."EndDate", "e"."IdAdminUser", "e"."ImageUrl", "e"."Position", "e"."StartDate"
+    FROM "Experiences" AS "e"
+    WHERE "e"."Id" = @__id_0
+    LIMIT 1
+) AS "e0"
+LEFT JOIN "Projects" AS "p" ON "e0"."Id" = "p"."IdExperience"
+ORDER BY "e0"."Id"
+2025-12-04 15:41:55.111 +01:00 [INF] Successfully retrieved experience with ID: "0b230f75-f35f-4ab5-be68-3f72d7a2134d"
+2025-12-04 15:41:55.111 +01:00 [INF] Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-04 15:41:55.137 +01:00 [INF] Executed page /Dashbord/Experiences/Details in 29.6408ms
+2025-12-04 15:41:55.137 +01:00 [INF] Executed endpoint '/Dashbord/Experiences/Details'
+2025-12-04 15:41:55.137 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/Experiences/Details?id=0b230f75-f35f-4ab5-be68-3f72d7a2134d - 200 null text/html; charset=utf-8 75.1621ms
+2025-12-04 15:41:55.139 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/Experiences/js/scripts.js - null null
+2025-12-04 15:41:55.160 +01:00 [INF] Executing endpoint '/Errors/Error404'
+2025-12-04 15:41:55.160 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/_framework/aspnetcore-browser-refresh.js - null null
+2025-12-04 15:41:55.161 +01:00 [INF] Route matched with {page = "/Errors/Error404"}. Executing page /Errors/Error404
+2025-12-04 15:41:55.161 +01:00 [INF] Executing handler method PortfolioEAI.Pages.Error404Model.OnGet - ModelState is "Valid"
+2025-12-04 15:41:55.161 +01:00 [INF] Executed handler method OnGet, returned result .
+2025-12-04 15:41:55.161 +01:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-12-04 15:41:55.161 +01:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-04 15:41:55.185 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/_framework/aspnetcore-browser-refresh.js - 200 16459 application/javascript; charset=utf-8 24.781ms
+2025-12-04 15:41:55.185 +01:00 [INF] Executed page /Errors/Error404 in 24.4886ms
+2025-12-04 15:41:55.186 +01:00 [INF] Executed endpoint '/Errors/Error404'
+2025-12-04 15:41:55.186 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/Experiences/js/scripts.js - 404 null text/html; charset=utf-8 47.1532ms
+2025-12-04 15:41:55.186 +01:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5168/Dashbord/Experiences/js/scripts.js, Response status code: 404
+2025-12-04 15:44:30.526 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/Experiences - null null
+2025-12-04 15:44:30.534 +01:00 [INF] Executing endpoint '/Dashbord/Experiences/Index'
+2025-12-04 15:44:30.535 +01:00 [INF] Route matched with {page = "/Dashbord/Experiences/Index"}. Executing page /Dashbord/Experiences/Index
+2025-12-04 15:44:30.537 +01:00 [INF] Executing handler method PortfolioEAI.Pages.Dashbord.Experiences.ExperienceModel.OnGetAsync - ModelState is "Valid"
+2025-12-04 15:44:30.538 +01:00 [INF] Retrieving all experiences.
+2025-12-04 15:44:30.538 +01:00 [INF] Fetching all Experiences
+2025-12-04 15:44:30.538 +01:00 [INF] Retrieving all Experiences
+2025-12-04 15:44:30.545 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "e"."Id", "e"."Company", "e"."Description", "e"."EndDate", "e"."IdAdminUser", "e"."ImageUrl", "e"."Position", "e"."StartDate", "p"."Id", "p"."Description", "p"."IdExperience", "p"."ImageUrl", "p"."Title", "p"."Url"
+FROM "Experiences" AS "e"
+LEFT JOIN "Projects" AS "p" ON "e"."Id" = "p"."IdExperience"
+ORDER BY "e"."Id"
+2025-12-04 15:44:30.548 +01:00 [INF] Successfully retrieved 2 experiences.
+2025-12-04 15:44:30.548 +01:00 [INF] Executed handler method OnGetAsync, returned result .
+2025-12-04 15:44:30.548 +01:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-12-04 15:44:30.548 +01:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-04 15:44:30.763 +01:00 [INF] Executed page /Dashbord/Experiences/Index in 228.0843ms
+2025-12-04 15:44:30.785 +01:00 [INF] Executed endpoint '/Dashbord/Experiences/Index'
+2025-12-04 15:44:30.788 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/_framework/aspnetcore-browser-refresh.js - null null
+2025-12-04 15:44:30.788 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/js/scripts.js - null null
+2025-12-04 15:44:30.788 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/Experiences - 200 null text/html; charset=utf-8 311.6792ms
+2025-12-04 15:44:30.863 +01:00 [INF] Executing endpoint '/Errors/Error404'
+2025-12-04 15:44:30.863 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/_framework/aspnetcore-browser-refresh.js - 200 16459 application/javascript; charset=utf-8 74.7229ms
+2025-12-04 15:44:30.863 +01:00 [INF] Route matched with {page = "/Errors/Error404"}. Executing page /Errors/Error404
+2025-12-04 15:44:30.866 +01:00 [INF] Executing handler method PortfolioEAI.Pages.Error404Model.OnGet - ModelState is "Valid"
+2025-12-04 15:44:30.866 +01:00 [INF] Executed handler method OnGet, returned result .
+2025-12-04 15:44:30.866 +01:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-12-04 15:44:30.866 +01:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-04 15:44:30.890 +01:00 [INF] Executed page /Errors/Error404 in 24.6833ms
+2025-12-04 15:44:30.891 +01:00 [INF] Executed endpoint '/Errors/Error404'
+2025-12-04 15:44:30.891 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/js/scripts.js - 404 null text/html; charset=utf-8 102.6504ms
+2025-12-04 15:44:30.891 +01:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5168/Dashbord/js/scripts.js, Response status code: 404
+2025-12-04 15:44:34.267 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/Experiences/Create - null null
+2025-12-04 15:44:34.342 +01:00 [INF] Executing endpoint '/Dashbord/Experiences/Create'
+2025-12-04 15:44:34.360 +01:00 [INF] Route matched with {page = "/Dashbord/Experiences/Create"}. Executing page /Dashbord/Experiences/Create
+2025-12-04 15:44:34.362 +01:00 [INF] Executing handler method PortfolioEAI.Pages.Dashbord.Experiences.CreateModel.OnGet - ModelState is "Valid"
+2025-12-04 15:44:34.362 +01:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-04 15:44:34.399 +01:00 [INF] Executed page /Dashbord/Experiences/Create in 38.7253ms
+2025-12-04 15:44:34.425 +01:00 [INF] Executed endpoint '/Dashbord/Experiences/Create'
+2025-12-04 15:44:34.451 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/_framework/aspnetcore-browser-refresh.js - null null
+2025-12-04 15:44:34.450 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/assets/placeholder-image.png - null null
+2025-12-04 15:44:34.450 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/Experiences/js/scripts.js - null null
+2025-12-04 15:44:34.451 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/Experiences/Create - 200 null text/html; charset=utf-8 183.3261ms
+2025-12-04 15:44:34.502 +01:00 [INF] Executing endpoint '/Errors/Error404'
+2025-12-04 15:44:34.502 +01:00 [INF] Executing endpoint '/Errors/Error404'
+2025-12-04 15:44:34.502 +01:00 [INF] Route matched with {page = "/Errors/Error404"}. Executing page /Errors/Error404
+2025-12-04 15:44:34.502 +01:00 [INF] Route matched with {page = "/Errors/Error404"}. Executing page /Errors/Error404
+2025-12-04 15:44:34.504 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/_framework/aspnetcore-browser-refresh.js - 200 16459 application/javascript; charset=utf-8 51.332ms
+2025-12-04 15:44:34.504 +01:00 [INF] Executing handler method PortfolioEAI.Pages.Error404Model.OnGet - ModelState is "Valid"
+2025-12-04 15:44:34.504 +01:00 [INF] Executing handler method PortfolioEAI.Pages.Error404Model.OnGet - ModelState is "Valid"
+2025-12-04 15:44:34.504 +01:00 [INF] Executed handler method OnGet, returned result .
+2025-12-04 15:44:34.529 +01:00 [INF] Executed handler method OnGet, returned result .
+2025-12-04 15:44:34.530 +01:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-12-04 15:44:34.530 +01:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-12-04 15:44:34.530 +01:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-04 15:44:34.530 +01:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-04 15:44:34.531 +01:00 [INF] Executed page /Errors/Error404 in 27.027ms
+2025-12-04 15:44:34.531 +01:00 [INF] Executed endpoint '/Errors/Error404'
+2025-12-04 15:44:34.531 +01:00 [INF] Executed page /Errors/Error404 in 27.0268ms
+2025-12-04 15:44:34.531 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/Experiences/js/scripts.js - 404 null text/html; charset=utf-8 80.186ms
+2025-12-04 15:44:34.531 +01:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5168/Dashbord/Experiences/js/scripts.js, Response status code: 404
+2025-12-04 15:44:34.531 +01:00 [INF] Executed endpoint '/Errors/Error404'
+2025-12-04 15:44:34.531 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/assets/placeholder-image.png - 404 null text/html; charset=utf-8 80.4473ms
+2025-12-04 15:44:34.531 +01:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5168/assets/placeholder-image.png, Response status code: 404
+2025-12-04 15:44:39.907 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/Experiences - null null
+2025-12-04 15:44:39.929 +01:00 [INF] Executing endpoint '/Dashbord/Experiences/Index'
+2025-12-04 15:44:39.929 +01:00 [INF] Route matched with {page = "/Dashbord/Experiences/Index"}. Executing page /Dashbord/Experiences/Index
+2025-12-04 15:44:39.930 +01:00 [INF] Executing handler method PortfolioEAI.Pages.Dashbord.Experiences.ExperienceModel.OnGetAsync - ModelState is "Valid"
+2025-12-04 15:44:39.930 +01:00 [INF] Retrieving all experiences.
+2025-12-04 15:44:39.930 +01:00 [INF] Fetching all Experiences
+2025-12-04 15:44:39.930 +01:00 [INF] Retrieving all Experiences
+2025-12-04 15:44:39.933 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "e"."Id", "e"."Company", "e"."Description", "e"."EndDate", "e"."IdAdminUser", "e"."ImageUrl", "e"."Position", "e"."StartDate", "p"."Id", "p"."Description", "p"."IdExperience", "p"."ImageUrl", "p"."Title", "p"."Url"
+FROM "Experiences" AS "e"
+LEFT JOIN "Projects" AS "p" ON "e"."Id" = "p"."IdExperience"
+ORDER BY "e"."Id"
+2025-12-04 15:44:39.934 +01:00 [INF] Successfully retrieved 2 experiences.
+2025-12-04 15:44:39.934 +01:00 [INF] Executed handler method OnGetAsync, returned result .
+2025-12-04 15:44:39.934 +01:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-12-04 15:44:39.934 +01:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-04 15:44:40.013 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/js/scripts.js - null null
+2025-12-04 15:44:40.060 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/_framework/aspnetcore-browser-refresh.js - null null
+2025-12-04 15:44:40.060 +01:00 [INF] Executing endpoint '/Errors/Error404'
+2025-12-04 15:44:40.060 +01:00 [INF] Executed page /Dashbord/Experiences/Index in 131.0903ms
+2025-12-04 15:44:40.088 +01:00 [INF] Route matched with {page = "/Errors/Error404"}. Executing page /Errors/Error404
+2025-12-04 15:44:40.088 +01:00 [INF] Executed endpoint '/Dashbord/Experiences/Index'
+2025-12-04 15:44:40.088 +01:00 [INF] Executing handler method PortfolioEAI.Pages.Error404Model.OnGet - ModelState is "Valid"
+2025-12-04 15:44:40.088 +01:00 [INF] Executed handler method OnGet, returned result .
+2025-12-04 15:44:40.088 +01:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-12-04 15:44:40.089 +01:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-04 15:44:40.142 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/Experiences - 200 null text/html; charset=utf-8 234.8262ms
+2025-12-04 15:44:40.142 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/_framework/aspnetcore-browser-refresh.js - 200 16459 application/javascript; charset=utf-8 105.2425ms
+2025-12-04 15:44:40.142 +01:00 [INF] Executed page /Errors/Error404 in 53.6101ms
+2025-12-04 15:44:40.142 +01:00 [INF] Executed endpoint '/Errors/Error404'
+2025-12-04 15:44:40.142 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/js/scripts.js - 404 null text/html; charset=utf-8 129.2694ms
+2025-12-04 15:44:40.142 +01:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5168/Dashbord/js/scripts.js, Response status code: 404
+2025-12-04 15:44:46.895 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/Experiences/Details?id=0b230f75-f35f-4ab5-be68-3f72d7a2134d - null null
+2025-12-04 15:44:46.921 +01:00 [INF] Executing endpoint '/Dashbord/Experiences/Details'
+2025-12-04 15:44:46.921 +01:00 [INF] Route matched with {page = "/Dashbord/Experiences/Details"}. Executing page /Dashbord/Experiences/Details
+2025-12-04 15:44:46.922 +01:00 [INF] Executing handler method PortfolioEAI.Pages.Dashbord.Experiences.DetailsModel.OnGetAsync - ModelState is "Valid"
+2025-12-04 15:44:46.923 +01:00 [INF] Retrieving experience with ID: "0b230f75-f35f-4ab5-be68-3f72d7a2134d"
+2025-12-04 15:44:46.923 +01:00 [INF] Retrieving Experience with Id: "0b230f75-f35f-4ab5-be68-3f72d7a2134d"
+2025-12-04 15:44:46.923 +01:00 [INF] Retrieving Experience with Id: "0b230f75-f35f-4ab5-be68-3f72d7a2134d"
+2025-12-04 15:44:46.926 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT "e0"."Id", "e0"."Company", "e0"."Description", "e0"."EndDate", "e0"."IdAdminUser", "e0"."ImageUrl", "e0"."Position", "e0"."StartDate", "p"."Id", "p"."Description", "p"."IdExperience", "p"."ImageUrl", "p"."Title", "p"."Url"
+FROM (
+    SELECT "e"."Id", "e"."Company", "e"."Description", "e"."EndDate", "e"."IdAdminUser", "e"."ImageUrl", "e"."Position", "e"."StartDate"
+    FROM "Experiences" AS "e"
+    WHERE "e"."Id" = @__id_0
+    LIMIT 1
+) AS "e0"
+LEFT JOIN "Projects" AS "p" ON "e0"."Id" = "p"."IdExperience"
+ORDER BY "e0"."Id"
+2025-12-04 15:44:46.927 +01:00 [INF] Successfully retrieved experience with ID: "0b230f75-f35f-4ab5-be68-3f72d7a2134d"
+2025-12-04 15:44:46.927 +01:00 [INF] Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-04 15:44:46.934 +01:00 [INF] Executed page /Dashbord/Experiences/Details in 12.9005ms
+2025-12-04 15:44:46.934 +01:00 [INF] Executed endpoint '/Dashbord/Experiences/Details'
+2025-12-04 15:44:46.936 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/Experiences/js/scripts.js - null null
+2025-12-04 15:44:46.937 +01:00 [INF] Executing endpoint '/Errors/Error404'
+2025-12-04 15:44:46.938 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/Experiences/Details?id=0b230f75-f35f-4ab5-be68-3f72d7a2134d - 200 null text/html; charset=utf-8 43.3832ms
+2025-12-04 15:44:46.938 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/_framework/aspnetcore-browser-refresh.js - null null
+2025-12-04 15:44:46.938 +01:00 [INF] Route matched with {page = "/Errors/Error404"}. Executing page /Errors/Error404
+2025-12-04 15:44:46.939 +01:00 [INF] Executing handler method PortfolioEAI.Pages.Error404Model.OnGet - ModelState is "Valid"
+2025-12-04 15:44:46.939 +01:00 [INF] Executed handler method OnGet, returned result .
+2025-12-04 15:44:46.939 +01:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-12-04 15:44:46.939 +01:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-04 15:44:46.942 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/_framework/aspnetcore-browser-refresh.js - 200 16459 application/javascript; charset=utf-8 3.134ms
+2025-12-04 15:44:46.942 +01:00 [INF] Executed page /Errors/Error404 in 3.1562ms
+2025-12-04 15:44:46.942 +01:00 [INF] Executed endpoint '/Errors/Error404'
+2025-12-04 15:44:46.942 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/Experiences/js/scripts.js - 404 null text/html; charset=utf-8 6.2727ms
+2025-12-04 15:44:46.943 +01:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5168/Dashbord/Experiences/js/scripts.js, Response status code: 404
+2025-12-04 15:44:48.128 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/Experiences - null null
+2025-12-04 15:44:48.134 +01:00 [INF] Executing endpoint '/Dashbord/Experiences/Index'
+2025-12-04 15:44:48.134 +01:00 [INF] Route matched with {page = "/Dashbord/Experiences/Index"}. Executing page /Dashbord/Experiences/Index
+2025-12-04 15:44:48.134 +01:00 [INF] Executing handler method PortfolioEAI.Pages.Dashbord.Experiences.ExperienceModel.OnGetAsync - ModelState is "Valid"
+2025-12-04 15:44:48.135 +01:00 [INF] Retrieving all experiences.
+2025-12-04 15:44:48.135 +01:00 [INF] Fetching all Experiences
+2025-12-04 15:44:48.135 +01:00 [INF] Retrieving all Experiences
+2025-12-04 15:44:48.136 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "e"."Id", "e"."Company", "e"."Description", "e"."EndDate", "e"."IdAdminUser", "e"."ImageUrl", "e"."Position", "e"."StartDate", "p"."Id", "p"."Description", "p"."IdExperience", "p"."ImageUrl", "p"."Title", "p"."Url"
+FROM "Experiences" AS "e"
+LEFT JOIN "Projects" AS "p" ON "e"."Id" = "p"."IdExperience"
+ORDER BY "e"."Id"
+2025-12-04 15:44:48.136 +01:00 [INF] Successfully retrieved 2 experiences.
+2025-12-04 15:44:48.136 +01:00 [INF] Executed handler method OnGetAsync, returned result .
+2025-12-04 15:44:48.136 +01:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-12-04 15:44:48.136 +01:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-04 15:44:48.140 +01:00 [INF] Executed page /Dashbord/Experiences/Index in 6.1783ms
+2025-12-04 15:44:48.141 +01:00 [INF] Executed endpoint '/Dashbord/Experiences/Index'
+2025-12-04 15:44:48.142 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/js/scripts.js - null null
+2025-12-04 15:44:48.143 +01:00 [INF] Executing endpoint '/Errors/Error404'
+2025-12-04 15:44:48.143 +01:00 [INF] Route matched with {page = "/Errors/Error404"}. Executing page /Errors/Error404
+2025-12-04 15:44:48.143 +01:00 [INF] Executing handler method PortfolioEAI.Pages.Error404Model.OnGet - ModelState is "Valid"
+2025-12-04 15:44:48.143 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/Experiences - 200 null text/html; charset=utf-8 15.4467ms
+2025-12-04 15:44:48.143 +01:00 [INF] Executed handler method OnGet, returned result .
+2025-12-04 15:44:48.143 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/_framework/aspnetcore-browser-refresh.js - null null
+2025-12-04 15:44:48.144 +01:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-12-04 15:44:48.144 +01:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-04 15:44:48.145 +01:00 [INF] Executed page /Errors/Error404 in 2.4354ms
+2025-12-04 15:44:48.145 +01:00 [INF] Executed endpoint '/Errors/Error404'
+2025-12-04 15:44:48.146 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/js/scripts.js - 404 null text/html; charset=utf-8 4.3672ms
+2025-12-04 15:44:48.146 +01:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5168/Dashbord/js/scripts.js, Response status code: 404
+2025-12-04 15:44:48.146 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/_framework/aspnetcore-browser-refresh.js - 200 16459 application/javascript; charset=utf-8 2.8472ms
+2025-12-04 15:44:55.893 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/Experiences/Details?id=0b230f75-f35f-4ab5-be68-3f72d7a2134d - null null
+2025-12-04 15:44:55.900 +01:00 [INF] Executing endpoint '/Dashbord/Experiences/Details'
+2025-12-04 15:44:55.900 +01:00 [INF] Route matched with {page = "/Dashbord/Experiences/Details"}. Executing page /Dashbord/Experiences/Details
+2025-12-04 15:44:55.901 +01:00 [INF] Executing handler method PortfolioEAI.Pages.Dashbord.Experiences.DetailsModel.OnGetAsync - ModelState is "Valid"
+2025-12-04 15:44:55.901 +01:00 [INF] Retrieving experience with ID: "0b230f75-f35f-4ab5-be68-3f72d7a2134d"
+2025-12-04 15:44:55.901 +01:00 [INF] Retrieving Experience with Id: "0b230f75-f35f-4ab5-be68-3f72d7a2134d"
+2025-12-04 15:44:55.901 +01:00 [INF] Retrieving Experience with Id: "0b230f75-f35f-4ab5-be68-3f72d7a2134d"
+2025-12-04 15:44:55.903 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT "e0"."Id", "e0"."Company", "e0"."Description", "e0"."EndDate", "e0"."IdAdminUser", "e0"."ImageUrl", "e0"."Position", "e0"."StartDate", "p"."Id", "p"."Description", "p"."IdExperience", "p"."ImageUrl", "p"."Title", "p"."Url"
+FROM (
+    SELECT "e"."Id", "e"."Company", "e"."Description", "e"."EndDate", "e"."IdAdminUser", "e"."ImageUrl", "e"."Position", "e"."StartDate"
+    FROM "Experiences" AS "e"
+    WHERE "e"."Id" = @__id_0
+    LIMIT 1
+) AS "e0"
+LEFT JOIN "Projects" AS "p" ON "e0"."Id" = "p"."IdExperience"
+ORDER BY "e0"."Id"
+2025-12-04 15:44:55.903 +01:00 [INF] Successfully retrieved experience with ID: "0b230f75-f35f-4ab5-be68-3f72d7a2134d"
+2025-12-04 15:44:55.903 +01:00 [INF] Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-04 15:44:55.907 +01:00 [INF] Executed page /Dashbord/Experiences/Details in 7.248ms
+2025-12-04 15:44:55.908 +01:00 [INF] Executed endpoint '/Dashbord/Experiences/Details'
+2025-12-04 15:44:55.934 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/Experiences/js/scripts.js - null null
+2025-12-04 15:44:55.934 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/Experiences/Details?id=0b230f75-f35f-4ab5-be68-3f72d7a2134d - 200 null text/html; charset=utf-8 41.4135ms
+2025-12-04 15:44:55.934 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/_framework/aspnetcore-browser-refresh.js - null null
+2025-12-04 15:44:55.935 +01:00 [INF] Executing endpoint '/Errors/Error404'
+2025-12-04 15:44:55.935 +01:00 [INF] Route matched with {page = "/Errors/Error404"}. Executing page /Errors/Error404
+2025-12-04 15:44:55.936 +01:00 [INF] Executing handler method PortfolioEAI.Pages.Error404Model.OnGet - ModelState is "Valid"
+2025-12-04 15:44:55.936 +01:00 [INF] Executed handler method OnGet, returned result .
+2025-12-04 15:44:55.936 +01:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-12-04 15:44:55.937 +01:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-04 15:44:55.937 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/_framework/aspnetcore-browser-refresh.js - 200 16459 application/javascript; charset=utf-8 2.5509ms
+2025-12-04 15:44:55.937 +01:00 [INF] Executed page /Errors/Error404 in 1.5812ms
+2025-12-04 15:44:55.937 +01:00 [INF] Executed endpoint '/Errors/Error404'
+2025-12-04 15:44:55.937 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/Experiences/js/scripts.js - 404 null text/html; charset=utf-8 3.1477ms
+2025-12-04 15:44:55.938 +01:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5168/Dashbord/Experiences/js/scripts.js, Response status code: 404
+2025-12-04 15:44:57.490 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/Experiences - null null
+2025-12-04 15:44:57.539 +01:00 [INF] Executing endpoint '/Dashbord/Experiences/Index'
+2025-12-04 15:44:57.539 +01:00 [INF] Route matched with {page = "/Dashbord/Experiences/Index"}. Executing page /Dashbord/Experiences/Index
+2025-12-04 15:44:57.540 +01:00 [INF] Executing handler method PortfolioEAI.Pages.Dashbord.Experiences.ExperienceModel.OnGetAsync - ModelState is "Valid"
+2025-12-04 15:44:57.540 +01:00 [INF] Retrieving all experiences.
+2025-12-04 15:44:57.540 +01:00 [INF] Fetching all Experiences
+2025-12-04 15:44:57.540 +01:00 [INF] Retrieving all Experiences
+2025-12-04 15:44:57.542 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "e"."Id", "e"."Company", "e"."Description", "e"."EndDate", "e"."IdAdminUser", "e"."ImageUrl", "e"."Position", "e"."StartDate", "p"."Id", "p"."Description", "p"."IdExperience", "p"."ImageUrl", "p"."Title", "p"."Url"
+FROM "Experiences" AS "e"
+LEFT JOIN "Projects" AS "p" ON "e"."Id" = "p"."IdExperience"
+ORDER BY "e"."Id"
+2025-12-04 15:44:57.543 +01:00 [INF] Successfully retrieved 2 experiences.
+2025-12-04 15:44:57.543 +01:00 [INF] Executed handler method OnGetAsync, returned result .
+2025-12-04 15:44:57.543 +01:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-12-04 15:44:57.543 +01:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-04 15:44:57.572 +01:00 [INF] Executed page /Dashbord/Experiences/Index in 32.5102ms
+2025-12-04 15:44:57.597 +01:00 [INF] Executed endpoint '/Dashbord/Experiences/Index'
+2025-12-04 15:44:57.598 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/js/scripts.js - null null
+2025-12-04 15:44:57.598 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/_framework/aspnetcore-browser-refresh.js - null null
+2025-12-04 15:44:57.598 +01:00 [INF] Executing endpoint '/Errors/Error404'
+2025-12-04 15:44:57.598 +01:00 [INF] Route matched with {page = "/Errors/Error404"}. Executing page /Errors/Error404
+2025-12-04 15:44:57.599 +01:00 [INF] Executing handler method PortfolioEAI.Pages.Error404Model.OnGet - ModelState is "Valid"
+2025-12-04 15:44:57.599 +01:00 [INF] Executed handler method OnGet, returned result .
+2025-12-04 15:44:57.599 +01:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-12-04 15:44:57.599 +01:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-04 15:44:57.599 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/_framework/aspnetcore-browser-refresh.js - 200 16459 application/javascript; charset=utf-8 1.3455ms
+2025-12-04 15:44:57.600 +01:00 [INF] Executed page /Errors/Error404 in 1.5728ms
+2025-12-04 15:44:57.600 +01:00 [INF] Executed endpoint '/Errors/Error404'
+2025-12-04 15:44:57.601 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/js/scripts.js - 404 null text/html; charset=utf-8 3.2367ms
+2025-12-04 15:44:57.601 +01:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5168/Dashbord/js/scripts.js, Response status code: 404
+2025-12-04 15:44:57.601 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/Experiences - 200 null text/html; charset=utf-8 110.8547ms
+2025-12-04 15:45:04.771 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/Experiences/Edit?id=0b230f75-f35f-4ab5-be68-3f72d7a2134d - null null
+2025-12-04 15:45:04.794 +01:00 [INF] Executing endpoint '/Dashbord/Experiences/Edit'
+2025-12-04 15:45:04.801 +01:00 [INF] Route matched with {page = "/Dashbord/Experiences/Edit"}. Executing page /Dashbord/Experiences/Edit
+2025-12-04 15:45:04.802 +01:00 [INF] Executing handler method PortfolioEAI.Pages.Dashbord.Experiences.EditModel.OnGetAsync - ModelState is "Valid"
+2025-12-04 15:45:04.804 +01:00 [INF] Retrieving experience with ID: "0b230f75-f35f-4ab5-be68-3f72d7a2134d"
+2025-12-04 15:45:04.804 +01:00 [INF] Retrieving Experience with Id: "0b230f75-f35f-4ab5-be68-3f72d7a2134d"
+2025-12-04 15:45:04.804 +01:00 [INF] Retrieving Experience with Id: "0b230f75-f35f-4ab5-be68-3f72d7a2134d"
+2025-12-04 15:45:04.806 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT "e0"."Id", "e0"."Company", "e0"."Description", "e0"."EndDate", "e0"."IdAdminUser", "e0"."ImageUrl", "e0"."Position", "e0"."StartDate", "p"."Id", "p"."Description", "p"."IdExperience", "p"."ImageUrl", "p"."Title", "p"."Url"
+FROM (
+    SELECT "e"."Id", "e"."Company", "e"."Description", "e"."EndDate", "e"."IdAdminUser", "e"."ImageUrl", "e"."Position", "e"."StartDate"
+    FROM "Experiences" AS "e"
+    WHERE "e"."Id" = @__id_0
+    LIMIT 1
+) AS "e0"
+LEFT JOIN "Projects" AS "p" ON "e0"."Id" = "p"."IdExperience"
+ORDER BY "e0"."Id"
+2025-12-04 15:45:04.806 +01:00 [INF] Successfully retrieved experience with ID: "0b230f75-f35f-4ab5-be68-3f72d7a2134d"
+2025-12-04 15:45:04.806 +01:00 [INF] Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-04 15:45:04.866 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/Experiences/js/scripts.js - null null
+2025-12-04 15:45:04.917 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/_framework/aspnetcore-browser-refresh.js - null null
+2025-12-04 15:45:04.917 +01:00 [INF] Executed page /Dashbord/Experiences/Edit in 116.3385ms
+2025-12-04 15:45:04.917 +01:00 [INF] Executed endpoint '/Dashbord/Experiences/Edit'
+2025-12-04 15:45:04.917 +01:00 [INF] Executing endpoint '/Errors/Error404'
+2025-12-04 15:45:04.918 +01:00 [INF] Route matched with {page = "/Errors/Error404"}. Executing page /Errors/Error404
+2025-12-04 15:45:04.918 +01:00 [INF] Executing handler method PortfolioEAI.Pages.Error404Model.OnGet - ModelState is "Valid"
+2025-12-04 15:45:04.918 +01:00 [INF] Executed handler method OnGet, returned result .
+2025-12-04 15:45:04.918 +01:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-12-04 15:45:04.918 +01:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-04 15:45:04.919 +01:00 [INF] Executed page /Errors/Error404 in 1.0744ms
+2025-12-04 15:45:04.919 +01:00 [INF] Executed endpoint '/Errors/Error404'
+2025-12-04 15:45:04.919 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/Experiences/js/scripts.js - 404 null text/html; charset=utf-8 53.0894ms
+2025-12-04 15:45:04.919 +01:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5168/Dashbord/Experiences/js/scripts.js, Response status code: 404
+2025-12-04 15:45:04.919 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/_framework/aspnetcore-browser-refresh.js - 200 16459 application/javascript; charset=utf-8 2.6823ms
+2025-12-04 15:45:04.920 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/Experiences/Edit?id=0b230f75-f35f-4ab5-be68-3f72d7a2134d - 200 null text/html; charset=utf-8 148.5505ms
+2025-12-04 15:45:07.461 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/Experiences - null null
+2025-12-04 15:45:07.508 +01:00 [INF] Executing endpoint '/Dashbord/Experiences/Index'
+2025-12-04 15:45:07.509 +01:00 [INF] Route matched with {page = "/Dashbord/Experiences/Index"}. Executing page /Dashbord/Experiences/Index
+2025-12-04 15:45:07.509 +01:00 [INF] Executing handler method PortfolioEAI.Pages.Dashbord.Experiences.ExperienceModel.OnGetAsync - ModelState is "Valid"
+2025-12-04 15:45:07.510 +01:00 [INF] Retrieving all experiences.
+2025-12-04 15:45:07.510 +01:00 [INF] Fetching all Experiences
+2025-12-04 15:45:07.510 +01:00 [INF] Retrieving all Experiences
+2025-12-04 15:45:07.512 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "e"."Id", "e"."Company", "e"."Description", "e"."EndDate", "e"."IdAdminUser", "e"."ImageUrl", "e"."Position", "e"."StartDate", "p"."Id", "p"."Description", "p"."IdExperience", "p"."ImageUrl", "p"."Title", "p"."Url"
+FROM "Experiences" AS "e"
+LEFT JOIN "Projects" AS "p" ON "e"."Id" = "p"."IdExperience"
+ORDER BY "e"."Id"
+2025-12-04 15:45:07.513 +01:00 [INF] Successfully retrieved 2 experiences.
+2025-12-04 15:45:07.513 +01:00 [INF] Executed handler method OnGetAsync, returned result .
+2025-12-04 15:45:07.513 +01:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-12-04 15:45:07.514 +01:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-04 15:45:07.608 +01:00 [INF] Executed page /Dashbord/Experiences/Index in 99.5507ms
+2025-12-04 15:45:07.634 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/_framework/aspnetcore-browser-refresh.js - null null
+2025-12-04 15:45:07.634 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/js/scripts.js - null null
+2025-12-04 15:45:07.634 +01:00 [INF] Executed endpoint '/Dashbord/Experiences/Index'
+2025-12-04 15:45:07.637 +01:00 [INF] Executing endpoint '/Errors/Error404'
+2025-12-04 15:45:07.637 +01:00 [INF] Route matched with {page = "/Errors/Error404"}. Executing page /Errors/Error404
+2025-12-04 15:45:07.637 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/Experiences - 200 null text/html; charset=utf-8 175.9556ms
+2025-12-04 15:45:07.637 +01:00 [INF] Executing handler method PortfolioEAI.Pages.Error404Model.OnGet - ModelState is "Valid"
+2025-12-04 15:45:07.659 +01:00 [INF] Executed handler method OnGet, returned result .
+2025-12-04 15:45:07.659 +01:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-12-04 15:45:07.659 +01:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-04 15:45:07.659 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/_framework/aspnetcore-browser-refresh.js - 200 16459 application/javascript; charset=utf-8 25.3827ms
+2025-12-04 15:45:07.660 +01:00 [INF] Executed page /Errors/Error404 in 22.8134ms
+2025-12-04 15:45:07.660 +01:00 [INF] Executed endpoint '/Errors/Error404'
+2025-12-04 15:45:07.660 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/js/scripts.js - 404 null text/html; charset=utf-8 26.0092ms
+2025-12-04 15:45:07.660 +01:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5168/Dashbord/js/scripts.js, Response status code: 404
+2025-12-04 15:45:11.811 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/Experiences/Edit?id=0b230f75-f35f-4ab5-be68-3f72d7a2134d - null null
+2025-12-04 15:45:11.862 +01:00 [INF] Executing endpoint '/Dashbord/Experiences/Edit'
+2025-12-04 15:45:11.862 +01:00 [INF] Route matched with {page = "/Dashbord/Experiences/Edit"}. Executing page /Dashbord/Experiences/Edit
+2025-12-04 15:45:11.863 +01:00 [INF] Executing handler method PortfolioEAI.Pages.Dashbord.Experiences.EditModel.OnGetAsync - ModelState is "Valid"
+2025-12-04 15:45:11.863 +01:00 [INF] Retrieving experience with ID: "0b230f75-f35f-4ab5-be68-3f72d7a2134d"
+2025-12-04 15:45:11.864 +01:00 [INF] Retrieving Experience with Id: "0b230f75-f35f-4ab5-be68-3f72d7a2134d"
+2025-12-04 15:45:11.864 +01:00 [INF] Retrieving Experience with Id: "0b230f75-f35f-4ab5-be68-3f72d7a2134d"
+2025-12-04 15:45:11.867 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT "e0"."Id", "e0"."Company", "e0"."Description", "e0"."EndDate", "e0"."IdAdminUser", "e0"."ImageUrl", "e0"."Position", "e0"."StartDate", "p"."Id", "p"."Description", "p"."IdExperience", "p"."ImageUrl", "p"."Title", "p"."Url"
+FROM (
+    SELECT "e"."Id", "e"."Company", "e"."Description", "e"."EndDate", "e"."IdAdminUser", "e"."ImageUrl", "e"."Position", "e"."StartDate"
+    FROM "Experiences" AS "e"
+    WHERE "e"."Id" = @__id_0
+    LIMIT 1
+) AS "e0"
+LEFT JOIN "Projects" AS "p" ON "e0"."Id" = "p"."IdExperience"
+ORDER BY "e0"."Id"
+2025-12-04 15:45:11.868 +01:00 [INF] Successfully retrieved experience with ID: "0b230f75-f35f-4ab5-be68-3f72d7a2134d"
+2025-12-04 15:45:11.868 +01:00 [INF] Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-04 15:45:11.875 +01:00 [INF] Executed page /Dashbord/Experiences/Edit in 12.6923ms
+2025-12-04 15:45:11.875 +01:00 [INF] Executed endpoint '/Dashbord/Experiences/Edit'
+2025-12-04 15:45:11.878 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/Experiences/Edit?id=0b230f75-f35f-4ab5-be68-3f72d7a2134d - 200 null text/html; charset=utf-8 66.3304ms
+2025-12-04 15:45:11.891 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/Experiences/js/scripts.js - null null
+2025-12-04 15:45:11.891 +01:00 [INF] Executing endpoint '/Errors/Error404'
+2025-12-04 15:45:11.891 +01:00 [INF] Route matched with {page = "/Errors/Error404"}. Executing page /Errors/Error404
+2025-12-04 15:45:11.891 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/_framework/aspnetcore-browser-refresh.js - null null
+2025-12-04 15:45:11.917 +01:00 [INF] Executing handler method PortfolioEAI.Pages.Error404Model.OnGet - ModelState is "Valid"
+2025-12-04 15:45:11.938 +01:00 [INF] Executed handler method OnGet, returned result .
+2025-12-04 15:45:11.938 +01:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-12-04 15:45:11.938 +01:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-04 15:45:11.985 +01:00 [INF] Executed page /Errors/Error404 in 68.0069ms
+2025-12-04 15:45:11.985 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/_framework/aspnetcore-browser-refresh.js - 200 16459 application/javascript; charset=utf-8 71.6729ms
+2025-12-04 15:45:11.985 +01:00 [INF] Executed endpoint '/Errors/Error404'
+2025-12-04 15:45:11.985 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/Experiences/js/scripts.js - 404 null text/html; charset=utf-8 94.4645ms
+2025-12-04 15:45:11.985 +01:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5168/Dashbord/Experiences/js/scripts.js, Response status code: 404
+2025-12-04 15:45:16.836 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/Experiences - null null
+2025-12-04 15:45:16.884 +01:00 [INF] Executing endpoint '/Dashbord/Experiences/Index'
+2025-12-04 15:45:16.884 +01:00 [INF] Route matched with {page = "/Dashbord/Experiences/Index"}. Executing page /Dashbord/Experiences/Index
+2025-12-04 15:45:16.885 +01:00 [INF] Executing handler method PortfolioEAI.Pages.Dashbord.Experiences.ExperienceModel.OnGetAsync - ModelState is "Valid"
+2025-12-04 15:45:16.885 +01:00 [INF] Retrieving all experiences.
+2025-12-04 15:45:16.885 +01:00 [INF] Fetching all Experiences
+2025-12-04 15:45:16.885 +01:00 [INF] Retrieving all Experiences
+2025-12-04 15:45:16.887 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "e"."Id", "e"."Company", "e"."Description", "e"."EndDate", "e"."IdAdminUser", "e"."ImageUrl", "e"."Position", "e"."StartDate", "p"."Id", "p"."Description", "p"."IdExperience", "p"."ImageUrl", "p"."Title", "p"."Url"
+FROM "Experiences" AS "e"
+LEFT JOIN "Projects" AS "p" ON "e"."Id" = "p"."IdExperience"
+ORDER BY "e"."Id"
+2025-12-04 15:45:16.888 +01:00 [INF] Successfully retrieved 2 experiences.
+2025-12-04 15:45:16.888 +01:00 [INF] Executed handler method OnGetAsync, returned result .
+2025-12-04 15:45:16.888 +01:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-12-04 15:45:16.888 +01:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-04 15:45:16.895 +01:00 [INF] Executed page /Dashbord/Experiences/Index in 10.7543ms
+2025-12-04 15:45:16.895 +01:00 [INF] Executed endpoint '/Dashbord/Experiences/Index'
+2025-12-04 15:45:16.896 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/js/scripts.js - null null
+2025-12-04 15:45:16.896 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/_framework/aspnetcore-browser-refresh.js - null null
+2025-12-04 15:45:16.898 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/Experiences - 200 null text/html; charset=utf-8 61.7061ms
+2025-12-04 15:45:16.898 +01:00 [INF] Executing endpoint '/Errors/Error404'
+2025-12-04 15:45:16.898 +01:00 [INF] Route matched with {page = "/Errors/Error404"}. Executing page /Errors/Error404
+2025-12-04 15:45:16.898 +01:00 [INF] Executing handler method PortfolioEAI.Pages.Error404Model.OnGet - ModelState is "Valid"
+2025-12-04 15:45:16.899 +01:00 [INF] Executed handler method OnGet, returned result .
+2025-12-04 15:45:16.899 +01:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-12-04 15:45:16.899 +01:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-04 15:45:16.901 +01:00 [INF] Executed page /Errors/Error404 in 2.4729ms
+2025-12-04 15:45:16.901 +01:00 [INF] Executed endpoint '/Errors/Error404'
+2025-12-04 15:45:16.901 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/_framework/aspnetcore-browser-refresh.js - 200 16459 application/javascript; charset=utf-8 4.5684ms
+2025-12-04 15:45:16.902 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/js/scripts.js - 404 null text/html; charset=utf-8 5.2369ms
+2025-12-04 15:45:16.902 +01:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5168/Dashbord/js/scripts.js, Response status code: 404
+2025-12-04 15:45:21.471 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/Experiences/Details?id=0b230f75-f35f-4ab5-be68-3f72d7a2134d - null null
+2025-12-04 15:45:21.537 +01:00 [INF] Executing endpoint '/Dashbord/Experiences/Details'
+2025-12-04 15:45:21.537 +01:00 [INF] Route matched with {page = "/Dashbord/Experiences/Details"}. Executing page /Dashbord/Experiences/Details
+2025-12-04 15:45:21.539 +01:00 [INF] Executing handler method PortfolioEAI.Pages.Dashbord.Experiences.DetailsModel.OnGetAsync - ModelState is "Valid"
+2025-12-04 15:45:21.539 +01:00 [INF] Retrieving experience with ID: "0b230f75-f35f-4ab5-be68-3f72d7a2134d"
+2025-12-04 15:45:21.539 +01:00 [INF] Retrieving Experience with Id: "0b230f75-f35f-4ab5-be68-3f72d7a2134d"
+2025-12-04 15:45:21.539 +01:00 [INF] Retrieving Experience with Id: "0b230f75-f35f-4ab5-be68-3f72d7a2134d"
+2025-12-04 15:45:21.543 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT "e0"."Id", "e0"."Company", "e0"."Description", "e0"."EndDate", "e0"."IdAdminUser", "e0"."ImageUrl", "e0"."Position", "e0"."StartDate", "p"."Id", "p"."Description", "p"."IdExperience", "p"."ImageUrl", "p"."Title", "p"."Url"
+FROM (
+    SELECT "e"."Id", "e"."Company", "e"."Description", "e"."EndDate", "e"."IdAdminUser", "e"."ImageUrl", "e"."Position", "e"."StartDate"
+    FROM "Experiences" AS "e"
+    WHERE "e"."Id" = @__id_0
+    LIMIT 1
+) AS "e0"
+LEFT JOIN "Projects" AS "p" ON "e0"."Id" = "p"."IdExperience"
+ORDER BY "e0"."Id"
+2025-12-04 15:45:21.544 +01:00 [INF] Successfully retrieved experience with ID: "0b230f75-f35f-4ab5-be68-3f72d7a2134d"
+2025-12-04 15:45:21.545 +01:00 [INF] Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-04 15:45:21.624 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/Experiences/js/scripts.js - null null
+2025-12-04 15:45:21.649 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/_framework/aspnetcore-browser-refresh.js - null null
+2025-12-04 15:45:21.624 +01:00 [INF] Executed page /Dashbord/Experiences/Details in 86.8312ms
+2025-12-04 15:45:21.674 +01:00 [INF] Executing endpoint '/Errors/Error404'
+2025-12-04 15:45:21.674 +01:00 [INF] Executed endpoint '/Dashbord/Experiences/Details'
+2025-12-04 15:45:21.674 +01:00 [INF] Route matched with {page = "/Errors/Error404"}. Executing page /Errors/Error404
+2025-12-04 15:45:21.674 +01:00 [INF] Executing handler method PortfolioEAI.Pages.Error404Model.OnGet - ModelState is "Valid"
+2025-12-04 15:45:21.700 +01:00 [INF] Executed handler method OnGet, returned result .
+2025-12-04 15:45:21.701 +01:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-12-04 15:45:21.701 +01:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-04 15:45:21.701 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/Experiences/Details?id=0b230f75-f35f-4ab5-be68-3f72d7a2134d - 200 null text/html; charset=utf-8 230.6016ms
+2025-12-04 15:45:21.701 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/_framework/aspnetcore-browser-refresh.js - 200 16459 application/javascript; charset=utf-8 76.9179ms
+2025-12-04 15:45:21.702 +01:00 [INF] Executed page /Errors/Error404 in 27.2581ms
+2025-12-04 15:45:21.702 +01:00 [INF] Executed endpoint '/Errors/Error404'
+2025-12-04 15:45:21.702 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/Experiences/js/scripts.js - 404 null text/html; charset=utf-8 80.7597ms
+2025-12-04 15:45:21.702 +01:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5168/Dashbord/Experiences/js/scripts.js, Response status code: 404
+2025-12-04 15:45:26.057 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/Experiences/Details?id=0b230f75-f35f-4ab5-be68-3f72d7a2134d - null null
+2025-12-04 15:45:26.108 +01:00 [INF] Executing endpoint '/Dashbord/Experiences/Details'
+2025-12-04 15:45:26.108 +01:00 [INF] Route matched with {page = "/Dashbord/Experiences/Details"}. Executing page /Dashbord/Experiences/Details
+2025-12-04 15:45:26.110 +01:00 [INF] Executing handler method PortfolioEAI.Pages.Dashbord.Experiences.DetailsModel.OnGetAsync - ModelState is "Valid"
+2025-12-04 15:45:26.110 +01:00 [INF] Retrieving experience with ID: "0b230f75-f35f-4ab5-be68-3f72d7a2134d"
+2025-12-04 15:45:26.110 +01:00 [INF] Retrieving Experience with Id: "0b230f75-f35f-4ab5-be68-3f72d7a2134d"
+2025-12-04 15:45:26.110 +01:00 [INF] Retrieving Experience with Id: "0b230f75-f35f-4ab5-be68-3f72d7a2134d"
+2025-12-04 15:45:26.113 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT "e0"."Id", "e0"."Company", "e0"."Description", "e0"."EndDate", "e0"."IdAdminUser", "e0"."ImageUrl", "e0"."Position", "e0"."StartDate", "p"."Id", "p"."Description", "p"."IdExperience", "p"."ImageUrl", "p"."Title", "p"."Url"
+FROM (
+    SELECT "e"."Id", "e"."Company", "e"."Description", "e"."EndDate", "e"."IdAdminUser", "e"."ImageUrl", "e"."Position", "e"."StartDate"
+    FROM "Experiences" AS "e"
+    WHERE "e"."Id" = @__id_0
+    LIMIT 1
+) AS "e0"
+LEFT JOIN "Projects" AS "p" ON "e0"."Id" = "p"."IdExperience"
+ORDER BY "e0"."Id"
+2025-12-04 15:45:26.114 +01:00 [INF] Successfully retrieved experience with ID: "0b230f75-f35f-4ab5-be68-3f72d7a2134d"
+2025-12-04 15:45:26.114 +01:00 [INF] Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-04 15:45:26.120 +01:00 [INF] Executed page /Dashbord/Experiences/Details in 12.3322ms
+2025-12-04 15:45:26.121 +01:00 [INF] Executed endpoint '/Dashbord/Experiences/Details'
+2025-12-04 15:45:26.122 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/Experiences/Details?id=0b230f75-f35f-4ab5-be68-3f72d7a2134d - 200 null text/html; charset=utf-8 65.7447ms
+2025-12-04 15:45:26.123 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/Experiences/js/scripts.js - null null
+2025-12-04 15:45:26.124 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/_framework/aspnetcore-browser-refresh.js - null null
+2025-12-04 15:45:26.125 +01:00 [INF] Executing endpoint '/Errors/Error404'
+2025-12-04 15:45:26.125 +01:00 [INF] Route matched with {page = "/Errors/Error404"}. Executing page /Errors/Error404
+2025-12-04 15:45:26.125 +01:00 [INF] Executing handler method PortfolioEAI.Pages.Error404Model.OnGet - ModelState is "Valid"
+2025-12-04 15:45:26.150 +01:00 [INF] Executed handler method OnGet, returned result .
+2025-12-04 15:45:26.150 +01:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-12-04 15:45:26.150 +01:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-04 15:45:26.150 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/_framework/aspnetcore-browser-refresh.js - 200 16459 application/javascript; charset=utf-8 26.143ms
+2025-12-04 15:45:26.151 +01:00 [INF] Executed page /Errors/Error404 in 25.6196ms
+2025-12-04 15:45:26.151 +01:00 [INF] Executed endpoint '/Errors/Error404'
+2025-12-04 15:45:26.151 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/Experiences/js/scripts.js - 404 null text/html; charset=utf-8 27.9089ms
+2025-12-04 15:45:26.151 +01:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5168/Dashbord/Experiences/js/scripts.js, Response status code: 404
+2025-12-04 15:46:23.544 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/Experiences/Details?id=0b230f75-f35f-4ab5-be68-3f72d7a2134d - null null
+2025-12-04 15:46:23.551 +01:00 [INF] Executing endpoint '/Dashbord/Experiences/Details'
+2025-12-04 15:46:23.551 +01:00 [INF] Route matched with {page = "/Dashbord/Experiences/Details"}. Executing page /Dashbord/Experiences/Details
+2025-12-04 15:46:23.552 +01:00 [INF] Executing handler method PortfolioEAI.Pages.Dashbord.Experiences.DetailsModel.OnGetAsync - ModelState is "Valid"
+2025-12-04 15:46:23.553 +01:00 [INF] Retrieving experience with ID: "0b230f75-f35f-4ab5-be68-3f72d7a2134d"
+2025-12-04 15:46:23.553 +01:00 [INF] Retrieving Experience with Id: "0b230f75-f35f-4ab5-be68-3f72d7a2134d"
+2025-12-04 15:46:23.553 +01:00 [INF] Retrieving Experience with Id: "0b230f75-f35f-4ab5-be68-3f72d7a2134d"
+2025-12-04 15:46:23.554 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT "e0"."Id", "e0"."Company", "e0"."Description", "e0"."EndDate", "e0"."IdAdminUser", "e0"."ImageUrl", "e0"."Position", "e0"."StartDate", "p"."Id", "p"."Description", "p"."IdExperience", "p"."ImageUrl", "p"."Title", "p"."Url"
+FROM (
+    SELECT "e"."Id", "e"."Company", "e"."Description", "e"."EndDate", "e"."IdAdminUser", "e"."ImageUrl", "e"."Position", "e"."StartDate"
+    FROM "Experiences" AS "e"
+    WHERE "e"."Id" = @__id_0
+    LIMIT 1
+) AS "e0"
+LEFT JOIN "Projects" AS "p" ON "e0"."Id" = "p"."IdExperience"
+ORDER BY "e0"."Id"
+2025-12-04 15:46:23.555 +01:00 [INF] Successfully retrieved experience with ID: "0b230f75-f35f-4ab5-be68-3f72d7a2134d"
+2025-12-04 15:46:23.555 +01:00 [INF] Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-04 15:46:23.586 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/Experiences/js/scripts.js - null null
+2025-12-04 15:46:23.586 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/_framework/aspnetcore-browser-refresh.js - null null
+2025-12-04 15:46:23.613 +01:00 [INF] Executed page /Dashbord/Experiences/Details in 61.9479ms
+2025-12-04 15:46:23.638 +01:00 [INF] Executing endpoint '/Errors/Error404'
+2025-12-04 15:46:23.690 +01:00 [INF] Route matched with {page = "/Errors/Error404"}. Executing page /Errors/Error404
+2025-12-04 15:46:23.690 +01:00 [INF] Executing handler method PortfolioEAI.Pages.Error404Model.OnGet - ModelState is "Valid"
+2025-12-04 15:46:23.690 +01:00 [INF] Executed handler method OnGet, returned result .
+2025-12-04 15:46:23.690 +01:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-12-04 15:46:23.663 +01:00 [INF] Executed endpoint '/Dashbord/Experiences/Details'
+2025-12-04 15:46:23.690 +01:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-04 15:46:23.692 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/_framework/aspnetcore-browser-refresh.js - 200 16459 application/javascript; charset=utf-8 105.6609ms
+2025-12-04 15:46:23.695 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/Experiences/Details?id=0b230f75-f35f-4ab5-be68-3f72d7a2134d - 200 null text/html; charset=utf-8 151.6691ms
+2025-12-04 15:46:23.693 +01:00 [INF] Executed page /Errors/Error404 in 2.8487ms
+2025-12-04 15:46:23.695 +01:00 [INF] Executed endpoint '/Errors/Error404'
+2025-12-04 15:46:23.695 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/Experiences/js/scripts.js - 404 null text/html; charset=utf-8 109.1511ms
+2025-12-04 15:46:23.695 +01:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5168/Dashbord/Experiences/js/scripts.js, Response status code: 404

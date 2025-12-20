@@ -1,9 +1,11 @@
 @page
 @model PortfolioEAI.Pages.Dashbord.AdminUsers.CreateModel
 
-        @{
-        ViewData["Title"] = "Create";
-        }
+@{
+ViewData["Title"] = "Create";
+}
+
+@await Html.PartialAsync("_MenuHome", Model)
         
         <h1>Create</h1>
         

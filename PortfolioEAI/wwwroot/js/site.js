@@ -10,53 +10,57 @@
 window.addEventListener('DOMContentLoaded', event => {
 
     // Navbar shrink function
-    var navbarShrink = function () {
+    const navbarShrink = function () {
         const navbarCollapsible = document.body.querySelector('#mainNav');
         if (!navbarCollapsible) {
             return;
         }
         if (window.scrollY === 0) {
-            navbarCollapsible.classList.remove('navbar-shrink')
+            navbarCollapsible.classList.remove('navbar-shrink');
         } else {
-            navbarCollapsible.classList.add('navbar-shrink')
+            navbarCollapsible.classList.add('navbar-shrink');
         }
-
     };
 
     // Shrink the navbar 
     navbarShrink();
 
     // Shrink the navbar when page is scrolled
-    document.addEventListener('scroll', navbarShrink);
+    document.addEventListener('scroll', navbarShrink, { passive: true });
 
     // Activate Bootstrap scrollspy on the main nav element
     const mainNav = document.body.querySelector('#mainNav');
-    if (mainNav) {
+    if (mainNav && typeof bootstrap !== 'undefined' && bootstrap.ScrollSpy) {
         new bootstrap.ScrollSpy(document.body, {
             target: '#mainNav',
-            rootMargin: '0px 0px -40%',
+            // offset can be adjusted to match your layout (header height)
+            offset: 74
         });
-    };
+    }
 
     // Collapse responsive navbar when toggler is visible
     const navbarToggler = document.body.querySelector('.navbar-toggler');
-    const responsiveNavItems = [].slice.call(
+    const responsiveNavItems = Array.from(
         document.querySelectorAll('#navbarResponsive .nav-link')
     );
-    responsiveNavItems.map(function (responsiveNavItem) {
-        responsiveNavItem.addEventListener('click', () => {
-            if (window.getComputedStyle(navbarToggler).display !== 'none') {
-                navbarToggler.click();
-            }
+    if (navbarToggler && responsiveNavItems.length) {
+        responsiveNavItems.forEach(function (responsiveNavItem) {
+            responsiveNavItem.addEventListener('click', () => {
+                if (window.getComputedStyle(navbarToggler).display !== 'none') {
+                    navbarToggler.click();
+                }
+            });
         });
-    });
+    }
 });
 
+// Graphs (initialise seulement si l'élément existe)
 (() => {
   'use strict'
 
-  // Graphs
-  const ctx = document.getElementById('myChart')
+  const ctx = document.getElementById('myChart');
+  if (!ctx || typeof Chart === 'undefined') return;
+
   new Chart(ctx, {
     type: 'line',
     data: {

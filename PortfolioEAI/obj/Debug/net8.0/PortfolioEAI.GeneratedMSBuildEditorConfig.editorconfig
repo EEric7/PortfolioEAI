@@ -70,28 +70,24 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRGFzaGJvcmQvRXhwZXJpZW5jZXMvSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/Pages/Dashbord/Experiences/Projects/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRGFzaGJvcmQvRXhwZXJpZW5jZXMvUHJvamVjdHMvQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/Pages/Dashbord/Experiences/Projects/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRGFzaGJvcmQvRXhwZXJpZW5jZXMvUHJvamVjdHMvRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/Pages/Dashbord/Experiences/Projects/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRGFzaGJvcmQvRXhwZXJpZW5jZXMvUHJvamVjdHMvRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/Pages/Dashbord/Experiences/Projects/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRGFzaGJvcmQvRXhwZXJpZW5jZXMvUHJvamVjdHMvRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/Pages/Dashbord/Home.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRGFzaGJvcmQvSG9tZS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/Pages/Dashbord/Projects/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRGFzaGJvcmQvUHJvamVjdHMvQ3JlYXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/Pages/Dashbord/Projects/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRGFzaGJvcmQvUHJvamVjdHMvRGVsZXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/Pages/Dashbord/Projects/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRGFzaGJvcmQvUHJvamVjdHMvRGV0YWlscy5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/Pages/Dashbord/Projects/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRGFzaGJvcmQvUHJvamVjdHMvRWRpdC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/Pages/Dashbord/Projects/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRGFzaGJvcmQvUHJvamVjdHMvSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/Pages/Dashbord/Skills/Create.cshtml]
@@ -124,6 +120,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/Pages/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/Pages/Shared/_Menu.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hhcmVkL19NZW51LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/Pages/Shared/_MenuHome.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hhcmVkL19NZW51SG9tZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/Pages/Shared/_ValidationScriptsPartial.cshtml]

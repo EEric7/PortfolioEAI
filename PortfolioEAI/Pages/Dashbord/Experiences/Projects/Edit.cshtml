@@ -1,0 +1,113 @@
+@page
+@model PortfolioEAI.Pages.Experiences.Projects.EditModel
+
+@{
+    ViewData["Title"] = "Modifier un projet";
+}
+
+@await Html.PartialAsync("_MenuHome", Model)
+
+<section class="container py-4">
+    <div class="card shadow-sm">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">Modifier le projet</h4>
+            <div>
+                <a asp-page="../Details" asp-route-id="@Model.ExperienceId" class="btn btn-outline-secondary btn-sm">
+                    <i class="fas fa-arrow-left"></i> Retour
+                </a>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <form method="post" novalidate>
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger d-none" id="validationSummary"></div>
+                <input type="hidden" asp-for="Project.Id" />
+
+                <div class="row g-3">
+                    <div class="col-md-8">
+                        <div class="mb-3">
+                            <label asp-for="Project.Title" class="form-label"></label>
+                            <input asp-for="Project.Title" class="form-control" placeholder="Titre du projet" />
+                            <span asp-validation-for="Project.Title" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Project.Description" class="form-label"></label>
+                            <textarea asp-for="Project.Description" class="form-control" rows="5" placeholder="Description du projet"></textarea>
+                            <span asp-validation-for="Project.Description" class="text-danger small"></span>
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label asp-for="Project.ImageUrl" class="form-label"></label>
+                                <input asp-for="Project.ImageUrl" class="form-control" placeholder="URL de l'image (optionnel)" id="imageUrlInput" />
+                                <span asp-validation-for="Project.ImageUrl" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="Project.Url" class="form-label"></label>
+                                <input asp-for="Project.Url" class="form-control" placeholder="URL du projet (https://...)" />
+                                <span asp-validation-for="Project.Url" class="text-danger small"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card border-0">
+                            <div class="card-body text-center">
+                                <h6 class="card-title">Aperçu image</h6>
+                                <div class="border rounded p-2 mb-2" style="min-height:140px; display:flex; align-items:center; justify-content:center;">
+                                    @if (!string.IsNullOrEmpty(Model.Project?.ImageUrl))
+                                    {
+                                        <img id="imagePreview" src="@Model.Project.ImageUrl" alt="Aperçu" class="img-fluid rounded" style="max-height:120px;" />
+                                    }
+                                    else
+                                    {
+                                        <img id="imagePreview" src="~/assets/placeholder-image.png" alt="Aperçu" class="img-fluid rounded" style="max-height:120px;" />
+                                    }
+                                </div>
+
+                                <div class="d-grid gap-2">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-save me-1"></i> Enregistrer
+                                    </button>
+                                    <a asp-page="../Details" asp-route-id="@Model.ExperienceId" class="btn btn-outline-secondary">Annuler</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        (function () {
+            const input = document.getElementById('imageUrlInput');
+            const preview = document.getElementById('imagePreview');
+
+            if (!input || !preview) return;
+
+            input.addEventListener('input', function () {
+                const url = input.value?.trim();
+                if (!url) {
+                    preview.src = '~/assets/placeholder-image.png';
+                    return;
+                }
+
+                // simple validation before setting src to avoid broken images
+                try {
+                    const u = new URL(url, window.location.href);
+                    preview.src = u.href;
+                } catch {
+                    // invalid URL — keep placeholder
+                    preview.src = '~/assets/placeholder-image.png';
+                }
+            });
+        })();
+    </script>
+}

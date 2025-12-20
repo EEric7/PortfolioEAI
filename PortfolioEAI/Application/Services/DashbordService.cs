@@ -282,6 +282,30 @@ namespace PortfolioEAI.Application.Services.Interfaces
                 throw;
             }
         }
+
+        public async Task<Guid> GetExperienceIdByProjectIdAsync(Guid projectId)
+        {
+            try
+            {
+                _logger.LogInformation("Retrieving experience ID for project with ID: {ProjectId}", projectId);
+                Guid experienceId = await _serviceDomain.ExperienceService.GetExperienceIdByProjectIdAsync(projectId);
+
+                if (experienceId == Guid.Empty)
+                {
+                    _logger.LogWarning("No experience found for project with ID: {ProjectId}", projectId);
+                    return Guid.Empty;
+                }
+    
+                _logger.LogInformation("Successfully retrieved experience ID for project with ID: {ProjectId}", projectId);
+                return experienceId;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while retrieving experience ID for project with ID: {ProjectId}. Error: {ErrorMessage}", projectId, ex.Message);
+                throw;
+            }
+        } 
+
         public async Task UpdateProjectAsync(ProjectDto project)
         {
             try

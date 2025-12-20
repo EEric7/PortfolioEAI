@@ -3,20 +3,17 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using PortfolioEAI.Application.DTOs;
 using PortfolioEAI.Application.Services.Interfaces;
 
-namespace PortfolioEAI.Pages.Projects
+namespace PortfolioEAI.Pages.Experiences.Projects
 {
     public class CreateModel : PageModel
     {
         private readonly IDashbordService _services;
+        private readonly IPhotoService _photoService;
 
-        public CreateModel(IDashbordService services)
+        public CreateModel(IDashbordService services, IPhotoService photoService)
         {
             _services = services;
-        }
-
-        public IActionResult OnGet()
-        {
-            return Page();
+            _photoService = photoService;
         }
 
         [BindProperty]
@@ -24,7 +21,6 @@ namespace PortfolioEAI.Pages.Projects
         {
             new Tuple<string, string>("Dashbord", "/Dashbord/Home"),
             new Tuple<string, string>("Experiences", "/Dashbord/Experiences/"),
-            new Tuple<string, string>("Projects", "/Dashbord/Projects/"),
             new Tuple<string, string>("Skills", "/Dashbord/Skills/"),
             new Tuple<string, string>("Setting", "/Dashbord/AdminUsers/"),
             new Tuple<string, string>("SignOut", "/Authentication/SignInOut")
@@ -32,6 +28,32 @@ namespace PortfolioEAI.Pages.Projects
 
         [BindProperty]
         public ProjectDto Project { get; set; } = default!;
+
+        [BindProperty]
+        public IFormFile? PhotoFile { get; set; }
+
+        public Guid ExperienceId { get; set; } = default!;
+
+        public async Task<IActionResult> OnGetAsync(Guid experienceId)
+        {
+            try
+            {
+                // Attempt to retrieve the experience by ID
+                ExperienceId = (await _services.GetExperienceByIdAsync(experienceId))?.Id??Guid.Empty;
+
+                if (ExperienceId == Guid.Empty)
+                {
+                    ModelState.AddModelError(string.Empty, "Experience not found.");
+                    return RedirectToPage("./Index");
+                }
+                return Page();
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError(string.Empty, "An error occurred while retrieving the experience details.");
+                return NotFound();
+            }
+        }
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -46,7 +68,23 @@ namespace PortfolioEAI.Pages.Projects
                     return Page();
                 }
 
-                await _services.AddProjectAsync(Project);
+                var experience = await _services.GetExperienceByIdAsync(ExperienceId);
+                if (experience is null)
+                {
+                    ModelState.AddModelError(string.Empty, "The associated experience was not found.");
+                    return Page();
+                }
+
+                if (PhotoFile != null && _photoService.IsValidPhotoFile(PhotoFile))
+                {
+                    string photoUrl = await _photoService.UploadPhotoAsync(PhotoFile, "uploads/projects");
+                    Project.ImageUrl = photoUrl;
+                }
+
+                experience.Projects.Add(Project);
+                await _services.UpdateExperienceAsync(experience);
+                
+                TempData["SuccessMessage"] = "Projet créé avec succès.";
                 return Page();
             }
             catch (Exception ex)

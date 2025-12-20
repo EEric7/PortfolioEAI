@@ -1,64 +1,81 @@
 @page
 @model PortfolioEAI.Pages.Dashbord.Experiences.EditModel
-
 @{
-    ViewData["Title"] = "Edit Experience";
+    ViewData["Title"] = "Modifier une expérience";
 }
 
-<h1>Edit</h1>
+@await Html.PartialAsync("_MenuHome", Model)
 
-<h4>Experience</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Experience.Id" />
-            <div class="form-group">
-                
-                <label asp-for="Experience.Company" class="control-label"></label>
-                <input asp-for="Experience.Company" class="form-control" />
-                <span asp-validation-for="Experience.Company" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                
-                <label asp-for="Experience.Position" class="control-label"></label>
-                <input asp-for="Experience.Position" class="form-control" />
-                <span asp-validation-for="Experience.Position" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                
-                <label asp-for="Experience.StartDate" class="control-label"></label>
-                <input asp-for="Experience.StartDate" class="form-control" />
-                <span asp-validation-for="Experience.StartDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                
-                <label asp-for="Experience.EndDate" class="control-label"></label>
-                <input asp-for="Experience.EndDate" class="form-control" />
-                <span asp-validation-for="Experience.EndDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                
-                <label asp-for="Experience.Description" class="control-label"></label>
-                <input asp-for="Experience.Description" class="form-control" />
-                <span asp-validation-for="Experience.Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                
-                <label asp-for="Experience.ImageUrl" class="control-label"></label>
-                <input asp-for="Experience.ImageUrl" class="form-control" />
-                <span asp-validation-for="Experience.ImageUrl" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+<div class="container py-4">
+    <div class="card shadow-sm">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Modifier une expérience</h5>
+            <a asp-page="./Details" asp-route-id="@Model.Experience.Id" class="btn btn-outline-secondary btn-sm">Retour</a>
+        </div>
+
+        <div class="card-body">
+            <form method="post" novalidate>
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                <input type="hidden" asp-for="Experience.Id" />
+
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label asp-for="Experience.Company" class="form-label"></label>
+                        <input asp-for="Experience.Company" class="form-control" placeholder="Nom de l'entreprise" />
+                        <span asp-validation-for="Experience.Company" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Experience.Position" class="form-label"></label>
+                        <input asp-for="Experience.Position" class="form-control" placeholder="Poste occupé" />
+                        <span asp-validation-for="Experience.Position" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Experience.StartDate" class="form-label"></label>
+                        <input asp-for="Experience.StartDate" class="form-control" type="date" />
+                        <span asp-validation-for="Experience.StartDate" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Experience.EndDate" class="form-label"></label>
+                        <input asp-for="Experience.EndDate" class="form-control" type="date" />
+                        <span asp-validation-for="Experience.EndDate" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-12">
+                        <label asp-for="Experience.Description" class="form-label"></label>
+                        <textarea asp-for="Experience.Description" class="form-control" rows="4" placeholder="Résumé de la mission / responsabilités"></textarea>
+                        <span asp-validation-for="Experience.Description" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-8">
+                        <label asp-for="Experience.ImageUrl" class="form-label"></label>
+                        <input asp-for="Experience.ImageUrl" class="form-control" placeholder="URL du logo / image (optionnel)" />
+                        <span asp-validation-for="Experience.ImageUrl" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-4 d-flex align-items-center justify-content-center">
+                        @if (!string.IsNullOrEmpty(Model.Experience?.ImageUrl))
+                        {
+                            <img src="@Model.Experience.ImageUrl" alt="Aperçu" class="img-fluid rounded shadow-sm" style="max-height:100px;" />
+                        }
+                        else
+                        {
+                            <div class="text-muted small">Aperçu image</div>
+                        }
+                    </div>
+                </div>
+
+                <div class="mt-4 d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                    <a asp-page="./Details"
+                       asp-route-id="@Model.Experience?.Id"
+                       class="btn btn-outline-secondary">Annuler</a>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-page="./Index">Back to List</a>
 </div>
 
 @section Scripts {

@@ -1,0 +1,22 @@
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container px-4 px-lg-5">
+        <a href="#page-top" class="navbar-brand" >
+            <img src="assets/EAI.png" alt="" width="60" height="60">
+        </a>
+        <a asp-page="/Authentication/SignInOut" class="navbar-brand">
+            ELEMBA ADI Eric
+        </a>
+        
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto">
+                @foreach(var item in Model.MenuModel)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" href="@item.Item2">@item.Item1</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</nav>

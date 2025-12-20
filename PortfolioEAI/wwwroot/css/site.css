@@ -10994,7 +10994,7 @@ body {
   outline: none;
 }
 #mainNav .navbar-brand {
-  color: #000;
+  color: #fff;
   font-weight: 700;
   padding: 0.9rem 0;
 }
@@ -11017,12 +11017,12 @@ body {
   }
   #mainNav .navbar-brand {
     padding: 0.5rem 0;
-    color: var(--bs-blue);
+    color: rgba(255, 255, 255, 0.5);
   }
   #mainNav .nav-link {
     transition: none;
     padding: 2rem 1.5rem;
-    color: var(--bs-blue);
+    color: rgba(255, 255, 255, 0.5);
   }
   #mainNav .nav-link:hover {
     color: rgba(255, 255, 255, 0.75);
@@ -11155,7 +11155,7 @@ body {
   padding: 10rem 0;
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.5) 75%, #000 100%), url("../assets/img/Workstation.jpg");
   background-position: center;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat;               
   background-attachment: scroll;
   background-size: cover;
 }
@@ -11304,3 +11304,11 @@ body {
 .navbar .form-control {
   padding: .75rem 1rem;
 }
+
+ /* style de mise en évidence pour l'élément focus */
+.experience-focus {
+    box-shadow: 0 0 0 3px rgba(13,110,253,0.12), 0 6px 12px rgba(0,0,0,0.04);
+    border: 1px solid rgba(13,110,253,0.25);
+    transform: translateY(-2px);
+}
+.related-projects .card { margin-bottom: .5rem; }

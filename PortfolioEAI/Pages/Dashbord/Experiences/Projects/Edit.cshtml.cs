@@ -3,13 +3,13 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using PortfolioEAI.Application.DTOs;
 using PortfolioEAI.Application.Services.Interfaces;
 
-namespace PortfolioEAI.Pages.Projects
+namespace PortfolioEAI.Pages.Experiences.Projects
 {
-    public class DetailsModel : PageModel
+    public class EditModel : PageModel
     {
         private readonly IDashbordService _services;
 
-        public DetailsModel(IDashbordService services)
+        public EditModel(IDashbordService services)
         {
             _services = services;
         }
@@ -19,13 +19,15 @@ namespace PortfolioEAI.Pages.Projects
         {
             new Tuple<string, string>("Dashbord", "/Dashbord/Home"),
             new Tuple<string, string>("Experiences", "/Dashbord/Experiences/"),
-            new Tuple<string, string>("Projects", "/Dashbord/Projects/"),
             new Tuple<string, string>("Skills", "/Dashbord/Skills/"),
             new Tuple<string, string>("Setting", "/Dashbord/AdminUsers/"),
             new Tuple<string, string>("SignOut", "/Authentication/SignInOut")
         };
 
+        [BindProperty]
         public ProjectDto Project { get; set; } = default!;
+
+        public Guid ExperienceId { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(Guid id)
         {
@@ -38,7 +40,8 @@ namespace PortfolioEAI.Pages.Projects
                     ModelState.AddModelError(string.Empty, "Project not found.");
                     return RedirectToPage("./Index");
                 }
-                
+
+                ExperienceId = await _services.GetExperienceIdByProjectIdAsync(id);
                 Project = project;
                 return Page();
             }
@@ -46,6 +49,29 @@ namespace PortfolioEAI.Pages.Projects
             {
                 ModelState.AddModelError(string.Empty, "An error occurred while retrieving the project details.");
                 return NotFound();
+            }
+        }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return Page();
+
+                if (!await _services.ProjectExistsAsync(Project))
+                {
+                    ModelState.AddModelError(string.Empty, "The project does not exist.");
+                    return RedirectToPage("./Index");
+                }
+
+                await _services.UpdateProjectAsync(Project);
+                return RedirectToPage("./Index");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, $"An error occurred while updating the project: {ex.Message}");
+                return Page();
             }
         }
     }

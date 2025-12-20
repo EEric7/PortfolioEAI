@@ -1,0 +1,208 @@
+2025-10-17 09:21:12.765 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Authentication/SignInOut - null null
+2025-10-17 09:21:12.802 +02:00 [INF] Executing endpoint '/Authentication/SignInOut'
+2025-10-17 09:21:12.802 +02:00 [INF] Route matched with {page = "/Authentication/SignInOut"}. Executing page /Authentication/SignInOut
+2025-10-17 09:21:12.802 +02:00 [INF] Executing handler method PortfolioEAI.Pages.Authentication.SignInOutModel.OnGet - ModelState is "Valid"
+2025-10-17 09:21:12.803 +02:00 [INF] Executed handler method OnGet, returned result .
+2025-10-17 09:21:12.803 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-10-17 09:21:12.803 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-10-17 09:21:12.817 +02:00 [INF] Executed page /Authentication/SignInOut in 14.9317ms
+2025-10-17 09:21:12.817 +02:00 [INF] Executed endpoint '/Authentication/SignInOut'
+2025-10-17 09:21:12.817 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Authentication/SignInOut - 200 null text/html; charset=utf-8 53.2676ms
+2025-10-17 09:21:12.868 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Authentication/assets/EAI.png - null null
+2025-10-17 09:21:12.869 +02:00 [INF] Executing endpoint '/Errors/Error404'
+2025-10-17 09:21:12.869 +02:00 [INF] Route matched with {page = "/Errors/Error404"}. Executing page /Errors/Error404
+2025-10-17 09:21:12.869 +02:00 [INF] Executing handler method PortfolioEAI.Pages.Error404Model.OnGet - ModelState is "Valid"
+2025-10-17 09:21:12.869 +02:00 [INF] Executed handler method OnGet, returned result .
+2025-10-17 09:21:12.869 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-10-17 09:21:12.869 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-10-17 09:21:12.870 +02:00 [INF] Executed page /Errors/Error404 in 1.2309ms
+2025-10-17 09:21:12.870 +02:00 [INF] Executed endpoint '/Errors/Error404'
+2025-10-17 09:21:12.870 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Authentication/assets/EAI.png - 404 null text/html; charset=utf-8 2.0003ms
+2025-10-17 09:21:12.870 +02:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5168/Authentication/assets/EAI.png, Response status code: 404
+2025-10-17 09:21:12.872 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Authentication/js/scripts.js - null null
+2025-10-17 09:21:12.896 +02:00 [INF] Executing endpoint '/Errors/Error404'
+2025-10-17 09:21:12.896 +02:00 [INF] Route matched with {page = "/Errors/Error404"}. Executing page /Errors/Error404
+2025-10-17 09:21:12.896 +02:00 [INF] Executing handler method PortfolioEAI.Pages.Error404Model.OnGet - ModelState is "Valid"
+2025-10-17 09:21:12.896 +02:00 [INF] Executed handler method OnGet, returned result .
+2025-10-17 09:21:12.896 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-10-17 09:21:12.896 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-10-17 09:21:12.897 +02:00 [INF] Executed page /Errors/Error404 in 0.4865ms
+2025-10-17 09:21:12.897 +02:00 [INF] Executed endpoint '/Errors/Error404'
+2025-10-17 09:21:12.897 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Authentication/js/scripts.js - 404 null text/html; charset=utf-8 24.2264ms
+2025-10-17 09:21:12.897 +02:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5168/Authentication/js/scripts.js, Response status code: 404
+2025-10-17 09:21:15.588 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Index - null null
+2025-10-17 09:21:15.609 +02:00 [INF] Executing endpoint '/Index'
+2025-10-17 09:21:15.620 +02:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2025-10-17 09:21:15.624 +02:00 [INF] Executing handler method PortfolioEAI.Pages.IndexModel.OnGetAsync - ModelState is "Valid"
+2025-10-17 09:21:15.624 +02:00 [INF] Fetching all AdminUsers
+2025-10-17 09:21:15.624 +02:00 [INF] Retrieving all AdminUsers
+2025-10-17 09:21:15.693 +02:00 [INF] Executed DbCommand (18ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."Description", "a"."Password", "a"."UserName", "a"."Email", "s"."Id", "s"."Category", "s"."IdAdminUser", "s"."Level", "s"."Name", "s0"."Id", "s0"."Company", "s0"."Description", "s0"."EndDate", "s0"."IdAdminUser", "s0"."ImageUrl", "s0"."Position", "s0"."StartDate", "s0"."Id0", "s0"."Description0", "s0"."IdExperience", "s0"."ImageUrl0", "s0"."Title", "s0"."Url"
+FROM "AdminUsers" AS "a"
+LEFT JOIN "Skills" AS "s" ON "a"."Id" = "s"."IdAdminUser"
+LEFT JOIN (
+    SELECT "e"."Id", "e"."Company", "e"."Description", "e"."EndDate", "e"."IdAdminUser", "e"."ImageUrl", "e"."Position", "e"."StartDate", "p"."Id" AS "Id0", "p"."Description" AS "Description0", "p"."IdExperience", "p"."ImageUrl" AS "ImageUrl0", "p"."Title", "p"."Url"
+    FROM "Experiences" AS "e"
+    LEFT JOIN "Projects" AS "p" ON "e"."Id" = "p"."IdExperience"
+) AS "s0" ON "a"."Id" = "s0"."IdAdminUser"
+ORDER BY "a"."Id", "s"."Id", "s0"."Id"
+2025-10-17 09:21:15.696 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2025-10-17 09:21:15.696 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-10-17 09:21:15.696 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-10-17 09:21:15.725 +02:00 [INF] Executed page /Index in 104.9294ms
+2025-10-17 09:21:15.799 +02:00 [INF] Executed endpoint '/Index'
+2025-10-17 09:21:15.826 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Index - 200 null text/html; charset=utf-8 237.9992ms
+2025-10-17 09:21:15.826 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5168/js/scripts.js - null null
+2025-10-17 09:21:15.827 +02:00 [INF] Executing endpoint '/Errors/Error404'
+2025-10-17 09:21:15.827 +02:00 [INF] Route matched with {page = "/Errors/Error404"}. Executing page /Errors/Error404
+2025-10-17 09:21:15.827 +02:00 [INF] Executing handler method PortfolioEAI.Pages.Error404Model.OnGet - ModelState is "Valid"
+2025-10-17 09:21:15.827 +02:00 [INF] Executed handler method OnGet, returned result .
+2025-10-17 09:21:15.827 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-10-17 09:21:15.827 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-10-17 09:21:15.828 +02:00 [INF] Executed page /Errors/Error404 in 0.8438ms
+2025-10-17 09:21:15.828 +02:00 [INF] Executed endpoint '/Errors/Error404'
+2025-10-17 09:21:15.828 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5168/js/scripts.js - 404 null text/html; charset=utf-8 1.9516ms
+2025-10-17 09:21:15.828 +02:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5168/js/scripts.js, Response status code: 404
+2025-10-17 09:21:17.119 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Authentication/SignInOut - null null
+2025-10-17 09:21:17.120 +02:00 [INF] Executing endpoint '/Authentication/SignInOut'
+2025-10-17 09:21:17.120 +02:00 [INF] Route matched with {page = "/Authentication/SignInOut"}. Executing page /Authentication/SignInOut
+2025-10-17 09:21:17.120 +02:00 [INF] Executing handler method PortfolioEAI.Pages.Authentication.SignInOutModel.OnGet - ModelState is "Valid"
+2025-10-17 09:21:17.120 +02:00 [INF] Executed handler method OnGet, returned result .
+2025-10-17 09:21:17.120 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-10-17 09:21:17.120 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-10-17 09:21:17.122 +02:00 [INF] Executed page /Authentication/SignInOut in 2.1737ms
+2025-10-17 09:21:17.122 +02:00 [INF] Executed endpoint '/Authentication/SignInOut'
+2025-10-17 09:21:17.122 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Authentication/SignInOut - 200 null text/html; charset=utf-8 3.3478ms
+2025-10-17 09:21:17.124 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Authentication/assets/EAI.png - null null
+2025-10-17 09:21:17.148 +02:00 [INF] Executing endpoint '/Errors/Error404'
+2025-10-17 09:21:17.194 +02:00 [INF] Route matched with {page = "/Errors/Error404"}. Executing page /Errors/Error404
+2025-10-17 09:21:17.194 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Authentication/js/scripts.js - null null
+2025-10-17 09:21:17.194 +02:00 [INF] Executing handler method PortfolioEAI.Pages.Error404Model.OnGet - ModelState is "Valid"
+2025-10-17 09:21:17.194 +02:00 [INF] Executed handler method OnGet, returned result .
+2025-10-17 09:21:17.194 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-10-17 09:21:17.194 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-10-17 09:21:17.195 +02:00 [INF] Executing endpoint '/Errors/Error404'
+2025-10-17 09:21:17.195 +02:00 [INF] Route matched with {page = "/Errors/Error404"}. Executing page /Errors/Error404
+2025-10-17 09:21:17.195 +02:00 [INF] Executing handler method PortfolioEAI.Pages.Error404Model.OnGet - ModelState is "Valid"
+2025-10-17 09:21:17.195 +02:00 [INF] Executed handler method OnGet, returned result .
+2025-10-17 09:21:17.195 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-10-17 09:21:17.195 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-10-17 09:21:17.195 +02:00 [INF] Executed page /Errors/Error404 in 0.8802ms
+2025-10-17 09:21:17.195 +02:00 [INF] Executed endpoint '/Errors/Error404'
+2025-10-17 09:21:17.195 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Authentication/assets/EAI.png - 404 null text/html; charset=utf-8 70.7383ms
+2025-10-17 09:21:17.195 +02:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5168/Authentication/assets/EAI.png, Response status code: 404
+2025-10-17 09:21:17.196 +02:00 [INF] Executed page /Errors/Error404 in 1.1667ms
+2025-10-17 09:21:17.196 +02:00 [INF] Executed endpoint '/Errors/Error404'
+2025-10-17 09:21:17.196 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Authentication/js/scripts.js - 404 null text/html; charset=utf-8 47.8614ms
+2025-10-17 09:21:17.196 +02:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5168/Authentication/js/scripts.js, Response status code: 404
+2025-10-17 09:21:18.428 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/Home - null null
+2025-10-17 09:21:18.429 +02:00 [INF] Executing endpoint '/Dashbord/Home'
+2025-10-17 09:21:18.429 +02:00 [INF] Route matched with {page = "/Dashbord/Home"}. Executing page /Dashbord/Home
+2025-10-17 09:21:18.430 +02:00 [INF] Executing handler method PortfolioEAI.Pages.Dashbord.HomeModel.OnGetAsync - ModelState is "Valid"
+2025-10-17 09:21:18.430 +02:00 [INF] Retrieving all admin users.
+2025-10-17 09:21:18.430 +02:00 [INF] Fetching all AdminUsers
+2025-10-17 09:21:18.430 +02:00 [INF] Retrieving all AdminUsers
+2025-10-17 09:21:18.432 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."Description", "a"."Password", "a"."UserName", "a"."Email", "s"."Id", "s"."Category", "s"."IdAdminUser", "s"."Level", "s"."Name", "s0"."Id", "s0"."Company", "s0"."Description", "s0"."EndDate", "s0"."IdAdminUser", "s0"."ImageUrl", "s0"."Position", "s0"."StartDate", "s0"."Id0", "s0"."Description0", "s0"."IdExperience", "s0"."ImageUrl0", "s0"."Title", "s0"."Url"
+FROM "AdminUsers" AS "a"
+LEFT JOIN "Skills" AS "s" ON "a"."Id" = "s"."IdAdminUser"
+LEFT JOIN (
+    SELECT "e"."Id", "e"."Company", "e"."Description", "e"."EndDate", "e"."IdAdminUser", "e"."ImageUrl", "e"."Position", "e"."StartDate", "p"."Id" AS "Id0", "p"."Description" AS "Description0", "p"."IdExperience", "p"."ImageUrl" AS "ImageUrl0", "p"."Title", "p"."Url"
+    FROM "Experiences" AS "e"
+    LEFT JOIN "Projects" AS "p" ON "e"."Id" = "p"."IdExperience"
+) AS "s0" ON "a"."Id" = "s0"."IdAdminUser"
+ORDER BY "a"."Id", "s"."Id", "s0"."Id"
+2025-10-17 09:21:18.433 +02:00 [INF] Successfully retrieved 1 admin users.
+2025-10-17 09:21:18.433 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2025-10-17 09:21:18.433 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-10-17 09:21:18.433 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-10-17 09:21:18.511 +02:00 [INF] Executed page /Dashbord/Home in 81.8565ms
+2025-10-17 09:21:18.584 +02:00 [INF] Executed endpoint '/Dashbord/Home'
+2025-10-17 09:21:18.585 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/js/scripts.js - null null
+2025-10-17 09:21:18.585 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/Home - 200 null text/html; charset=utf-8 156.6617ms
+2025-10-17 09:21:18.585 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Dashbord/assets/EAI.png - null null
+2025-10-17 09:21:18.585 +02:00 [INF] Executing endpoint '/Errors/Error404'
+2025-10-17 09:21:18.585 +02:00 [INF] Executing endpoint '/Errors/Error404'
+2025-10-17 09:21:18.586 +02:00 [INF] Route matched with {page = "/Errors/Error404"}. Executing page /Errors/Error404
+2025-10-17 09:21:18.586 +02:00 [INF] Route matched with {page = "/Errors/Error404"}. Executing page /Errors/Error404
+2025-10-17 09:21:18.586 +02:00 [INF] Executing handler method PortfolioEAI.Pages.Error404Model.OnGet - ModelState is "Valid"
+2025-10-17 09:21:18.586 +02:00 [INF] Executed handler method OnGet, returned result .
+2025-10-17 09:21:18.586 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-10-17 09:21:18.586 +02:00 [INF] Executing handler method PortfolioEAI.Pages.Error404Model.OnGet - ModelState is "Valid"
+2025-10-17 09:21:18.586 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-10-17 09:21:18.586 +02:00 [INF] Executed handler method OnGet, returned result .
+2025-10-17 09:21:18.586 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-10-17 09:21:18.586 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-10-17 09:21:18.587 +02:00 [INF] Executed page /Errors/Error404 in 1.1908ms
+2025-10-17 09:21:18.587 +02:00 [INF] Executed page /Errors/Error404 in 1.6435ms
+2025-10-17 09:21:18.587 +02:00 [INF] Executed endpoint '/Errors/Error404'
+2025-10-17 09:21:18.587 +02:00 [INF] Executed endpoint '/Errors/Error404'
+2025-10-17 09:21:18.587 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/assets/EAI.png - 404 null text/html; charset=utf-8 2.7501ms
+2025-10-17 09:21:18.587 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Dashbord/js/scripts.js - 404 null text/html; charset=utf-8 2.2995ms
+2025-10-17 09:21:18.587 +02:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5168/Dashbord/assets/EAI.png, Response status code: 404
+2025-10-17 09:21:18.587 +02:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5168/Dashbord/js/scripts.js, Response status code: 404
+2025-10-17 09:24:26.045 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Authentication/SignInOut - null null
+2025-10-17 09:24:26.051 +02:00 [INF] Executing endpoint '/Authentication/SignInOut'
+2025-10-17 09:24:26.051 +02:00 [INF] Route matched with {page = "/Authentication/SignInOut"}. Executing page /Authentication/SignInOut
+2025-10-17 09:24:26.051 +02:00 [INF] Executing handler method PortfolioEAI.Pages.Authentication.SignInOutModel.OnGet - ModelState is "Valid"
+2025-10-17 09:24:26.051 +02:00 [INF] Executed handler method OnGet, returned result .
+2025-10-17 09:24:26.052 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-10-17 09:24:26.052 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-10-17 09:24:26.053 +02:00 [INF] Executed page /Authentication/SignInOut in 1.9997ms
+2025-10-17 09:24:26.053 +02:00 [INF] Executed endpoint '/Authentication/SignInOut'
+2025-10-17 09:24:26.053 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Authentication/SignInOut - 200 null text/html; charset=utf-8 8.7115ms
+2025-10-17 09:24:26.081 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Authentication/assets/EAI.png - null null
+2025-10-17 09:24:26.082 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Authentication/js/scripts.js - null null
+2025-10-17 09:24:26.082 +02:00 [INF] Executing endpoint '/Errors/Error404'
+2025-10-17 09:24:26.082 +02:00 [INF] Executing endpoint '/Errors/Error404'
+2025-10-17 09:24:26.082 +02:00 [INF] Route matched with {page = "/Errors/Error404"}. Executing page /Errors/Error404
+2025-10-17 09:24:26.082 +02:00 [INF] Route matched with {page = "/Errors/Error404"}. Executing page /Errors/Error404
+2025-10-17 09:24:26.083 +02:00 [INF] Executing handler method PortfolioEAI.Pages.Error404Model.OnGet - ModelState is "Valid"
+2025-10-17 09:24:26.083 +02:00 [INF] Executing handler method PortfolioEAI.Pages.Error404Model.OnGet - ModelState is "Valid"
+2025-10-17 09:24:26.083 +02:00 [INF] Executed handler method OnGet, returned result .
+2025-10-17 09:24:26.083 +02:00 [INF] Executed handler method OnGet, returned result .
+2025-10-17 09:24:26.083 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-10-17 09:24:26.083 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-10-17 09:24:26.083 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-10-17 09:24:26.083 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-10-17 09:24:26.084 +02:00 [INF] Executed page /Errors/Error404 in 1.099ms
+2025-10-17 09:24:26.084 +02:00 [INF] Executed endpoint '/Errors/Error404'
+2025-10-17 09:24:26.084 +02:00 [INF] Executed page /Errors/Error404 in 1.1091ms
+2025-10-17 09:24:26.084 +02:00 [INF] Executed endpoint '/Errors/Error404'
+2025-10-17 09:24:26.084 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Authentication/js/scripts.js - 404 null text/html; charset=utf-8 2.2753ms
+2025-10-17 09:24:26.084 +02:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5168/Authentication/js/scripts.js, Response status code: 404
+2025-10-17 09:24:26.084 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Authentication/assets/EAI.png - 404 null text/html; charset=utf-8 27.7257ms
+2025-10-17 09:24:26.084 +02:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5168/Authentication/assets/EAI.png, Response status code: 404
+2025-10-17 09:24:32.996 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5168/Index - null null
+2025-10-17 09:24:32.997 +02:00 [INF] Executing endpoint '/Index'
+2025-10-17 09:24:32.997 +02:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2025-10-17 09:24:33.008 +02:00 [INF] Executing handler method PortfolioEAI.Pages.IndexModel.OnGetAsync - ModelState is "Valid"
+2025-10-17 09:24:33.008 +02:00 [INF] Fetching all AdminUsers
+2025-10-17 09:24:33.008 +02:00 [INF] Retrieving all AdminUsers
+2025-10-17 09:24:33.009 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."Description", "a"."Password", "a"."UserName", "a"."Email", "s"."Id", "s"."Category", "s"."IdAdminUser", "s"."Level", "s"."Name", "s0"."Id", "s0"."Company", "s0"."Description", "s0"."EndDate", "s0"."IdAdminUser", "s0"."ImageUrl", "s0"."Position", "s0"."StartDate", "s0"."Id0", "s0"."Description0", "s0"."IdExperience", "s0"."ImageUrl0", "s0"."Title", "s0"."Url"
+FROM "AdminUsers" AS "a"
+LEFT JOIN "Skills" AS "s" ON "a"."Id" = "s"."IdAdminUser"
+LEFT JOIN (
+    SELECT "e"."Id", "e"."Company", "e"."Description", "e"."EndDate", "e"."IdAdminUser", "e"."ImageUrl", "e"."Position", "e"."StartDate", "p"."Id" AS "Id0", "p"."Description" AS "Description0", "p"."IdExperience", "p"."ImageUrl" AS "ImageUrl0", "p"."Title", "p"."Url"
+    FROM "Experiences" AS "e"
+    LEFT JOIN "Projects" AS "p" ON "e"."Id" = "p"."IdExperience"
+) AS "s0" ON "a"."Id" = "s0"."IdAdminUser"
+ORDER BY "a"."Id", "s"."Id", "s0"."Id"
+2025-10-17 09:24:33.010 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2025-10-17 09:24:33.010 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-10-17 09:24:33.010 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-10-17 09:24:33.113 +02:00 [INF] Executed page /Index in 67.5489ms
+2025-10-17 09:24:33.139 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5168/js/scripts.js - null null
+2025-10-17 09:24:33.139 +02:00 [INF] Executed endpoint '/Index'
+2025-10-17 09:24:33.140 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5168/Index - 200 null text/html; charset=utf-8 143.6788ms
+2025-10-17 09:24:33.140 +02:00 [INF] Executing endpoint '/Errors/Error404'
+2025-10-17 09:24:33.140 +02:00 [INF] Route matched with {page = "/Errors/Error404"}. Executing page /Errors/Error404
+2025-10-17 09:24:33.141 +02:00 [INF] Executing handler method PortfolioEAI.Pages.Error404Model.OnGet - ModelState is "Valid"
+2025-10-17 09:24:33.141 +02:00 [INF] Executed handler method OnGet, returned result .
+2025-10-17 09:24:33.141 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-10-17 09:24:33.141 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-10-17 09:24:33.142 +02:00 [INF] Executed page /Errors/Error404 in 1.6934ms
+2025-10-17 09:24:33.142 +02:00 [INF] Executed endpoint '/Errors/Error404'
+2025-10-17 09:24:33.142 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5168/js/scripts.js - 404 null text/html; charset=utf-8 3.1419ms
+2025-10-17 09:24:33.142 +02:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5168/js/scripts.js, Response status code: 404

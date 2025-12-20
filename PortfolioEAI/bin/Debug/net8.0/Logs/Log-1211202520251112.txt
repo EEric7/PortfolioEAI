@@ -1,0 +1,155 @@
+2025-11-12 18:14:20.109 +01:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL;
+2025-11-12 18:14:20.235 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "AdminUsers" AS "a")
+2025-11-12 18:14:20.264 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."Description", "a"."Password", "a"."UserName", "a"."Email"
+FROM "AdminUsers" AS "a"
+2025-11-12 18:14:20.296 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Skills" AS "s")
+2025-11-12 18:14:20.299 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "s"."Id", "s"."Category", "s"."IdAdminUser", "s"."Level", "s"."Name"
+FROM "Skills" AS "s"
+2025-11-12 18:14:20.309 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Experiences" AS "e")
+2025-11-12 18:14:20.311 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "e"."Id", "e"."Company", "e"."Description", "e"."EndDate", "e"."IdAdminUser", "e"."ImageUrl", "e"."Position", "e"."StartDate"
+FROM "Experiences" AS "e"
+2025-11-12 18:14:20.322 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Projects" AS "p")
+2025-11-12 18:14:20.325 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."Description", "p"."IdExperience", "p"."ImageUrl", "p"."Title", "p"."Url"
+FROM "Projects" AS "p"
+2025-11-12 18:14:20.384 +01:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Projects"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-11-12 18:14:20.385 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Projects"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-11-12 18:14:20.385 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Skills"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-11-12 18:14:20.385 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Skills"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-11-12 18:14:20.385 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Skills"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-11-12 18:14:20.385 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Skills"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-11-12 18:14:20.385 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Skills"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-11-12 18:14:20.386 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Skills"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-11-12 18:14:20.386 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Skills"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-11-12 18:14:20.386 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Skills"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-11-12 18:14:20.386 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Skills"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-11-12 18:14:20.386 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Projects"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-11-12 18:14:20.386 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Skills"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-11-12 18:14:20.387 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Experiences"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-11-12 18:14:20.387 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Experiences"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-11-12 18:14:20.387 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AdminUsers"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-11-12 18:14:20.388 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 772), @p2='?' (Size = 8), @p3='?' (Size = 15), @p4='?' (Size = 20)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AdminUsers" ("Id", "Description", "Password", "UserName", "Email")
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2025-11-12 18:14:20.388 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 10), @p2='?' (Size = 37), @p3='?' (DbType = Date), @p4='?' (DbType = Guid), @p5='?' (Size = 14), @p6='?' (Size = 43), @p7='?' (DbType = Date)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Experiences" ("Id", "Company", "Description", "EndDate", "IdAdminUser", "ImageUrl", "Position", "StartDate")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+2025-11-12 18:14:20.388 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 16), @p2='?' (Size = 32), @p3='?' (DbType = Date), @p4='?' (DbType = Guid), @p5='?' (Size = 14), @p6='?' (Size = 13), @p7='?' (DbType = Date)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Experiences" ("Id", "Company", "Description", "EndDate", "IdAdminUser", "ImageUrl", "Position", "StartDate")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+2025-11-12 18:14:20.390 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?' (DbType = Guid), @p3='?' (DbType = Int32), @p4='?' (Size = 28)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Skills" ("Id", "Category", "IdAdminUser", "Level", "Name")
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2025-11-12 18:14:20.390 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?' (DbType = Guid), @p3='?' (DbType = Int32), @p4='?' (Size = 2)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Skills" ("Id", "Category", "IdAdminUser", "Level", "Name")
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2025-11-12 18:14:20.390 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?' (DbType = Guid), @p3='?' (DbType = Int32), @p4='?' (Size = 5)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Skills" ("Id", "Category", "IdAdminUser", "Level", "Name")
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2025-11-12 18:14:20.390 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?' (DbType = Guid), @p3='?' (DbType = Int32), @p4='?' (Size = 17)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Skills" ("Id", "Category", "IdAdminUser", "Level", "Name")
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2025-11-12 18:14:20.390 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?' (DbType = Guid), @p3='?' (DbType = Int32), @p4='?' (Size = 20)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Skills" ("Id", "Category", "IdAdminUser", "Level", "Name")
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2025-11-12 18:14:20.390 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?' (DbType = Guid), @p3='?' (DbType = Int32), @p4='?' (Size = 15)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Skills" ("Id", "Category", "IdAdminUser", "Level", "Name")
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2025-11-12 18:14:20.390 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?' (DbType = Guid), @p3='?' (DbType = Int32), @p4='?' (Size = 3)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Skills" ("Id", "Category", "IdAdminUser", "Level", "Name")
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2025-11-12 18:14:20.391 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?' (DbType = Guid), @p3='?' (DbType = Int32), @p4='?' (Size = 11)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Skills" ("Id", "Category", "IdAdminUser", "Level", "Name")
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2025-11-12 18:14:20.391 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?' (DbType = Guid), @p3='?' (DbType = Int32), @p4='?' (Size = 19)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Skills" ("Id", "Category", "IdAdminUser", "Level", "Name")
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2025-11-12 18:14:20.391 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?' (DbType = Guid), @p3='?' (DbType = Int32), @p4='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Skills" ("Id", "Category", "IdAdminUser", "Level", "Name")
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2025-11-12 18:14:20.391 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 279), @p2='?' (DbType = Guid), @p3='?' (Size = 21), @p4='?' (Size = 49), @p5='?' (Size = 22)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Projects" ("Id", "Description", "IdExperience", "ImageUrl", "Title", "Url")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2025-11-12 18:14:20.391 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 305), @p2='?' (DbType = Guid), @p3='?' (Size = 18), @p4='?' (Size = 46), @p5='?' (Size = 22)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Projects" ("Id", "Description", "IdExperience", "ImageUrl", "Title", "Url")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2025-11-12 18:14:20.391 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 278), @p2='?' (DbType = Guid), @p3='?' (Size = 22), @p4='?' (Size = 37), @p5='?' (Size = 22)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Projects" ("Id", "Description", "IdExperience", "ImageUrl", "Title", "Url")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2025-11-12 18:14:20.442 +01:00 [INF] User profile is available. Using '/Users/Eric/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2025-11-12 18:14:20.612 +01:00 [ERR] Hosting failed to start
+System.InvalidOperationException: Unable to configure HTTPS endpoint. No server certificate was specified, and the default developer certificate could not be found or is out of date.
+To generate a developer certificate run 'dotnet dev-certs https'. To trust the certificate (Windows and macOS only) run 'dotnet dev-certs https --trust'.
+For more information on configuring HTTPS see https://go.microsoft.com/fwlink/?linkid=848054.
+   at Microsoft.AspNetCore.Hosting.ListenOptionsHttpsExtensions.UseHttps(ListenOptions listenOptions, Action`1 configureOptions)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.AddressesStrategy.BindAsync(AddressBindContext context, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.BindAsync(ListenOptions[] listenOptions, AddressBindContext context, Func`2 useHttps, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl.BindAsync(CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl.StartAsync[TContext](IHttpApplication`1 application, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.Internal.Host.<StartAsync>b__15_1(IHostedService service, CancellationToken token)
+   at Microsoft.Extensions.Hosting.Internal.Host.ForeachService[T](IEnumerable`1 services, CancellationToken token, Boolean concurrent, Boolean abortOnFirstException, List`1 exceptions, Func`3 operation)

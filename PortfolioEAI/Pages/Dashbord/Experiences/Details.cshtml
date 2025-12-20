@@ -2,54 +2,159 @@
 @model PortfolioEAI.Pages.Dashbord.Experiences.DetailsModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Détails de l'expérience";
 }
 
-<h1>Details</h1>
+@await Html.PartialAsync("_MenuHome", Model)
 
-<div>
-    <h4>Experience</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Experience.Company)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Experience.Company)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Experience.Position)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Experience.Position)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Experience.StartDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Experience.StartDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Experience.EndDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Experience.EndDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Experience.Description)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Experience.Description)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Experience.ImageUrl)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Experience.ImageUrl)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-page="./Edit" asp-route-id="@Model.Experience.Id">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
-</div>
+<section class="container py-4">
+    <div class="card shadow-sm">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">Détails</h4>
+            <div>
+                <a asp-page="./Edit" asp-route-id="@Model.Experience?.Id" class="btn btn-sm btn-warning me-2">
+                    <i class="fas fa-edit"></i> Modifier
+                </a>
+                <a asp-page="./Index" class="btn btn-sm btn-outline-secondary">
+                    <i class="fas fa-arrow-left"></i> Retour
+                </a>
+            </div>
+        </div>
+
+        <div class="card-body">
+            @if (Model.Experience == null)
+            {
+                <div class="alert alert-warning">Expérience introuvable.</div>
+            }
+            else
+            {
+                <div class="row g-3">
+                    <div class="col-md-8">
+                        <dl class="row">
+                            <dt class="col-sm-4">Entreprise</dt>
+                            <dd class="col-sm-8">@Html.DisplayFor(m => m.Experience.Company)</dd>
+
+                            <dt class="col-sm-4">Poste</dt>
+                            <dd class="col-sm-8">@Html.DisplayFor(m => m.Experience.Position)</dd>
+
+                            <dt class="col-sm-4">Début</dt>
+                            <dd class="col-sm-8">
+                                @(Model.Experience.StartDate is DateOnly sd ? sd.ToString("dd/MM/yyyy") : Html.DisplayFor(m
+                                                            => m.Experience.StartDate))
+                            </dd>
+
+                            <dt class="col-sm-4">Fin</dt>
+                            <dd class="col-sm-8">
+                                @(Model.Experience.EndDate is DateOnly ed ? ed.ToString("dd/MM/yyyy") : Html.DisplayFor(m =>
+                                                            m.Experience.EndDate))
+                            </dd>
+
+                            <dt class="col-sm-4 align-self-start">Description</dt>
+                            <dd class="col-sm-8">@Html.DisplayFor(m => m.Experience.Description)</dd>
+
+                            <dt class="col-sm-4">Image</dt>
+                            <dd class="col-sm-8">
+                                @if (!string.IsNullOrEmpty(Model.Experience.ImageUrl))
+                                {
+                                    <img src="@Model.Experience.ImageUrl" alt="Image expérience"
+                                        class="img-fluid rounded shadow-sm" style="max-height:160px;" />
+                                }
+                                else
+                                {
+                                    <span class="text-muted">Aucune image</span>
+                                }
+                            </dd>
+                        </dl>
+                    </div>
+
+                    <div class="col-md-4 d-flex align-items-start justify-content-center">
+                        <div class="border rounded p-3 text-center w-100">
+                            <h6 class="mb-2">Résumé rapide</h6>
+                            <p class="mb-1"><strong>Entreprise :</strong> @Model.Experience.Company</p>
+                            <p class="mb-1"><strong>Poste :</strong> @Model.Experience.Position</p>
+                            <p class="mb-0"><strong>Période :</strong>
+                                @(Model.Experience.StartDate is DateOnly s ? s.ToString("yyyy") : "-")
+                                -
+                                @(Model.Experience.EndDate is DateOnly e ? e.ToString("yyyy") : "Présent")
+                            </p>
+                        </div>
+                    </div>
+
+                    @if (Model?.Experience.Projects == null || !Model.Experience.Projects.Any())
+                    {
+                        <div class="alert alert-info">Aucun projet trouvé. Cliquez sur <a asp-page="./Projects/Create" asp-route-experienceId="@Model."><strong>Nouveau
+                                projet</strong></a> pour en ajouter.</div>
+                    }
+                    else
+                    {
+                        <div class="table-responsive shadow-sm rounded">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5 class="mb-0">Projets liés</h5>
+                                <a asp-page="./Projects/Create" asp-route-experienceId="@Model.Experience.Id" class="btn btn-sm btn-success">
+                                    <i class="fas fa-plus me-1"></i> Nouveau projet
+                                </a>
+                            </div>
+
+                            <table id="skillsTable" class="table table-hover mb-0 align-middle">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th style="width:40%;">
+                                            @Html.DisplayNameFor(model => model.Experience.Projects[0].Title)
+                                        </th>
+                                        <th style="width:25%;">
+                                            @Html.DisplayNameFor(model => model.Experience.Projects[0].ImageUrl)
+                                        </th>
+                                         <th style="width:25%;">
+                                            @Html.DisplayNameFor(model => model.Experience.Projects[0].Url)
+                                        </th>
+                                        <th class="text-end" style="width:180px;">
+                                            Actions
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.Experience.Projects)
+                                    {
+                                        <tr>
+                                            <td class="align-middle">
+                                                <div class="d-flex flex-column">
+                                                    <strong>@Html.DisplayFor(modelItem => item.Title)</strong>
+                                                    <small class="text-muted">@item.Id</small>
+                                                </div>
+                                            </td>
+                                            <td class="align-middle">
+                                                @Html.DisplayFor(modelItem => item.ImageUrl)
+                                            </td>
+                                            <td class="align-middle">
+                                                @Html.DisplayFor(modelItem => item.Url)
+                                            </td>
+                                            <td class="align-middle text-end">
+                                                <div class="btn-group" role="group" aria-label="Actions">
+                                                    <a asp-page="./Projects/Details" asp-route-id="@item.Id"
+                                                        class="btn btn-sm btn-outline-primary" title="Détails">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                    <a asp-page="./Projects/Edit" asp-route-id="@item.Id"
+                                                        class="btn btn-sm btn-warning text-white" title="Modifier">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
+                                                    <form method="post" asp-page-handler="Delete" asp-route-id="@item.Id"
+                                                        onsubmit="return confirm('Confirmez-vous la suppression de cette compétence ?');"
+                                                        style="display:inline;">
+                                                        <button type="submit" class="btn btn-sm btn-danger" title="Supprimer">
+                                                            <i class="fas fa-trash-alt"></i>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</section>

@@ -34,6 +34,7 @@ namespace PortfolioEAI.Application.Services.Interfaces
         #region Project Methods
         Task<IList<ProjectDto>> GetAllProjectsAsync();
         Task<ProjectDto?> GetProjectByIdAsync(Guid id);
+        Task<Guid> GetExperienceIdByProjectIdAsync(Guid projectId);
         Task DeleteProjectAsync(Guid id);
         Task UpdateProjectAsync(ProjectDto project);
         Task AddProjectAsync(ProjectDto project);

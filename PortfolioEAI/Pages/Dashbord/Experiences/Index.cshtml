@@ -2,65 +2,133 @@
 @model PortfolioEAI.Pages.Dashbord.Experiences.ExperienceModel
 
 @{
-    ViewData["Title"] = "Experiences";
+    ViewData["Title"] = "Expériences";
 }
 
-<h1>Index</h1>
+@await Html.PartialAsync("_MenuHome", Model)
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ExperiencesDto[0].Company)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ExperiencesDto[0].Position)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ExperiencesDto[0].StartDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ExperiencesDto[0].EndDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ExperiencesDto[0].Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ExperiencesDto[0].ImageUrl)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.ExperiencesDto) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Company)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Position)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImageUrl)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="mb-0">Mes Expériences</h2>
+            <small class="text-muted">Gestion des expériences du portfolio</small>
+        </div>
+
+         <div class="d-flex gap-2">
+            <a asp-page="./Create" class="btn btn-primary">
+                <i class="fas fa-plus me-1"></i> Nouvelle expérience
+            </a>
+            <a asp-page="./Index" class="btn btn-outline-secondary d-none d-md-inline">
+                <i class="fas fa-sync-alt"></i>
+            </a>
+        </div>
+    </div>
+
+    @if (Model?.ExperiencesDto == null || !Model.ExperiencesDto.Any())
+    {
+        <div class="alert alert-info">Aucune expérience trouvée. Cliquez sur <strong>Nouvelle expérience</strong> pour en ajouter.</div>
+    }
+    else
+    {
+         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mb-4">
+            @foreach (var item in Model.ExperiencesDto)
+            {
+                <div class="col">
+                    <div id="exp-@item.Id" class="card h-100 shadow-sm">
+                        @if((!string.IsNullOrEmpty(item.ImageUrl)))
+                        {
+                            <img src="@item.ImageUrl" class="card-img-top object-fit-cover" alt="@item.Company" style="height:160px; width:100%; object-fit:cover;" />
+                        }
+                        <div class="card-body d-flex flex-column">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <div>
+                                    <h5 class="card-title mb-1">@item.Company</h5>
+                                    <p class="card-text text-muted small mb-0">@item.Position</p>
+                                </div>
+                                <div class="btn-group ms-2">
+                                    <a asp-page="./Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary" title="Détails">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <p class="card-text text-muted small mb-2">
+                                @(item.Position?.Length > 120 ? item.Position.Substring(0, 120) + "…" : item.Position)
+                            </p>
+                            <p class="card-text text-muted small mb-2">
+                                @("Du: " + (item.StartDate.HasValue ? item.StartDate.Value.ToString("dd/MM/yyyy") : "Inconnu") + " Au: " + (item.EndDate.HasValue ? item.EndDate.Value.ToString("dd/MM/yyyy") : "Présent"))
+                            </p>
+
+                            <div class="mt-auto d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning text-white">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger" onclick="return confirm('Supprimer cette expérience ?');">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                </div>
+
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" 
+                                            type="button" 
+                                            id="dropdownMenuButton@item.Id" 
+                                            data-bs-toggle="dropdown" 
+                                            aria-haspopup="true" 
+                                            aria-expanded="false">
+                                        <i class="fas fa-project-diagram me-1"></i> Projets (@(item.Projects.Count))
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton@item.Id">
+                                        @foreach (var proj in item.Projects)
+                                        {
+                                            <a asp-page="./Projects/Details" 
+                                                asp-route-id="@proj.Id" 
+                                                class="dropdown-item" 
+                                                target="_blank">
+                                                @proj.Title
+                                            </a>
+                                        }
+                                        @if (item.Projects.Count == 0)
+                                        {
+                                            <span class="dropdown-item-text text-muted">Aucun projet</span>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="collapse related-projects" id="projectsFor@item.Id">
+                            <div class="card-body">
+                                @if (item.Projects.Count == 0)
+                                {
+                                    <div class="alert alert-secondary mb-0">Aucun projet lié à cette expérience.</div>
+                                }
+                                else
+                                {
+                                    <div class="row">
+                                        @foreach (var proj in item.Projects)
+                                        {
+                                            <div class="col-12 col-md-6">
+                                                <div class="card mb-2">
+                                                    <div class="card-body p-2">
+                                                        <div class="d-flex justify-content-between align-items-start">
+                                                            <div class="text-end">
+                                                                <a asp-page="./Projects/Details" 
+                                                                    asp-route-id="@proj.Id" class="btn btn-sm btn-outline-primary" title="Détails projet"><i class="fas fa-eye"></i></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
 }
-    </tbody>
-</table>

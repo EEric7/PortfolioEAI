@@ -18,27 +18,6 @@
 </head>
 
 <body id="page-top">
-    <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-        <div class="container px-4 px-lg-5">
-            <a class="navbar-brand" asp-area="" asp-page="/Index">
-                <img src="assets/EAI.png" alt="" width="60" height="60">
-                ELEMBA ADI Eric
-            </a>
-            
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ms-auto">
-                    @foreach(var item in Model.MenuModel)
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link" href="@item.Item2">@item.Item1</a>
-                        </li>
-                    }
-                </ul>
-            </div>
-        </div>
-    </nav>
-
     <!--Body-->
     @RenderBody()
 
@@ -49,10 +28,8 @@
         </div>
     </footer>
 
-    <!-- Bootstrap core JS-->
+ <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Core theme JS-->
-    <script src="js/scripts.js"></script>
     <!-- CSB Forms JS-->
     <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
     

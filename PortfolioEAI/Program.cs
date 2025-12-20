@@ -43,6 +43,7 @@ builder.Services.AddScoped<IRepository, Repository>();
 // Register Application Services
 builder.Services.AddScoped<IDashbordService, DashbordService>();
 builder.Services.AddScoped<IHomepageService, HomepageService>();
+builder.Services.AddScoped<IPhotoService, PhotoService>();
 
 // Register Service Domain
 builder.Services.AddScoped<IAdminUserService, AdminUserService>();

@@ -171,5 +171,33 @@ namespace PortfolioEAI.Domain.Services
                 throw;
             }
         }
+
+        /// <summary>
+        /// Gets the Experience Id by Project Id.
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public async Task<Guid> GetExperienceIdByProjectIdAsync(Guid projectId)
+        {
+            try
+            {
+                _logger.LogInformation("Attempting to retrieve Experience ID for Project ID: {ProjectId}", projectId);
+                var project = (await _repository.Experiences.GetAllAsync()).FirstOrDefault(x => x.Projects.Any(p => p.Id == projectId));
+
+                if (project == null)
+                {
+                    _logger.LogWarning("Project with ID: {ProjectId} not found.", projectId);
+                    return Guid.Empty;
+                }
+
+                _logger.LogInformation("Successfully retrieved Experience ID for Project ID: {ProjectId}", projectId);
+                return project.Id;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while retrieving Experience ID for Project ID: {ProjectId}. Error: {ErrorMessage}", projectId, ex.Message);
+                throw;
+            }
+        }
     }
 }

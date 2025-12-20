@@ -2,6 +2,7 @@ using PortfolioEAI.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PortfolioEAI.Application.Models;
 using Microsoft.AspNetCore.Mvc;
+using PortfolioEAI.Application.DTOs;
 
 namespace PortfolioEAI.Pages;
 
@@ -23,8 +24,7 @@ public class IndexModel : PageModel
         new Tuple<string, string>("About", "#about"),
         new Tuple<string, string>("Skills", "#skills"),
         new Tuple<string, string>("Projects", "#projects"),
-        new Tuple<string, string>("Contacts", "#contacts"),
-        new Tuple<string, string>("SignIn", "/Authentication/SignInOut")
+        new Tuple<string, string>("Contacts", "#contacts")
     };
 
     public AccueilModel? AccueilModel { get; set; } = default;
@@ -38,12 +38,14 @@ public class IndexModel : PageModel
         try
         {
             ModelState.Clear();
-            var adminUser = (await _services.GetAdminUser()).ToList().FirstOrDefault();
-
-            if (adminUser != null)
-                AccueilModel = new AccueilModel(adminUser);
-            else
-                RedirectToPage("/Errors/Error404");
+            var adminUser = (await _services.GetAdminUser()).ToList();
+            if (adminUser.Count == 0)
+            {
+                _logger.LogWarning("No admin user found.");
+                //TODO: Redirection to setup first page.
+                return;
+            }
+            AccueilModel = new AccueilModel(adminUser.First());
         }
         catch (Exception)
         {

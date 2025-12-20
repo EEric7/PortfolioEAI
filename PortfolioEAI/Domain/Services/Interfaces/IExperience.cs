@@ -70,5 +70,12 @@ namespace PortfolioEAI.Domain.Services.Interfaces
         /// <param name="id"></param>
         /// <returns></returns>
         Task DeleteAsync(Guid id);
+
+        /// <summary>
+        /// Gets the Experience Id by Project Id.
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        Task<Guid> GetExperienceIdByProjectIdAsync(Guid projectId);
     }
 }

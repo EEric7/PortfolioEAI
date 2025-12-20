@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using PortfolioEAI.Application.DTOs;
 using PortfolioEAI.Application.Services.Interfaces;
 
-namespace PortfolioEAI.Pages.Projects
+namespace PortfolioEAI.Pages.Experiences.Projects
 {
     public class DeleteModel : PageModel
     {
@@ -19,7 +19,6 @@ namespace PortfolioEAI.Pages.Projects
         {
             new Tuple<string, string>("Dashbord", "/Dashbord/Home"),
             new Tuple<string, string>("Experiences", "/Dashbord/Experiences/"),
-            new Tuple<string, string>("Projects", "/Dashbord/Projects/"),
             new Tuple<string, string>("Skills", "/Dashbord/Skills/"),
             new Tuple<string, string>("Setting", "/Dashbord/AdminUsers/"),
             new Tuple<string, string>("SignOut", "/Authentication/SignInOut")

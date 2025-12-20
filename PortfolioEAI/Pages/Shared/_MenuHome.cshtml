@@ -1,0 +1,21 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/Dashbord/Home">Mon Dashboard</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarDashboard" aria-controls="navbarDashboard" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarDashboard">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                @if (Model?.MenuModel != null)
+                {
+                    foreach (var item in Model.MenuModel)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="@item.Item2">@item.Item1</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+</nav>

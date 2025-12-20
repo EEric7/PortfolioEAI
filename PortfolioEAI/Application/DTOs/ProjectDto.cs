@@ -14,13 +14,13 @@ namespace PortfolioEAI.Application.DTOs
         /// This property represents the name or title of the project.
         /// It is a required field and should be descriptive enough to give an idea of what the project is about.
         /// </summary>
-        public string? Title { get; set; }
+        public string Title { get; set; } = string.Empty;
 
         /// <summary>
         /// Description of the project.
         /// This property provides a detailed description of the project, including its purpose, features, and any other relevant information.
         /// </summary>
-        public string? Description { get; set; }
+        public string Description { get; set; } = string.Empty;
 
         /// <summary>
         /// URL of the project image.
@@ -28,7 +28,7 @@ namespace PortfolioEAI.Application.DTOs
         /// It is typically used to display a visual representation of the project in user interfaces.
         /// The URL should point to a valid image resource.
         /// </summary>
-        public string? ImageUrl { get; set; }
+        public string ImageUrl { get; set; } = string.Empty;
 
         /// <summary>
         /// URL of the project.
@@ -37,7 +37,7 @@ namespace PortfolioEAI.Application.DTOs
         /// This URL is used to provide users with direct access to the project online.
         /// It is important that this URL is valid and accessible.
         /// </summary>
-        public string? Url { get; set; }
+        public string Url { get; set; } = string.Empty;
 
         public ProjectDto() {}
         

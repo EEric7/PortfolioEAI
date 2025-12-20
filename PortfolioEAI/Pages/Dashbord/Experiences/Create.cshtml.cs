@@ -8,10 +8,12 @@ namespace PortfolioEAI.Pages.Dashbord.Experiences
     public class CreateModel : PageModel
     {
         private readonly IDashbordService _services;
+        private readonly IPhotoService _photoService;
 
-        public CreateModel(IDashbordService services)
+        public CreateModel(IDashbordService services, IPhotoService photoService)
         {
             _services = services;
+            _photoService = photoService;
         }
 
         public IActionResult OnGet()
@@ -24,7 +26,6 @@ namespace PortfolioEAI.Pages.Dashbord.Experiences
         {
             new Tuple<string, string>("Dashbord", "/Dashbord/Home"),
             new Tuple<string, string>("Experiences", "/Dashbord/Experiences/"),
-            new Tuple<string, string>("Projects", "/Dashbord/Projects/"),
             new Tuple<string, string>("Skills", "/Dashbord/Skills/"),
             new Tuple<string, string>("Setting", "/Dashbord/AdminUsers/"),
             new Tuple<string, string>("SignOut", "/Authentication/SignInOut")
@@ -32,6 +33,9 @@ namespace PortfolioEAI.Pages.Dashbord.Experiences
 
         [BindProperty]
         public ExperienceDto Experience { get; set; } = default!;
+        
+        [BindProperty]
+        public IFormFile? PhotoFile { get; set; }
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -44,6 +48,12 @@ namespace PortfolioEAI.Pages.Dashbord.Experiences
                 {
                     ModelState.AddModelError(string.Empty, "An experience with the same title and company already exists.");
                     return Page();
+                }
+
+                if (PhotoFile != null && _photoService.IsValidPhotoFile(PhotoFile))
+                {
+                    string photoUrl = await _photoService.UploadPhotoAsync(PhotoFile, "uploads/experiences");
+                    Experience.ImageUrl = photoUrl;
                 }
 
                 await _services.AddExperienceAsync(Experience);

@@ -14,11 +14,7 @@ namespace PortfolioEAI.Pages.Authentication
         private readonly ILogger<SignInOutModel> _logger;
         
         [BindProperty]
-        public List<Tuple<string, string>> MenuModel { get; set; } = new List<Tuple<string, string>>()
-        {
-            new Tuple<string, string>("Page Vitrine", "/Index"),
-            new Tuple<string, string>("Sign In", "/Dashbord/Home")
-        };
+        public List<Tuple<string, string>> MenuModel { get; set; } = new List<Tuple<string, string>>(){};
 
         public SignInOutModel(ILogger<SignInOutModel> logger)
         {
@@ -43,7 +39,7 @@ namespace PortfolioEAI.Pages.Authentication
 
                 // await HttpContext.SignInAsync("MyCookieAuth", principal);
 
-                return RedirectToPage("/Index");
+                return RedirectToPage("/Dashbord/Home");
             }
             else
             {

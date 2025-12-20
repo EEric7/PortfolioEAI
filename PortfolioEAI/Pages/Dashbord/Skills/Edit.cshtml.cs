@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 using PortfolioEAI.Application.DTOs;
 using PortfolioEAI.Application.Services.Interfaces;
+using PortfolioEAI.Domain.Enums;
 
 namespace PortfolioEAI.Pages.Dashbord.Skills
 {
@@ -20,7 +20,6 @@ namespace PortfolioEAI.Pages.Dashbord.Skills
         {
             new Tuple<string, string>("Dashbord", "/Dashbord/Home"),
             new Tuple<string, string>("Experiences", "/Dashbord/Experiences/"),
-            new Tuple<string, string>("Projects", "/Dashbord/Projects/"),
             new Tuple<string, string>("Skills", "/Dashbord/Skills/"),
             new Tuple<string, string>("Setting", "/Dashbord/AdminUsers/"),
             new Tuple<string, string>("SignOut", "/Authentication/SignInOut")
@@ -28,6 +27,12 @@ namespace PortfolioEAI.Pages.Dashbord.Skills
 
         [BindProperty]
         public SkillDto Skill { get; set; } = default!;
+
+        [BindProperty]
+        public IEnumerable<SkillLevel>? Levels { get; set; }
+
+        [BindProperty]
+        public IEnumerable<SkillCategory>? Categorys { get; set; }
 
         public async Task<IActionResult> OnGetAsync(Guid id)
         {
