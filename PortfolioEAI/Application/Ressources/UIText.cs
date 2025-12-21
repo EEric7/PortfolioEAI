@@ -5,6 +5,9 @@ namespace PortfolioEAI.Application.Ressources
     /// </summary>
     public static class UIText
     {
+        //Homepage dashboard
+        public const string HomePageTitle = "Bienvenue sur mon portfolio";
+
         // Header Section
         public const string DefaultTitle = "Mon Portfolio";
         public const string DefaultProfession = "Profession inconnue";
@@ -21,6 +24,7 @@ namespace PortfolioEAI.Application.Ressources
         
         // Project Section
         public const string ProjectsTitle = "Built with ASP.NET Core Razor";
+        public const string LinkGrayscale = "https://startbootstrap.com/theme/grayscale/";
         public const string ProjectsDescription = "Ce modèle est un thème Bootstrap gratuit créé par Start Bootstrap. Il peut être à vous dès maintenant : téléchargez simplement le modèle sur la page de prévisualisation. Le thème est open source, et vous pouvez l'utiliser à n'importe quelle fin, qu'elle soit personnelle ou commerciale.";
         
         // Contact Section

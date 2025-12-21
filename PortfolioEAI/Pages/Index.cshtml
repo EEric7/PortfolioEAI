@@ -1,10 +1,21 @@
 ﻿@page
+@using Microsoft.EntityFrameworkCore.Metadata.Internal
+@using PortfolioEAI.Application.Models
 @using PortfolioEAI.Application.Ressources
 @model IndexModel
 @{
-    ViewData["Title"] = Model.AccueilModel?.AdminUserModel?.UserName ?? UIText.DefaultTitle;
-    ViewData["SubTitle"] = Model.AccueilModel?.AdminUserModel?.Profession ?? UIText.DefaultProfession;
-    ViewData["LinkGrayscale"] = "https://startbootstrap.com/theme/grayscale/";
+    ViewData["Title"] = Model.AccueilModel.AdminUserModel?.UserName ?? UIText.DefaultTitle;
+    ViewData["SubTitle"] = Model.AccueilModel.AdminUserModel?.Profession ?? UIText.DefaultProfession;
+    ViewData["UserName"] = Model.AccueilModel.AdminUserModel?.UserName;
+    ViewData["Description"] = Model.AccueilModel.AdminUserModel?.Description;
+    ViewData["Address"] = Model.AccueilModel.AdminUserModel?.Address;
+    ViewData["GITEmail"] = Model.AccueilModel.AdminUserModel?.EmailGitHub;
+    ViewData["EMail"] = Model.AccueilModel.AdminUserModel?.Email;
+    ViewData["PhoneNumber"] = Model.AccueilModel.AdminUserModel?.PhoneNumber;
+    // Determine if there are skills and projects to display
+    Boolean hasSkills = Model.AccueilModel.SkillsModelLanguages.Any();
+    Boolean hasProjects = Model.AccueilModel.ProjectModelDisplay.Any();
+    int dispatch = Model.AccueilModel.ProjectModelDisplay.Count();
 }
 
 @await Html.PartialAsync("_Menu")
@@ -28,9 +39,9 @@ About-->
     <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-lg-8">
-                <h2 class="text-white mb-4">@((Model.AccueilModel?.AdminUserModel?.UserName))</h2>
+                <h2 class="text-white mb-4">@ViewData["UserName"]</h2>
                 <p class="text-white-50">
-                    @(Model.AccueilModel?.AdminUserModel?.Description)
+                    @ViewData["Description"]
                 </p>
             </div>
         </div>
@@ -44,14 +55,14 @@ About-->
          <!-- Featured Compétence Row-->
         <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
             <div class="col-xl-8 col-lg-7">
-                @if (Model.AccueilModel?.AdminUserModel != null && Model.AccueilModel.AdminUserModel.SkillsModel != null)
+                @if (hasSkills)
                 {
                     <h2 class="text-black mb-4">@UIText.SkillsLanguageHeader</h2>
                     <div class="col-xl-8 col-lg-7">
                         <div class="container"></div>
                         <div class="row">
                             <div class="col-md-6">
-                                @foreach (var skill in Model.AccueilModel.AdminUserModel.SkillsModel.Where(s => s.Category == Domain.Enums.SkillCategory.Languages).OrderBy(z => z.Name))
+                                @foreach (var skill in Model.AccueilModel.SkillsModelLanguages)
                                 {
                                     <h3 class="progressbar-title">@skill.Name</h3>
                                     <div class="progress">
@@ -63,7 +74,7 @@ About-->
                                 }
                             </div>
                             <div class="col-md-6">
-                                @foreach (var skill in Model.AccueilModel.AdminUserModel.SkillsModel.Where(s => s.Category == Domain.Enums.SkillCategory.Framwork).OrderBy(z => z.Name))
+                                @foreach (var skill in Model.AccueilModel.SkillsModelFrameworks)
                                 {
                                     <h3 class="progressbar-title">@skill.Name</h3>
                                     <div class="progress">
@@ -81,7 +92,7 @@ About-->
                         <div class="container"></div>
                         <div class="row">
                             <div class="col-md-6">
-                                @foreach (var skill in Model.AccueilModel.AdminUserModel.SkillsModel.Where(s => s.Category == Domain.Enums.SkillCategory.Design).OrderBy(z => z.Name))
+                                @foreach (var skill in Model.AccueilModel.SkillsModelDesign)
                                 {
                                     <h3 class="progressbar-title">@skill.Name</h3>
                                     <div class="progress">
@@ -109,27 +120,21 @@ About-->
         </div>
 
         <h2 class="text-black mb-4" id="projects">@UIText.ExperiencesHeader</h2>
-        @if (Model.AccueilModel?.AdminUserModel?.ExperienceModel?.Any() == true) {
-
-            List<Application.Models.ProjectModel>? projectsModel = Model.AccueilModel.AdminUserModel.ExperienceModel
-            .SelectMany(e => e.ProjectsModel)
-            .Take(3)
-            .ToList();
-
-            @for (int i = 0; i < 3; i++) {
-                @if ((i % 2) == 1) {
+        @if (hasProjects) {
+            @foreach (var project in Model.AccueilModel?.ProjectModelDisplay ?? Enumerable.Empty<ProjectModel>()) {
+                @if ((dispatch % 2) == 1) {
                     <!-- Project One Row-->
                     <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
                         <div class="col-lg-6">
-                            <img class="img-fluid" src=@(projectsModel[i].ImageUrl) alt="@UIText.ProjectImageAlt" />
+                            <img class="img-fluid" src=@(project.ImageUrl) alt="@UIText.ProjectImageAlt" />
                         </div>
                         <div class="col-lg-6">
                             <div class="bg-black text-center h-100 project">
                                 <div class="d-flex h-100">
                                     <div class="project-text w-100 my-auto text-center text-lg-left">
-                                        <h4 class="text-white">@(projectsModel[i].Title)</h4>
+                                        <h4 class="text-white">@(project.Title)</h4>
                                         <p class="mb-0 text-white-50">
-                                            @(projectsModel[i].Description)
+                                            @(project.Description)
                                         </p>
                                     </div>
                                 </div>
@@ -141,17 +146,17 @@ About-->
                     <!-- Project Two Row-->
                     <div class="row gx-0 justify-content-center">
                         <div class="col-lg-6">
-                            <img class="img-fluid" src=@(projectsModel[i].ImageUrl) alt="@UIText.ProjectImageAlt" />
+                            <img class="img-fluid" src=@(project.ImageUrl) alt="@UIText.ProjectImageAlt" />
                         </div>
                         <div class="col-lg-6 order-lg-first">
                             <div class="bg-black text-center h-100 project">
                                 <div class="d-flex h-100">
                                     <div class="project-text w-100 my-auto text-center text-lg-right">
                                         <h4 class="text-white">
-                                            @(projectsModel[i].Title)
+                                            @(project.Title)
                                         </h4>
                                         <p class="mb-0 text-white-50">
-                                            @(projectsModel[i].Description)
+                                            @(project.Description)
                                         </p>
                                     </div>
                                 </div>
@@ -159,6 +164,7 @@ About-->
                         </div>
                     </div>
                 }
+                dispatch--;
             }
         }
     </div>
@@ -172,6 +178,7 @@ About-->
                 <h2 class="text-white mb-4">@UIText.ProjectsTitle</h2>
                 <p class="text-white-50">
                     @UIText.ProjectsDescription
+                    <a href="@UIText.LinkGrayscale" target="_blank" rel="noopener noreferrer">Start Bootstrap</a>
                 </p>
             </div>
          </div>
@@ -188,7 +195,7 @@ About-->
                         <i class="fas fa-map-marked-alt text-primary mb-2"></i>
                         <h4 class="text-uppercase m-0">@UIText.AddressLabel</h4>
                         <hr class="my-4 mx-auto" />
-                        <div class="small text-black-50">@Model.AccueilModel?.AdminUserModel?.GetFullAddress()</div>
+                        <div class="small text-black-50">@ViewData["Address"]</div>
                     </div>
                 </div>
             </div>
@@ -198,7 +205,11 @@ About-->
                         <i class="fas fa-envelope text-primary mb-2"></i>
                         <h4 class="text-uppercase m-0">@UIText.EmailLabel</h4>
                         <hr class="my-4 mx-auto" />
-                        <div class="small text-black-50"><a href="#!">@Model.AccueilModel?.AdminUserModel?.Email</a></div>
+                        <div class="small text-black-50">
+                            <a href="mailto:@ViewData["EMail"]">
+                                @ViewData["EMail"]
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -208,14 +219,14 @@ About-->
                         <i class="fas fa-mobile-alt text-primary mb-2"></i>
                         <h4 class="text-uppercase m-0">@UIText.PhoneLabel</h4>
                         <hr class="my-4 mx-auto" />
-                        <div class="small text-black-50">@Model.AccueilModel?.AdminUserModel?.Number</div>
+                        <div class="small text-black-50">@ViewData["PhoneNumber"]</div>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="social d-flex justify-content-center">
-            <a class="mx-2" href=@Model.AccueilModel?.AdminUserModel?.EmailGitHub>
+            <a class="mx-2" href=@ViewData["GITEmail"]>
                 <i class="fab fa-github"></i>
             </a>
         </div>

@@ -7,7 +7,7 @@ namespace PortfolioEAI.Application.DTOs
         /// Unique identifier for the admin user.
         /// This property is used to uniquely identify an admin user in the system.
         /// </summary>
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
         /// <summary>
         /// UserName of the admin user.
         /// This property represents the name of the admin user.

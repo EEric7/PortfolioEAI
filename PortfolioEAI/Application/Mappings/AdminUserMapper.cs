@@ -9,7 +9,7 @@ namespace PortfolioEAI.Application.Mappings
         public static AdminUser ToEntity(AdminUserDto dto)
         {
             var AdminUser = new AdminUser(
-                dto.Id != Guid.Empty ? dto.Id : Guid.NewGuid(),
+                dto.Id ?? Guid.NewGuid(),
                 dto.UserName ?? string.Empty,
                 dto.Password ?? string.Empty,
                 dto.Email ?? string.Empty,

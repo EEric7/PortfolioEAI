@@ -2,7 +2,6 @@ using PortfolioEAI.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PortfolioEAI.Application.Models;
 using Microsoft.AspNetCore.Mvc;
-using PortfolioEAI.Application.DTOs;
 
 namespace PortfolioEAI.Pages;
 
@@ -17,6 +16,8 @@ public class IndexModel : PageModel
         _logger = logger;
         _services = services;
     }
+    
+    public AccueilModel AccueilModel { get; set; } = new AccueilModel();
 
     [BindProperty]
     public List<Tuple<string, string>> MenuModel { get; set; } = new List<Tuple<string, string>>()
@@ -26,8 +27,6 @@ public class IndexModel : PageModel
         new Tuple<string, string>("Projects", "#projects"),
         new Tuple<string, string>("Contacts", "#contacts")
     };
-
-    public AccueilModel? AccueilModel { get; set; } = default;
 
     /// <summary>
     /// Handles the GET request for the Index page.
@@ -45,6 +44,7 @@ public class IndexModel : PageModel
                 //TODO: Redirection to setup first page.
                 return;
             }
+
             AccueilModel = new AccueilModel(adminUser.First());
         }
         catch (Exception)
