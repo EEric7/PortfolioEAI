@@ -123,6 +123,9 @@ namespace PortfolioEAI.Domain.Services
                 if (entity.Description != existing.Description)
                     existing.SetDescription(entity.Description);
 
+                if (entity.Address != existing.Address)
+                    existing.SetAddress(entity.Address?.GetFullAddress());
+
                 _logger.LogInformation(Messages.UpdateDTOInfo, nameof(AdminUser), entity.Id);
                 await _repository.AdminUsers.UpdateAsync(existing);
             }

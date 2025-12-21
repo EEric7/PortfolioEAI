@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Microsoft.Identity.Client;
 
 namespace PortfolioEAI.Domain.ValueObjects
 {
@@ -19,6 +19,28 @@ namespace PortfolioEAI.Domain.ValueObjects
             City = city;
             PostalCode = postalCode;
             Country = country;
+        }
+
+        public PostalAddress(string? fullAddress)
+        {
+            var parts = fullAddress?.Split(',', StringSplitOptions.RemoveEmptyEntries) ?? Array.Empty<string>();
+            
+            if (parts.Length >= 1)
+                Street = parts[0].Trim();
+            
+            if (parts.Length >= 2)
+            {
+                // Extraire le code postal (numéros uniquement)
+                var postalMatch = Regex.Match(parts[1], @"\d+");
+                if (postalMatch.Success)
+                    PostalCode = postalMatch.Value;
+                
+                // Extraire la ville (texte sans numéros)
+                City = Regex.Replace(parts[1], @"\d+", "").Trim();
+            }
+            
+            if (parts.Length >= 3)
+                Country = parts[2].Trim();
         }
 
         public string GetFullAddress()

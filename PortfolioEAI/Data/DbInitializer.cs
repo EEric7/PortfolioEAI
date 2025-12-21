@@ -81,7 +81,7 @@ namespace PortfolioEAI.Data
                                     Je maîtrise des technologies telles que C#, SQL, HTML5/CSS3 et des frameworks comme ASP.NET Core,MVC et Blazor, en intégrant des bases de données complexes grâce à SQL Server et des outils comme Entity Framework.\r\n
                                     Mon expertise s’étend également aux méthodes Agiles, aux principes SOLID et aux design patterns.";
                                     
-            var admin = new AdminUser(new Guid(), "ELEMBA ADI Eric", "admin321", "elembaadi@icloud.com", description,skills,experiences);
+            var admin = new AdminUser(new Guid(), "ELEMBA ADI Eric", "admin321", "elembaadi@icloud.com", description, "25 rue des carmes, 67100 Strasbourg, France", skills, experiences);
 
             context.AdminUsers.Add(admin);
             context.SaveChanges();

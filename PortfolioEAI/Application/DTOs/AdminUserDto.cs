@@ -47,6 +47,15 @@ namespace PortfolioEAI.Application.DTOs
         public string? Description { get; set; }
 
         /// <summary>
+        /// Gets or sets the postal address of the admin user.
+        /// This property represents the postal address associated with the admin user.
+        /// It is an optional field and can be null if the admin user does not have a postal address.
+        /// The postal address is stored as a value object of type <see cref="PostalAddressDto"/>
+        /// which encapsulates the details of the address, such as street, city, postal code, and country.
+        /// </summary>
+        public string? Address { get; set; }
+
+        /// <summary>
         /// Indicates whether the admin user is active.
         /// This property is a boolean value that specifies if the admin user account is currently active or not.
         /// An active user can log in and perform actions, while an inactive user may be restricted from accessing the system.
@@ -75,6 +84,7 @@ namespace PortfolioEAI.Application.DTOs
             Password = dto.Password;
             Role = dto.Role;
             Description = dto.Description;
+            Address = dto.Address;
             IsActive = dto.IsActive;
             Skills = dto.Skills;
             Experiences = dto.Experiences;

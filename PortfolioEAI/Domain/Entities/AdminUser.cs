@@ -45,7 +45,20 @@ namespace PortfolioEAI.Domain.Entities
         /// </summary>
         public Email Email { get; private set; } = default!;
 
+        /// <summary>
+        /// Gets or sets the postal address of the admin user.
+        /// This property represents the postal address associated with the admin user.
+        /// It is an optional field and can be null if the admin user does not have a postal address.
+        /// The postal address is stored as a value object of type <see cref="PostalAddress"/>
+        /// which encapsulates the details of the address, such as street, city, postal code, and country.
+        /// </summary>
+        public PostalAddress? Address { get; private set; } = default!;
 
+        /// <summary>
+        /// Gets or sets the description of the admin user.
+        /// This property represents a brief description or bio of the admin user.
+        /// It is an optional field and can be null if the admin user does not provide a description.
+        /// </summary>
         public string? Description { get; private set; } = string.Empty;
 
         /// <summary>
@@ -79,13 +92,14 @@ namespace PortfolioEAI.Domain.Entities
         /// <param name="username"></param>
         /// <param name="password"></param>
         /// <param name="email"></param>
-        public AdminUser(Guid id, string username, string password, string email, string description,IList<Skill> skills, IList<Experience> experiences)
+        public AdminUser(Guid id, string username, string password, string email, string description, string? address, IList<Skill> skills, IList<Experience> experiences)
         {
             Id = id;
             SetUsername(username);
             SetPassword(password);
             SetEmail(email);
             SetDescription(description);
+            SetAddress(address);
 
             foreach (var skill in skills)
                 AddSkill(skill);
@@ -141,7 +155,20 @@ namespace PortfolioEAI.Domain.Entities
         /// </summary>
         public void SetEmail(string? email)
         {
+            if (string.IsNullOrWhiteSpace(email))
+                throw new BusinessRuleViolationException("The email is required.", new ArgumentNullException(nameof(email)));
             Email = new Email(email);
+        }
+
+        /// <summary>
+        /// Sets the postal address of the admin user.
+        /// </summary>
+        /// <param name="address"></param>
+        public void SetAddress(string? address)
+        {
+            if (string.IsNullOrWhiteSpace(address))
+                throw new BusinessRuleViolationException("The address is required.", new ArgumentNullException(nameof(address)));
+            Address = new PostalAddress(address);
         }
         
         /// <summary>

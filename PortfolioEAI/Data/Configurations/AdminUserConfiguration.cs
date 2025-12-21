@@ -35,6 +35,37 @@ namespace PortfolioEAI.Data.Configurations
                     .IsUnique();
             });
 
+            builder.Property(a => a.Description)
+                   .HasColumnType("text")
+                   .IsRequired(false);
+            
+            builder.OwnsOne(a => a.Address, address =>
+            {
+                address.Property(a => a.Street)
+                    .HasColumnName("Street")
+                    .HasColumnType("varchar(200)")
+                    .HasMaxLength(200)
+                    .IsRequired(false);
+
+                address.Property(a => a.City)
+                    .HasColumnName("City")
+                    .HasColumnType("varchar(100)")
+                    .HasMaxLength(100)
+                    .IsRequired(false);
+
+                address.Property(a => a.PostalCode)
+                    .HasColumnName("PostalCode")
+                    .HasColumnType("varchar(20)")
+                    .HasMaxLength(20)
+                    .IsRequired(false);
+
+                address.Property(a => a.Country)
+                    .HasColumnName("Country")
+                    .HasColumnType("varchar(100)")
+                    .HasMaxLength(100)
+                    .IsRequired(false);
+            });
+
             builder.HasMany(a => a.Skills)
                 .WithOne()
                 .OnDelete(DeleteBehavior.Cascade)

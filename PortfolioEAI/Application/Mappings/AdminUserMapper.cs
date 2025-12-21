@@ -1,5 +1,6 @@
 using PortfolioEAI.Application.DTOs;
 using PortfolioEAI.Domain.Entities;
+using PortfolioEAI.Domain.ValueObjects;
 
 namespace PortfolioEAI.Application.Mappings
 {
@@ -13,6 +14,7 @@ namespace PortfolioEAI.Application.Mappings
                 dto.Password ?? string.Empty,
                 dto.Email ?? string.Empty,
                 dto.Description ?? string.Empty,
+                dto.Address ?? string.Empty,
                 (dto.Skills ?? new List<SkillDto>()).Select(s => SkillMapper.ToEntity(s)).ToList(),
                 (dto.Experiences ?? new List<ExperienceDto>()).Select(e => ExperienceMapper.ToEntity(e)).ToList()
             );
@@ -27,6 +29,7 @@ namespace PortfolioEAI.Application.Mappings
             Email = user.Email.Value,
             Password = user.Password,
             Description = user.Description,
+            Address = user.Address?.GetFullAddress(),
             Skills = user.Skills.Select(s => SkillMapper.ToDto(s)).ToList(),
             Experiences = user.Experiences.Select(e => ExperienceMapper.ToDto(e)).ToList()
         };
