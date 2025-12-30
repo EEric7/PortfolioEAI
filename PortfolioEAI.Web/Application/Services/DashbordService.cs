@@ -1,6 +1,5 @@
 using PortfolioEAI.Web.Application.DTOs;
 using PortfolioEAI.Web.Domain.Services.Interfaces;
-using PortfolioEAI.Web.Application.DTOs;
 
 namespace PortfolioEAI.Web.Application.Services.Interfaces
 {

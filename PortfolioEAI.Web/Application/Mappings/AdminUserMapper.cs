@@ -1,7 +1,5 @@
 using PortfolioEAI.Web.Application.DTOs;
 using PortfolioEAI.Web.Domain.Entities;
-using PortfolioEAI.Web.Domain.ValueObjects;
-using PortfolioEAI.Web.Application.DTOs;
 
 namespace PortfolioEAI.Web.Application.Mappings
 {
