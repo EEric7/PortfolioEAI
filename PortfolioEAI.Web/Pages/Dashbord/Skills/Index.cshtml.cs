@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using PortfolioEAI.Application.DTOs;
-using PortfolioEAI.Application.Services.Interfaces;
+using PortfolioEAI.Web.Application.DTOs;
+using PortfolioEAI.Web.Application.Services.Interfaces;
 
-namespace PortfolioEAI.Pages.Dashbord.Skills
+namespace PortfolioEAI.Web.Pages.Dashbord.Skills
 {
     public class IndexModel : PageModel
     {

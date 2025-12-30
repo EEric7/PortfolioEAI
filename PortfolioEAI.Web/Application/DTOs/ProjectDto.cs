@@ -1,4 +1,4 @@
-namespace PortfolioEAI.Application.DTOs
+namespace PortfolioEAI.Web.Application.DTOs
 {
     public class ProjectDto
     {

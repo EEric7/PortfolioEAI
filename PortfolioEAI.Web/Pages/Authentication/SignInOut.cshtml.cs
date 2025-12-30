@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using PortfolioEAI.Application.Models;
+using PortfolioEAI.Web.Application.Models;
 
-namespace PortfolioEAI.Pages.Authentication
+namespace PortfolioEAI.Web.Pages.Authentication
 {
     public class SignInOutModel : PageModel
     {

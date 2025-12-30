@@ -1,9 +1,9 @@
-using PortfolioEAI.Application.Services.Interfaces;
+using PortfolioEAI.Web.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using PortfolioEAI.Application.Models;
+using PortfolioEAI.Web.Application.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace PortfolioEAI.Pages;
+namespace PortfolioEAI.Web.Pages;
 
 public class IndexModel : PageModel
 {

@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace PortfolioEAI.Application.Models
+namespace PortfolioEAI.Web.Application.Models
 {
     public class InputModel
     {

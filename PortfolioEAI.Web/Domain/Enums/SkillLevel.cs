@@ -1,4 +1,4 @@
-namespace PortfolioEAI.Domain.Enums
+namespace PortfolioEAI.Web.Domain.Enums
 {
     public enum SkillLevel
     {

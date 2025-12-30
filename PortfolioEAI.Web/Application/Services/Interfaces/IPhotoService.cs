@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PortfolioEAI.Application.Services.Interfaces
+namespace PortfolioEAI.Web.Application.Services.Interfaces
 {
     public interface IPhotoService
     {

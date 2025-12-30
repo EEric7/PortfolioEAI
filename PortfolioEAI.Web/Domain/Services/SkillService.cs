@@ -1,9 +1,9 @@
-using PortfolioEAI.Data.Repositorys.Interfaces;
-using PortfolioEAI.Domain.Services.Interfaces;
-using PortfolioEAI.Domain.Ressources;
-using PortfolioEAI.Domain.Entities;
+using PortfolioEAI.Web.Data.Repositorys.Interfaces;
+using PortfolioEAI.Web.Domain.Services.Interfaces;
+using PortfolioEAI.Web.Domain.Ressources;
+using PortfolioEAI.Web.Domain.Entities;
 
-namespace PortfolioEAI.Domain.Services
+namespace PortfolioEAI.Web.Domain.Services
 {
     public class SkillService : ISkillService
     {

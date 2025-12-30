@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using PortfolioEAI.Application.DTOs;
+using PortfolioEAI.Web.Application.DTOs;
 using Serilog.Debugging;
 
-namespace PortfolioEAI.Application.Models
+namespace PortfolioEAI.Web.Application.Models
 {
     public class AdminUserModel : AdminUserDto
     {

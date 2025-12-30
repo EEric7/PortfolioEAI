@@ -1,11 +1,11 @@
 using Microsoft.EntityFrameworkCore;
-using PortfolioEAI.Data.Repositorys;
-using PortfolioEAI.Data.Repositorys.Interfaces;
-using PortfolioEAI.Data;
-using PortfolioEAI.Application.Services.Interfaces;
-using PortfolioEAI.Application.Services;
-using PortfolioEAI.Domain.Services.Interfaces;
-using PortfolioEAI.Domain.Services;
+using PortfolioEAI.Web.Data.Repositorys;
+using PortfolioEAI.Web.Data.Repositorys.Interfaces;
+using PortfolioEAI.Web.Data;
+using PortfolioEAI.Web.Application.Services.Interfaces;
+using PortfolioEAI.Web.Application.Services;
+using PortfolioEAI.Web.Domain.Services.Interfaces;
+using PortfolioEAI.Web.Domain.Services;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration()

@@ -1,4 +1,4 @@
-namespace PortfolioEAI.Data.Repositorys.Interfaces
+namespace PortfolioEAI.Web.Data.Repositorys.Interfaces
 {
     public interface IRepository
     {

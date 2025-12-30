@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace PortfolioEAI.Data.Migrations
+namespace PortfolioEAI.Web.Data.Migrations
 {
     /// <inheritdoc />
     public partial class LowFixAdminUser : Migration

@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using PortfolioEAI.Application.DTOs;
-using PortfolioEAI.Application.Services.Interfaces;
+using PortfolioEAI.Web.Application.Services.Interfaces;
+using PortfolioEAI.Web.Application.DTOs;
 
-namespace PortfolioEAI.Pages.Dashbord.AdminUsers
+namespace PortfolioEAI.Web.Pages.Dashbord.AdminUsers
 {
     public class DetailsModel : PageModel
     {

@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/PortfolioEAI.csproj": {}
+    "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI.Web/PortfolioEAI.Web.csproj": {}
   },
   "projects": {
-    "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/PortfolioEAI.csproj": {
+    "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI.Web/PortfolioEAI.Web.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/PortfolioEAI.csproj",
-        "projectName": "PortfolioEAI",
-        "projectPath": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/PortfolioEAI.csproj",
+        "projectUniqueName": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI.Web/PortfolioEAI.Web.csproj",
+        "projectName": "PortfolioEAI.Web",
+        "projectPath": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI.Web/PortfolioEAI.Web.csproj",
         "packagesPath": "/Users/Eric/.nuget/packages/",
         "outputPath": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/obj/",
         "projectStyle": "PackageReference",

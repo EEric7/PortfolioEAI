@@ -1,6 +1,6 @@
-using PortfolioEAI.Domain.Entities; // Ensure this is the correct namespace for 'Project'
+using PortfolioEAI.Web.Domain.Entities; // Ensure this is the correct namespace for 'Project'
 
-namespace PortfolioEAI.Data.Repositorys.Interfaces
+namespace PortfolioEAI.Web.Data.Repositorys.Interfaces
 {
     public interface IProjectRepository
     {

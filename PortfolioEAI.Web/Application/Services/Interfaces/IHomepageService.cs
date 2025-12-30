@@ -1,7 +1,6 @@
+using PortfolioEAI.Web.Application.DTOs;
 
-using PortfolioEAI.Application.DTOs;
-
-namespace PortfolioEAI.Application.Services.Interfaces
+namespace PortfolioEAI.Web.Application.Services.Interfaces
 {
     public interface IHomepageService
     {

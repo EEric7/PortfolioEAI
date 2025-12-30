@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-using PortfolioEAI.Domain.Entities;
-using PortfolioEAI.Domain.Enums;
+using PortfolioEAI.Web.Domain.Entities;
+using PortfolioEAI.Web.Domain.Enums;
 
-namespace PortfolioEAI.Data
+namespace PortfolioEAI.Web.Data
 {
     public static class DbInitializer
     {

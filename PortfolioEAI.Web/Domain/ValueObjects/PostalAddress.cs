@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace PortfolioEAI.Domain.ValueObjects
+namespace PortfolioEAI.Web.Domain.ValueObjects
 {
     public class PostalAddress
     {

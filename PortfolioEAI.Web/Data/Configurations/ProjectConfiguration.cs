@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using PortfolioEAI.Domain.Entities;
+using PortfolioEAI.Web.Domain.Entities;
 
-namespace PortfolioEAI.Data.Configurations
+namespace PortfolioEAI.Web.Data.Configurations
 {
     public class ProjectConfiguration : IEntityTypeConfiguration<Project>
     {

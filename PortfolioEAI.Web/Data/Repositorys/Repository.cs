@@ -1,6 +1,6 @@
-using PortfolioEAI.Data.Repositorys.Interfaces;
+using PortfolioEAI.Web.Data.Repositorys.Interfaces;
 
-namespace PortfolioEAI.Data.Repositorys
+namespace PortfolioEAI.Web.Data.Repositorys
 {
     public class Repository : IRepository
     {

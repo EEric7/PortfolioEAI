@@ -1,7 +1,7 @@
-using PortfolioEAI.Application.DTOs;
-using PortfolioEAI.Domain.Entities;
+using PortfolioEAI.Web.Application.DTOs;
+using PortfolioEAI.Web.Domain.Entities;
 
-namespace PortfolioEAI.Application.Mappings
+namespace PortfolioEAI.Web.Application.Mappings
 {
     internal class ProjectMapper 
     {

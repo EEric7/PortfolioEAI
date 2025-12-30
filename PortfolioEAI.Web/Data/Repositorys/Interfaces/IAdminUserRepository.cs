@@ -1,7 +1,7 @@
 
-using PortfolioEAI.Domain.Entities;
+using PortfolioEAI.Web.Domain.Entities;
 
-namespace PortfolioEAI.Data.Repositorys.Interfaces
+namespace PortfolioEAI.Web.Data.Repositorys.Interfaces
 {
     public interface IAdminUserRepository
     {

@@ -1,4 +1,4 @@
-namespace PortfolioEAI.Domain.Exceptions
+namespace PortfolioEAI.Web.Domain.Exceptions
 {
     internal class BusinessRuleViolationException : Exception
     {

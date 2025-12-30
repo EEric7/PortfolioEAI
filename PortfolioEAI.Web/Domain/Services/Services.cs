@@ -1,6 +1,6 @@
-using PortfolioEAI.Domain.Services.Interfaces;
+using PortfolioEAI.Web.Domain.Services.Interfaces;
 
-namespace PortfolioEAI.Domain.Services
+namespace PortfolioEAI.Web.Domain.Services
 {
     public class Services : IServices
     {

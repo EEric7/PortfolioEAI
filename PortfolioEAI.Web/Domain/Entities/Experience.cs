@@ -1,6 +1,6 @@
-using PortfolioEAI.Domain.Exceptions;
+using PortfolioEAI.Web.Domain.Exceptions;
 
-namespace PortfolioEAI.Domain.Entities
+namespace PortfolioEAI.Web.Domain.Entities
 {
     public class Experience
     {

@@ -1,7 +1,8 @@
-using PortfolioEAI.Application.DTOs;
-using PortfolioEAI.Domain.Services.Interfaces;
+using PortfolioEAI.Web.Application.DTOs;
+using PortfolioEAI.Web.Domain.Services.Interfaces;
+using PortfolioEAI.Web.Application.DTOs;
 
-namespace PortfolioEAI.Application.Services.Interfaces
+namespace PortfolioEAI.Web.Application.Services.Interfaces
 {
     public class DashbordService : IDashbordService
     {

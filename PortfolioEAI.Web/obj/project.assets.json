@@ -8597,11 +8597,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/PortfolioEAI.csproj",
-      "projectName": "PortfolioEAI",
-      "projectPath": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/PortfolioEAI.csproj",
+      "projectUniqueName": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI.Web/PortfolioEAI.Web.csproj",
+      "projectName": "PortfolioEAI.Web",
+      "projectPath": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI.Web/PortfolioEAI.Web.csproj",
       "packagesPath": "/Users/Eric/.nuget/packages/",
-      "outputPath": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/obj/",
+      "outputPath": "/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI.Web/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/Eric/.nuget/NuGet/NuGet.Config"

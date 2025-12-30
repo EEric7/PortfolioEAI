@@ -15766,7 +15766,7 @@ System.ArgumentException: Can't be null. (Parameter 'id')
 System.ArgumentException: Can't be null. (Parameter 'id')
    at PortfolioEAI.Data.Repositorys.ExperienceRepository.GetByIdAsync(Guid id) in /Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/Data/Repositorys/ExperienceRepository.cs:line 134
    at PortfolioEAI.Domain.Services.ExperienceService.GetByIdAsync(Guid id) in /Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/Domain/Services/ExperienceService.cs:line 62
-   at PortfolioEAI.Application.Services.Interfaces.DashbordService.GetExperienceByIdAsync(Guid id) in /Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/Application/Services/DashbordService.cs:line 178
+   at PortfolioEAI.Web.Application.Services.Interfaces.DashbordService.GetExperienceByIdAsync(Guid id) in /Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/Application/Services/DashbordService.cs:line 178
 2025-12-04 19:09:33.594 +01:00 [INF] Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.NotFoundResult.
 2025-12-04 19:09:33.595 +01:00 [INF] Executing StatusCodeResult, setting HTTP status code 404
 2025-12-04 19:09:33.595 +01:00 [INF] Executed page /Dashbord/Experiences/Details in 156.5772ms
@@ -16299,7 +16299,7 @@ System.ArgumentException: Can't be null. (Parameter 'id')
 System.ArgumentException: Can't be null. (Parameter 'id')
    at PortfolioEAI.Data.Repositorys.ExperienceRepository.GetByIdAsync(Guid id) in /Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/Data/Repositorys/ExperienceRepository.cs:line 134
    at PortfolioEAI.Domain.Services.ExperienceService.GetByIdAsync(Guid id) in /Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/Domain/Services/ExperienceService.cs:line 62
-   at PortfolioEAI.Application.Services.Interfaces.DashbordService.GetExperienceByIdAsync(Guid id) in /Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/Application/Services/DashbordService.cs:line 178
+   at PortfolioEAI.Web.Application.Services.Interfaces.DashbordService.GetExperienceByIdAsync(Guid id) in /Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI/Application/Services/DashbordService.cs:line 178
 2025-12-04 19:14:09.744 +01:00 [INF] Executed page /Dashbord/Experiences/Projects/Create in 156.1019ms
 2025-12-04 19:14:09.745 +01:00 [INF] Executed endpoint '/Dashbord/Experiences/Projects/Create'
 2025-12-04 19:14:09.746 +01:00 [ERR] An unhandled exception has occurred while executing the request.

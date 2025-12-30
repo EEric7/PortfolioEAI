@@ -1,6 +1,6 @@
-using PortfolioEAI.Domain.Enums;
+using PortfolioEAI.Web.Domain.Enums;
 
-namespace PortfolioEAI.Application.DTOs
+namespace PortfolioEAI.Web.Application.DTOs
 {
     public class SkillDto
     {

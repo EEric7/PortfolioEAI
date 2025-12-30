@@ -17,7 +17,7 @@
           "Serilog.Sinks.File": "7.0.0"
         },
         "runtime": {
-          "PortfolioEAI.dll": {}
+          "PortfolioEAI.Web.dll": {}
         }
       },
       "Azure.Core/1.38.0": {

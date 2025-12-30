@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PortfolioEAI.Domain.ValueObjects
+namespace PortfolioEAI.Web.Domain.ValueObjects
 {
     public class Photo
     {

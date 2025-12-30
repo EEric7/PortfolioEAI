@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace PortfolioEAI.Domain.ValueObjects
+namespace PortfolioEAI.Web.Domain.ValueObjects
 {
     public class ObjectUrl
     {

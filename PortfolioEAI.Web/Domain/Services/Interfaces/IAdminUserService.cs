@@ -1,6 +1,6 @@
-using PortfolioEAI.Domain.Entities;
+using PortfolioEAI.Web.Domain.Entities;
 
-namespace PortfolioEAI.Domain.Services.Interfaces
+namespace PortfolioEAI.Web.Domain.Services.Interfaces
 {
     public interface IAdminUserService
     {

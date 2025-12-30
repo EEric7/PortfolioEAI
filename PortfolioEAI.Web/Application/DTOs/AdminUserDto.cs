@@ -1,5 +1,6 @@
+using PortfolioEAI.Web.Application.DTOs;
 
-namespace PortfolioEAI.Application.DTOs
+namespace PortfolioEAI.Web.Application.DTOs
 {
     public class AdminUserDto
     {

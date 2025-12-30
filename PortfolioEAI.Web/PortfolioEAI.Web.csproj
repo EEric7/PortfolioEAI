@@ -4,6 +4,8 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>PortfolioEAI.Web</RootNamespace>
+    <AssemblyName>PortfolioEAI.Web</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

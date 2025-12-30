@@ -1,5 +1,5 @@
 @page
-@model PortfolioEAI.Pages.Dashbord.Skills.EditModel
+@model PortfolioEAI.Web.Pages.Dashbord.Skills.EditModel
 
 @{
     ViewData["Title"] = "Modifier une compétence";
@@ -37,7 +37,7 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label asp-for="Skill.Level" class="form-label"></label>
-                                <select asp-for="Skill.Level" class="form-select" asp-items="@(Html.GetEnumSelectList<PortfolioEAI.Domain.Enums.SkillLevel>())">
+                                <select asp-for="Skill.Level" class="form-select" asp-items="@(Html.GetEnumSelectList<PortfolioEAI.Web.Domain.Enums.SkillLevel>())">
                                     <option value="">-- Sélectionner --</option>
                                 </select>
                                 <span asp-validation-for="Skill.Level" class="text-danger small"></span>
@@ -45,7 +45,7 @@
 
                             <div class="col-md-6 mb-3">
                                 <label asp-for="Skill.Category" class="form-label"></label>
-                                <select asp-for="Skill.Category" class="form-select" asp-items="@(Html.GetEnumSelectList<PortfolioEAI.Domain.Enums.SkillCategory>())">
+                                <select asp-for="Skill.Category" class="form-select" asp-items="@(Html.GetEnumSelectList<PortfolioEAI.Web.Domain.Enums.SkillCategory>())">
                                     <option value="">-- Sélectionner --</option>
                                 </select>
                                 <span asp-validation-for="Skill.Category" class="text-danger small"></span>

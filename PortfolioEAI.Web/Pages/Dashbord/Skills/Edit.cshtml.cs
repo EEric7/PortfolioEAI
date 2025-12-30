@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using PortfolioEAI.Application.DTOs;
-using PortfolioEAI.Application.Services.Interfaces;
-using PortfolioEAI.Domain.Enums;
+using PortfolioEAI.Web.Application.DTOs;
+using PortfolioEAI.Web.Application.Services.Interfaces;
+using PortfolioEAI.Web.Domain.Enums;
 
-namespace PortfolioEAI.Pages.Dashbord.Skills
+namespace PortfolioEAI.Web.Pages.Dashbord.Skills
 {
     public class EditModel : PageModel
     {

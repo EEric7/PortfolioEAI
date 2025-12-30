@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-using PortfolioEAI.Data.Configurations;
-using PortfolioEAI.Domain.Entities;
+using PortfolioEAI.Web.Data.Configurations;
+using PortfolioEAI.Web.Domain.Entities;
 
-namespace PortfolioEAI.Data
+namespace PortfolioEAI.Web.Data
 {
     public class ApplicationDbContext : DbContext
     {

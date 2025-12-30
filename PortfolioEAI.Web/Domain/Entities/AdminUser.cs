@@ -1,7 +1,7 @@
-using PortfolioEAI.Domain.Exceptions;
-using PortfolioEAI.Domain.ValueObjects;
+using PortfolioEAI.Web.Domain.Exceptions;
+using PortfolioEAI.Web.Domain.ValueObjects;
 
-namespace PortfolioEAI.Domain.Entities
+namespace PortfolioEAI.Web.Domain.Entities
 {
     public class AdminUser
     {

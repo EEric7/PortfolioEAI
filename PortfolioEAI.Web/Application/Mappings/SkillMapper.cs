@@ -1,8 +1,8 @@
-using PortfolioEAI.Application.DTOs;
-using PortfolioEAI.Domain.Entities;
-using PortfolioEAI.Domain.Enums;
+using PortfolioEAI.Web.Application.DTOs;
+using PortfolioEAI.Web.Domain.Entities;
+using PortfolioEAI.Web.Domain.Enums;
 
-namespace PortfolioEAI.Application.Mappings
+namespace PortfolioEAI.Web.Application.Mappings
 {
     internal class SkillMapper
     {

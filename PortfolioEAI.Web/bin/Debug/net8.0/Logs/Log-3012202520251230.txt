@@ -1,0 +1,407 @@
+2025-12-30 16:01:16.308 +01:00 [WRN] The entity type 'PostalAddress' is an optional dependent using table sharing without any required non shared property that could be used to identify whether the entity exists. If all nullable properties contain a null value in database then an object instance won't be created in the query. Add a required property to create instances with null values for other properties or mark the incoming navigation as required to always create an instance.
+2025-12-30 16:01:16.377 +01:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL;
+2025-12-30 16:01:16.486 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "AdminUsers" AS "a")
+2025-12-30 16:01:16.515 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."Description", "a"."Password", "a"."UserName", "a"."City", "a"."Country", "a"."PostalCode", "a"."Street", "a"."Email"
+FROM "AdminUsers" AS "a"
+2025-12-30 16:01:16.551 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Skills" AS "s")
+2025-12-30 16:01:16.554 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "s"."Id", "s"."Category", "s"."IdAdminUser", "s"."Level", "s"."Name"
+FROM "Skills" AS "s"
+2025-12-30 16:01:16.564 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Experiences" AS "e")
+2025-12-30 16:01:16.566 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "e"."Id", "e"."Company", "e"."Description", "e"."EndDate", "e"."IdAdminUser", "e"."ImageUrl", "e"."Position", "e"."StartDate"
+FROM "Experiences" AS "e"
+2025-12-30 16:01:16.577 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Projects" AS "p")
+2025-12-30 16:01:16.579 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."Description", "p"."IdExperience", "p"."ImageUrl", "p"."Title", "p"."Url"
+FROM "Projects" AS "p"
+2025-12-30 16:01:16.638 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Projects"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-12-30 16:01:16.639 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Projects"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-12-30 16:01:16.639 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Skills"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-12-30 16:01:16.639 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Skills"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-12-30 16:01:16.639 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Skills"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-12-30 16:01:16.639 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Skills"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-12-30 16:01:16.640 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Skills"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-12-30 16:01:16.640 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Skills"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-12-30 16:01:16.640 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Skills"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-12-30 16:01:16.640 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Skills"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-12-30 16:01:16.640 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Skills"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-12-30 16:01:16.640 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Experiences"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-12-30 16:01:16.640 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Projects"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-12-30 16:01:16.640 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Skills"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-12-30 16:01:16.640 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Experiences"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-12-30 16:01:16.640 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AdminUsers"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-12-30 16:01:16.642 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 772), @p2='?' (Size = 8), @p3='?' (Size = 15), @p4='?' (Size = 20), @p5='?' (Size = 10), @p6='?' (Size = 6), @p7='?' (Size = 5), @p8='?' (Size = 17)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AdminUsers" ("Id", "Description", "Password", "UserName", "Email", "City", "Country", "PostalCode", "Street")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8);
+2025-12-30 16:01:16.642 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 10), @p2='?' (Size = 37), @p3='?' (DbType = Date), @p4='?' (DbType = Guid), @p5='?' (Size = 14), @p6='?' (Size = 43), @p7='?' (DbType = Date)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Experiences" ("Id", "Company", "Description", "EndDate", "IdAdminUser", "ImageUrl", "Position", "StartDate")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+2025-12-30 16:01:16.642 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 16), @p2='?' (Size = 32), @p3='?' (DbType = Date), @p4='?' (DbType = Guid), @p5='?' (Size = 14), @p6='?' (Size = 13), @p7='?' (DbType = Date)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Experiences" ("Id", "Company", "Description", "EndDate", "IdAdminUser", "ImageUrl", "Position", "StartDate")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+2025-12-30 16:01:16.643 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?' (DbType = Guid), @p3='?' (DbType = Int32), @p4='?' (Size = 15)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Skills" ("Id", "Category", "IdAdminUser", "Level", "Name")
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2025-12-30 16:01:16.643 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?' (DbType = Guid), @p3='?' (DbType = Int32), @p4='?' (Size = 28)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Skills" ("Id", "Category", "IdAdminUser", "Level", "Name")
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2025-12-30 16:01:16.643 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?' (DbType = Guid), @p3='?' (DbType = Int32), @p4='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Skills" ("Id", "Category", "IdAdminUser", "Level", "Name")
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2025-12-30 16:01:16.643 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?' (DbType = Guid), @p3='?' (DbType = Int32), @p4='?' (Size = 20)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Skills" ("Id", "Category", "IdAdminUser", "Level", "Name")
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2025-12-30 16:01:16.643 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?' (DbType = Guid), @p3='?' (DbType = Int32), @p4='?' (Size = 2)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Skills" ("Id", "Category", "IdAdminUser", "Level", "Name")
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2025-12-30 16:01:16.644 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?' (DbType = Guid), @p3='?' (DbType = Int32), @p4='?' (Size = 3)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Skills" ("Id", "Category", "IdAdminUser", "Level", "Name")
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2025-12-30 16:01:16.644 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?' (DbType = Guid), @p3='?' (DbType = Int32), @p4='?' (Size = 11)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Skills" ("Id", "Category", "IdAdminUser", "Level", "Name")
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2025-12-30 16:01:16.644 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?' (DbType = Guid), @p3='?' (DbType = Int32), @p4='?' (Size = 5)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Skills" ("Id", "Category", "IdAdminUser", "Level", "Name")
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2025-12-30 16:01:16.644 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?' (DbType = Guid), @p3='?' (DbType = Int32), @p4='?' (Size = 19)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Skills" ("Id", "Category", "IdAdminUser", "Level", "Name")
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2025-12-30 16:01:16.644 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?' (DbType = Guid), @p3='?' (DbType = Int32), @p4='?' (Size = 17)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Skills" ("Id", "Category", "IdAdminUser", "Level", "Name")
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2025-12-30 16:01:16.644 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 279), @p2='?' (DbType = Guid), @p3='?' (Size = 21), @p4='?' (Size = 49), @p5='?' (Size = 22)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Projects" ("Id", "Description", "IdExperience", "ImageUrl", "Title", "Url")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2025-12-30 16:01:16.644 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 278), @p2='?' (DbType = Guid), @p3='?' (Size = 22), @p4='?' (Size = 37), @p5='?' (Size = 22)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Projects" ("Id", "Description", "IdExperience", "ImageUrl", "Title", "Url")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2025-12-30 16:01:16.645 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 305), @p2='?' (DbType = Guid), @p3='?' (Size = 18), @p4='?' (Size = 46), @p5='?' (Size = 22)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Projects" ("Id", "Description", "IdExperience", "ImageUrl", "Title", "Url")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2025-12-30 16:01:16.671 +01:00 [INF] User profile is available. Using '/Users/Eric/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2025-12-30 16:01:16.710 +01:00 [INF] Creating key {6142573b-172d-4413-8718-b11336e03ce1} with creation date 2025-12-30 15:01:16Z, activation date 2025-12-30 15:01:16Z, and expiration date 2026-03-30 15:01:16Z.
+2025-12-30 16:01:16.711 +01:00 [WRN] No XML encryptor configured. Key {6142573b-172d-4413-8718-b11336e03ce1} may be persisted to storage in unencrypted form.
+2025-12-30 16:01:16.712 +01:00 [INF] Writing data to file '/Users/Eric/.aspnet/DataProtection-Keys/key-6142573b-172d-4413-8718-b11336e03ce1.xml'.
+2025-12-30 16:01:17.009 +01:00 [INF] Now listening on: https://localhost:5168
+2025-12-30 16:01:17.010 +01:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-30 16:01:17.010 +01:00 [INF] Hosting environment: Development
+2025-12-30 16:01:17.011 +01:00 [INF] Content root path: /Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI.Web
+2025-12-30 16:03:40.023 +01:00 [INF] Application is shutting down...
+2025-12-30 16:05:28.798 +01:00 [WRN] The entity type 'PostalAddress' is an optional dependent using table sharing without any required non shared property that could be used to identify whether the entity exists. If all nullable properties contain a null value in database then an object instance won't be created in the query. Add a required property to create instances with null values for other properties or mark the incoming navigation as required to always create an instance.
+2025-12-30 16:05:28.872 +01:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL;
+2025-12-30 16:05:28.985 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "AdminUsers" AS "a")
+2025-12-30 16:05:29.018 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."Description", "a"."Password", "a"."UserName", "a"."City", "a"."Country", "a"."PostalCode", "a"."Street", "a"."Email"
+FROM "AdminUsers" AS "a"
+2025-12-30 16:05:29.054 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Skills" AS "s")
+2025-12-30 16:05:29.057 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "s"."Id", "s"."Category", "s"."IdAdminUser", "s"."Level", "s"."Name"
+FROM "Skills" AS "s"
+2025-12-30 16:05:29.066 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Experiences" AS "e")
+2025-12-30 16:05:29.069 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "e"."Id", "e"."Company", "e"."Description", "e"."EndDate", "e"."IdAdminUser", "e"."ImageUrl", "e"."Position", "e"."StartDate"
+FROM "Experiences" AS "e"
+2025-12-30 16:05:29.079 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Projects" AS "p")
+2025-12-30 16:05:29.082 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."Description", "p"."IdExperience", "p"."ImageUrl", "p"."Title", "p"."Url"
+FROM "Projects" AS "p"
+2025-12-30 16:05:29.146 +01:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Projects"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-12-30 16:05:29.147 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Projects"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-12-30 16:05:29.147 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Skills"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-12-30 16:05:29.147 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Skills"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-12-30 16:05:29.147 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Skills"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-12-30 16:05:29.147 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Skills"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-12-30 16:05:29.147 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Skills"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-12-30 16:05:29.147 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Skills"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-12-30 16:05:29.148 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Skills"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-12-30 16:05:29.148 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Skills"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-12-30 16:05:29.148 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Skills"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-12-30 16:05:29.148 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Projects"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-12-30 16:05:29.148 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Skills"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-12-30 16:05:29.149 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Experiences"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-12-30 16:05:29.149 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Experiences"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-12-30 16:05:29.149 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AdminUsers"
+WHERE "Id" = @p0
+RETURNING 1;
+2025-12-30 16:05:29.151 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 772), @p2='?' (Size = 8), @p3='?' (Size = 15), @p4='?' (Size = 20), @p5='?' (Size = 10), @p6='?' (Size = 6), @p7='?' (Size = 5), @p8='?' (Size = 17)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AdminUsers" ("Id", "Description", "Password", "UserName", "Email", "City", "Country", "PostalCode", "Street")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8);
+2025-12-30 16:05:29.151 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 16), @p2='?' (Size = 32), @p3='?' (DbType = Date), @p4='?' (DbType = Guid), @p5='?' (Size = 14), @p6='?' (Size = 13), @p7='?' (DbType = Date)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Experiences" ("Id", "Company", "Description", "EndDate", "IdAdminUser", "ImageUrl", "Position", "StartDate")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+2025-12-30 16:05:29.151 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 10), @p2='?' (Size = 37), @p3='?' (DbType = Date), @p4='?' (DbType = Guid), @p5='?' (Size = 14), @p6='?' (Size = 43), @p7='?' (DbType = Date)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Experiences" ("Id", "Company", "Description", "EndDate", "IdAdminUser", "ImageUrl", "Position", "StartDate")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+2025-12-30 16:05:29.153 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?' (DbType = Guid), @p3='?' (DbType = Int32), @p4='?' (Size = 2)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Skills" ("Id", "Category", "IdAdminUser", "Level", "Name")
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2025-12-30 16:05:29.153 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?' (DbType = Guid), @p3='?' (DbType = Int32), @p4='?' (Size = 3)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Skills" ("Id", "Category", "IdAdminUser", "Level", "Name")
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2025-12-30 16:05:29.153 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?' (DbType = Guid), @p3='?' (DbType = Int32), @p4='?' (Size = 17)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Skills" ("Id", "Category", "IdAdminUser", "Level", "Name")
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2025-12-30 16:05:29.153 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?' (DbType = Guid), @p3='?' (DbType = Int32), @p4='?' (Size = 11)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Skills" ("Id", "Category", "IdAdminUser", "Level", "Name")
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2025-12-30 16:05:29.153 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?' (DbType = Guid), @p3='?' (DbType = Int32), @p4='?' (Size = 5)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Skills" ("Id", "Category", "IdAdminUser", "Level", "Name")
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2025-12-30 16:05:29.153 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?' (DbType = Guid), @p3='?' (DbType = Int32), @p4='?' (Size = 10)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Skills" ("Id", "Category", "IdAdminUser", "Level", "Name")
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2025-12-30 16:05:29.154 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?' (DbType = Guid), @p3='?' (DbType = Int32), @p4='?' (Size = 20)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Skills" ("Id", "Category", "IdAdminUser", "Level", "Name")
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2025-12-30 16:05:29.154 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?' (DbType = Guid), @p3='?' (DbType = Int32), @p4='?' (Size = 28)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Skills" ("Id", "Category", "IdAdminUser", "Level", "Name")
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2025-12-30 16:05:29.154 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?' (DbType = Guid), @p3='?' (DbType = Int32), @p4='?' (Size = 15)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Skills" ("Id", "Category", "IdAdminUser", "Level", "Name")
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2025-12-30 16:05:29.154 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?' (DbType = Guid), @p3='?' (DbType = Int32), @p4='?' (Size = 19)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Skills" ("Id", "Category", "IdAdminUser", "Level", "Name")
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2025-12-30 16:05:29.155 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 278), @p2='?' (DbType = Guid), @p3='?' (Size = 22), @p4='?' (Size = 37), @p5='?' (Size = 22)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Projects" ("Id", "Description", "IdExperience", "ImageUrl", "Title", "Url")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2025-12-30 16:05:29.155 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 279), @p2='?' (DbType = Guid), @p3='?' (Size = 21), @p4='?' (Size = 49), @p5='?' (Size = 22)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Projects" ("Id", "Description", "IdExperience", "ImageUrl", "Title", "Url")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2025-12-30 16:05:29.155 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 305), @p2='?' (DbType = Guid), @p3='?' (Size = 18), @p4='?' (Size = 46), @p5='?' (Size = 22)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Projects" ("Id", "Description", "IdExperience", "ImageUrl", "Title", "Url")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2025-12-30 16:05:29.221 +01:00 [INF] User profile is available. Using '/Users/Eric/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2025-12-30 16:05:29.525 +01:00 [INF] Now listening on: https://localhost:5168
+2025-12-30 16:05:29.526 +01:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-30 16:05:29.526 +01:00 [INF] Hosting environment: Development
+2025-12-30 16:05:29.526 +01:00 [INF] Content root path: /Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI.Web
+2025-12-30 16:05:29.961 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/ - null null
+2025-12-30 16:05:29.976 +01:00 [INF] Executing endpoint '/Index'
+2025-12-30 16:05:29.996 +01:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2025-12-30 16:05:30.004 +01:00 [INF] Executing handler method PortfolioEAI.Web.Pages.IndexModel.OnGetAsync - ModelState is "Valid"
+2025-12-30 16:05:30.009 +01:00 [INF] Fetching all AdminUsers
+2025-12-30 16:05:30.011 +01:00 [INF] Retrieving all AdminUsers
+2025-12-30 16:05:30.054 +01:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-12-30 16:05:30.072 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."Description", "a"."Password", "a"."UserName", "a"."City", "a"."Country", "a"."PostalCode", "a"."Street", "a"."Email", "s"."Id", "s"."Category", "s"."IdAdminUser", "s"."Level", "s"."Name", "s0"."Id", "s0"."Company", "s0"."Description", "s0"."EndDate", "s0"."IdAdminUser", "s0"."ImageUrl", "s0"."Position", "s0"."StartDate", "s0"."Id0", "s0"."Description0", "s0"."IdExperience", "s0"."ImageUrl0", "s0"."Title", "s0"."Url"
+FROM "AdminUsers" AS "a"
+LEFT JOIN "Skills" AS "s" ON "a"."Id" = "s"."IdAdminUser"
+LEFT JOIN (
+    SELECT "e"."Id", "e"."Company", "e"."Description", "e"."EndDate", "e"."IdAdminUser", "e"."ImageUrl", "e"."Position", "e"."StartDate", "p"."Id" AS "Id0", "p"."Description" AS "Description0", "p"."IdExperience", "p"."ImageUrl" AS "ImageUrl0", "p"."Title", "p"."Url"
+    FROM "Experiences" AS "e"
+    LEFT JOIN "Projects" AS "p" ON "e"."Id" = "p"."IdExperience"
+) AS "s0" ON "a"."Id" = "s0"."IdAdminUser"
+ORDER BY "a"."Id", "s"."Id", "s0"."Id"
+2025-12-30 16:05:30.084 +01:00 [INF] Executed handler method OnGetAsync, returned result .
+2025-12-30 16:05:30.085 +01:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-12-30 16:05:30.085 +01:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-30 16:05:30.197 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/PortfolioEAI.styles.css?v=9OLkGPtUaGYe-NlCzLU7keEZVUOBFqCyeu9Fbj2qQr8 - null null
+2025-12-30 16:05:30.197 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/_framework/aspnetcore-browser-refresh.js - null null
+2025-12-30 16:05:30.275 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/css/site.css?v=kFhJyk1YNTU-limRXF4jhTgyQyL-K3tYosHNfHAv3Qc - null null
+2025-12-30 16:05:30.275 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/js/site.js - null null
+2025-12-30 16:05:30.380 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/PortfolioEAI.Web.styles.css?v=fysqRGv--4EeZNcKMCj3p-gxonM62JEsASs6-_X0tQU - null null
+2025-12-30 16:05:30.488 +01:00 [INF] Executing endpoint '/Errors/Error404'
+2025-12-30 16:05:30.488 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/_framework/aspnetcore-browser-refresh.js - 200 16459 application/javascript; charset=utf-8 291.0381ms
+2025-12-30 16:05:30.489 +01:00 [INF] Executed page /Index in 465.8648ms
+2025-12-30 16:05:30.516 +01:00 [INF] Executed endpoint '/Index'
+2025-12-30 16:05:30.541 +01:00 [INF] Route matched with {page = "/Errors/Error404"}. Executing page /Errors/Error404
+2025-12-30 16:05:30.567 +01:00 [INF] Executing handler method PortfolioEAI.Web.Pages.Error404Model.OnGet - ModelState is "Valid"
+2025-12-30 16:05:30.569 +01:00 [INF] Executed handler method OnGet, returned result .
+2025-12-30 16:05:30.569 +01:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-12-30 16:05:30.569 +01:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-30 16:05:30.572 +01:00 [INF] Sending file. Request path: '/js/site.js'. Physical path: '/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI.Web/wwwroot/js/site.js'
+2025-12-30 16:05:30.572 +01:00 [INF] Sending file. Request path: '/PortfolioEAI.Web.styles.css'. Physical path: '/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI.Web/obj/Debug/net8.0/scopedcss/bundle/PortfolioEAI.Web.styles.css'
+2025-12-30 16:05:30.572 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/js/site.js - 200 2886 text/javascript 296.81ms
+2025-12-30 16:05:30.572 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/PortfolioEAI.Web.styles.css?v=fysqRGv--4EeZNcKMCj3p-gxonM62JEsASs6-_X0tQU - 200 1085 text/css 192.5305ms
+2025-12-30 16:05:30.601 +01:00 [INF] Sending file. Request path: '/css/site.css'. Physical path: '/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI.Web/wwwroot/css/site.css'
+2025-12-30 16:05:30.601 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/css/site.css?v=kFhJyk1YNTU-limRXF4jhTgyQyL-K3tYosHNfHAv3Qc - 200 260144 text/css 325.7332ms
+2025-12-30 16:05:30.602 +01:00 [INF] Executed page /Errors/Error404 in 60.2247ms
+2025-12-30 16:05:30.602 +01:00 [INF] Executed endpoint '/Errors/Error404'
+2025-12-30 16:05:30.602 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/PortfolioEAI.styles.css?v=9OLkGPtUaGYe-NlCzLU7keEZVUOBFqCyeu9Fbj2qQr8 - 404 null text/html; charset=utf-8 405.2199ms
+2025-12-30 16:05:30.602 +01:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5168/PortfolioEAI.styles.css, Response status code: 404
+2025-12-30 16:05:30.602 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/ - 200 null text/html; charset=utf-8 642.5026ms
+2025-12-30 16:05:30.693 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/assets/img/Workstation.jpg - null null
+2025-12-30 16:05:30.699 +01:00 [INF] Sending file. Request path: '/assets/img/Workstation.jpg'. Physical path: '/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI.Web/wwwroot/assets/img/Workstation.jpg'
+2025-12-30 16:05:30.699 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/assets/img/Workstation.jpg - 200 184541 image/jpeg 6.2404ms
+2025-12-30 16:05:30.939 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/apple-touch-icon-precomposed.png - null null
+2025-12-30 16:05:30.939 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/apple-touch-icon-precomposed.png - null null
+2025-12-30 16:05:30.943 +01:00 [INF] Executing endpoint '/Errors/Error404'
+2025-12-30 16:05:30.943 +01:00 [INF] Executing endpoint '/Errors/Error404'
+2025-12-30 16:05:30.944 +01:00 [INF] Route matched with {page = "/Errors/Error404"}. Executing page /Errors/Error404
+2025-12-30 16:05:30.944 +01:00 [INF] Route matched with {page = "/Errors/Error404"}. Executing page /Errors/Error404
+2025-12-30 16:05:30.944 +01:00 [INF] Executing handler method PortfolioEAI.Web.Pages.Error404Model.OnGet - ModelState is "Valid"
+2025-12-30 16:05:30.944 +01:00 [INF] Executed handler method OnGet, returned result .
+2025-12-30 16:05:30.944 +01:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-12-30 16:05:30.944 +01:00 [INF] Executing handler method PortfolioEAI.Web.Pages.Error404Model.OnGet - ModelState is "Valid"
+2025-12-30 16:05:30.944 +01:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-30 16:05:30.944 +01:00 [INF] Executed handler method OnGet, returned result .
+2025-12-30 16:05:30.944 +01:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-12-30 16:05:30.944 +01:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-30 16:05:30.945 +01:00 [INF] Executed page /Errors/Error404 in 1.1815ms
+2025-12-30 16:05:30.945 +01:00 [INF] Executed page /Errors/Error404 in 1.2817ms
+2025-12-30 16:05:30.945 +01:00 [INF] Executed endpoint '/Errors/Error404'
+2025-12-30 16:05:30.945 +01:00 [INF] Executed endpoint '/Errors/Error404'
+2025-12-30 16:05:30.945 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/apple-touch-icon-precomposed.png - 404 null text/html; charset=utf-8 6.1893ms
+2025-12-30 16:05:30.945 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/apple-touch-icon-precomposed.png - 404 null text/html; charset=utf-8 6.2077ms
+2025-12-30 16:05:30.945 +01:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5168/apple-touch-icon-precomposed.png, Response status code: 404
+2025-12-30 16:05:30.945 +01:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5168/apple-touch-icon-precomposed.png, Response status code: 404
+2025-12-30 16:05:30.945 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/apple-touch-icon.png - null null
+2025-12-30 16:05:30.945 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/favicon.ico - null null
+2025-12-30 16:05:30.945 +01:00 [INF] Executing endpoint '/Errors/Error404'
+2025-12-30 16:05:30.971 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/assets/EAI.png - null null
+2025-12-30 16:05:30.971 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/assets/img/Wacken2.jpg - null null
+2025-12-30 16:05:30.971 +01:00 [INF] Route matched with {page = "/Errors/Error404"}. Executing page /Errors/Error404
+2025-12-30 16:05:30.971 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/assets/img/Wacken.jpg - null null
+2025-12-30 16:05:30.972 +01:00 [INF] Executing handler method PortfolioEAI.Web.Pages.Error404Model.OnGet - ModelState is "Valid"
+2025-12-30 16:05:30.971 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/assets/img/Moi.png - null null
+2025-12-30 16:05:31.129 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5168/apple-touch-icon.png - null null
+2025-12-30 16:05:31.077 +01:00 [INF] Executed handler method OnGet, returned result .
+2025-12-30 16:05:31.130 +01:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-12-30 16:05:31.153 +01:00 [INF] Executing endpoint '/Errors/Error404'
+2025-12-30 16:05:31.131 +01:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-30 16:05:31.153 +01:00 [INF] Route matched with {page = "/Errors/Error404"}. Executing page /Errors/Error404
+2025-12-30 16:05:31.154 +01:00 [INF] Sending file. Request path: '/favicon.ico'. Physical path: '/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI.Web/wwwroot/favicon.ico'
+2025-12-30 16:05:31.177 +01:00 [INF] Executing handler method PortfolioEAI.Web.Pages.Error404Model.OnGet - ModelState is "Valid"
+2025-12-30 16:05:31.177 +01:00 [INF] Executed handler method OnGet, returned result .
+2025-12-30 16:05:31.178 +01:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-12-30 16:05:31.178 +01:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-12-30 16:05:31.178 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/favicon.ico - 200 5430 image/x-icon 233.102ms
+2025-12-30 16:05:31.179 +01:00 [INF] Executed page /Errors/Error404 in 207.3121ms
+2025-12-30 16:05:31.179 +01:00 [INF] Executed endpoint '/Errors/Error404'
+2025-12-30 16:05:31.179 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/apple-touch-icon.png - 404 null text/html; charset=utf-8 233.7306ms
+2025-12-30 16:05:31.179 +01:00 [INF] Executed page /Errors/Error404 in 25.4319ms
+2025-12-30 16:05:31.179 +01:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5168/apple-touch-icon.png, Response status code: 404
+2025-12-30 16:05:31.179 +01:00 [INF] Executed endpoint '/Errors/Error404'
+2025-12-30 16:05:31.179 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/apple-touch-icon.png - 404 null text/html; charset=utf-8 49.7122ms
+2025-12-30 16:05:31.179 +01:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:5168/apple-touch-icon.png, Response status code: 404
+2025-12-30 16:05:31.239 +01:00 [INF] Sending file. Request path: '/assets/img/Wacken.jpg'. Physical path: '/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI.Web/wwwroot/assets/img/Wacken.jpg'
+2025-12-30 16:05:31.264 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/assets/img/Wacken.jpg - 200 146578 image/jpeg 293.5502ms
+2025-12-30 16:05:31.268 +01:00 [INF] Sending file. Request path: '/assets/img/Wacken2.jpg'. Physical path: '/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI.Web/wwwroot/assets/img/Wacken2.jpg'
+2025-12-30 16:05:31.268 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/assets/img/Wacken2.jpg - 200 176564 image/jpeg 297.3897ms
+2025-12-30 16:05:31.301 +01:00 [INF] Sending file. Request path: '/assets/EAI.png'. Physical path: '/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI.Web/wwwroot/assets/EAI.png'
+2025-12-30 16:05:31.301 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/assets/EAI.png - 200 365672 image/png 330.1009ms
+2025-12-30 16:05:31.315 +01:00 [INF] Sending file. Request path: '/assets/img/Moi.png'. Physical path: '/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI.Web/wwwroot/assets/img/Moi.png'
+2025-12-30 16:05:31.315 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5168/assets/img/Moi.png - 200 1033904 image/png 344.1401ms

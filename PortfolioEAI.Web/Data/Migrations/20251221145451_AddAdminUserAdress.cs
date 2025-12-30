@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace PortfolioEAI.Data.Migrations
+namespace PortfolioEAI.Web.Data.Migrations
 {
     /// <inheritdoc />
     public partial class AddAdminUserAdress : Migration

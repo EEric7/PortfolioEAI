@@ -1,7 +1,7 @@
 using System.Text.RegularExpressions;
-using PortfolioEAI.Domain.Exceptions;
+using PortfolioEAI.Web.Domain.Exceptions;
 
-namespace PortfolioEAI.Domain.ValueObjects
+namespace PortfolioEAI.Web.Domain.ValueObjects
 {
     public class Email : IEquatable<Email>
     {

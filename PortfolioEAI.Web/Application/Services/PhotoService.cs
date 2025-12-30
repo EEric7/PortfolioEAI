@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using PortfolioEAI.Application.Services.Interfaces;
+using PortfolioEAI.Web.Application.Services.Interfaces;
 
-namespace PortfolioEAI.Application.Services
+namespace PortfolioEAI.Web.Application.Services
 {
     public class PhotoService : IPhotoService
     {

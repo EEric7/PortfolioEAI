@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using PortfolioEAI.Data.Repositorys.Interfaces;
-using PortfolioEAI.Domain.Entities;
-using PortfolioEAI.Domain.Ressources;
+using PortfolioEAI.Web.Data.Repositorys.Interfaces;
+using PortfolioEAI.Web.Domain.Entities;
+using PortfolioEAI.Web.Domain.Ressources;
 
-namespace PortfolioEAI.Data.Repositorys
+namespace PortfolioEAI.Web.Data.Repositorys
 {
     public class AdminUserRepository : IAdminUserRepository
     {

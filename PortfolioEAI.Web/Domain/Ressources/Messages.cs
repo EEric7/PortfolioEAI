@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PortfolioEAI.Domain.Ressources
+namespace PortfolioEAI.Web.Domain.Ressources
 {
     public static class Messages
     {

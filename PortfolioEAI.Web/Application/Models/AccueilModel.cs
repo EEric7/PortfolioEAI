@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using PortfolioEAI.Application.DTOs;
-using PortfolioEAI.Domain.Ressources;
+using PortfolioEAI.Web.Domain.Ressources;
+using PortfolioEAI.Web.Application.DTOs;
 
-namespace PortfolioEAI.Application.Models
+namespace PortfolioEAI.Web.Application.Models
 {
     public class AccueilModel 
     {

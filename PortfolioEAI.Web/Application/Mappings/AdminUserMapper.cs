@@ -1,8 +1,9 @@
-using PortfolioEAI.Application.DTOs;
-using PortfolioEAI.Domain.Entities;
-using PortfolioEAI.Domain.ValueObjects;
+using PortfolioEAI.Web.Application.DTOs;
+using PortfolioEAI.Web.Domain.Entities;
+using PortfolioEAI.Web.Domain.ValueObjects;
+using PortfolioEAI.Web.Application.DTOs;
 
-namespace PortfolioEAI.Application.Mappings
+namespace PortfolioEAI.Web.Application.Mappings
 {
     internal class AdminUserMapper
     {
