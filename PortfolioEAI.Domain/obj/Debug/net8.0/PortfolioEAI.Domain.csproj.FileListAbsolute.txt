@@ -1,0 +1,12 @@
+/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI.Domain/bin/Debug/net8.0/PortfolioEAI.Domain.deps.json
+/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI.Domain/bin/Debug/net8.0/PortfolioEAI.Domain.dll
+/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI.Domain/bin/Debug/net8.0/PortfolioEAI.Domain.pdb
+/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI.Domain/obj/Debug/net8.0/PortfolioEAI.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI.Domain/obj/Debug/net8.0/PortfolioEAI.Domain.AssemblyInfoInputs.cache
+/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI.Domain/obj/Debug/net8.0/PortfolioEAI.Domain.AssemblyInfo.cs
+/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI.Domain/obj/Debug/net8.0/PortfolioEAI.Domain.csproj.CoreCompileInputs.cache
+/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI.Domain/obj/Debug/net8.0/PortfolioEAI.Domain.sourcelink.json
+/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI.Domain/obj/Debug/net8.0/PortfolioEAI.Domain.dll
+/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI.Domain/obj/Debug/net8.0/refint/PortfolioEAI.Domain.dll
+/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI.Domain/obj/Debug/net8.0/PortfolioEAI.Domain.pdb
+/Volumes/Workspace/Portfolio/PortfolioEAI/PortfolioEAI.Domain/obj/Debug/net8.0/ref/PortfolioEAI.Domain.dll
