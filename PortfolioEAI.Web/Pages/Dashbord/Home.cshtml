@@ -5,7 +5,7 @@
 }
 
 <!-- Navbar -->
-@await Html.PartialAsync("_MenuHome", Model)
+@await Html.PartialAsync("_MenuHome", Model.UserHomeModel.MenuModel)
 
 <section class="container-fluid py-4" id="dashboard">
     <div class="row mb-4">

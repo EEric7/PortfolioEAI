@@ -1,28 +1,21 @@
-using Microsoft.EntityFrameworkCore;
-using PortfolioEAI.Web.Data.Repositorys;
-using PortfolioEAI.Web.Data.Repositorys.Interfaces;
-using PortfolioEAI.Web.Data;
-using PortfolioEAI.Web.Application.Services.Interfaces;
-using PortfolioEAI.Web.Application.Services;
-using PortfolioEAI.Web.Domain.Services.Interfaces;
-using PortfolioEAI.Web.Domain.Services;
-using Serilog;
+using PortfolioEAI.Infrastructure;
+using PortfolioEAI.Application;
 
-Log.Logger = new LoggerConfiguration()
-    .WriteTo.Console()
-    .WriteTo.File(Path.Combine(AppContext.BaseDirectory,"Logs", $"Log-{DateTime.Now:ddMMyyyy}.txt"),
-    rollingInterval: RollingInterval.Day)
-    .CreateLogger();
+// Log.Logger = new LoggerConfiguration()
+//     .WriteTo.Console()
+//     .WriteTo.File(Path.Combine(AppContext.BaseDirectory,"Logs", $"Log-{DateTime.Now:ddMMyyyy}.txt"),
+//     rollingInterval: RollingInterval.Day)
+//     .CreateLogger();
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Utilise Serilog comme logger principal
-builder.Host.UseSerilog();
+//builder.Host.UseSerilog();
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-// Configure Entity Framework Core with SQLite based on the environment
+// Configure Entity Framework Core based on the environment
 var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? throw new InvalidOperationException($"Unknown environment: {Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}");
 
 // Load configuration files based on the environment
@@ -30,27 +23,11 @@ builder.Configuration
     .SetBasePath(Path.Combine(AppContext.BaseDirectory, "Properties"))
     .AddJsonFile($"appsettings.{environment}.json", optional: false, reloadOnChange: true);
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+// Infrastructure layer
+builder.Services.AddInfrastructure(builder.Configuration);
 
-// Register repositories
-builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
-builder.Services.AddScoped<ISkillRepository, SkillRepository>();
-builder.Services.AddScoped<IExperienceRepository, ExperienceRepository>();
-builder.Services.AddScoped<IAdminUserRepository, AdminUserRepository>();
-builder.Services.AddScoped<IRepository, Repository>();
-
-// Register Application Services
-builder.Services.AddScoped<IDashbordService, DashbordService>();
-builder.Services.AddScoped<IHomepageService, HomepageService>();
-builder.Services.AddScoped<IPhotoService, PhotoService>();
-
-// Register Service Domain
-builder.Services.AddScoped<IAdminUserService, AdminUserService>();
-builder.Services.AddScoped<IProjectService, ProjectService>();
-builder.Services.AddScoped<ISkillService, SkillService>();
-builder.Services.AddScoped<IExperienceService, ExperienceService>();
-builder.Services.AddScoped<IServices, Services>();
+// Application layer
+builder.Services.AddApplication();
 
 // Configure authentication and authorization
 builder.Services.AddAuthentication("MyCookieAuth")
@@ -66,16 +43,7 @@ builder.Services.AddAuthentication("MyCookieAuth")
 
 builder.Services.AddAuthorization();
 
-// Register the main repository interface
 var app = builder.Build();
-
-// Initialize the database
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    var context = services.GetRequiredService<ApplicationDbContext>();
-    DbInitializer.Initialize(context);
-}
 
 if (environment != "Development")
 {

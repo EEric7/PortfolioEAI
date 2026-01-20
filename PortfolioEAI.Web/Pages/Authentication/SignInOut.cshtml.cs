@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using PortfolioEAI.Web.Application.Models;
+using PortfolioEAI.Web.Models;
 
 namespace PortfolioEAI.Web.Pages.Authentication
 {

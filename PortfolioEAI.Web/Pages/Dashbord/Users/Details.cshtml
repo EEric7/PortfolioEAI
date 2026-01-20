@@ -1,0 +1,52 @@
+@page
+@model PortfolioEAI.Web.Pages.Dashbord.Users.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+@await Html.PartialAsync("_MenuHome", Model.DetailsUserModel.MenuModel)
+<div>
+    <h1>Details</h1>
+<div/>
+<div>
+    <h4>User</h4>
+    <hr/>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DetailsUserModel.User.FirstName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DetailsUserModel.User.FirstName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DetailsUserModel.User.LastName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DetailsUserModel.User.LastName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DetailsUserModel.User.UserName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DetailsUserModel.User.UserName)
+        </dd>
+        <dt class="col-sm-2"></dt>
+            @Html.DisplayNameFor(model => model.DetailsUserModel.User.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DetailsUserModel.User.Description)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DetailsUserModel.User.Password)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DetailsUserModel.User.Password)
+        </dd>
+    </dl>
+
+    <div>
+        <a asp-page="./Edit" asp-route-id="@Model.DetailsUserModel.User.Id">Edit</a> |
+        <a asp-page="./Index">Back to List</a>
+    </div>
+</div>

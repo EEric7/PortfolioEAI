@@ -1,21 +1,22 @@
 ﻿@page
 @using Microsoft.EntityFrameworkCore.Metadata.Internal
-@using PortfolioEAI.Web.Application.Models
-@using PortfolioEAI.Web.Application.Ressources
+@using PortfolioEAI.Web.Models
+@using PortfolioEAI.Web.Ressources
 @model IndexModel
 @{
-    ViewData["Title"] = Model.AccueilModel.AdminUserModel?.UserName ?? UIText.DefaultTitle;
-    ViewData["SubTitle"] = Model.AccueilModel.AdminUserModel?.Profession ?? UIText.DefaultProfession;
-    ViewData["UserName"] = Model.AccueilModel.AdminUserModel?.UserName;
-    ViewData["Description"] = Model.AccueilModel.AdminUserModel?.Description;
-    ViewData["Address"] = Model.AccueilModel.AdminUserModel?.Address;
-    ViewData["GITEmail"] = Model.AccueilModel.AdminUserModel?.EmailGitHub;
-    ViewData["EMail"] = Model.AccueilModel.AdminUserModel?.Email;
-    ViewData["PhoneNumber"] = Model.AccueilModel.AdminUserModel?.PhoneNumber;
+    ViewData["Title"] = Model.AccueilModel?.UserModel?.UserName ?? UIText.DefaultTitle;
+    ViewData["SubTitle"] = Model.AccueilModel?.UserModel?.Profession ?? UIText.DefaultProfession;
+    ViewData["UserName"] = Model.AccueilModel?.UserModel?.UserName;
+    ViewData["Description"] = Model.AccueilModel?.UserModel?.Description;
+    ViewData["Address"] = Model.AccueilModel?.UserModel?.Address;
+    ViewData["GITEmail"] = Model.AccueilModel?.UserModel?.EmailGitHub;
+    ViewData["EMail"] = Model.AccueilModel?.UserModel?.Email;
+    ViewData["PhoneNumber"] = Model.AccueilModel?.UserModel?.PhoneNumber;
+
     // Determine if there are skills and projects to display
-    Boolean hasSkills = Model.AccueilModel.SkillsModelLanguages.Any();
-    Boolean hasProjects = Model.AccueilModel.ProjectModelDisplay.Any();
-    int dispatch = Model.AccueilModel.ProjectModelDisplay.Count();
+    Boolean hasSkills = Model.AccueilModel?.SkillsModelLanguages is null ? false : Model.AccueilModel.SkillsModelLanguages.Any();
+    Boolean hasProjects = Model.AccueilModel?.ProjectModelDisplay is null ? false : Model.AccueilModel.ProjectModelDisplay.Any();
+    int dispatch = Model.AccueilModel?.ProjectModelDisplay is null ? 0 : Model.AccueilModel.ProjectModelDisplay.Count();
 }
 
 @await Html.PartialAsync("_Menu")
@@ -62,11 +63,11 @@ About-->
                         <div class="container"></div>
                         <div class="row">
                             <div class="col-md-6">
-                                @foreach (var skill in Model.AccueilModel.SkillsModelLanguages)
+                                @foreach (var skill in Model.AccueilModel?.SkillsModelLanguages!)
                                 {
                                     <h3 class="progressbar-title">@skill.Name</h3>
                                     <div class="progress">
-                                        <div class="progress-bar" style="width:@((int)(skill.Level ?? 0))%; background:@skill.LevelBackgroundColor;">
+                                        <div class="progress-bar" style="width:@(int.TryParse(skill.Level, out var level) ? level : 0)%; background:@skill.LevelBackgroundColor;">
                                             <span class="progress-value">@skill.Level</span>
                                             <span class="progress-icon" style="border-bottom-color:@skill.LevelBackgroundColor;"></span>
                                         </div>
@@ -74,11 +75,11 @@ About-->
                                 }
                             </div>
                             <div class="col-md-6">
-                                @foreach (var skill in Model.AccueilModel.SkillsModelFrameworks)
+                                @foreach (var skill in Model.AccueilModel.SkillsModelFrameworks!)
                                 {
                                     <h3 class="progressbar-title">@skill.Name</h3>
                                     <div class="progress">
-                                        <div class="progress-bar" style="width:@((int)(skill.Level ?? 0))%; background:@skill.LevelBackgroundColor;">
+                                        <div class="progress-bar" style="width:@(int.TryParse(skill.Level, out var level) ? level : 0)%; background:@skill.LevelBackgroundColor;">
                                             <span class="progress-value">@skill.Level</span>
                                             <span class="progress-icon" style="border-bottom-color:@skill.LevelBackgroundColor;"></span>
                                         </div>
@@ -92,11 +93,11 @@ About-->
                         <div class="container"></div>
                         <div class="row">
                             <div class="col-md-6">
-                                @foreach (var skill in Model.AccueilModel.SkillsModelDesign)
+                                @foreach (var skill in Model.AccueilModel.SkillsModelDesign!)
                                 {
                                     <h3 class="progressbar-title">@skill.Name</h3>
                                     <div class="progress">
-                                        <div class="progress-bar" style="width:@((int)(skill.Level ?? 0))%; background:@skill.LevelBackgroundColor">
+                                        <div class="progress-bar" style="width:@(int.TryParse(skill.Level, out var level) ? level : 0)%; background:@skill.LevelBackgroundColor;">
                                             <span class="progress-value">@skill.Level</span>
                                             <span class="progress-icon" style="border-bottom-color:@skill.LevelBackgroundColor;"></span>
                                         </div>

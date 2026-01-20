@@ -1,38 +1,39 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using PortfolioEAI.Web.Application.Services.Interfaces;
-using PortfolioEAI.Web.Application.DTOs;
+using PortfolioEAI.Application.Interfaces;
+using PortfolioEAI.Web.Models;
 
 namespace PortfolioEAI.Web.Pages.Dashbord
 {
     public class HomeModel : PageModel
     {
-        private readonly IDashbordService _services;
+        private readonly IMediator _services;
 
-        public HomeModel(IDashbordService services)
+        public HomeModel(IMediator services)
         {
             _services = services;
+            UserHomeModel = new UserHomeModel();
         }
-
-        [BindProperty]
-        public List<Tuple<string, string>> MenuModel { get; set; } = new List<Tuple<string, string>>()
-        {
-            new Tuple<string, string>("Dashbord", "/Dashbord/Home"),
-            new Tuple<string, string>("Experiences", "/Dashbord/Experiences/"),
-            new Tuple<string, string>("Skills", "/Dashbord/Skills/"),
-            new Tuple<string, string>("Setting", "/Dashbord/AdminUsers/"),
-            new Tuple<string, string>("SignOut", "/Authentication/SignInOut")
-        };
         
-        public AdminUserDto? AdminUser { get; set; } = default;
+        [BindProperty]
+        public UserHomeModel UserHomeModel { get; set; } 
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(string Email)
         {
             try
             {
-                //TODO Replace with actual user identification logic.
-                AdminUser = (await _services.GetAllAdminUsersAsync()).ToList().FirstOrDefault();
                 ModelState.Clear();
+                //TODO Replace with actual user identification logic.
+                var result = await _services.Send(new GetUserByEmailQuery(Email));
+
+                if (!result.IsSuccess)
+                {
+                    ModelState.AddModelError(string.Empty, result.Error!);
+                    return;
+                }
+
+                UserHomeModel.User = result.Value;
             }
             catch (Exception ex)
             {

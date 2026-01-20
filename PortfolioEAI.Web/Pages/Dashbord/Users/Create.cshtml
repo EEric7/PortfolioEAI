@@ -1,0 +1,73 @@
+@page
+@model PortfolioEAI.Web.Pages.Dashbord.Users.CreateModel
+
+@{
+ViewData["Title"] = "Create";
+}
+
+@await Html.PartialAsync("_MenuHome", Model.UserCreateModel.MenuModel)
+        
+        <h1>Create</h1>
+        
+    <h4>AdminUser</h4>
+    <hr />
+    <div class="row">
+    <div class="col-md-4">
+    <form method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger">
+    </div>
+            <div class="form-group">
+                <label asp-for="UserCreateModel.User.FirstName" class="control-label"></label>
+                <input asp-for="UserCreateModel.User.FirstName" class="form-control" />
+                <span asp-validation-for="UserCreateModel.User.FirstName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="UserCreateModel.User.LastName" class="control-label"></label>
+                <input asp-for="UserCreateModel.User.LastName" class="form-control" />
+                <span asp-validation-for="UserCreateModel.User.LastName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="UserCreateModel.User.UserName" class="control-label"></label>
+                <input asp-for="UserCreateModel.User.UserName" class="form-control" />
+                <span asp-validation-for="UserCreateModel.User.UserName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="UserCreateModel.User.Description" class="control-label"></label>
+                <input asp-for="UserCreateModel.User.Description" class="form-control" />
+                <span asp-validation-for="UserCreateModel.User.Description" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="UserCreateModel.User.Email" class="control-label"></label>
+                <input asp-for="UserCreateModel.User.Email" class="form-control" />
+                <span asp-validation-for="UserCreateModel.User.Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="UserCreateModel.User.Password" class="control-label"></label>
+                <input asp-for="UserCreateModel.User.Password" class="form-control" />
+                <span asp-validation-for="UserCreateModel.User.Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="UserCreateModel.User.Roles" class="control-label"></label>
+                <select asp-for="UserCreateModel.User.Roles" class="form-control" asp-items="Model.UserCreateModel.RoleOptions" multiple="multiple"></select>
+                <span asp-validation-for="UserCreateModel.User.Roles" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

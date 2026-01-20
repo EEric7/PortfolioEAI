@@ -1,0 +1,40 @@
+using MediatR;
+using PortfolioEAI.Application.Common;
+using PortfolioEAI.Application.Interfaces;
+using PortfolioEAI.Domain.Entities;
+using PortfolioEAI.Domain.Entities.Ports;
+
+namespace PortfolioEAI.Application.Users.Commands
+{
+    public class DeleteUserByIdCommandHandler : IRequestHandler<DeleteUserByIdCommand, Result<Guid>>
+    {
+        // Repository for user data access
+        private readonly IUserRepository _repository;
+
+        // Constructor injecting the user repository
+        public DeleteUserByIdCommandHandler(IUserRepository repository) =>_repository = repository;
+
+        // Handles the deletion of a user by their ID
+        public async Task<Result<Guid>> Handle(DeleteUserByIdCommand request, CancellationToken cancellationToken)
+        {
+            try
+            {
+                // Retrieve the user by ID
+                User? entity = await _repository.Get(request.Id, cancellationToken);
+                
+                if (entity is null)
+                    return Result<Guid>.Success(default, "User not found.");
+
+                // Delete the user
+                await _repository.Remove(entity, cancellationToken);
+
+                // Return the Id of the deleted user
+                return Result<Guid>.Success(request.Id, "User deleted successfully");
+            }
+            catch (Exception ex)
+            {
+                return Result<Guid>.Failure($"Error deleting user: {ex.Message}");
+            }
+        }
+    }
+}

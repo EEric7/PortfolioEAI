@@ -1,32 +1,26 @@
-using PortfolioEAI.Web.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using PortfolioEAI.Web.Application.Models;
-using Microsoft.AspNetCore.Mvc;
+using MediatR;
+using PortfolioEAI.Web.Models;
+using PortfolioEAI.Application.Interfaces;
 
 namespace PortfolioEAI.Web.Pages;
 
 public class IndexModel : PageModel
 {
-    private readonly IHomepageService _services;
+    // Mediator for handling queries and commands
+    private readonly IMediator _services;
 
-    private ILogger<IndexModel> _logger;
+    // Logger for logging information and errors
+    private readonly ILogger<IndexModel> _logger;
 
-    public IndexModel(IHomepageService services, ILogger<IndexModel> logger)
+    public IndexModel(IMediator services, ILogger<IndexModel> logger)
     {
         _logger = logger;
         _services = services;
     }
     
-    public AccueilModel AccueilModel { get; set; } = new AccueilModel();
-
-    [BindProperty]
-    public List<Tuple<string, string>> MenuModel { get; set; } = new List<Tuple<string, string>>()
-    {
-        new Tuple<string, string>("About", "#about"),
-        new Tuple<string, string>("Skills", "#skills"),
-        new Tuple<string, string>("Projects", "#projects"),
-        new Tuple<string, string>("Contacts", "#contacts")
-    };
+    // Model for the Accueil page
+    public AccueilModel? AccueilModel { get; set; } = default;
 
     /// <summary>
     /// Handles the GET request for the Index page.
@@ -37,15 +31,25 @@ public class IndexModel : PageModel
         try
         {
             ModelState.Clear();
-            var adminUser = (await _services.GetAdminUser()).ToList();
-            if (adminUser.Count == 0)
+            var adminUserResult = await _services.Send(new GetAllUsersQuery());
+            
+            if (!adminUserResult.IsSuccess)
             {
-                _logger.LogWarning("No admin user found.");
+                _logger.LogWarning(adminUserResult.Info);
                 //TODO: Redirection to setup first page.
                 return;
             }
 
-            AccueilModel = new AccueilModel(adminUser.First());
+            ///TODO: Remove First() when multiple admin users are supported.
+            var user = await _services.Send(new GetUserByIdQuery(adminUserResult.Value!.First()));
+
+            if (!user.IsSuccess)
+            {
+                _logger.LogWarning(user.Info);
+                //TODO: Redirection to setup first page.
+                return;
+            }
+            AccueilModel = new AccueilModel(user.Value!);
         }
         catch (Exception)
         {
