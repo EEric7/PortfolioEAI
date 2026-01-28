@@ -1,8 +1,10 @@
 using MediatR;
 using PortfolioEAI.Application.Common;
 using PortfolioEAI.Application.Interfaces;
+using PortfolioEAI.Application.Mappings;
 using PortfolioEAI.Domain.Entities;
 using PortfolioEAI.Domain.Entities.Ports;
+using PortfolioEAI.Domain.ValueObjects;
 
 namespace PortfolioEAI.Application.Users.Commands;
 
@@ -20,20 +22,21 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Resul
         try
         {
             // Vérifier si l'email existe déjà
-            bool emailExists = await _userRepository.EmailExists(request.Email, ct);
+            bool emailExists = await _userRepository.Exists(x => x.Email.Value == request.DTO.Email, ct);
 
-            if (emailExists is false)
+            if (!emailExists)
                 return Result<Guid>.Success(default, "User not found.");
 
             // Valider et créer l'email
-            User newUser = User.Create(request.Email, request.Password);
-            newUser.SetFirstname(request.FirstName);
-            newUser.SetLastname(request.LastName);
-            newUser.SetDisplayName(request.UserName);
-            newUser.SetDescription(request.Description);
+            User newUser = User.Create(request.DTO.Email, request.DTO.Password);
             
-            //TODO: Set properties ProfilePhoto.
-
+            newUser.SetFirstname(request.DTO.FirstName);
+            newUser.SetLastname(request.DTO.LastName);
+            newUser.SetDisplayName(request.DTO.UserName);
+            newUser.SetDescription(request.DTO.Description);
+            newUser.SetRole(request.DTO.Role);
+            newUser.SetProfilePhoto(StoredFileMapper.ToEntity(request.DTO?.ProfilePhoto));
+            
             // Ajouter l'utilisateur à la base de données
             await _userRepository.Add(newUser, ct);
             

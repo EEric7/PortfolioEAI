@@ -28,17 +28,19 @@ namespace PortfolioEAI.Application.Skills.Commands
             try
             {
                 // Get the skill to delete
-                Skill? skill = await _repository.Get(request.id, ct);
+                Skill? skill = await _repository.Get(x => x.Id == request.Id, ct);
                 
                 // If the skill does not exist, return success with default GUID
                 if (skill is null) 
                     return Result<Guid>.Success(default, "Skill not found.");
 
+                Guid skillDeletedId = skill.Id;
+
                 // Remove the skill
                 await _repository.Remove(skill, ct);
 
                 // Retourne l'ID de la compétence supprimée
-                return Result<Guid>.Success(request.id, "Skill deleted successfully.");
+                return Result<Guid>.Success(skillDeletedId, $"Skill deleted successfully.");
             }
             catch (Exception ex)
             {

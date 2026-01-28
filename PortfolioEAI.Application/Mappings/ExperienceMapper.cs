@@ -9,8 +9,8 @@ namespace PortfolioEAI.Application.Mappings
         {
             Id = exp.Id,
             Company = exp.Company,
-            Position = exp.Position,
             Description = exp.Description ?? string.Empty,
+            Projects = exp.Projects.Select(p => ProjectMapper.ToDto(p)).ToList()
         };
     }
 }

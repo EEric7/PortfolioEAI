@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using PortfolioEAI.Domain.Entities;
 using PortfolioEAI.Domain.Ressources;
 using PortfolioEAI.Domain.Entities.Ports;
+using System.Linq.Expressions;
 
 namespace PortfolioEAI.Infrastructure.Persistance.Repositories
 {
@@ -23,74 +24,51 @@ namespace PortfolioEAI.Infrastructure.Persistance.Repositories
         public UserRepository(ApplicationDbContext context) => _context = context ?? throw new ArgumentNullException(nameof(context), Messages.NullError);
 
         /// <summary>
-        /// Gets all users from the database.
+        ///  Adds a new user entity to the repository.
         /// </summary>
-        /// <param name="ct"></param>
-        /// <returns></returns>
-        public async Task<IEnumerable<User>> GetAll(CancellationToken ct) => await _context.Users.AsNoTracking().ToListAsync(ct);
-        
-        /// <summary>
-        /// Gets a user by their unique identifier.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="ct"></param>
-        /// <returns></returns>
-        public async Task<User?> Get(Guid id, CancellationToken ct) => await _context.Users.AsNoTracking().FirstOrDefaultAsync(o => o.Id == id, ct);
+        /// <param name="entity">The user entity to add.</param>
+        /// <param name="ct">The cancellation token.</param>
+        /// <returns>A task representing the asynchronous operation.</returns>
+        public Task Add(User entity, CancellationToken ct) => _context.Users.AddAsync(entity, ct).AsTask();
 
         /// <summary>
-        ///    Gets a user by their email address.
+        ///     Checks if any user exists that matches a specified predicate.
         /// </summary>
-        /// <param name="email"></param>
+        /// <param name="predicate"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
-        public async Task<User?> GetByEmail(string email, CancellationToken ct) => await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Email.Value == email, ct);
+        public async Task<bool> Exists(Expression<Func<User, bool>> predicate, CancellationToken ct) => await _context.Users.AnyAsync(predicate, ct);
 
         /// <summary>
-        /// Adds a new user to the database.
+        ///  Gets a user by a specified predicate.
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        public async Task<User?> Get(Expression<Func<User, bool>> predicate, CancellationToken ct) => await _context.Users.FirstOrDefaultAsync(predicate, ct);
+
+        /// <summary>
+        ///     Gets all users that match a specified predicate.
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<User>> GetAllBy(Expression<Func<User, bool>> predicate, CancellationToken ct) => await _context.Users.Where(predicate).ToListAsync(ct);
+
+        /// <summary>
+        ///   Removes a user from the repository.
         /// </summary>
         /// <param name="entity"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
-        public async Task Add(User entity, CancellationToken ct) => await _context.Users.AddAsync(entity, ct);
+        public async Task Remove(User entity, CancellationToken ct) => await Task.Run(() => _context.Users.Remove(entity), ct);
 
         /// <summary>
-        ///     Updates an existing user in the database.
+        ///  Updates an existing user in the repository.
         /// </summary>
         /// <param name="entity"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
-        public Task Update(User entity, CancellationToken ct)
-        {
-            _context.Users.Update(entity);
-            return Task.CompletedTask;
-        }
-
-        /// <summary>
-        ///     Removes a user from the database.
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <param name="ct"></param>
-        /// <returns></returns>
-        public Task Remove(User entity, CancellationToken ct)
-        {
-            _context.Users.Remove(entity);
-            return Task.CompletedTask;
-        }
-
-        /// <summary>
-        ///  Checks if an email already exists in the database.
-        /// </summary>
-        /// <param name="email"></param>
-        /// <param name="ct"></param>
-        /// <returns></returns>
-        public async Task<bool> EmailExists(string email, CancellationToken ct) => await _context.Users.AnyAsync(u => u.Email.Value == email, ct);
-
-        /// <summary>
-        ///  Checks if a user exists by their unique identifier.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="ct"></param>
-        /// <returns></returns>
-        public async Task<bool> UserExists(Guid id, CancellationToken ct) => await _context.Users.AnyAsync(u => u.Id == id, ct);
+        public async Task Update(User entity, CancellationToken ct) => await Task.Run(() => _context.Users.Update(entity), ct);
     }
 }

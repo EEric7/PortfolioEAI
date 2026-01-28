@@ -1,48 +1,42 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using PortfolioEAI.Web.Application.DTOs;
-using PortfolioEAI.Web.Application.Services.Interfaces;
+using PortfolioEAI.Application.Interfaces;
+using PortfolioEAI.Web.Models;
 
 namespace PortfolioEAI.Web.Pages.Experiences.Projects
 {
     public class EditModel : PageModel
     {
-        private readonly IDashbordService _services;
+         private readonly IMediator _services;
 
-        public EditModel(IDashbordService services)
+        private readonly ILogger<DetailsModel> _logger;
+
+        public EditModel(IMediator services, ILogger<DetailsModel> logger)
         {
             _services = services;
+            _logger = logger;
         }
 
         [BindProperty]
-        public List<Tuple<string, string>> MenuModel { get; set; } = new List<Tuple<string, string>>()
-        {
-            new Tuple<string, string>("Dashbord", "/Dashbord/Home"),
-            new Tuple<string, string>("Experiences", "/Dashbord/Experiences/"),
-            new Tuple<string, string>("Skills", "/Dashbord/Skills/"),
-            new Tuple<string, string>("Setting", "/Dashbord/AdminUsers/"),
-            new Tuple<string, string>("SignOut", "/Authentication/SignInOut")
-        };
-
-        [BindProperty]
-        public ProjectDto Project { get; set; } = default!;
-
-        public Guid ExperienceId { get; set; } = default!;
+        public ProjectUpdateModel ProjectUpdateModel { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(Guid id)
         {
             try
             {
-                var project = await _services.GetProjectByIdAsync(id);
+                ModelState.Clear();
+                var result = await _services.Send(new GetProjectQuery(id));
 
-                if (project is null)
+                if (!result.IsSuccess || result.Value == null)
                 {
-                    ModelState.AddModelError(string.Empty, "Project not found.");
+                    ModelState.AddModelError(string.Empty, result.Info!);
+                    _logger.LogWarning(result.Info, result.Value);
                     return RedirectToPage("./Index");
                 }
 
-                ExperienceId = await _services.GetExperienceIdByProjectIdAsync(id);
-                Project = project;
+                _logger.LogInformation(result.Info, result.Value);
+                ProjectUpdateModel.DTO = result.Value!;
                 return Page();
             }
             catch (Exception)
@@ -59,13 +53,16 @@ namespace PortfolioEAI.Web.Pages.Experiences.Projects
                 if (!ModelState.IsValid)
                     return Page();
 
-                if (!await _services.ProjectExistsAsync(Project))
+                var result = await _services.Send(new UpdateProjectCommand(ProjectUpdateModel.DTO));
+
+                if (!result.IsSuccess || result.Value == Guid.Empty)
                 {
-                    ModelState.AddModelError(string.Empty, "The project does not exist.");
-                    return RedirectToPage("./Index");
+                    ModelState.AddModelError(string.Empty, result.Info!);
+                    _logger.LogWarning(result.Info, result.Value);
+                    return Page();
                 }
 
-                await _services.UpdateProjectAsync(Project);
+                _logger.LogInformation(result.Info, result.Value);
                 return RedirectToPage("./Index");
             }
             catch (Exception ex)

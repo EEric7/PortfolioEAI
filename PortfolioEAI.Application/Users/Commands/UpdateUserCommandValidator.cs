@@ -1,5 +1,6 @@
 using FluentValidation;
 using PortfolioEAI.Application.Interfaces;
+using PortfolioEAI.Application.Users.DTOs;
 
 namespace PortfolioEAI.Application.Users.Commands
 {
@@ -12,9 +13,7 @@ namespace PortfolioEAI.Application.Users.Commands
 
             When(x => x.UserDto != null, () =>
             {
-                RuleFor(x => x.UserDto!.Email)
-                    .NotEmpty().WithMessage("L'email est requis")
-                    .EmailAddress().WithMessage("L'email n'est pas valide");
+                RuleFor(x => x.UserDto).SetValidator(new UserDtoValidator());
             });
         }
     }

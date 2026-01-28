@@ -10,6 +10,6 @@ namespace PortfolioEAI.Web.Models
         public string Query { get; set; } = string.Empty;
 
         [BindProperty]
-        public IList<SkillDto> Skills { get;set; } = default!;
+        public IList<SkillDto> DTOs { get;set; } = default!;
     }
 }

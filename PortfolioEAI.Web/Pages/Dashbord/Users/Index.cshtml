@@ -16,10 +16,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.UserIndexModel.Users[0].UserName)
+                @Html.DisplayNameFor(model => model.UserIndexModel.DTOs[0].UserName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.UserIndexModel.Users[0].Password)
+                @Html.DisplayNameFor(model => model.UserIndexModel.DTOs[0].Password)
             </th>
             <th>
                 
@@ -27,7 +27,7 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.UserIndexModel.Users) {
+@foreach (var item in Model.UserIndexModel.DTOs) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.UserName)

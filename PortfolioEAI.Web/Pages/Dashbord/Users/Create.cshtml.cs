@@ -1,8 +1,8 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using PortfolioEAI.Application.DTOs;
 using PortfolioEAI.Application.Interfaces;
+using PortfolioEAI.Application.StoredFiles.DTOs;
 using PortfolioEAI.Web.Models;
 
 namespace PortfolioEAI.Web.Pages.Dashbord.Users
@@ -10,19 +10,21 @@ namespace PortfolioEAI.Web.Pages.Dashbord.Users
     public class CreateModel : PageModel
     {
         private readonly IMediator _services;
+        private readonly ILogger<CreateModel> _logger;
 
-        public CreateModel(IMediator services)
+        public CreateModel(IMediator services, ILogger<CreateModel> logger)
         {
             _services = services;
-            UserCreateModel = new UserCreateModel();
+            _logger = logger;
         }
 
         // Bind the UserCreateModel property to the page.
         [BindProperty]
-        public UserCreateModel UserCreateModel { get; set; }
+        public UserCreateModel UserCreateModel { get; set; } = new UserCreateModel();
 
         public IActionResult OnGet()
         {
+            ModelState.Clear();
             return Page();
         }
 
@@ -35,21 +37,31 @@ namespace PortfolioEAI.Web.Pages.Dashbord.Users
                 if (!ModelState.IsValid)
                     return Page();
 
+                // Handle file storage if a photo file is provided.
+                if(!await UserCreateModel.StoredFiles())
+                {
+                    ModelState.AddModelError(string.Empty, "There was an error processing the uploaded photo.");
+                    return Page();
+                }
+
                 // Call the service to create the user.
-                var result = await _services.Send(new CreateUserCommand(UserCreateModel?.User.Email, UserCreateModel?.User.UserName, UserCreateModel?.User.Password, UserCreateModel?.User.Roles));
+                var result = await _services.Send(new CreateUserCommand(UserCreateModel.DTO!));
 
                 if (!result.IsSuccess)
                 {
-                    ModelState.AddModelError(string.Empty, $"Error creating user: {result.Error}");
+                    ModelState.AddModelError(string.Empty, $"Error creating user: {result.Info}");
+                    _logger.LogWarning(result.Info, result.Value);
                     return Page();
                 }
 
                 // Redirect to the users list page upon successful creation.
-                return Page();
+                _logger.LogInformation(result.Info, result.Value);
+                return RedirectToPage("./Index");
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, $"An error occurred while creating the user: {ex.Message}");
+                _logger.LogError(ex, "Error creating user");
                 return Page();
             }
         }

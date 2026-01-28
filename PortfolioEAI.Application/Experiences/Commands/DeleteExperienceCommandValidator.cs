@@ -7,7 +7,7 @@ namespace PortfolioEAI.Application.Experiences.Commands
     {
         public DeleteExperienceCommandValidator()
         {
-            RuleFor(cmd => cmd.Id)
+            RuleFor(x => x.Id)
                 .NotEmpty().WithMessage("Experience ID must not be empty.");
         }
     }

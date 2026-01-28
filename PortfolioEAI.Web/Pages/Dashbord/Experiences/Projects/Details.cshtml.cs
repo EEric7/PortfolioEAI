@@ -1,48 +1,42 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using PortfolioEAI.Web.Application.DTOs;
-using PortfolioEAI.Web.Application.Services.Interfaces;
+using PortfolioEAI.Application.Interfaces;
+using PortfolioEAI.Web.Models;
 
 namespace PortfolioEAI.Web.Pages.Experiences.Projects
 {
     public class DetailsModel : PageModel
     {
-        private readonly IDashbordService _services;
+        private readonly IMediator _services;
 
-        public DetailsModel(IDashbordService services)
+        private readonly ILogger<DetailsModel> _logger;
+
+        public DetailsModel(IMediator services, ILogger<DetailsModel> logger)
         {
             _services = services;
+            _logger = logger;
         }
 
         [BindProperty]
-        public List<Tuple<string, string>> MenuModel { get; set; } = new List<Tuple<string, string>>()
-        {
-            new Tuple<string, string>("Dashbord", "/Dashbord/Home"),
-            new Tuple<string, string>("Experiences", "/Dashbord/Experiences/"),
-            new Tuple<string, string>("Skills", "/Dashbord/Skills/"),
-            new Tuple<string, string>("Setting", "/Dashbord/AdminUsers/"),
-            new Tuple<string, string>("SignOut", "/Authentication/SignInOut")
-        };
-
-        public Guid ExperienceId { get; set; } = default!;
-
-        public ProjectDto Project { get; set; } = default!;
+        public ProjectDetailsModel ProjectDetailsModel { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(Guid id)
         {
             try
             {
-                var project = await _services.GetProjectByIdAsync(id);
+                ModelState.Clear();
+                var result = await _services.Send(new GetProjectQuery(id));
 
-                if (project is null)
+                if (!result.IsSuccess || result.Value == null)
                 {
-                    ModelState.AddModelError(string.Empty, "Project not found.");
+                    ModelState.AddModelError(string.Empty, result.Info!);
                     return RedirectToPage("./Index");
                 }
+
+                _logger.LogInformation(result.Info, result.Value);
+                ProjectDetailsModel.DTO = result.Value!;           
                 
-                ExperienceId = await _services.GetExperienceIdByProjectIdAsync(id);
-                
-                Project = project;
                 return Page();
             }
             catch (Exception)

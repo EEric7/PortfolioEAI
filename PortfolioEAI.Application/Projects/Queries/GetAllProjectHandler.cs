@@ -19,7 +19,7 @@ namespace PortfolioEAI.Application.Projects.Queries
             try
             {
                 // Retrieve all projects from the repository
-                IEnumerable<Project> projects = await _repository.GetAll(ct);
+                IEnumerable<Project> projects = await _repository.GetAllBy(_ => true, ct);
 
                 // If no projects found, return an empty list
                 if (projects == null || !projects.Any())

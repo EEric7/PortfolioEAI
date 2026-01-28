@@ -1,7 +1,8 @@
 using MediatR;
 using PortfolioEAI.Application.Common;
+using PortfolioEAI.Application.DTOs;
 
 namespace PortfolioEAI.Application.Interfaces
 {
-    public sealed record CreateSkillCommand(string Name, string Level, string Category) : IRequest<Result<Guid>>;
+    public sealed record CreateSkillCommand(SkillDto Dto) : IRequest<Result<Guid>>;
 }

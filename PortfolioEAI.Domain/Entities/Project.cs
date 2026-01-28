@@ -21,6 +21,14 @@ namespace PortfolioEAI.Domain.Entities
         public string Description { get; private set; } = string.Empty;
 
         /// <summary>
+        /// Position held during the experience.
+        /// This property represents the position or job title held during the experience.
+        /// It is a required field and should be descriptive enough to give an idea of the role
+        /// and responsibilities associated with the experience.
+        /// </summary>
+        public string Position { get; private set; } = string.Empty;
+
+        /// <summary>
         /// Start date of the project.
         /// This property represents the date when the project started.
         /// It is a required field and should be a valid date.
@@ -43,7 +51,7 @@ namespace PortfolioEAI.Domain.Entities
         /// It is important to ensure that the image URL is accessible and points to a valid image file format (e.g., JPEG, PNG).
         /// This property is used to enhance the visual appeal of the project and provide users with a quick overview of its appearance.
         /// </summary>
-        public Photo? ImageUrl { get; private set; } = default!;
+        public StoredFile? ImageUrl { get; private set; } = default!;
 
         /// <summary>
         /// URL of the project.
@@ -66,10 +74,11 @@ namespace PortfolioEAI.Domain.Entities
         /// <param name="title"></param>
         /// <param name="description"></param>
         /// <returns></returns>
-        public static Project Create(string title, string description, DateOnly startDate, DateOnly? endDate)
+        public static Project Create(string title, string description, string position, DateOnly startDate, DateOnly? endDate)
         {
             var project = new Project();
             project.SetTitle(title);
+            project.SetPosition(position);
             project.SetStartDate(startDate);
             project.SetEndDate(endDate);
             project.SetDescription(description);
@@ -88,6 +97,43 @@ namespace PortfolioEAI.Domain.Entities
             try
             {
                 Title = ValidateTitle(value);
+            }
+            catch (Exception ex)
+            {
+                throw new BusinessRuleViolationException(ex.Message, ex);
+            }
+        }
+
+        /// <summary>
+        /// Sets the description of the project.
+        /// Throws a BusinessRuleViolationException if the description is null or whitespace.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <exception cref="BusinessRuleViolationException"></exception>
+        public void SetDescription(string value)
+        {
+            try
+            {
+                Description = ValidateDescription(value);
+            }
+            catch (Exception ex)
+            {
+                throw new BusinessRuleViolationException(ex.Message, ex);
+            }
+        }
+
+        /// <summary>
+        /// Sets the position for the experience.
+        /// This method allows you to set the position for the experience.
+        /// It is important to ensure that the position being set is not null or empty.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <exception cref="BusinessRuleViolationException"></exception>
+        public void SetPosition(string? value)
+        {
+            try
+            {
+                Position = ValidatePosition(value);
             }
             catch (Exception ex)
             {
@@ -126,24 +172,6 @@ namespace PortfolioEAI.Domain.Entities
             try
             {
                 EndDate = ValidateEndDate(value, StartDate);
-            }
-            catch (Exception ex)
-            {
-                throw new BusinessRuleViolationException(ex.Message, ex);
-            }
-        }
-
-        /// <summary>
-        /// Sets the description of the project.
-        /// Throws a BusinessRuleViolationException if the description is null or whitespace.
-        /// </summary>
-        /// <param name="value"></param>
-        /// <exception cref="BusinessRuleViolationException"></exception>
-        public void SetDescription(string value)
-        {
-            try
-            {
-                Description = ValidateDescription(value);
             }
             catch (Exception ex)
             {
@@ -199,6 +227,11 @@ namespace PortfolioEAI.Domain.Entities
                 throw new BusinessRuleViolationException("The description must not exceed 500 characters.", new ArgumentException(nameof(value)));
 
             return value;
+        }
+
+         private static string ValidatePosition(string? value)
+        {
+            return value?? string.Empty;
         }
          private static DateOnly ValidateStartDate(DateOnly? value)
         {

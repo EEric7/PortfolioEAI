@@ -20,19 +20,21 @@ namespace PortfolioEAI.Application.Experiences.Commands
             try
             {
                 // Fetch the experience to be deleted
-                Experience? experience = await _repository.Get(command.Id, ct);
+                Experience? experience = await _repository.Get(x => x.Id == command.Id, ct);
 
                 if (experience is null)
                     return Result<Guid>.Success(default, "Experience not found.");
                 
                 // Delete the experience
+                Guid result = experience.Id;
                 await _repository.Remove(experience, ct);
 
                 // Return success result
-                return Result<Guid>.Success(experience.Id, "Experience deleted successfully.");
+                return Result<Guid>.Success(result, "Experience deleted successfully.");
             }
             catch (Exception ex)
             {
+                // Return failure result in case of exception
                 return Result<Guid>.Failure($"An error occurred while deleting the experience. : {ex.Message}");
             }
         }

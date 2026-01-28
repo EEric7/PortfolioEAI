@@ -5,7 +5,7 @@
     ViewData["Title"] = "Supprimer une expérience";
 }
 
-@await Html.PartialAsync("_MenuHome", Model)
+@await Html.PartialAsync("_MenuHome", Model.ExperienceDeleteModel.MenuModel)
 
 <section class="container py-4">
     <div class="card shadow-sm">
@@ -22,7 +22,7 @@
         </div>
 
         <div class="card-body">
-            @if (Model.Experience == null)
+            @if (Model.ExperienceDeleteModel.Experience == null)
             {
                 <div class="alert alert-warning mb-0">Expérience introuvable.</div>
             }
@@ -32,25 +32,16 @@
                     <div class="col-md-8">
                         <dl class="row mb-0">
                             <dt class="col-sm-4">Entreprise</dt>
-                            <dd class="col-sm-8">@Html.DisplayFor(m => m.Experience.Company)</dd>
-
-                            <dt class="col-sm-4">Poste</dt>
-                            <dd class="col-sm-8">@Html.DisplayFor(m => m.Experience.Position)</dd>
-
-                            <dt class="col-sm-4">Début</dt>
-                            <dd class="col-sm-8">@Html.DisplayFor(m => m.Experience.StartDate)</dd>
-
-                            <dt class="col-sm-4">Fin</dt>
-                            <dd class="col-sm-8">@Html.DisplayFor(m => m.Experience.EndDate)</dd>
+                            <dd class="col-sm-8">@Html.DisplayFor(m => m.ExperienceDeleteModel.Experience.Company)</dd>
 
                             <dt class="col-sm-4 align-self-start">Description</dt>
-                            <dd class="col-sm-8">@Html.DisplayFor(m => m.Experience.Description)</dd>
+                            <dd class="col-sm-8">@Html.DisplayFor(m => m.ExperienceDeleteModel.Experience.Description)</dd>
 
                             <dt class="col-sm-4">Image</dt>
                             <dd class="col-sm-8">
-                                @if (!string.IsNullOrEmpty(Model.Experience.ImageUrl))
+                                @if (!string.IsNullOrEmpty(Model.ExperienceDeleteModel.Experience.ImageUrl))
                                 {
-                                    <img src="@Model.Experience.ImageUrl" alt="Image expérience" class="img-fluid rounded shadow-sm" style="max-height:120px;" />
+                                    <img src="@Model.ExperienceDeleteModel.Experience.ImageUrl" alt="Image expérience" class="img-fluid rounded shadow-sm" style="max-height:120px;" />
                                 }
                                 else
                                 {
@@ -59,24 +50,12 @@
                             </dd>
                         </dl>
                     </div>
-
-                    <div class="col-md-4 d-flex align-items-center justify-content-center">
-                        <div class="text-center w-100">
-                            <p class="mb-2"><strong>Période</strong></p>
-                            <p class="mb-1">
-                                @(Model.Experience.StartDate is DateOnly s ? s.ToString("dd/MM/yyyy") : "-")
-                                &nbsp;–&nbsp;
-                                @(Model.Experience.EndDate is DateOnly e ? e.ToString("dd/MM/yyyy") : "Présent")
-                            </p>
-                            <p class="text-muted small">ID : @Model.Experience.Id</p>
-                        </div>
-                    </div>
                 </div>
 
                 <hr />
 
                 <form method="post" onsubmit="return confirm('Confirmez-vous la suppression de cette expérience ?');">
-                    <input type="hidden" asp-for="Experience.Id" />
+                    <input type="hidden" asp-for="ExperienceDeleteModel.Experience.Id" />
                     <div class="d-flex gap-2">
                         <button type="submit" class="btn btn-danger">
                             <i class="fas fa-trash-alt"></i> Supprimer

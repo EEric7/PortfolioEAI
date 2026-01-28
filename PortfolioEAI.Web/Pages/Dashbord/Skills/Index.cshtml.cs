@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using PortfolioEAI.Application.Interfaces;
 using PortfolioEAI.Web.Models;
 
 namespace PortfolioEAI.Web.Pages.Dashbord.Skills
@@ -9,51 +10,39 @@ namespace PortfolioEAI.Web.Pages.Dashbord.Skills
     {
         private readonly IMediator _services;
 
-        public IndexModel(IMediator services)
+        private readonly ILogger<IndexModel> _logger;
+
+        public IndexModel(IMediator services, ILogger<IndexModel> logger)
         {
             _services = services;
-            SkillIndexModel = new SkillIndexModel();
+            _logger = logger;
         }
 
         [BindProperty]
-        public SkillIndexModel SkillIndexModel { get; set; } 
+        public SkillIndexModel SkillIndexModel { get; set; } = new SkillIndexModel();
 
         public async Task OnGetAsync()
         {
             try
             {
-                Skills = (await _services.GetAllSkillsAsync()).ToList();
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError(string.Empty, $"An error occurred while retrieving skills: {ex.Message}");
-            }
-        }
+                ModelState.Clear();
+                var result = await _services.Send(new GetAllSkillsQuery(SkillIndexModel.Query));
 
-        public async Task<IActionResult> OnPostSearchAsync()
-        {
-            try
-            {
-                var all = await _services.GetAllSkillsAsync();
-                if (string.IsNullOrWhiteSpace(Query))
+                if (!result.IsSuccess)
                 {
-                    Skills = all.ToList();
-                    return Page();
+                    ModelState.AddModelError(string.Empty, result.Info!);
+                    _logger.LogWarning(result.Info, result.Value);
+                    return;
                 }
-
-                var q = Query.ToLowerInvariant();
-                Skills = all
-                    .Where(s => !string.IsNullOrEmpty(s.Name) && s.Name.ToLowerInvariant().StartsWith(q))
-                    .ToList();
-
-                return Page();
+                
+                SkillIndexModel.DTOs = result.Value!.ToList();
+                _logger.LogInformation(result.Info, result.Value);
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, $"An error occurred while retrieving skills: {ex.Message}");
-                return Page();
+                _logger.LogError(ex, "An error occurred while retrieving skills.");
             }
         }
-
     }
 }

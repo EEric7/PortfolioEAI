@@ -20,16 +20,17 @@ namespace PortfolioEAI.Application.Users.Commands
             try
             {
                 // Retrieve the user by ID
-                User? entity = await _repository.Get(request.Id, cancellationToken);
+                User? entity = await _repository.Get(x => x.Id == request.Id, cancellationToken);
                 
                 if (entity is null)
                     return Result<Guid>.Success(default, "User not found.");
 
                 // Delete the user
+                Guid result = entity.Id;
                 await _repository.Remove(entity, cancellationToken);
 
                 // Return the Id of the deleted user
-                return Result<Guid>.Success(request.Id, "User deleted successfully");
+                return Result<Guid>.Success(result, "User deleted successfully");
             }
             catch (Exception ex)
             {

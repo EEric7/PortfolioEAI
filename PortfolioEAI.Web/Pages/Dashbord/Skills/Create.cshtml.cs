@@ -1,36 +1,33 @@
+using System.Runtime.CompilerServices;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using PortfolioEAI.Web.Application.DTOs;
-using PortfolioEAI.Web.Application.Services.Interfaces;
+using PortfolioEAI.Application.Interfaces;
+using PortfolioEAI.Application.Interfaces.UserPorts;
+using PortfolioEAI.Web.Models;
 
 namespace PortfolioEAI.Web.Pages.Dashbord.Skills
 {
     public class CreateModel : PageModel
     {
-        private readonly IDashbordService _services;
+        private readonly IMediator _services;
 
-        public CreateModel(IDashbordService services)
+        private readonly ILogger<CreateModel> _logger;
+
+        public CreateModel(IMediator services, ILogger<CreateModel> logger)
         {
             _services = services;
+            _logger = logger;
         }
 
         public IActionResult OnGet()
         {
+            ModelState.Clear();
             return Page();
         }
 
         [BindProperty]
-        public List<Tuple<string, string>> MenuModel { get; set; } = new List<Tuple<string, string>>()
-        {
-            new Tuple<string, string>("Dashbord", "/Dashbord/Home"),
-            new Tuple<string, string>("Experiences", "/Dashbord/Experiences/"),
-            new Tuple<string, string>("Skills", "/Dashbord/Skills/"),
-            new Tuple<string, string>("Setting", "/Dashbord/AdminUsers/"),
-            new Tuple<string, string>("SignOut", "/Authentication/SignInOut")
-        };
-
-        [BindProperty]
-        public SkillDto Skill { get; set; } = default!;
+        public SkillCreateModel SkillCreateModel { get; set; } = new();
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -38,14 +35,28 @@ namespace PortfolioEAI.Web.Pages.Dashbord.Skills
             {
                 if (!ModelState.IsValid)
                     return Page();
-                
-                if (!await _services.SkillExistsAsync(Skill))
+
+
+                var result = await _services.Send(new CreateSkillCommand(SkillCreateModel.DTO));
+
+                if (result.IsSuccess || result.Value == Guid.Empty)
                 {
-                    ModelState.AddModelError(string.Empty, "A skill with the same name already exists.");
+                    ModelState.AddModelError(string.Empty, result.Info!);
+                    _logger.LogWarning(result.Info, result.Value);
                     return Page();
                 }
 
-                await _services.AddSkillAsync(Skill);
+                //TODO: Associate the newly created skill with the user
+                var resultUser = await _services.Send(new AddSkillUserCommand(Guid.Empty, result.Value));
+                
+                if(!resultUser.IsSuccess)
+                {
+                    ModelState.AddModelError(string.Empty, resultUser.Info!);
+                    _logger.LogWarning(resultUser.Info, resultUser.Value);
+                    return Page();
+                }
+                
+                _logger.LogInformation(resultUser.Info, resultUser.Value);
                 return RedirectToPage("./Index");
             }
             catch (Exception ex)

@@ -6,6 +6,6 @@ namespace PortfolioEAI.Web.Models
     public class UserEditModel : AMenuDashbordModel
     {
         [BindProperty]
-        public UserDto User { get; set; } = default!;
+        public UserDto DTO { get; set; } = default!;
     }
 }

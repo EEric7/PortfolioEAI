@@ -5,27 +5,27 @@
     ViewData["Title"] = "Détails du projet";
 }
 
-@await Html.PartialAsync("_MenuHome", Model)
+@await Html.PartialAsync("_MenuHome", Model.ProjectDetailsModel.MenuModel)
 
 <section class="container py-4">
     <div class="card shadow-sm">
         <div class="card-header d-flex justify-content-between align-items-center">
             <div>
-                <h4 class="mb-0">@Model.Project?.Title ?? "Détails du projet"</h4>
-                <small class="text-muted">@Model.Project?.Id.ToString()</small>
+                <h4 class="mb-0">@Model.ProjectDetailsModel?.DTO.Title ?? "Détails du projet"</h4>
+                <small class="text-muted">@Model.ProjectDetailsModel?.DTO.Id.ToString()</small>
             </div>
             <div class="btn-group">
-                <a asp-page="../Projects/Edit" asp-route-id="@Model.Project?.Id" class="btn btn-sm btn-warning">
+                <a asp-page="../Projects/Edit" asp-route-id="@Model.ProjectDetailsModel?.DTO.Id" class="btn btn-sm btn-warning">
                     <i class="fas fa-edit me-1"></i> Modifier
                 </a>
-                <a asp-page="../Details" asp-route-id="@Model.ExperienceId" class="btn btn-sm btn-secondary">
+                <a asp-page="../Details" asp-route-id="@Model.ProjectDetailsModel?.ExperienceId" class="btn btn-sm btn-secondary">
                     <i class="fas fa-arrow-left me-1"></i> Retour
                 </a>
             </div>
         </div>
 
         <div class="card-body">
-            @if (Model.Project == null)
+            @if (Model.ProjectDetailsModel!.DTO == null)
             {
                 <div class="alert alert-warning mb-0">Projet introuvable.</div>
             }
@@ -35,24 +35,31 @@
                     <div class="col-md-8">
                         <dl class="row">
                             <dt class="col-sm-3">Titre</dt>
-                            <dd class="col-sm-9">@Html.DisplayFor(m => m.Project.Title)</dd>
+                            <dd class="col-sm-9">@Html.DisplayFor(m => m.ProjectDetailsModel.DTO.Title)</dd>
 
                             <dt class="col-sm-3">Description</dt>
-                            <dd class="col-sm-9">
-                                <p class="mb-0">@Html.DisplayFor(m => m.Project.Description)</p>
-                            </dd>
+                            <dd class="col-sm-9">@Html.DisplayFor(m => m.ProjectDetailsModel.DTO.Description)</dd>
+
+                            <dt class="col-sm-4">Poste</dt>
+                            <dd class="col-sm-8">@Html.DisplayFor(m => m.ProjectDetailsModel.DTO.Position)</dd>
+
+                            <dt class="col-sm-4">Début</dt>
+                            <dd class="col-sm-8">@(Model.ProjectDetailsModel.DTO.StartDate is DateOnly sd ? sd.ToString("dd/MM/yyyy") : Html.DisplayFor(m => m.ProjectDetailsModel.DTO.StartDate))</dd>
+                            <dt class="col-sm-4">Fin</dt>
+                            <dd class="col-sm-8">@(Model.ProjectDetailsModel.DTO.EndDate is DateOnly ed ? ed.ToString("dd/MM/yyyy") : Html.DisplayFor(m => m.ProjectDetailsModel.DTO.EndDate))</dd>
 
                             <dt class="col-sm-3">URL</dt>
                             <dd class="col-sm-9">
-                                @if (!string.IsNullOrEmpty(Model.Project.Url))
+                                @if (!string.IsNullOrEmpty(Model.ProjectDetailsModel.DTO.Url))
                                 {
-                                    <a href="@Model.Project.Url" target="_blank" rel="noopener noreferrer">@Model.Project.Url</a>
+                                    <a href="@Model.ProjectDetailsModel.DTO.Url" target="_blank" rel="noopener noreferrer">@Model.ProjectDetailsModel.DTO.Url</a>
                                 }
                                 else
                                 {
                                     <span class="text-muted">Aucune URL</span>
                                 }
                             </dd>
+                            
                         </dl>
                     </div>
 
@@ -60,9 +67,9 @@
                         <div class="text-center">
                             <h6 class="mb-3">Aperçu</h6>
                             <div class="border rounded p-2 mb-2" style="min-height:160px; display:flex; align-items:center; justify-content:center;">
-                                @if (!string.IsNullOrEmpty(Model.Project.ImageUrl))
+                                @if (!string.IsNullOrEmpty(Model.ProjectDetailsModel.DTO.ImageUrl))
                                 {
-                                    <img src="@Model.Project.ImageUrl" alt="@Model.Project.Title" class="img-fluid rounded" style="max-height:140px;" />
+                                    <img src="@Model.ProjectDetailsModel.DTO.ImageUrl" alt="@Model.ProjectDetailsModel.DTO.Title" class="img-fluid rounded" style="max-height:140px;" />
                                 }
                                 else
                                 {
@@ -70,9 +77,9 @@
                                 }
                             </div>
                             <div>
-                                @if (!string.IsNullOrEmpty(Model.Project.Url))
+                                @if (!string.IsNullOrEmpty(Model.ProjectDetailsModel.DTO.Url))
                                 {
-                                    <a class="btn btn-sm btn-outline-primary ms-1" href="@Model.Project.Url" target="_blank" rel="noopener noreferrer">
+                                    <a class="btn btn-sm btn-outline-primary ms-1" href="@Model.ProjectDetailsModel.DTO.Url" target="_blank" rel="noopener noreferrer">
                                         <i class="fas fa-external-link-alt me-1"></i> Voir
                                     </a>
                                 }

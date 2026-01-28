@@ -1,69 +1,46 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using PortfolioEAI.Web.Application.DTOs;
-using PortfolioEAI.Web.Application.Services.Interfaces;
+using PortfolioEAI.Application.Interfaces;
+using PortfolioEAI.Web.Models;
 
 namespace PortfolioEAI.Web.Pages.Dashbord.Skills
 {
     public class DeleteModel : PageModel
     {
-        private readonly IDashbordService _services;
+        private readonly IMediator _services;
 
-        public DeleteModel(IDashbordService services)
+        private readonly ILogger<DeleteModel> _logger;
+
+        public DeleteModel(IMediator services, ILogger<DeleteModel> logger)
         {
             _services = services;
+            _logger = logger;
         }
 
         [BindProperty]
-        public List<Tuple<string, string>> MenuModel { get; set; } = new List<Tuple<string, string>>()
-        {
-            new Tuple<string, string>("Dashbord", "/Dashbord/Home"),
-            new Tuple<string, string>("Experiences", "/Dashbord/Experiences/"),
-            new Tuple<string, string>("Skills", "/Dashbord/Skills/"),
-            new Tuple<string, string>("Setting", "/Dashbord/AdminUsers/"),
-            new Tuple<string, string>("SignOut", "/Authentication/SignInOut")
-        };
-
-        [BindProperty]
-        public SkillDto Skill { get; set; } = default!;
+        public SkillDeleteModel SkillDeleteModel { get; set; } = new SkillDeleteModel();
 
         public async Task<IActionResult> OnGetAsync(Guid id)
         {
             try
             {
-                var skill = await _services.GetSkillByIdAsync(id);
+                var result = await _services.Send(new DeleteSkillCommand(id));
 
-                if (skill is null)
+                if (!result.IsSuccess || result.Value == Guid.Empty)
                 {
-                    ModelState.AddModelError(string.Empty, "Skill not found.");
+                    ModelState.AddModelError(string.Empty, result.Info!);
+                    _logger.LogWarning(result.Info, result.Value);
                     return RedirectToPage("./Index");
                 }
 
-                Skill = skill;
+                _logger.LogInformation(result.Info, result.Value);
                 return Page();
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, $"An error occurred while retrieving the skill: {ex.Message}");
-                return NotFound();
-            }
-        }
-
-        public async Task<IActionResult> OnPostAsync(Guid id)
-        {
-            try
-            {
-                if (!await _services.SkillExistsAsync(Skill))
-                {
-                    ModelState.AddModelError(string.Empty, "The skill does not exist or has already been deleted.");
-                    return Page();
-                }
-                await _services.DeleteSkillAsync(id);
-                return RedirectToPage("./Index");
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError(string.Empty, $"An error occurred while deleting the skill: {ex.Message}");
+                _logger.LogInformation(ex.Message);
                 return NotFound();
             }
         }

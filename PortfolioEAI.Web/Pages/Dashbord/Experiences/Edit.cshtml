@@ -4,61 +4,43 @@
     ViewData["Title"] = "Modifier une expérience";
 }
 
-@await Html.PartialAsync("_MenuHome", Model)
+@await Html.PartialAsync("_MenuHome", Model.EditeExperienceModel.MenuModel)
 
 <div class="container py-4">
     <div class="card shadow-sm">
         <div class="card-header d-flex justify-content-between align-items-center">
             <h5 class="mb-0">Modifier une expérience</h5>
-            <a asp-page="./Details" asp-route-id="@Model.Experience.Id" class="btn btn-outline-secondary btn-sm">Retour</a>
+            <a asp-page="./Details" asp-route-id="@Model.EditeExperienceModel.Dto.Id" class="btn btn-outline-secondary btn-sm">Retour</a>
         </div>
 
         <div class="card-body">
             <form method="post" novalidate>
                 <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
-                <input type="hidden" asp-for="Experience.Id" />
+                <input type="hidden" asp-for="EditeExperienceModel.Dto.Id" />
 
                 <div class="row g-3">
                     <div class="col-md-6">
-                        <label asp-for="Experience.Company" class="form-label"></label>
-                        <input asp-for="Experience.Company" class="form-control" placeholder="Nom de l'entreprise" />
-                        <span asp-validation-for="Experience.Company" class="text-danger small"></span>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label asp-for="Experience.Position" class="form-label"></label>
-                        <input asp-for="Experience.Position" class="form-control" placeholder="Poste occupé" />
-                        <span asp-validation-for="Experience.Position" class="text-danger small"></span>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label asp-for="Experience.StartDate" class="form-label"></label>
-                        <input asp-for="Experience.StartDate" class="form-control" type="date" />
-                        <span asp-validation-for="Experience.StartDate" class="text-danger small"></span>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label asp-for="Experience.EndDate" class="form-label"></label>
-                        <input asp-for="Experience.EndDate" class="form-control" type="date" />
-                        <span asp-validation-for="Experience.EndDate" class="text-danger small"></span>
+                        <label asp-for="EditeExperienceModel.Dto.Company" class="form-label"></label>
+                        <input asp-for="EditeExperienceModel.Dto.Company" class="form-control" placeholder="Nom de l'entreprise" />
+                        <span asp-validation-for="EditeExperienceModel.Dto.Company" class="text-danger small"></span>
                     </div>
 
                     <div class="col-12">
-                        <label asp-for="Experience.Description" class="form-label"></label>
-                        <textarea asp-for="Experience.Description" class="form-control" rows="4" placeholder="Résumé de la mission / responsabilités"></textarea>
-                        <span asp-validation-for="Experience.Description" class="text-danger small"></span>
+                        <label asp-for="EditeExperienceModel.Dto.Description" class="form-label"></label>
+                        <textarea asp-for="EditeExperienceModel.Dto.Description" class="form-control" rows="4" placeholder="Résumé de la mission / responsabilités"></textarea>
+                        <span asp-validation-for="EditeExperienceModel.Dto.Description" class="text-danger small"></span>
                     </div>
 
                     <div class="col-md-8">
-                        <label asp-for="Experience.ImageUrl" class="form-label"></label>
-                        <input asp-for="Experience.ImageUrl" class="form-control" placeholder="URL du logo / image (optionnel)" />
-                        <span asp-validation-for="Experience.ImageUrl" class="text-danger small"></span>
+                        <label asp-for="EditeExperienceModel.Dto.ImageUrl" class="form-label"></label>
+                        <input asp-for="EditeExperienceModel.Dto.ImageUrl" class="form-control" placeholder="URL du logo / image (optionnel)" />
+                        <span asp-validation-for="EditeExperienceModel.Dto.ImageUrl" class="text-danger small"></span>
                     </div>
 
                     <div class="col-md-4 d-flex align-items-center justify-content-center">
-                        @if (!string.IsNullOrEmpty(Model.Experience?.ImageUrl))
+                        @if (!string.IsNullOrEmpty(Model.EditeExperienceModel.Dto.ImageUrl))
                         {
-                            <img src="@Model.Experience.ImageUrl" alt="Aperçu" class="img-fluid rounded shadow-sm" style="max-height:100px;" />
+                            <img src="@Model.EditeExperienceModel.Dto.ImageUrl" alt="Aperçu" class="img-fluid rounded shadow-sm" style="max-height:100px;" />
                         }
                         else
                         {
@@ -70,7 +52,7 @@
                 <div class="mt-4 d-flex gap-2">
                     <button type="submit" class="btn btn-primary">Enregistrer</button>
                     <a asp-page="./Details"
-                       asp-route-id="@Model.Experience?.Id"
+                       asp-route-id="@Model.EditeExperienceModel.Dto.Id"
                        class="btn btn-outline-secondary">Annuler</a>
                 </div>
             </form>

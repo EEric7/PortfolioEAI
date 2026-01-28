@@ -5,7 +5,7 @@
     ViewData["Title"] = "Compétences";
 }
 
-@await Html.PartialAsync("_MenuHome", Model)
+@await Html.PartialAsync("_MenuHome", Model.SkillIndexModel.MenuModel)
 
 <section class="container py-4">
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4 gap-3">
@@ -19,7 +19,7 @@
                 <form class="d-flex w-100" asp-page-handler="Search" method="post">
                     <input type="search"
                         name="query"
-                        value="@Model.Query"
+                        value="@Model.SkillIndexModel.Query"
                         class="form-control form-control-sm"
                         placeholder="Rechercher une compétence..." 
                         aria-label="Rechercher"/>
@@ -28,7 +28,7 @@
                     </button>
                 </form>
 
-                @if (!string.IsNullOrWhiteSpace(Model.Query))
+                @if (!string.IsNullOrWhiteSpace(Model.SkillIndexModel.Query))
                 {
                     <a asp-page="./Index" class="btn btn-sm btn-outline-secondary" title="Réinitialiser">
                         <i class="fas fa-times"></i>
@@ -47,7 +47,7 @@
         </div>
     </div>
 
-    @if (Model?.Skills == null || !Model.Skills.Any())
+    @if (Model.SkillIndexModel.DTOs == null || !Model.SkillIndexModel.DTOs.Any())
     {
         <div class="alert alert-info">Aucune compétence trouvée. Cliquez sur <strong>Nouvelle compétence</strong> pour en ajouter.</div>
     }
@@ -58,13 +58,13 @@
                 <thead class="table-light">
                     <tr>
                         <th style="width:40%;">
-                            @Html.DisplayNameFor(model => model.Skills[0].Name)
+                            @Html.DisplayNameFor(model => Model.SkillIndexModel.DTOs[0].Name)
                         </th>
                         <th class="text-center" style="width:120px;">
-                            @Html.DisplayNameFor(model => model.Skills[0].Level)
+                            @Html.DisplayNameFor(model => Model.SkillIndexModel.DTOs[0].Level)
                         </th>
                         <th style="width:25%;">
-                            @Html.DisplayNameFor(model => model.Skills[0].Category)
+                            @Html.DisplayNameFor(model => Model.SkillIndexModel.DTOs[0].Category)
                         </th>
                         <th class="text-end" style="width:180px;">
                             Actions
@@ -72,7 +72,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model.Skills)
+                    @foreach (var item in Model.SkillIndexModel.DTOs)
                     {
                         <tr>
                             <td class="align-middle">

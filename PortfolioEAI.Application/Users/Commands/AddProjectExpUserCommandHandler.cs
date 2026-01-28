@@ -28,29 +28,26 @@ namespace PortfolioEAI.Application.Users.Commands
             try
             {
                 // Retrieve the user entity
-                User? user = await _repository.Get(request.UserId, ct);
+                User? user = await _repository.Get(x => x.Id == request.UserId, ct);
 
                 if (user is null)
                     return Result<IEnumerable<Guid>>.Success([], "User not found.");
 
-                bool exists = user.Experiences.Any(e => e.Id == request.ExpID);
-
-                if (!exists)
-                    return Result<IEnumerable<Guid>>.Success([], "Experience not found in user.");
-
                 // Retrieve projects to add
-                IEnumerable<Project> projects = request.Projects.Select(x => Project.Create(x.Title, x.Description, x.StartDate, x.EndDate));
-                user.AddProject(request.ExpID, projects);
+                IEnumerable<Guid> result = [];
+                foreach (var projectDto in request.Projects)
+                {   
+                    Project project = Project.Create(projectDto.Title, projectDto.Description, projectDto.Position, projectDto.StartDate, projectDto.EndDate);
+                    if (user.AddProject(request.ExpID, project))
+                        result.Append(project.Id);
+                }  
 
                 // Save changes
                 await _repository.Update(user, ct);
 
-                // Prepare result
-                var result = projects.Select(p => p.Id);
-
                 // Return success with project Ids
-                string message = result.Any() ? "" : "However, no projects were added.";
-                return Result<IEnumerable<Guid>>.Success(result, "Project(s) added successfully." + message);
+                string message = result.Any() ? "Project(s) added successfully." : "However, no projects were added.";
+                return Result<IEnumerable<Guid>>.Success(result, message);
             }
             catch (Exception ex)
             {

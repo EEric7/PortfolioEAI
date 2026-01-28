@@ -20,28 +20,28 @@ namespace PortfolioEAI.Application.Skills.Commands
         ///  Handles the updating of an existing skill.
         /// </summary>
         /// <param name="request"></param>
-        /// <param name="cancellationToken"></param>
+        /// <param name="ct"></param>
         /// <returns></returns>
-        public async Task<Result<Guid>> Handle(UpdateSkillCommand request, CancellationToken cancellationToken)
+        public async Task<Result<Guid>> Handle(UpdateSkillCommand request, CancellationToken ct)
         {
             try
             {
                 // Get thr existing skill.
-                Skill? existingSkill = await _repository.Get(request.SkillDto.Id, cancellationToken);
+                Skill? skill = await _repository.Get(s => s.Id == request.SkillDto.Id, ct);
 
-                if (existingSkill is null)
+                if (skill is null)
                     return Result<Guid>.Success(default, "Skill not found.");
 
                 //Update the skill properties.
-                existingSkill.SetName(request.SkillDto.Name);
-                existingSkill.SetCategory(request.SkillDto.Category);
-                existingSkill.SetLevel(request.SkillDto.Level);
+                skill.SetName(request.SkillDto.Name);
+                skill.SetCategory(request.SkillDto.Category);
+                skill.SetLevel(request.SkillDto.Level);
 
                 // Save the updated skill.
-                await _repository.Update(existingSkill, cancellationToken);
+                await _repository.Update(skill, ct);
                 
                 // Return the updated skill ID.
-                return Result<Guid>.Success(request.SkillDto.Id, "Skill updated successfully.");
+                return Result<Guid>.Success(skill.Id, "Skill updated successfully.");
             }
             catch (Exception ex)
             {

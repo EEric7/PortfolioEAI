@@ -5,14 +5,14 @@
     ViewData["Title"] = "Modifier une compétence";
 }
 
-@await Html.PartialAsync("_MenuHome", Model)
+@await Html.PartialAsync("_MenuHome", Model.SkillEditeModel.MenuModel)
 
 <section class="container py-4">
     <div class="card shadow-sm">
         <div class="card-header d-flex justify-content-between align-items-center">
             <div>
                 <h4 class="mb-0">Modifier la compétence</h4>
-                <small class="text-muted">@Model.Skill?.Name</small>
+                <small class="text-muted">@Model.SkillEditeModel.DTO.Name</small>
             </div>
             <div>
                 <a asp-page="./Index" class="btn btn-sm btn-outline-secondary">
@@ -24,31 +24,31 @@
         <div class="card-body">
             <form method="post" novalidate>
                 <div asp-validation-summary="ModelOnly" class="alert alert-danger d-none" id="validationSummary"></div>
-                <input type="hidden" asp-for="Skill.Id" />
+                <input type="hidden" asp-for="SkillEditeModel.DTO.Id" />
 
                 <div class="row g-3">
                     <div class="col-md-8">
                         <div class="mb-3">
-                            <label asp-for="Skill.Name" class="form-label"></label>
-                            <input asp-for="Skill.Name" class="form-control" placeholder="Nom de la compétence" />
-                            <span asp-validation-for="Skill.Name" class="text-danger small"></span>
+                            <label asp-for="SkillEditeModel.DTO.Name" class="form-label"></label>
+                            <input asp-for="SkillEditeModel.DTO.Name" class="form-control" placeholder="Nom de la compétence" />
+                            <span asp-validation-for="SkillEditeModel.DTO.Name" class="text-danger small"></span>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label asp-for="Skill.Level" class="form-label"></label>
-                                <select asp-for="Skill.Level" class="form-select" asp-items="@(Html.GetEnumSelectList<PortfolioEAI.Web.Domain.Enums.SkillLevel>())">
+                                <label asp-for="SkillEditeModel.DTO.Level" class="form-label"></label>
+                                <select asp-for="SkillEditeModel.DTO.Level" class="form-select" asp-items="@Model.SkillEditeModel.LevelOptions">
                                     <option value="">-- Sélectionner --</option>
                                 </select>
-                                <span asp-validation-for="Skill.Level" class="text-danger small"></span>
+                                <span asp-validation-for="SkillEditeModel.DTO.Level" class="text-danger small"></span>
                             </div>
 
                             <div class="col-md-6 mb-3">
-                                <label asp-for="Skill.Category" class="form-label"></label>
-                                <select asp-for="Skill.Category" class="form-select" asp-items="@(Html.GetEnumSelectList<PortfolioEAI.Web.Domain.Enums.SkillCategory>())">
+                                <label asp-for="SkillEditeModel.DTO.Category" class="form-label"></label>
+                                <select asp-for="SkillEditeModel.DTO.Category" class="form-select" asp-items="@Model.SkillEditeModel.CategoryOptions">
                                     <option value="">-- Sélectionner --</option>
                                 </select>
-                                <span asp-validation-for="Skill.Category" class="text-danger small"></span>
+                                <span asp-validation-for="SkillEditeModel.DTO.Category" class="text-danger small"></span>
                             </div>
                         </div>
 
@@ -67,7 +67,7 @@
                                 <div class="border rounded p-3 mb-3 d-flex align-items-center justify-content-center" style="min-height:120px;">
                                     <i class="fas fa-brain fa-3x text-primary"></i>
                                 </div>
-                                <p class="small text-muted mb-0">ID : @Model.Skill?.Id</p>
+                                <p class="small text-muted mb-0">ID : @Model.SkillEditeModel.DTO.Id</p>
                             </div>
                         </div>
                     </div>

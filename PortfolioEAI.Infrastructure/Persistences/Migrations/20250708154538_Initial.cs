@@ -1,9 +1,8 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace PortfolioEAI.Web.Data.Migrations
+namespace PortfolioEAI.Infrastructure.Persistance.Migrations
 {
     /// <inheritdoc />
     public partial class Initial : Migration

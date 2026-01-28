@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MediatR;
-using PortfolioEAI.Web.Models;
 using PortfolioEAI.Application.Interfaces;
+using PortfolioEAI.Web.Application.Models;
 
 namespace PortfolioEAI.Web.Pages;
 
@@ -20,7 +20,7 @@ public class IndexModel : PageModel
     }
     
     // Model for the Accueil page
-    public AccueilModel? AccueilModel { get; set; } = default;
+    public AccueilModel AccueilModel { get; set; } = new AccueilModel();
 
     /// <summary>
     /// Handles the GET request for the Index page.
@@ -31,25 +31,17 @@ public class IndexModel : PageModel
         try
         {
             ModelState.Clear();
-            var adminUserResult = await _services.Send(new GetAllUsersQuery());
+            var result = await _services.Send(new GetAllUsersQuery());
             
-            if (!adminUserResult.IsSuccess)
+            if (!result.IsSuccess || !result.Value!.Any())
             {
-                _logger.LogWarning(adminUserResult.Info);
-                //TODO: Redirection to setup first page.
+                _logger.LogWarning(result.Info);
+                RedirectToPage("SignInOut");
                 return;
             }
 
-            ///TODO: Remove First() when multiple admin users are supported.
-            var user = await _services.Send(new GetUserByIdQuery(adminUserResult.Value!.First()));
-
-            if (!user.IsSuccess)
-            {
-                _logger.LogWarning(user.Info);
-                //TODO: Redirection to setup first page.
-                return;
-            }
-            AccueilModel = new AccueilModel(user.Value!);
+            // Set the user model in the AccueilModel
+            AccueilModel.SetUserModel(result.Value!.First());
         }
         catch (Exception)
         {

@@ -22,6 +22,14 @@ namespace PortfolioEAI.Application.DTOs
         /// </summary>
         public string Description { get; set; } = string.Empty;
 
+         /// <summary>
+        /// Position held during the experience.
+        /// This property represents the position or job title held during the experience.
+        /// It is a required field and should be descriptive enough to give an idea of the role
+        /// and responsibilities associated with the experience.
+        /// </summary>
+        public string Position { get; set; } = string.Empty;
+
         /// <summary>
         /// Start date of the project.
         /// This property represents the date when the project started.
@@ -57,6 +65,9 @@ namespace PortfolioEAI.Application.DTOs
             Id = dto.Id;
             Title = dto.Title;
             Description = dto.Description;
+            Position = dto.Position;
+            StartDate = dto.StartDate;
+            EndDate = dto.EndDate;
             ImageUrl = dto.ImageUrl;
             Url = dto.Url;
         }

@@ -12,7 +12,7 @@
         <div class="card-header d-flex justify-content-between align-items-center">
             <h4 class="mb-0">Modifier le projet</h4>
             <div>
-                <a asp-page="../Details" asp-route-id="@Model.ExperienceId" class="btn btn-outline-secondary btn-sm">
+                <a asp-page="../Details" asp-route-id="@Model.ProjectUpdateModel.DTO.Id" class="btn btn-outline-secondary btn-sm">
                     <i class="fas fa-arrow-left"></i> Retour
                 </a>
             </div>
@@ -21,33 +21,50 @@
         <div class="card-body">
             <form method="post" novalidate>
                 <div asp-validation-summary="ModelOnly" class="alert alert-danger d-none" id="validationSummary"></div>
-                <input type="hidden" asp-for="Project.Id" />
-
+                <input type="hidden" asp-for="ProjectUpdateModel.DTO.Id" />
                 <div class="row g-3">
                     <div class="col-md-8">
                         <div class="mb-3">
-                            <label asp-for="Project.Title" class="form-label"></label>
-                            <input asp-for="Project.Title" class="form-control" placeholder="Titre du projet" />
-                            <span asp-validation-for="Project.Title" class="text-danger small"></span>
+                            <label asp-for="ProjectUpdateModel.DTO.Title" class="form-label"></label>
+                            <input asp-for="ProjectUpdateModel.DTO.Title" class="form-control" placeholder="Titre du projet" />
+                            <span asp-validation-for="ProjectUpdateModel.DTO.Title" class="text-danger small"></span>
                         </div>
 
                         <div class="mb-3">
-                            <label asp-for="Project.Description" class="form-label"></label>
-                            <textarea asp-for="Project.Description" class="form-control" rows="5" placeholder="Description du projet"></textarea>
-                            <span asp-validation-for="Project.Description" class="text-danger small"></span>
+                            <label asp-for="ProjectUpdateModel.DTO.Description" class="form-label"></label>
+                            <textarea asp-for="ProjectUpdateModel.DTO.Description" class="form-control" rows="5" placeholder="Description du projet"></textarea>
+                            <span asp-validation-for="ProjectUpdateModel.DTO.Description" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="ProjectUpdateModel.DTO.Position" class="form-label"></label>
+                            <input asp-for="ProjectUpdateModel.DTO.Position" class="form-control" placeholder="Poste occupé" />
+                            <span asp-validation-for="ProjectUpdateModel.DTO.Position" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="ProjectUpdateModel.DTO.StartDate" class="form-label"></label>
+                            <input asp-for="ProjectUpdateModel.DTO.StartDate" class="form-control" type="date" />
+                            <span asp-validation-for="ProjectUpdateModel.DTO.StartDate" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="ProjectUpdateModel.DTO.EndDate" class="form-label"></label>
+                            <input asp-for="ProjectUpdateModel.DTO.EndDate" class="form-control" type="date" />
+                            <span asp-validation-for="ProjectUpdateModel.DTO.EndDate" class="text-danger small"></span>
                         </div>
 
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <label asp-for="Project.ImageUrl" class="form-label"></label>
-                                <input asp-for="Project.ImageUrl" class="form-control" placeholder="URL de l'image (optionnel)" id="imageUrlInput" />
-                                <span asp-validation-for="Project.ImageUrl" class="text-danger small"></span>
+                                <label asp-for="ProjectUpdateModel.DTO.ImageUrl" class="form-label"></label>
+                                <input asp-for="ProjectUpdateModel.DTO.ImageUrl" class="form-control" placeholder="URL de l'image (optionnel)" id="imageUrlInput" />
+                                <span asp-validation-for="ProjectUpdateModel.DTO.ImageUrl" class="text-danger small"></span>
                             </div>
 
                             <div class="col-md-6">
-                                <label asp-for="Project.Url" class="form-label"></label>
-                                <input asp-for="Project.Url" class="form-control" placeholder="URL du projet (https://...)" />
-                                <span asp-validation-for="Project.Url" class="text-danger small"></span>
+                                <label asp-for="ProjectUpdateModel.DTO.Url" class="form-label"></label>
+                                <input asp-for="ProjectUpdateModel.DTO.Url" class="form-control" placeholder="URL du projet (https://...)" />
+                                <span asp-validation-for="ProjectUpdateModel.DTO.Url" class="text-danger small"></span>
                             </div>
                         </div>
                     </div>
@@ -57,9 +74,9 @@
                             <div class="card-body text-center">
                                 <h6 class="card-title">Aperçu image</h6>
                                 <div class="border rounded p-2 mb-2" style="min-height:140px; display:flex; align-items:center; justify-content:center;">
-                                    @if (!string.IsNullOrEmpty(Model.Project?.ImageUrl))
+                                    @if (!string.IsNullOrEmpty(Model.ProjectUpdateModel.DTO.ImageUrl))
                                     {
-                                        <img id="imagePreview" src="@Model.Project.ImageUrl" alt="Aperçu" class="img-fluid rounded" style="max-height:120px;" />
+                                        <img id="imagePreview" src="@Model.ProjectUpdateModel.DTO.ImageUrl" alt="Aperçu" class="img-fluid rounded" style="max-height:120px;" />
                                     }
                                     else
                                     {
@@ -71,7 +88,7 @@
                                     <button type="submit" class="btn btn-primary">
                                         <i class="fas fa-save me-1"></i> Enregistrer
                                     </button>
-                                    <a asp-page="../Details" asp-route-id="@Model.ExperienceId" class="btn btn-outline-secondary">Annuler</a>
+                                    <a asp-page="../Details" asp-route-id="@Model.ProjectUpdateModel.DTO.Id" class="btn btn-outline-secondary">Annuler</a>
                                 </div>
                             </div>
                         </div>

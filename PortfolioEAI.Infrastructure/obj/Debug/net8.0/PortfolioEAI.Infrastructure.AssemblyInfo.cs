@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PortfolioEAI.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fea2e81d676830c7139ec3356a441654d29cf0d8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5a73e62270978df8ae1acc99351cdbb9f70db65e")]
 [assembly: System.Reflection.AssemblyProductAttribute("PortfolioEAI.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PortfolioEAI.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

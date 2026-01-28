@@ -8,7 +8,7 @@ namespace PortfolioEAI.Application.Skills.Commands
     {
         public DeleteSkillCommandValidator()
         {
-            RuleFor(x => x.id)
+            RuleFor(x => x.Id)
                 .NotEmpty().WithMessage("L'ID de la compétence est requis");
         }
     }

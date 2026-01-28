@@ -22,21 +22,23 @@ namespace PortfolioEAI.Application.Skills.Commands
         /// <param name="request"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
-        public async Task<Result<Guid>> Handle(DeleteSkillsByName request, CancellationToken ct)
+        public async Task<Result<Guid>> Handle(DeleteSkillsByNameCommand request, CancellationToken ct)
         {
             try
             {
                 // Get skills to delete by name
-                Skill? skills = await _repository.GetByName(request.name!, ct);
+                Skill? skill = await _repository.Get(x => x.Name == request.Name, ct);
 
-                if (skills is null )
+                if (skill is null)
                     return Result<Guid>.Success(default, "No skills found with the provided name.");
 
+                Guid deletedSkillId = skill.Id;
+
                 // Delete the skills
-                await _repository.Remove(skills, ct);
+                await _repository.Remove(skill, ct);
 
                 // Return the ID of the deleted skill
-                return Result<Guid>.Success(skills.Id, "Skills deleted successfully.");
+                return Result<Guid>.Success(deletedSkillId, "Skills deleted successfully.");
             }
             catch (Exception ex)
             {

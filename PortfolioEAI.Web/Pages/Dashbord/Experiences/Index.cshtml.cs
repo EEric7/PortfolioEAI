@@ -1,45 +1,46 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using PortfolioEAI.Web.Application.DTOs;
-using PortfolioEAI.Web.Application.Services.Interfaces;
+using PortfolioEAI.Application.Interfaces;
+using PortfolioEAI.Web.Models;
 
 namespace PortfolioEAI.Web.Pages.Dashbord.Experiences
 {
     public class ExperienceModel : PageModel
     {
-        private readonly IDashbordService _services;
+        private readonly IMediator _services;
+        private readonly ILogger<ExperienceModel> _logger;
 
-        public ExperienceModel(IDashbordService services)
+        public ExperienceModel(IMediator services, ILogger<ExperienceModel> logger)
         {
             _services = services;
+            _logger = logger;
         }
 
         [BindProperty]
-        public List<Tuple<string, string>> MenuModel { get; set; } = new List<Tuple<string, string>>()
-        {
-            new Tuple<string, string>("Dashbord", "/Dashbord/Home"),
-            new Tuple<string, string>("Experiences", "/Dashbord/Experiences/"),
-            new Tuple<string, string>("Skills", "/Dashbord/Skills/"),
-            new Tuple<string, string>("Setting", "/Dashbord/AdminUsers/"),
-            new Tuple<string, string>("SignOut", "/Authentication/SignInOut")
-        };
-
-        [BindProperty]
-        public IList<ExperienceDto> ExperiencesDto { get;set; } = default!;
-
-        public Guid focusId { get; set; } = Guid.Empty;
+        public IndexExperienceModel IndexExperienceModel { get;set; } = default!;
 
         public async Task<IActionResult> OnGetAsync()
         {
             try
             {
                 ModelState.Clear();
-                ExperiencesDto = await _services.GetAllExperiencesAsync();
+                var result = await _services.Send(new GetAllExperiencesQuery());
+
+                if(!result.IsSuccess || result.Value is null)
+                {
+                    ModelState.AddModelError(string.Empty, result.Info!);
+                    _logger.LogWarning(result.Info, result.Value);
+                }
+
+                IndexExperienceModel.DTOs = result.Value!.ToList();
+                _logger.LogInformation(result.Info!, result.Value);
                 return Page();
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, $"An error occurred while retrieving experiences: {ex.Message}");
+                _logger.LogWarning(ex, "An error occurred while retrieving experiences.");
                 return NotFound();
             }
         }

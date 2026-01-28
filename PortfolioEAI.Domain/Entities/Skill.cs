@@ -119,10 +119,14 @@ namespace PortfolioEAI.Domain.Entities
             if (string.IsNullOrWhiteSpace(value))
                 throw new BusinessRuleViolationException("The skill level is required.", new ArgumentNullException(nameof(value)));
 
-            if (!Enum.TryParse<SkillLevel>(value!, true, out var parsedLevel) || !Enum.IsDefined(typeof(SkillLevel), parsedLevel))
-                throw new BusinessRuleViolationException("Invalid skill level.", new ArgumentException(nameof(value)));
-
-            return parsedLevel;
+            return value  switch
+            {
+                "beginner" => SkillLevel.Beginner,
+                "intermediate" => SkillLevel.Intermediate,
+                "advanced" => SkillLevel.Advanced,
+                "expert" => SkillLevel.Expert,
+                _ => SkillLevel.None,
+            };  
         }
 
         /// <summary>
@@ -135,10 +139,14 @@ namespace PortfolioEAI.Domain.Entities
             if (string.IsNullOrWhiteSpace(value))
                 throw new BusinessRuleViolationException("The skill category is required.", new ArgumentNullException(nameof(value)));
 
-            if (!Enum.TryParse<SkillCategory>(value!, true, out var parsedCategory) || !Enum.IsDefined(typeof(SkillCategory), parsedCategory))
-                throw new BusinessRuleViolationException("Invalid skill category.", new ArgumentException(nameof(value)));
-
-            return parsedCategory;
+            return value switch
+            {
+                "frontend" => SkillCategory.Frontend,
+                "backend" => SkillCategory.Backend,
+                "fullstack" => SkillCategory.Fullstack,
+                "devops" => SkillCategory.DevOps,
+                _ => SkillCategory.None,
+            };
         }
 
         /// <summary>

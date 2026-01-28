@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using PortfolioEAI.Application.DTOs;
+using PortfolioEAI.Application.StoredFiles.DTOs;
 
 namespace PortfolioEAI.Web.Models
 {
@@ -9,27 +10,42 @@ namespace PortfolioEAI.Web.Models
         public UserCreateModel() {}
 
         [BindProperty]
-        public UserDto User { get; set; } = default!;
+        public UserDto DTO { get; set; } = default!;
+
+        [BindProperty]
+        public IFormFile? PhotoFile { get; set; }
 
         [BindProperty]
         public List<SelectListItem> RoleOptions { get; } = new List<SelectListItem>
         {
-            new SelectListItem { Value = "DEV", Text = "Developer" },
-            new SelectListItem { Value = "CdP", Text = "Chef de Projet" },
-            new SelectListItem { Value = "AdmR", Text = "Administrateur Reseaux" },
-            new SelectListItem { Value = "AdmS", Text = "Administrateur Systeme" },
-            new SelectListItem { Value = "AdmA", Text = "Administrateur Applicatif" },
-            new SelectListItem { Value = "AdmD", Text = "Administrateur Donnees" },
-            new SelectListItem { Value = "AdmC", Text = "Administrateur Cloud" },
-            new SelectListItem { Value = "AdmSec", Text = "Administrateur Securite" },
+            new SelectListItem { Value = "1", Text = "Admin" },
+            new SelectListItem { Value = "2", Text = "User" },
+            new SelectListItem { Value = "3", Text = "Visitor" }
         };
 
-        public UserCreateModel(UserDto? dto)
+        public async Task<bool> StoredFiles()
         {
-            if (dto == null) {
-                throw new ArgumentNullException(nameof(dto));
-            }
-            User = dto!;
+           if (PhotoFile != null)
+                {
+                    // Process the uploaded photo file.
+                    using var memoryStream = new MemoryStream();
+                    await PhotoFile.CopyToAsync(memoryStream);
+
+                    // Validate file size (example: max 10 MB)
+                    if (memoryStream.Length > 10 * 1024 * 1024)
+                        return false;
+
+                    // For demonstration, we'll just set a placeholder value.
+                    DTO.ProfilePhoto = new StoredFileDto 
+                    { 
+                        Name = PhotoFile.FileName,
+                        Type = PhotoFile.ContentType,
+                        Size = memoryStream.Length,
+                        Content = memoryStream.ToArray(),
+                        UploadedAt = DateTimeOffset.UtcNow
+                    };
+                }
+                return true;
         }
     }
 }

@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using PortfolioEAI.Domain.Entities;
 using PortfolioEAI.Domain.Entities.Ports;
@@ -22,74 +23,51 @@ namespace PortfolioEAI.Infrastructure.Persistance.Repositories
         public ExperienceRepository(ApplicationDbContext context) => _context = context ?? throw new ArgumentNullException(nameof(context), "Context cannot be null");
 
         /// <summary>
-        /// Gets all experiences from the database.
-        /// </summary>
-        /// <param name="ct"></param>
-        /// <returns></returns>
-        public async Task<IEnumerable<Experience>> GetAll(CancellationToken ct) => await _context.Experiences.AsNoTracking().ToListAsync(ct);
-        
-        /// <summary>
-        /// Gets a project by their unique identifier.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="ct"></param>
-        /// <returns></returns>
-        public async Task<Experience?> Get(Guid id, CancellationToken ct) => await _context.Experiences.AsNoTracking().FirstOrDefaultAsync(o => o.Id == id, ct);
-
-        /// <summary>
-        /// Gets an experience by company name.
-        /// </summary>
-        /// <param name="company"></param>
-        /// <param name="ct"></param>
-        /// <returns></returns>
-        public async Task<Experience?> GetByCompany(string company, CancellationToken ct) => await _context.Experiences.AsNoTracking().FirstOrDefaultAsync(o => o.Company == company, ct);
-
-        /// <summary>
-        /// Adds a new experience to the database.
-        /// </summary>
-        /// <param name="p"></param>
-        /// <param name="ct"></param>
-        /// <returns></returns>
-        public Task Add(Experience p, CancellationToken ct) => _context.Experiences.AddAsync(p, ct).AsTask();
-
-        /// <summary>
-        ///     Updates an existing experience in the database.
+        ///  Adds a new experience entity to the repository.
         /// </summary>
         /// <param name="entity"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
-        public Task Update(Experience entity, CancellationToken ct)
-        {
-            _context.Experiences.Update(entity);
-            return Task.CompletedTask;
-        }
+        public async Task Add(Experience entity, CancellationToken ct) => await _context.Experiences.AddAsync(entity, ct).AsTask();
 
         /// <summary>
-        ///     Removes an experience from the database.
+        ///    Checks if any experience exists that matches a specified predicate.
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        public async Task<bool> Exists(Expression<Func<Experience, bool>> predicate, CancellationToken ct) => await _context.Experiences.AnyAsync(predicate, ct);
+
+        /// <summary>
+        /// Gets an experience by a specified predicate.
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        public Task<Experience?> Get(Expression<Func<Experience, bool>> predicate, CancellationToken ct) => _context.Experiences.FirstOrDefaultAsync(predicate, ct);
+
+        /// <summary>
+        ///    Gets all experiences that match a specified predicate.
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<Experience>> GetAllBy(Expression<Func<Experience, bool>> predicate, CancellationToken ct) => await _context.Experiences.Where(predicate).ToListAsync(ct);
+
+        /// <summary>
+        ///  Removes an experience from the repository.
         /// </summary>
         /// <param name="entity"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
-        public Task Remove(Experience entity, CancellationToken ct)
-        {
-            _context.Experiences.Remove(entity);
-            return Task.CompletedTask;
-        }
+        public Task Remove(Experience entity, CancellationToken ct) => Task.Run(() => _context.Experiences.Remove(entity), ct);
 
         /// <summary>
-        ///    Checks if an experience exists in the database by their unique identifier.
+        /// Updates an existing experience in the repository.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="entity"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
-        public Task<bool> Exists(Guid id, CancellationToken ct) => _context.Experiences.AsNoTracking().AnyAsync(e => e.Id == id, ct);
-
-        /// <summary>
-        ///   Checks if an experience exists in the database by company and position.
-        /// </summary>
-        /// <param name="company"></param>
-        /// <param name="ct"></param>
-        /// <returns></returns>
-        public async Task<bool> ExistsByCompany(string company, CancellationToken ct) => await _context.Experiences.AsNoTracking().AnyAsync(e => e.Company == company, ct);
+        public Task Update(Experience entity, CancellationToken ct) => Task.Run(() => _context.Experiences.Update(entity), ct);
     }
 }

@@ -13,52 +13,47 @@ namespace PortfolioEAI.Infrastructure.Persistance.Configurations
 
             builder.Property(c => c.Title)
                 .IsRequired()
-                .HasMaxLength(200)
-                .HasColumnName("Title");
+                .HasMaxLength(200);
             
             builder.Property(c => c.Description)
                 .IsRequired()
-                .HasMaxLength(1000)
-                .HasColumnName("Description");
+                .HasMaxLength(1000);
+
+            builder.Property(e => e.Position)
+                .IsRequired()
+                .HasMaxLength(100)
+                .HasColumnType("varchar(100)");
 
             builder.Property(e => e.StartDate)
                 .IsRequired()
-                .HasColumnType("date")
-                .HasColumnName("StartDate");
+                .HasColumnType("date");
 
             builder.Property(e => e.EndDate)
-                .HasColumnType("date")
-                .HasColumnName("EndDate");
+                .HasColumnType("date");
 
             builder.OwnsOne(a => a.ImageUrl, imageUrl =>
             {
-                imageUrl.Property(p => p.FileName)
-                    .IsRequired()
-                    .HasColumnType("varchar(100)")
-                    .HasMaxLength(100)
-                    .HasColumnName("FileName")
-                    .IsRequired(true);
+                imageUrl.Property(p => p.Name)
+                    .IsRequired(true)
+                    .HasMaxLength(255)
+                    .HasColumnType("varchar(255)");
 
-                imageUrl.Property(p => p.Title)
-                    .IsRequired()
-                    .HasColumnType("varchar(100)")
-                    .HasMaxLength(100)
-                    .HasColumnName("FileTitle")
-                    .IsRequired(true);
+                imageUrl.Property(p => p.Type)
+                    .IsRequired(true)
+                    .HasColumnType("varchar(127)")
+                    .HasMaxLength(127);
                 
-                imageUrl.Property(p => p.Url)
-                    .IsRequired()
-                    .HasColumnType("varchar(500)")
-                    .HasMaxLength(500)
-                    .HasColumnName("FileUrl")
-                    .IsRequired(true);
+                imageUrl.Property(p => p.Size)
+                    .IsRequired(true)
+                    .HasColumnType("bigint")
+                    .HasMaxLength(500);
 
-                imageUrl.Property(p => p.CreatedAt)
-                    .IsRequired()
-                    .HasColumnType("date")
-                    .HasColumnName("FileCreatedAt");
+                imageUrl.Property(p => p.Content)
+                    .IsRequired(true)
+                    .HasColumnType("LONGBLOB");
+                    
 
-                imageUrl.HasIndex(p => p.Url)
+                imageUrl.HasIndex(p => p.UploadedAt)
                     .IsUnique();
             });
 

@@ -4,11 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using PortfolioEAI.Web.Data;
-
 #nullable disable
 
-namespace PortfolioEAI.Web.Data.Migrations
+namespace PortfolioEAI.Infrastructure.Persistance.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20251016103158_AddUniqueIndexOnAdminUserEmail")]
@@ -20,7 +18,7 @@ namespace PortfolioEAI.Web.Data.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.6");
 
-            modelBuilder.Entity("PortfolioEAI.Web.Domain.Entities.AdminUser", b =>
+            modelBuilder.Entity("PortfolioEAI.Domain.Entities.AdminUser", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -47,7 +45,7 @@ namespace PortfolioEAI.Web.Data.Migrations
                     b.ToTable("AdminUsers");
                 });
 
-            modelBuilder.Entity("PortfolioEAI.Web.Domain.Entities.Experience", b =>
+            modelBuilder.Entity("PortfolioEAI.Domain.Entities.Experience", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -96,7 +94,7 @@ namespace PortfolioEAI.Web.Data.Migrations
                     b.ToTable("Experiences");
                 });
 
-            modelBuilder.Entity("PortfolioEAI.Web.Domain.Entities.Project", b =>
+            modelBuilder.Entity("PortfolioEAI.Domain.Entities.Project", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -131,7 +129,7 @@ namespace PortfolioEAI.Web.Data.Migrations
                     b.ToTable("Projects");
                 });
 
-            modelBuilder.Entity("PortfolioEAI.Web.Domain.Entities.Skill", b =>
+            modelBuilder.Entity("PortfolioEAI.Domain.Entities.Skill", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -161,7 +159,7 @@ namespace PortfolioEAI.Web.Data.Migrations
                     b.ToTable("Skills");
                 });
 
-            modelBuilder.Entity("PortfolioEAI.Web.Domain.Entities.AdminUser", b =>
+            modelBuilder.Entity("PortfolioEAI.Domain.Entities.AdminUser", b =>
                 {
                     b.OwnsOne("PortfolioEAI.Web.Domain.ValueObjects.Email", "Email", b1 =>
                         {
@@ -189,17 +187,17 @@ namespace PortfolioEAI.Web.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PortfolioEAI.Web.Domain.Entities.Experience", b =>
+            modelBuilder.Entity("PortfolioEAI.Domain.Entities.Experience", b =>
                 {
-                    b.HasOne("PortfolioEAI.Web.Domain.Entities.AdminUser", null)
+                    b.HasOne("PortfolioEAI.Domain.Entities.AdminUser", null)
                         .WithMany("Experiences")
                         .HasForeignKey("IdAdminUser")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("PortfolioEAI.Web.Domain.Entities.Project", b =>
+            modelBuilder.Entity("PortfolioEAI.Domain.Entities.Project", b =>
                 {
-                    b.HasOne("PortfolioEAI.Web.Domain.Entities.Experience", null)
+                    b.HasOne("PortfolioEAI.Domain.Entities.Experience", null)
                         .WithMany("Projects")
                         .HasForeignKey("IdExperience")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -227,22 +225,22 @@ namespace PortfolioEAI.Web.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PortfolioEAI.Web.Domain.Entities.Skill", b =>
+            modelBuilder.Entity("PortfolioEAI.Domain.Entities.Skill", b =>
                 {
-                    b.HasOne("PortfolioEAI.Web.Domain.Entities.AdminUser", null)
+                    b.HasOne("PortfolioEAI.Domain.Entities.AdminUser", null)
                         .WithMany("Skills")
                         .HasForeignKey("IdAdminUser")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("PortfolioEAI.Web.Domain.Entities.AdminUser", b =>
+            modelBuilder.Entity("PortfolioEAI.Domain.Entities.AdminUser", b =>
                 {
                     b.Navigation("Experiences");
 
                     b.Navigation("Skills");
                 });
 
-            modelBuilder.Entity("PortfolioEAI.Web.Domain.Entities.Experience", b =>
+            modelBuilder.Entity("PortfolioEAI.Domain.Entities.Experience", b =>
                 {
                     b.Navigation("Projects");
                 });

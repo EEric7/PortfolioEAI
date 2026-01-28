@@ -10,7 +10,7 @@ namespace PortfolioEAI.Application.Users.Commands
     public class AddSkillUserCommandHandler : IRequestHandler<AddSkillUserCommand, Result<IEnumerable<Guid>>>
     {
         // Repository for user data access
-        private readonly IUserRepository _repository;
+        private readonly IUserRepository _userRepository;
         private readonly ISkillRepository _skillRepository;
 
         /// <summary>
@@ -18,11 +18,11 @@ namespace PortfolioEAI.Application.Users.Commands
         /// </summary>
         /// <param name="repository"></param>
         /// <param name="skillRepository"></param>
-        public AddSkillUserCommandHandler(IUserRepository repository, ISkillRepository skillRepository)
+        public AddSkillUserCommandHandler(IUserRepository userRepository, ISkillRepository skillRepository) 
         {
-            _repository = repository;
+            _userRepository = userRepository;
             _skillRepository = skillRepository;
-        }
+        } 
 
         /// <summary>
         /// Handles adding skills to a user
@@ -35,34 +35,30 @@ namespace PortfolioEAI.Application.Users.Commands
             try
             {
                 // Retrieve the user entity
-                User? user = await _repository.Get(request.UserId, ct);
+                User? user = await _userRepository.Get(x => x.Id == request.UserId, ct);
                 
                 if (user is null)
                     return Result<IEnumerable<Guid>>.Success([], "User not found.");
                 
                 // Retrieve skills to add
-                IEnumerable<Skill> skillsToAdd = [];
-
+                IEnumerable<Guid> results = [];
                 foreach (Guid skillId in request.SkillIDs)
                 {
-                    Skill? skill = await _skillRepository.Get(skillId, ct);
+                    Skill? skill = await _skillRepository.Get(x => x.Id == skillId, ct);
 
                     if (skill is not null)
-                        skillsToAdd = skillsToAdd.Append(skill);
+                    {
+                        user.AddSkill(skill);
+                        results.Append(skill.Id);
+                    }
                 }
 
-                // Check for skills that were not found
-                IEnumerable<Guid> skillsNotFound = request.SkillIDs.Except(skillsToAdd.Select(s => s.Id));
-
-                // Add skills to user
-                user.AddSkill(skillsToAdd);
-
                 // Save changes
-                await _repository.Update(user, ct);
+                await _userRepository.Update(user, ct);
 
                 // Return success with user Id
-                string message = skillsNotFound.Any() ? $"However, the following skills were not added as they were not found: {string.Join(", ", skillsNotFound)}" : "";
-                return Result<IEnumerable<Guid>>.Success(skillsToAdd.Select(s => s.Id), $"Skills added successfully in User: {user.Id}." + message);
+                string message = results.Any() ? $"Skills added successfully in User: {user.Id}." : "No new skills were added to User: {user.Id}.";
+                return Result<IEnumerable<Guid>>.Success(results,message);
             }
             catch (Exception ex)
             {

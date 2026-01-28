@@ -29,7 +29,7 @@ namespace PortfolioEAI.Web.Pages.Dashbord
 
                 if (!result.IsSuccess)
                 {
-                    ModelState.AddModelError(string.Empty, result.Error!);
+                    ModelState.AddModelError(string.Empty, result.Info!);
                     return;
                 }
 

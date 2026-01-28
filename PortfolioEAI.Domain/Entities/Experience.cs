@@ -22,14 +22,6 @@ namespace PortfolioEAI.Domain.Entities
         public string Company { get; private set; } = string.Empty;
 
         /// <summary>
-        /// Position held during the experience.
-        /// This property represents the position or job title held during the experience.
-        /// It is a required field and should be descriptive enough to give an idea of the role
-        /// and responsibilities associated with the experience.
-        /// </summary>
-        public string Position { get; private set; } = string.Empty;
-
-        /// <summary>
         /// Description of the experience.
         /// This property provides a detailed description of the experience, including the tasks performed,
         /// skills acquired, and any notable achievements.
@@ -41,7 +33,7 @@ namespace PortfolioEAI.Domain.Entities
         /// This property holds the URL of an image associated with the experience.
         /// It is typically used to display a visual representation of the experience in user interfaces.
         /// </summary>
-        public Photo? ImageUrl { get; private set; } = default;
+        public StoredFile? ImageUrl { get; private set; } = default;
 
         /// <summary>
         /// Collection of projects associated with the experience.
@@ -65,11 +57,10 @@ namespace PortfolioEAI.Domain.Entities
         /// <param name="endDate"></param>
         /// <param name="description"></param>
         /// <returns></returns>
-        public static Experience Create(string company, string position, string description)
+        public static Experience Create(string company, string description)
         {
             var experience = new Experience();
             experience.SetCompany(company);
-            experience.SetPosition(position);
             experience.SetDescription(description);
             return experience;
         }
@@ -87,25 +78,6 @@ namespace PortfolioEAI.Domain.Entities
             try
             {
                 Company = ValidateCompany(value);
-            }
-            catch (Exception ex)
-            {
-                throw new BusinessRuleViolationException(ex.Message, ex);
-            }
-        }
-        
-        /// <summary>
-        /// Sets the position for the experience.
-        /// This method allows you to set the position for the experience.
-        /// It is important to ensure that the position being set is not null or empty.
-        /// </summary>
-        /// <param name="value"></param>
-        /// <exception cref="BusinessRuleViolationException"></exception>
-        public void SetPosition(string? value)
-        {
-            try
-            {
-                Position = ValidatePosition(value);
             }
             catch (Exception ex)
             {
@@ -154,14 +126,15 @@ namespace PortfolioEAI.Domain.Entities
        /// </summary>
        /// <param name="value"></param>
        /// <exception cref="BusinessRuleViolationException"></exception>
-        public void AddProject(Project value)
+        public bool AddProject(Project value)
         {
             try
             {
                 if (_projects.Contains(value))
-                    throw new BusinessRuleViolationException("Project already added to the experience.", new ArgumentException(nameof(value)));
+                    return false;
 
                 _projects.Add(value);
+                return true;
             }
             catch (Exception ex)
             {
@@ -198,11 +171,6 @@ namespace PortfolioEAI.Domain.Entities
         }
 
         private static string ValidateCompany(string? value)
-        {
-            return value?? string.Empty;
-        }
-
-        private static string ValidatePosition(string? value)
         {
             return value?? string.Empty;
         }

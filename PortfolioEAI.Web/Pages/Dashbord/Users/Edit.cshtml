@@ -17,16 +17,16 @@
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="UserEditeModel.User.Id" />
+            <input type="hidden" asp-for="UserEditeModel.DTO.Id" />
             <div class="form-group">
-                <label asp-for="UserEditeModel.User.UserName" class="control-label"></label>
-                <input asp-for="UserEditeModel.User.UserName" class="form-control" />
-                <span asp-validation-for="UserEditeModel.User.UserName" class="text-danger"></span>
+                <label asp-for="UserEditeModel.DTO.UserName" class="control-label"></label>
+                <input asp-for="UserEditeModel.DTO.UserName" class="form-control" />
+                <span asp-validation-for="UserEditeModel.DTO.UserName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="UserEditeModel.User.Password" class="control-label"></label>
-                <input asp-for="UserEditeModel.User.Password" class="form-control" />
-                <span asp-validation-for="UserEditeModel.User.Password" class="text-danger"></span>
+                <label asp-for="UserEditeModel.DTO.Password" class="control-label"></label>
+                <input asp-for="UserEditeModel.DTO.Password" class="form-control" />
+                <span asp-validation-for="UserEditeModel.DTO.Password" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

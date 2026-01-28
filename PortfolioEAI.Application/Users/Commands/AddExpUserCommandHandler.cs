@@ -34,42 +34,27 @@ namespace PortfolioEAI.Application.Users.Commands
             try
             {
                 // Retrieve the user entity
-                User? user = await _repository.Get(request.UserId, ct);
+                User? user = await _repository.Get(x => x.Id == request.UserId, ct);
 
                 if (user is null)
                     return Result<IEnumerable<Guid>>.Success([], "User not found.");
 
                 // Retrieve experiences to add
-                IEnumerable<Experience> expsToAdd = [];
+                IEnumerable<Guid> results = [];
 
                 foreach (var expDto in request.Exp)
                 {
-                    bool exists = await _expRepository.ExistsByCompany(expDto.Company!, ct);
-
-                    if (exists)
-                        continue;
-
-                    Experience exp = Experience.Create(expDto.Company!, expDto.Position!, expDto.Description!);
-
-                    if (exp is not null)
-                        expsToAdd = expsToAdd.Append(exp);
+                    var newExp = Experience.Create(expDto.Company!, expDto.Description!);
+                    if (!user.AddExperience(newExp))
+                        results.Append(newExp.Id);
                 }
-
-                // Check for experiences that were not found
-                var expsNotFound = request.Exp.Select(e => e.Company).Except(expsToAdd.Select(e => e.Company));
-
-                // Add experiences to user
-                user.AddExperience(expsToAdd);
 
                 // Save changes
                 await _repository.Update(user, ct);
 
-                // Return the result
-                var result = user.Experiences.Select(e => e.Id);
-
                 // Return success with user Id
-                string message = expsNotFound.Any() ? $"However, the following experiences were not added as they already exist: {string.Join(", ", expsNotFound)}" : "";
-                return Result<IEnumerable<Guid>>.Success(result, "Experience(s) added successfully." + message);
+                string message = results.Any() ? "Experience(s) added successfully." : "All experiences already exist for the user.";
+                return Result<IEnumerable<Guid>>.Success(results, message);
             }
             catch (Exception ex)
             {

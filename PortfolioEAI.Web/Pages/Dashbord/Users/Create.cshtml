@@ -17,46 +17,59 @@ ViewData["Title"] = "Create";
     <div asp-validation-summary="ModelOnly" class="text-danger">
     </div>
             <div class="form-group">
-                <label asp-for="UserCreateModel.User.FirstName" class="control-label"></label>
-                <input asp-for="UserCreateModel.User.FirstName" class="form-control" />
-                <span asp-validation-for="UserCreateModel.User.FirstName" class="text-danger"></span>
+                <label asp-for="UserCreateModel.DTO.FirstName" class="control-label"></label>
+                <input asp-for="UserCreateModel.DTO.FirstName" class="form-control" />
+                <span asp-validation-for="UserCreateModel.DTO.FirstName" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="UserCreateModel.User.LastName" class="control-label"></label>
-                <input asp-for="UserCreateModel.User.LastName" class="form-control" />
-                <span asp-validation-for="UserCreateModel.User.LastName" class="text-danger"></span>
+                <label asp-for="UserCreateModel.DTO.LastName" class="control-label"></label>
+                <input asp-for="UserCreateModel.DTO.LastName" class="form-control" />
+                <span asp-validation-for="UserCreateModel.DTO.LastName" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="UserCreateModel.User.UserName" class="control-label"></label>
-                <input asp-for="UserCreateModel.User.UserName" class="form-control" />
-                <span asp-validation-for="UserCreateModel.User.UserName" class="text-danger"></span>
+                <label asp-for="UserCreateModel.DTO.UserName" class="control-label"></label>
+                <input asp-for="UserCreateModel.DTO.UserName" class="form-control" />
+                <span asp-validation-for="UserCreateModel.DTO.UserName" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="UserCreateModel.User.Description" class="control-label"></label>
-                <input asp-for="UserCreateModel.User.Description" class="form-control" />
-                <span asp-validation-for="UserCreateModel.User.Description" class="text-danger"></span>
+                <label asp-for="UserCreateModel.DTO.Description" class="control-label"></label>
+                <input asp-for="UserCreateModel.DTO.Description" class="form-control" />
+                <span asp-validation-for="UserCreateModel.DTO.Description" class="text-danger"></span>
             </div>
             
             <div class="form-group">
-                <label asp-for="UserCreateModel.User.Email" class="control-label"></label>
-                <input asp-for="UserCreateModel.User.Email" class="form-control" />
-                <span asp-validation-for="UserCreateModel.User.Email" class="text-danger"></span>
+                <label asp-for="UserCreateModel.DTO.Email" class="control-label"></label>
+                <input asp-for="UserCreateModel.DTO.Email" class="form-control" />
+                <span asp-validation-for="UserCreateModel.DTO.Email" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="UserCreateModel.User.Password" class="control-label"></label>
-                <input asp-for="UserCreateModel.User.Password" class="form-control" />
-                <span asp-validation-for="UserCreateModel.User.Password" class="text-danger"></span>
+                <label asp-for="UserCreateModel.DTO.Password" class="control-label"></label>
+                <input asp-for="UserCreateModel.DTO.Password" class="form-control" />
+                <span asp-validation-for="UserCreateModel.DTO.Password" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="UserCreateModel.User.Roles" class="control-label"></label>
-                <select asp-for="UserCreateModel.User.Roles" class="form-control" asp-items="Model.UserCreateModel.RoleOptions" multiple="multiple"></select>
-                <span asp-validation-for="UserCreateModel.User.Roles" class="text-danger"></span>
+                <label asp-for="UserCreateModel.DTO.Role" class="control-label"></label>
+                <select asp-for="UserCreateModel.DTO.Role" class="form-control" asp-items="Model.UserCreateModel.RoleOptions" multiple="multiple"></select>
+                <span asp-validation-for="UserCreateModel.DTO.Role" class="text-danger"></span>
             </div>
+
+            <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                    <label asp-for="UserCreateModel.PhotoFile" class="form-label">Photo du projet</label>
+                    <input type="file" name="PhotoFile" class="form-control" accept="image/*" />
+                    <small class="text-muted">Formats acceptés : JPG, PNG, GIF, WebP (max 5 MB)</small>
+                </div>
+            </div>
+
+            <div id="photoPreview" class="mb-3 text-center">
+                <p class="text-muted">Aucune image sélectionnée</p>
+            </div>
+            
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -70,4 +83,25 @@ ViewData["Title"] = "Create";
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        (function () {
+            const fileInput = document.querySelector('input[name="PhotoFile"]');
+            const preview = document.getElementById('photoPreview');
+
+            if (fileInput){
+                fileInput.addEventListener('change', function () {
+                    if (this.files && this.files[0]) {
+                        const reader = new FileReader();
+                        reader.onload = function (e) {
+                            preview.innerHTML = `<img src="${e.target.result}" style="max-height:100%; max-width:100%; object-fit:contain;" />`;
+                        };
+                        reader.readAsDataURL(this.files[0]);
+                    } else {
+                        preview.innerHTML = '<p class="text-muted">Aucune image sélectionnée</p>';
+                    }
+                });
+            }
+        })();
+    </script>
 }

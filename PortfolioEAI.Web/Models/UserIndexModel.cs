@@ -6,6 +6,6 @@ namespace PortfolioEAI.Web.Models
     public class UserIndexModel : AMenuDashbordModel
     {
         [BindProperty]
-        public List<UserDto> Users { get; set; } = new List<UserDto>();
+        public List<UserDto> DTOs { get; set; } = new List<UserDto>();
     }
 }

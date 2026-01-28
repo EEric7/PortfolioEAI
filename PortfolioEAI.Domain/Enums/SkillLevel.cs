@@ -1,30 +1,32 @@
 namespace PortfolioEAI.Domain.Enums
 {
-    public enum SkillLevel
+    public sealed class SkillLevel : Enumeration
     {
         /// <summary>
         /// Represents no skill level specified.
         /// </summary>
-        None = 0,
+        public static readonly SkillLevel None = new(0, "None");
 
         /// <summary>
         /// Represents a beginner skill level.
         /// </summary>
-        Beginner = 25,
+        public static readonly SkillLevel Beginner = new(25, "Beginner");
 
         /// <summary>
         /// Represents an intermediate skill level.
         /// </summary>
-        Intermediate = 50,
+        public static readonly SkillLevel Intermediate = new(50, "Intermediate");
 
         /// <summary>
         /// Represents an advanced skill level.
         /// </summary>
-        Advanced = 75,
+        public static readonly SkillLevel Advanced = new(75, "Advanced");
 
         /// <summary>
         /// Represents an expert skill level.
         /// </summary>
-        Expert = 100
+        public static readonly SkillLevel Expert = new(100, "Expert");
+
+        private SkillLevel(int id, string name) : base(id, name) { }
     }
 }

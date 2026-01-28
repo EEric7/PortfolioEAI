@@ -1,5 +1,6 @@
 using PortfolioEAI.Application.Common;
 using PortfolioEAI.Application.Interfaces;
+using PortfolioEAI.Domain.Entities;
 using PortfolioEAI.Domain.Entities.Ports;
 
 namespace PortfolioEAI.Application.Projects.Commands
@@ -15,24 +16,24 @@ namespace PortfolioEAI.Application.Projects.Commands
             try
             {
                 // Récupérer le projet existant
-                var existingProject = await _repository.Get(request.Project.Id, ct);
+                Project? project = await _repository.Get(x => x.Id == request.Project.Id, ct);
 
-                if (existingProject == null)
+                if (project == null)
                     return Result<Guid>.Success(default, "The project doesn't exist.");
 
                 // Mise à jour des propriétés du projet
-                existingProject.SetTitle(request.Project.Title);
-                existingProject.SetDescription(request.Project.Description);
-                existingProject.SetStartDate(request.Project.StartDate);
-                existingProject.SetEndDate(request.Project.EndDate);
-                existingProject.SetUrl(request.Project.Url);
+                project.SetTitle(request.Project.Title);
+                project.SetDescription(request.Project.Description);
+                project.SetStartDate(request.Project.StartDate);
+                project.SetEndDate(request.Project.EndDate);
+                project.SetUrl(request.Project.Url);
                 //TODO: Set ImageURL
 
                 // Update the project in the database
-                await _repository.Update(existingProject, ct);
+                await _repository.Update(project, ct);
 
                 //Return the result
-                return Result<Guid>.Success(existingProject.Id, "Project updated successfully.");
+                return Result<Guid>.Success(project.Id, "Project updated successfully.");
             }
             catch (Exception ex)
             {

@@ -31,7 +31,7 @@ namespace PortfolioEAI.Application.Users.Queries
             try
             {
                 // Retrieve user by email
-                User? user = await _repository.GetByEmail(request.Email, ct);
+                User? user = await _repository.Get(x => x.Email.Value == request.Email, ct);
 
                 if (user is null)
                     return Result<UserDto?>.Success(default,"User not found.");

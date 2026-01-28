@@ -5,7 +5,7 @@
     ViewData["Title"] = "Expériences";
 }
 
-@await Html.PartialAsync("_MenuHome", Model)
+@await Html.PartialAsync("_MenuHome", Model.IndexExperienceModel.MenuModel)
 
 <div class="container py-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -24,14 +24,14 @@
         </div>
     </div>
 
-    @if (Model?.ExperiencesDto == null || !Model.ExperiencesDto.Any())
+    @if (Model?.IndexExperienceModel.DTOs == null || !Model.IndexExperienceModel.DTOs.Any())
     {
         <div class="alert alert-info">Aucune expérience trouvée. Cliquez sur <strong>Nouvelle expérience</strong> pour en ajouter.</div>
     }
     else
     {
          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mb-4">
-            @foreach (var item in Model.ExperiencesDto)
+            @foreach (var item in Model.IndexExperienceModel.DTOs)
             {
                 <div class="col">
                     <div id="exp-@item.Id" class="card h-100 shadow-sm">
@@ -43,7 +43,6 @@
                             <div class="d-flex justify-content-between align-items-start mb-2">
                                 <div>
                                     <h5 class="card-title mb-1">@item.Company</h5>
-                                    <p class="card-text text-muted small mb-0">@item.Position</p>
                                 </div>
                                 <div class="btn-group ms-2">
                                     <a asp-page="./Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary" title="Détails">
@@ -51,13 +50,6 @@
                                     </a>
                                 </div>
                             </div>
-
-                            <p class="card-text text-muted small mb-2">
-                                @(item.Position?.Length > 120 ? item.Position.Substring(0, 120) + "…" : item.Position)
-                            </p>
-                            <p class="card-text text-muted small mb-2">
-                                @("Du: " + (item.StartDate.HasValue ? item.StartDate.Value.ToString("dd/MM/yyyy") : "Inconnu") + " Au: " + (item.EndDate.HasValue ? item.EndDate.Value.ToString("dd/MM/yyyy") : "Présent"))
-                            </p>
 
                             <div class="mt-auto d-flex justify-content-between align-items-center">
                                 <div class="btn-group">

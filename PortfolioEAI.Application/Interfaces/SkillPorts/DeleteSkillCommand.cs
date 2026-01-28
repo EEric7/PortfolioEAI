@@ -3,6 +3,6 @@ using PortfolioEAI.Application.Common;
 
 namespace PortfolioEAI.Application.Interfaces
 {
-    public sealed record DeleteSkillCommand(Guid id) : IRequest<Result<Guid>>;
-    public sealed record DeleteSkillsByName(string name) : IRequest<Result<IEnumerable<Guid>>>;
+    public sealed record DeleteSkillCommand(Guid Id) : IRequest<Result<Guid>>;
+    public sealed record DeleteSkillsByNameCommand(string Name) : IRequest<Result<IEnumerable<Guid>>>;
 }

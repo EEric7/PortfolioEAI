@@ -4,5 +4,5 @@ using PortfolioEAI.Application.DTOs;
 
 namespace PortfolioEAI.Application.Interfaces
 {
-    public sealed record UpdateExperienceCommand(ExperienceDto experience) : IRequest<Result<Guid>>;
+    public sealed record UpdateExperienceCommand(ExperienceDto Dto) : IRequest<Result<Guid>>;
 }

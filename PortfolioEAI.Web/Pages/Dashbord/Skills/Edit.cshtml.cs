@@ -1,51 +1,43 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using PortfolioEAI.Web.Application.DTOs;
-using PortfolioEAI.Web.Application.Services.Interfaces;
-using PortfolioEAI.Web.Domain.Enums;
+using PortfolioEAI.Application.Interfaces;
+using PortfolioEAI.Web.Models;
 
 namespace PortfolioEAI.Web.Pages.Dashbord.Skills
 {
     public class EditModel : PageModel
     {
-        private readonly IDashbordService _services;
+        private readonly IMediator _services;
 
-        public EditModel(IDashbordService services)
+        private readonly ILogger<EditModel> _logger;
+
+        public EditModel(IMediator services, ILogger<EditModel> logger)
         {
             _services = services;
+            _logger = logger;
         }
 
         [BindProperty]
-        public List<Tuple<string, string>> MenuModel { get; set; } = new List<Tuple<string, string>>()
-        {
-            new Tuple<string, string>("Dashbord", "/Dashbord/Home"),
-            new Tuple<string, string>("Experiences", "/Dashbord/Experiences/"),
-            new Tuple<string, string>("Skills", "/Dashbord/Skills/"),
-            new Tuple<string, string>("Setting", "/Dashbord/AdminUsers/"),
-            new Tuple<string, string>("SignOut", "/Authentication/SignInOut")
-        };
-
-        [BindProperty]
-        public SkillDto Skill { get; set; } = default!;
-
-        [BindProperty]
-        public IEnumerable<SkillLevel>? Levels { get; set; }
-
-        [BindProperty]
-        public IEnumerable<SkillCategory>? Categorys { get; set; }
+        public SkillEditeModel SkillEditeModel { get; set; } = new SkillEditeModel();
 
         public async Task<IActionResult> OnGetAsync(Guid id)
         {
             try
             {
-                var skill =  await _services.GetSkillByIdAsync(id);
-                if (skill is null)
+                ModelState.Clear();
+                
+                var result =  await _services.Send(new GetSkillQuery(id));
+                if (!result.IsSuccess || result.Value is null)
                 {
-                    ModelState.AddModelError(string.Empty, "Skill not found.");
-                    return Page();
+                    ModelState.AddModelError(string.Empty, result.Info!);
+                    _logger.LogWarning(result.Info, result.Value);
+                    return RedirectToPage("./Index");
                 }
 
-                Skill = skill;
+                SkillEditeModel.DTO = result.Value;
+                _logger.LogInformation(result.Info, result.Value);
+
                 return Page();
             }
             catch (Exception ex)
@@ -55,8 +47,6 @@ namespace PortfolioEAI.Web.Pages.Dashbord.Skills
             }
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             try
@@ -64,17 +54,22 @@ namespace PortfolioEAI.Web.Pages.Dashbord.Skills
                 if (!ModelState.IsValid)
                     return Page();
 
-                if (!await _services.SkillExistsAsync(Skill))
+                var result = await _services.Send(new UpdateSkillCommand(SkillEditeModel.DTO));
+
+                if (!result.IsSuccess)
                 {
-                    ModelState.AddModelError(string.Empty, "The skill does not exist.");
+                    ModelState.AddModelError(string.Empty, result.Info!);
+                    _logger.LogWarning(result.Info, result.Value);
                     return RedirectToPage("./Index");
                 }
-                await _services.UpdateSkillAsync(Skill);
+            
+                _logger.LogInformation(result.Info, result.Value);
                 return Page();
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, $"An error occurred while checking for existing skills: {ex.Message}");
+                _logger.LogWarning(ex.Message, ex);
                 return NotFound();
             }
         }

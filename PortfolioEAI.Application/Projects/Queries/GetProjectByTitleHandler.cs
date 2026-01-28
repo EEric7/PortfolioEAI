@@ -20,7 +20,7 @@ namespace PortfolioEAI.Application.Projects.Queries
            try
             {
                 // Retrieve the project by title from the repository
-                var project = await _repository.GetByTitle(request.Title, ct);
+                var project = await _repository.Get(x => x.Title == request.Title, ct);
                 
                 // If project not found, return success result with default value
                 if (project == null)

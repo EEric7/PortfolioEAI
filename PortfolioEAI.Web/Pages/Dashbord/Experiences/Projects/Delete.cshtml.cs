@@ -1,45 +1,41 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using PortfolioEAI.Web.Application.DTOs;
-using PortfolioEAI.Web.Application.Services.Interfaces;
+using PortfolioEAI.Application.Interfaces;
+using PortfolioEAI.Web.Models;
 
 namespace PortfolioEAI.Web.Pages.Experiences.Projects
 {
     public class DeleteModel : PageModel
     {
-        private readonly IDashbordService _services;
+        private readonly IMediator _services;
+        private readonly ILogger<DeleteModel> _logger;
 
-        public DeleteModel(IDashbordService services)
+        public DeleteModel(IMediator services, ILogger<DeleteModel> logger)
         {
             _services = services;
+            _logger = logger;
         }
 
         [BindProperty]
-        public List<Tuple<string, string>> MenuModel { get; set; } = new List<Tuple<string, string>>()
-        {
-            new Tuple<string, string>("Dashbord", "/Dashbord/Home"),
-            new Tuple<string, string>("Experiences", "/Dashbord/Experiences/"),
-            new Tuple<string, string>("Skills", "/Dashbord/Skills/"),
-            new Tuple<string, string>("Setting", "/Dashbord/AdminUsers/"),
-            new Tuple<string, string>("SignOut", "/Authentication/SignInOut")
-        };
-
-        [BindProperty]
-        public ProjectDto Project { get; set; } = default!;
+        public ProjectDeleteModel ProjectDeleteModel { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(Guid id)
         {
             try
             {
-                var project = await _services.GetProjectByIdAsync(id);
+                ModelState.Clear();
+                var result = await _services.Send(new GetProjectQuery(id));
 
-                if (project is null)
+                if (!result.IsSuccess || result.Value == null)
                 {
-                    ModelState.AddModelError(string.Empty, "Project not found.");
+                    ModelState.AddModelError(string.Empty, result.Info!);
+                    _logger.LogWarning(result.Info, result.Value);
                     return RedirectToPage("./Index");
                 }
 
-                Project = project;
+                ProjectDeleteModel.DTO = result.Value!;
+                _logger.LogInformation(result.Info, result.Value);
                 return Page();
             }
             catch (Exception)
@@ -53,15 +49,14 @@ namespace PortfolioEAI.Web.Pages.Experiences.Projects
         {
             try 
             {
-                var project = await _services.GetProjectByIdAsync(id);
+                var result = await _services.Send(new DeleteProjectCommand(id));
 
-                if (project is null)
+                if (!result.IsSuccess || result.Value == Guid.Empty)
                 {
                     ModelState.AddModelError(string.Empty, "Project not found.");
-                    return RedirectToPage("./Index");
+                    return Page();
                 }
-
-                await _services.DeleteProjectAsync(id);
+                _logger.LogInformation(result.Info, result.Value);
                 return RedirectToPage("./Index");
             }
             catch (Exception ex)

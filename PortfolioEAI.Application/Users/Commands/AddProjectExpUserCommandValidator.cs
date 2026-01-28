@@ -1,5 +1,6 @@
 using FluentValidation;
 using PortfolioEAI.Application.Interfaces.UserPorts;
+using PortfolioEAI.Application.Projects.DTOs;
 
 namespace PortfolioEAI.Application.Users.Commands
 {
@@ -8,13 +9,18 @@ namespace PortfolioEAI.Application.Users.Commands
         public AddProjectExpUserCommandValidator()
         {
             RuleFor(x => x.UserId)
-                .NotEmpty().WithMessage("L'ID utilisateur est requis.");
+                .NotEmpty().WithMessage("The user ID is required.");
 
             RuleFor(x => x.ExpID)
-                .NotEmpty().WithMessage("L'ID de l'expérience est requis.");
+                .NotEmpty().WithMessage("The experience ID is required.");
 
             RuleFor(x => x.Projects)
-                .NotEmpty().WithMessage("Au moins un projet doit être fourni.");
+                .NotEmpty().WithMessage("At least one project must be provided.");
+
+            When(x => x.Projects != null, () =>
+            {
+                RuleForEach(x => x.Projects).SetValidator(new ProjectDtoValidator());
+            });
         }
     }
 }

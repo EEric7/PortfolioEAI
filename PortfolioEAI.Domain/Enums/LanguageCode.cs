@@ -1,30 +1,35 @@
 namespace PortfolioEAI.Domain.Enums
 {
-    public enum LanguageCode
+    public sealed class LanguageCode : Enumeration
     {
         /// <summary>
         /// Represents the English language.
         /// </summary>
-        English = 1,
+       public static readonly LanguageCode English = new(1, "English");
 
         /// <summary>
         /// Represents the Spanish language.
         /// </summary>
-        Spanish = 2,
+        public static readonly LanguageCode Spanish = new(2, "Spanish");
 
         /// <summary>
         /// Represents the French language.
         /// </summary>
-        French = 3,
+        public static readonly LanguageCode French = new(3, "French");
 
         /// <summary>
         /// Represents the German language.
         /// </summary>
-        German = 4,
+        public static readonly LanguageCode German = new(4, "German");
 
         /// <summary>
         /// Represents the Italian language.
         /// </summary>
-        Italian = 5
+        public static readonly LanguageCode Italian = new(5, "Italian");
+
+        /// <summary>
+        /// Represents the Portuguese language.
+        /// </summary>
+        private LanguageCode(int id, string name) : base(id, name) { }
     }
 }

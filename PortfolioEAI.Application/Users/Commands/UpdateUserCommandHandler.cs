@@ -19,36 +19,25 @@ namespace PortfolioEAI.Application.Users.Commands
         {
             try
             {
-                // Validate the request
-                if (request.UserDto.Id is null || request.UserDto.Id == Guid.Empty)
-                    return Result<Guid>.Success(default,"Id user not provided.");
-
                 // Retrieve the existing user entity
-                User? entity = await _repository.Get(request.UserDto.Id.Value, ct);
+                User? entity = await _repository.Get(x => x.Id == request.UserDto.Id, ct);
 
                 // If user not found, return success with default Guid
                 if (entity is null)
                     return Result<Guid>.Success(default, "User not found.");
                 
                 // Update user properties
-                entity.SetEmail(request.UserDto.Email);
-                entity.SetPassword(request.UserDto.Password);
-                entity!.SetLastname(request.UserDto?.LastName);
                 entity.SetFirstname(request.UserDto?.FirstName);
-                entity.SetDisplayName(request.UserDto?.UserName);
-                entity.SetRoles(request.UserDto?.Roles);
-                entity.SetAddress(request.UserDto?.Address);
+                entity!.SetLastname(request.UserDto?.LastName);
                 entity.SetDescription(request.UserDto?.Description);
-
-                // TODO: Update skills and experiences
-                //entity.SetSkills(request.UserDto!.Skills.Select(x => SkillMapper.ToEntity(x)));
-                //entity.SetExperiences(request.UserDto!.Experiences.Select(x => ExperienceMapper.ToEntity(x)));
+                entity.SetAddress(request.UserDto?.Address);
 
                 // Save changes
+                Guid result = entity.Id;
                 await _repository.Update(entity, ct);
 
                 // Return the updated user DTO
-                return Result<Guid>.Success(entity.Id,"User updated successfully.");
+                return Result<Guid>.Success(result,"User updated successfully.");
             }
             catch (Exception ex) 
             {

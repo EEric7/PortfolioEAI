@@ -30,7 +30,7 @@ public class GetUserByIdHandler : IRequestHandler<GetUserByIdQuery, Result<UserD
         try
         {
             // Get the user by ID
-            User? user = await _repository.Get(request.Id, ct);
+            User? user = await _repository.Get(x => x.Id == request.Id, ct);
 
             // Check if user exists
             if (user is null)

@@ -17,8 +17,8 @@ namespace PortfolioEAI.Application.Mappings
             Email = user.Email.Value,
             Description = user.Description,
             Address = user.Address?.GetFullAddress(),
-            Skills = user.Skills.Select(s => s.Id).ToList(),
-            Experiences = user.Experiences.Select(e => e.Id).ToList()
+            Skills = user.Skills.Select(SkillMapper.ToDto).ToList(),
+            Experiences = user.Experiences.Select(ExperienceMapper.ToDto).ToList(),
         };
     }
 }

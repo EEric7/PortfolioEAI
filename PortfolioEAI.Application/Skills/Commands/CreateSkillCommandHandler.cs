@@ -28,19 +28,19 @@ namespace PortfolioEAI.Application.Skills.Commands
             try
             {
                 // Vérification de l'existence d'une compétence avec le même nom
-                bool existingSkill = await _repository.SkillNameExists(request.Name, ct);
+                bool existing = await _repository.Exists(x => x.Name == request.Dto.Name, ct);
 
-                if(existingSkill is false)
+                if(existing)
                     return Result<Guid>.Success(default, "A skill with the same name already exists.");
 
                 // Création de la compétence
-                var newSkill = Skill.Create(request.Name, request.Level, request.Category);
+                var newSkill = Skill.Create(request.Dto.Name, request.Dto.Level, request.Dto.Category);
                 
                 // Ajout de la compétence à la base de données
                 await _repository.Add(newSkill, ct);
 
                 // Retourne l'ID de la nouvelle compétence
-                return Result<Guid>.Success(newSkill.Id, "Skill created successfully.");
+                return Result<Guid>.Success(newSkill.Id, $"Skill created successfully.");
             }
             catch (Exception ex)
             {

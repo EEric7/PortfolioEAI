@@ -4,11 +4,11 @@ using PortfolioEAI.Application.Interfaces;
 
 namespace PortfolioEAI.Application.Skills.Commands
 {
-    public class DeleteSkillByNameCommandValidator : AbstractValidator<DeleteSkillsByName>
+    public class DeleteSkillByNameCommandValidator : AbstractValidator<DeleteSkillsByNameCommand>
     {
         public DeleteSkillByNameCommandValidator()
         {
-            RuleFor(x => x.name)
+            RuleFor(x => x.Name)
                 .NotEmpty().WithMessage("The skill name must not be empty.");
         }
     }

@@ -5,7 +5,7 @@
     ViewData["Title"] = "Ajouter une expérience";
 }
 
-@await Html.PartialAsync("_MenuHome", Model)
+@await Html.PartialAsync("_MenuHome", Model.ExperienceCreateModel.MenuModel)
 
 <section class="container py-4">
     <div class="row">
@@ -25,40 +25,21 @@
                         <div asp-validation-summary="ModelOnly" class="alert alert-danger d-none" id="validationSummary"></div>
 
                         <div class="mb-3">
-                            <label asp-for="Experience.Company" class="form-label"></label>
-                            <input asp-for="Experience.Company" class="form-control" placeholder="Nom de l'entreprise" />
-                            <span asp-validation-for="Experience.Company" class="text-danger small"></span>
-                        </div>
-
-                        <div class="mb-3">
-                            <label asp-for="Experience.Position" class="form-label"></label>
-                            <input asp-for="Experience.Position" class="form-control" placeholder="Poste occupé" />
-                            <span asp-validation-for="Experience.Position" class="text-danger small"></span>
-                        </div>
-
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label asp-for="Experience.StartDate" class="form-label"></label>
-                                <input asp-for="Experience.StartDate" type="date" class="form-control" />
-                                <span asp-validation-for="Experience.StartDate" class="text-danger small"></span>
-                            </div>
-                            <div class="col-md-6">
-                                <label asp-for="Experience.EndDate" class="form-label"></label>
-                                <input asp-for="Experience.EndDate" type="date" class="form-control" />
-                                <span asp-validation-for="Experience.EndDate" class="text-danger small"></span>
-                            </div>
+                            <label asp-for="ExperienceCreateModel.Experience.Company" class="form-label"></label>
+                            <input asp-for="ExperienceCreateModel.Experience.Company" class="form-control" placeholder="Nom de l'entreprise" />
+                            <span asp-validation-for="ExperienceCreateModel.Experience.Company" class="text-danger small"></span>
                         </div>
 
                         <div class="mb-3 mt-3">
-                            <label asp-for="Experience.Description" class="form-label"></label>
-                            <textarea asp-for="Experience.Description" class="form-control" rows="4" placeholder="Résumé de la mission / responsabilités"></textarea>
-                            <span asp-validation-for="Experience.Description" class="text-danger small"></span>
+                            <label asp-for="ExperienceCreateModel.Experience.Description" class="form-label"></label>
+                            <textarea asp-for="ExperienceCreateModel.Experience.Description" class="form-control" rows="4" placeholder="Résumé de la mission / responsabilités"></textarea>
+                            <span asp-validation-for="ExperienceCreateModel.Experience.Description" class="text-danger small"></span>
                         </div>
 
                         <div class="mb-3">
-                            <label asp-for="Experience.ImageUrl" class="form-label"></label>
-                            <input asp-for="Experience.ImageUrl" name="PhotoFile" type="file" class="form-control" placeholder="URL du logo / image (optionnel)"/>
-                            <span asp-validation-for="Experience.ImageUrl" class="text-danger small"></span>
+                            <label asp-for="ExperienceCreateModel.Experience.ImageUrl" class="form-label"></label>
+                            <input asp-for="ExperienceCreateModel.Experience.ImageUrl" name="PhotoFile" type="file" class="form-control" placeholder="URL du logo / image (optionnel)"/>
+                            <span asp-validation-for="ExperienceCreateModel.Experience.ImageUrl" class="text-danger small"></span>
                         </div>
 
                         <div class="d-flex gap-2">

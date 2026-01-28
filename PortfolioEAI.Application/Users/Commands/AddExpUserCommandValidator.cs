@@ -1,4 +1,5 @@
 using FluentValidation;
+using PortfolioEAI.Application.Experiences.DTOs;
 using PortfolioEAI.Application.Interfaces.UserPorts;
 
 namespace PortfolioEAI.Application.Users.Commands
@@ -8,10 +9,15 @@ namespace PortfolioEAI.Application.Users.Commands
         public AddExpUserCommandValidator()
         {
             RuleFor(x => x.UserId)
-                .NotEmpty().WithMessage("L'ID utilisateur est requis.");
+                .NotEmpty().WithMessage("The user ID is required.");
 
             RuleFor(x => x.Exp)
-                .NotEmpty().WithMessage("Au moins une expérience doit être fournie.");
+                .NotEmpty().WithMessage("At least one experience must be provided.");
+
+            When(x => x.Exp != null, () =>
+            {
+                RuleForEach(x => x.Exp).SetValidator(new ExperienceDtoValidator());
+            });
         }
     }
 }

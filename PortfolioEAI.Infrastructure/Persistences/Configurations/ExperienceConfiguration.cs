@@ -17,12 +17,6 @@ namespace PortfolioEAI.Infrastructure.Persistance.Configurations
                 .HasColumnType("varchar(50)")
                 .HasColumnName("Company");
 
-            builder.Property(e => e.Position)
-                .IsRequired()
-                .HasMaxLength(100)
-                .HasColumnType("varchar(100)")
-                .HasColumnName("Position");
-
             builder.Property(e => e.Description)
                 .IsRequired()
                 .HasMaxLength(1000)
@@ -31,33 +25,27 @@ namespace PortfolioEAI.Infrastructure.Persistance.Configurations
 
             builder.OwnsOne(a => a.ImageUrl, imageUrl =>
             {
-                imageUrl.Property(p => p.FileName)
-                    .IsRequired()
-                    .HasColumnType("varchar(100)")
-                    .HasMaxLength(100)
-                    .HasColumnName("FileName")
-                    .IsRequired(true);
+                imageUrl.Property(p => p.Name)
+                    .IsRequired(true)
+                    .HasMaxLength(255)
+                    .HasColumnType("varchar(255)");
 
-                imageUrl.Property(p => p.Title)
-                    .IsRequired()
-                    .HasColumnType("varchar(100)")
-                    .HasMaxLength(100)
-                    .HasColumnName("FileTitle")
-                    .IsRequired(true);
+                imageUrl.Property(p => p.Type)
+                    .IsRequired(true)
+                    .HasColumnType("varchar(127)")
+                    .HasMaxLength(127);
                 
-                imageUrl.Property(p => p.Url)
-                    .IsRequired()
-                    .HasColumnType("varchar(500)")
-                    .HasMaxLength(500)
-                    .HasColumnName("FileUrl")
-                    .IsRequired(true);
+                imageUrl.Property(p => p.Size)
+                    .IsRequired(true)
+                    .HasColumnType("bigint")
+                    .HasMaxLength(500);
 
-                imageUrl.Property(p => p.CreatedAt)
-                    .IsRequired()
-                    .HasColumnType("date")
-                    .HasColumnName("FileCreatedAt");
+                imageUrl.Property(p => p.Content)
+                    .IsRequired(true)
+                    .HasColumnType("LONGBLOB");
+                    
 
-                imageUrl.HasIndex(p => p.Url)
+                imageUrl.HasIndex(p => p.UploadedAt)
                     .IsUnique();
             });
 

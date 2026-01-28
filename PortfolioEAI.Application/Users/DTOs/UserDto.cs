@@ -1,3 +1,5 @@
+using PortfolioEAI.Application.StoredFiles.DTOs;
+
 namespace PortfolioEAI.Application.DTOs
 {
     public class UserDto
@@ -53,12 +55,19 @@ namespace PortfolioEAI.Application.DTOs
         /// It is used to determine the level of access and functionality available to the user within the application.
         /// Common roles might include "Admin", "Editor", "Viewer", etc.
         /// </summary>
-        public IReadOnlyList<string> Roles { get; set; } = new List<string>();
+        public string? Role { get; set; }
 
         /// <summary>
         ///  Description of the admin user.
         /// </summary>
         public string? Description { get; set; }
+
+        /// <summary>
+        /// Profession of the admin user.
+        /// This property represents the profession or job title of the admin user.
+        /// It is used for display purposes and to provide additional context about the user's background and expertise
+        /// </summary>
+        public string? Profession { get; set; }
 
         /// <summary>
         /// Gets or sets the postal address of the admin user.
@@ -69,6 +78,11 @@ namespace PortfolioEAI.Application.DTOs
         /// </summary>
         public string? Address { get; set; }
 
+        /// <summary>
+        /// File name of the photo
+        /// </summary>
+        public StoredFileDto? ProfilePhoto { get; set; }
+        
         /// <summary>
         /// Indicates whether the admin user is active.
         /// This property is a boolean value that specifies if the admin user account is currently active or not.
@@ -81,12 +95,12 @@ namespace PortfolioEAI.Application.DTOs
         /// List of skills associated with the admin user.
         /// This property holds a collection of skills that the admin user possesses.
         /// </summary>
-        public IList<Guid> Skills { get; set; } = [];
+        public IList<SkillDto> Skills { get; set; } = [];
 
         /// <summary>
         /// List of experiences associated with the admin user.
         /// </summary>
-        public IList<Guid> Experiences { get; set; } = [];
+        public IList<ExperienceDto> Experiences { get; set; } = [];
 
         public UserDto() { }
 
@@ -96,8 +110,11 @@ namespace PortfolioEAI.Application.DTOs
             UserName = dto.UserName;
             Email = dto.Email;
             Password = dto.Password;
-            Roles = dto.Roles;
+            Role = dto.Role;
             Description = dto.Description;
+            FirstName = dto.FirstName;
+            LastName = dto.LastName;
+            Profession = dto.Profession;
             Address = dto.Address;
             IsActive = dto.IsActive;
             Skills = dto.Skills;

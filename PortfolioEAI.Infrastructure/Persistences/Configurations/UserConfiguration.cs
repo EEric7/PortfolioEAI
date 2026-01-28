@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PortfolioEAI.Domain.Entities;
-using PortfolioEAI.Domain.ValueObjects;
 
 namespace PortfolioEAI.Infrastructure.Persistance.Configurations
 {
@@ -58,35 +57,41 @@ namespace PortfolioEAI.Infrastructure.Persistance.Configurations
                     .IsUnique();
             });
 
-            builder.OwnsOne(a => a.ProfilePhoto, profilePhoto =>
+            builder.OwnsOne(u => u.Role, role =>
             {
-                profilePhoto.Property(p => p.FileName)
-                    .IsRequired()
-                    .HasColumnType("varchar(100)")
-                    .HasMaxLength(100)
-                    .HasColumnName("FileName")
-                    .IsRequired(true);
-
-                profilePhoto.Property(p => p.Title)
-                    .IsRequired()
-                    .HasColumnType("varchar(100)")
-                    .HasMaxLength(100)
-                    .HasColumnName("FileTitle")
+                role.Property(p => p.Name)
+                    .HasColumnName("Role")
+                    .HasColumnType("varchar(30)")
+                    .HasMaxLength(30)
                     .IsRequired(true);
                 
-                profilePhoto.Property(p => p.Url)
-                    .IsRequired()
-                    .HasColumnType("varchar(500)")
-                    .HasMaxLength(500)
-                    .HasColumnName("FileUrl")
-                    .IsRequired(true);
+                role.HasIndex(p => p.Id)
+                    .IsUnique();
+            });
 
-                profilePhoto.Property(p => p.CreatedAt)
-                    .IsRequired()
-                    .HasColumnType("date")
-                    .HasColumnName("FileCreatedAt");
+           builder.OwnsOne(a => a.ProfilePhoto, imageUrl =>
+            {
+                imageUrl.Property(p => p.Name)
+                    .IsRequired(true)
+                    .HasMaxLength(255)
+                    .HasColumnType("varchar(255)");
 
-                profilePhoto.HasIndex(p => p.Url)
+                imageUrl.Property(p => p.Type)
+                    .IsRequired(true)
+                    .HasColumnType("varchar(127)")
+                    .HasMaxLength(127);
+                
+                imageUrl.Property(p => p.Size)
+                    .IsRequired(true)
+                    .HasColumnType("bigint")
+                    .HasMaxLength(500);
+
+                imageUrl.Property(p => p.Content)
+                    .IsRequired(true)
+                    .HasColumnType("LONGBLOB");
+                    
+
+                imageUrl.HasIndex(p => p.UploadedAt)
                     .IsUnique();
             });
             
@@ -116,10 +121,6 @@ namespace PortfolioEAI.Infrastructure.Persistance.Configurations
                     .HasMaxLength(100)
                     .IsRequired(false);
             });
-
-            builder.Navigation("_roles")
-                .HasField("_roles")
-                .UsePropertyAccessMode(PropertyAccessMode.Field);
             
             builder.Navigation("_skills")
                 .HasField("_skills")
@@ -128,12 +129,6 @@ namespace PortfolioEAI.Infrastructure.Persistance.Configurations
             builder.Navigation("_experiences")
                 .HasField("_experiences")
                 .UsePropertyAccessMode(PropertyAccessMode.Field);
-            
-            builder.HasMany<Role>("_roles")
-                .WithOne()
-                .OnDelete(DeleteBehavior.Cascade)
-                .HasForeignKey("IdUser")
-                .IsRequired(true);
 
             builder.HasMany<Skill>("_skills")
                 .WithOne()

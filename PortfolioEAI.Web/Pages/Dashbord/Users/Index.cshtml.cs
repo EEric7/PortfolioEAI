@@ -31,7 +31,7 @@ namespace PortfolioEAI.Web.Pages.Dashbord.Users
                     ModelState.AddModelError(string.Empty, "User not found.");
                 }
 
-                UserIndexModel.Users = result.Value!.ToList();
+                UserIndexModel.DTOs = result.Value!.ToList();
             }
             catch (Exception ex)
             {

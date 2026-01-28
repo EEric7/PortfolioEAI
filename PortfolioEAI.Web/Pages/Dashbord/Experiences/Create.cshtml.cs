@@ -1,67 +1,54 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using PortfolioEAI.Web.Application.DTOs;
-using PortfolioEAI.Web.Application.Services.Interfaces;
+using PortfolioEAI.Application.Interfaces.UserPorts;
+using PortfolioEAI.Web.Models;
 
 namespace PortfolioEAI.Web.Pages.Dashbord.Experiences
 {
     public class CreateModel : PageModel
     {
-        private readonly IDashbordService _services;
-        private readonly IPhotoService _photoService;
+        private readonly IMediator _services;
 
-        public CreateModel(IDashbordService services, IPhotoService photoService)
+        private readonly ILogger<CreateModel> _logger;
+
+        public CreateModel(IMediator services, ILogger<CreateModel> logger)
         {
             _services = services;
-            _photoService = photoService;
+            _logger = logger;
         }
 
-        public IActionResult OnGet()
-        {
-            return Page();
-        }
+        public IActionResult OnGet() => Page();
 
         [BindProperty]
-        public List<Tuple<string, string>> MenuModel { get; set; } = new List<Tuple<string, string>>()
-        {
-            new Tuple<string, string>("Dashbord", "/Dashbord/Home"),
-            new Tuple<string, string>("Experiences", "/Dashbord/Experiences/"),
-            new Tuple<string, string>("Skills", "/Dashbord/Skills/"),
-            new Tuple<string, string>("Setting", "/Dashbord/AdminUsers/"),
-            new Tuple<string, string>("SignOut", "/Authentication/SignInOut")
-        };
-
-        [BindProperty]
-        public ExperienceDto Experience { get; set; } = default!;
-        
-        [BindProperty]
-        public IFormFile? PhotoFile { get; set; }
+        public ExperienceCreateModel ExperienceCreateModel { get; set; } = new ExperienceCreateModel();
 
         public async Task<IActionResult> OnPostAsync()
         {
             try
             {
                 if (!ModelState.IsValid)
-                return Page();
+                    return Page();
 
-                if (await _services.ExperienceExistsAsync(Experience))
+                //TODO: Set the PhotoFile if exists
+
+                var result = await _services.Send(new AddExpUserCommand(ExperienceCreateModel.UserId, ExperienceCreateModel.Experience));
+
+                if (!result.IsSuccess)
                 {
-                    ModelState.AddModelError(string.Empty, "An experience with the same title and company already exists.");
+                    ModelState.AddModelError(string.Empty, result.Info!);
+                    _logger.LogError(result.Info!);
                     return Page();
                 }
-
-                if (PhotoFile != null && _photoService.IsValidPhotoFile(PhotoFile))
-                {
-                    string photoUrl = await _photoService.UploadPhotoAsync(PhotoFile, "uploads/experiences");
-                    Experience.ImageUrl = photoUrl;
-                }
-
-                await _services.AddExperienceAsync(Experience);
+                    
+                _logger.LogInformation(result.Info, result.Value);
                 return RedirectToPage("./Index");
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError(string.Empty, $"An error occurred while checking for existing experiences: {ex.Message}");
+                string msg = $"An error occurred while checking for existing experiences: {ex.Message}";
+                ModelState.AddModelError(string.Empty, msg);
+                _logger.LogError(msg);
                 return NotFound();
             }
         }

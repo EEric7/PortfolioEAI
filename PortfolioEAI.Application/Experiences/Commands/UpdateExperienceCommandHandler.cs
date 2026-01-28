@@ -7,30 +7,28 @@ namespace PortfolioEAI.Application.Experiences.Commands
 {
     public class UpdateExperienceCommandHandler
     {
+        // Repository for experience data access
         private readonly IExperienceRepository _repository;
 
-        public UpdateExperienceCommandHandler(IExperienceRepository repository)
-        {
-            _repository = repository;
-        }
+        // Constructor to inject the experience repository
+        public UpdateExperienceCommandHandler(IExperienceRepository repository) => _repository = repository;
 
+        // Handle method to process the update experience command
         public async Task<Result<Guid>> Handle(UpdateExperienceCommand command, CancellationToken ct)
         {
             try
             {
                 //Fetch the existing experience
-                Experience? experience = await _repository.Get(command.experience.Id, ct);
+                Experience? experience = await _repository.Get(x => x.Id == command.Dto.Id, ct);
 
                 // Check if experience exists
                 if (experience is null)
                     return Result<Guid>.Success(default, "Experience not found.");
 
                 // Update experience details
-                experience.SetCompany(command.experience.Company);
-                experience.SetPosition(command.experience.Position);
-                experience.SetDescription(command.experience.Description);
-
-                //TODO: Update ImageUrl
+                experience.SetCompany(command.Dto.Company);
+                experience.SetDescription(command.Dto.Description);
+                // experience.SetImageUrl(command.Dto.ImageUrl);
 
                 // Save the updated experience
                 await _repository.Update(experience, ct);

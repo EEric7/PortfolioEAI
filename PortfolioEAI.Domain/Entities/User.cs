@@ -1,4 +1,5 @@
 using PortfolioEAI.Domain.Common;
+using PortfolioEAI.Domain.Enums;
 using PortfolioEAI.Domain.Exceptions;
 using PortfolioEAI.Domain.ValueObjects;
 
@@ -6,7 +7,6 @@ namespace PortfolioEAI.Domain.Entities
 {
     public class User : AggregateRoot
     {
-        private readonly HashSet<Role> _roles = [];
         private readonly List<Skill> _skills = [];
         private readonly List<Experience> _experiences  = [];
 
@@ -14,11 +14,12 @@ namespace PortfolioEAI.Domain.Entities
         public string? Lastname { get; private set; } = string.Empty;
         public string? DisplayName { get; private set; } = default;
         public string? Description { get; private set; } = string.Empty;
+        public string Profession { get; private set; } = string.Empty;
         public Email Email { get; private set; }
         public Password Password { get; private set; }
-        public Photo? ProfilePhoto { get; private set; } = default;
+        public StoredFile? ProfilePhoto { get; private set; } = default;
+        public Roles Role { get; private set; } = Roles.Visitor;
         public PostalAddress? Address { get; private set; } = default;
-        public IReadOnlyCollection<Role> Roles => _roles.ToList().AsReadOnly();
         public IReadOnlyCollection<Skill> Skills => _skills.AsReadOnly();       
         public IReadOnlyCollection<Experience> Experiences => _experiences.AsReadOnly();
 
@@ -122,6 +123,18 @@ namespace PortfolioEAI.Domain.Entities
             }
         }
 
+        public void SetProfession(string? value)
+        {
+            try
+            {
+                Profession = ValidateProfession(value);
+            }
+            catch (Exception ex)
+            {
+                throw new BusinessRuleViolationException(ex.Message, ex);
+            }
+        }
+
         /// <summary>
         /// Sets the email address of the admin user.
         /// This method allows you to set or update the email address of the admin user.
@@ -174,7 +187,7 @@ namespace PortfolioEAI.Domain.Entities
         /// If a valid photo is provided, it will be assigned to the ProfilePhoto property.
         /// </summary>
         /// <param name="photo"></param>
-        public void SetProfilePhoto(Photo? photo)
+        public void SetProfilePhoto(StoredFile? photo)
         {
             if (photo is null)
                 ProfilePhoto = null;
@@ -188,15 +201,15 @@ namespace PortfolioEAI.Domain.Entities
         ///     It clears any existing roles and adds the provided roles to the user's role collection.
         /// </summary>
         /// <param name="roles"></param>
-        public void SetRoles(IEnumerable<string>? roles)
+        public void SetRole(string? value)
         {
-            _roles.Clear();
-            if (roles is not null)
+            try
             {
-                foreach (var role in roles)
-                {
-                    _roles.Add(Role.Create(role));
-                }
+                Role = ValidateRole(value);
+            }
+            catch (Exception ex)
+            {
+                throw new BusinessRuleViolationException(ex.Message, ex);
             }
         }
 
@@ -209,7 +222,8 @@ namespace PortfolioEAI.Domain.Entities
         public void SetSkills(IEnumerable<Skill> skills)
         {    
             _skills.Clear();
-            AddSkill(skills);
+            foreach (var skill in skills)
+                AddSkill(skill);
         }
         /// <summary>
         ///    Sets the experiences of the admin user.
@@ -220,7 +234,8 @@ namespace PortfolioEAI.Domain.Entities
         public void SetExperiences(IEnumerable<Experience> experiences)
         {
             _experiences.Clear();
-            AddExperience(experiences);
+            foreach (var experience in experiences)
+                AddExperience(experience);
         }
 
         /// <summary>
@@ -232,32 +247,21 @@ namespace PortfolioEAI.Domain.Entities
         /// <param name="value"></param>
         /// <returns></returns>
         /// <exception cref="BusinessRuleViolationException"></exception>
-        public void AddSkill(Skill value)
+        public bool AddSkill(Skill value)
         {
             try
             {
                 bool exists = _skills.Any(s => s.Id == value.Id || s.Name == value.Name);
 
                 if (exists)
-                    return;
+                    return false;
 
                 _skills.Add(value);
+                return true;
             }
             catch (Exception ex)
             {
                 throw new BusinessRuleViolationException(ex.Message, ex);
-            }
-        }
-
-        /// <summary>
-        ///   Adds multiple skills to the admin user.
-        /// </summary>
-        /// <param name="values"></param>
-        public void AddSkill(IEnumerable<Skill> values)
-        {
-            foreach (var value in values)
-            {
-                AddSkill(value);
             }
         }
         
@@ -306,33 +310,21 @@ namespace PortfolioEAI.Domain.Entities
         /// </summary>
         /// <param name="value"></param>
         /// <exception cref="BusinessRuleViolationException"></exception>
-        public void AddExperience(Experience value)
+        public bool AddExperience(Experience value)
         {
             try
             {
-                bool exists = _experiences.Any(e => e.Id == value.Id || e.Company == value.Company);
+                bool exists = _experiences.Any(e => e.Id == value.Id && e.Company == value.Company);
 
                 if (exists)
-                    return;
+                    return false;
 
                 _experiences.Add(value);
+                return true;
             }
             catch (Exception ex)
             {
                 throw new BusinessRuleViolationException(ex.Message, ex);
-            }
-        }
-
-        /// <summary>
-        ///     Adds multiple experiences to the admin user.
-        /// </summary>
-        /// <param name="values"></param>
-        /// <exception cref="BusinessRuleViolationException"></exception>
-        public void AddExperience(IEnumerable<Experience> values)
-        {
-            foreach (var value in values)
-            {
-                AddExperience(value);
             }
         }
 
@@ -342,39 +334,25 @@ namespace PortfolioEAI.Domain.Entities
         /// <param name="expID"></param>
         /// <param name="value"></param>
         /// <exception cref="BusinessRuleViolationException"></exception>
-        public void AddProject(Guid expID, Project value)
+        public bool AddProject(Guid expID, Project value)
         {
             try
             {
                 int index = _experiences.FindIndex(e => e.Id == expID);
 
                 if (index == -1)
-                    return;
+                    return false;
 
-                bool exists = _experiences[index].Projects.Any(p => p.Id == value.Id || p.Title == value.Title);
+                bool exists = _experiences[index].Projects.Any(p => p.Id == value.Id && p.Title == value.Title && p.Description == value.Description);
 
                 if (exists)
-                    return;
+                    return false;
 
-                _experiences[index].AddProject(value);
+                return _experiences[index].AddProject(value);
             }
             catch (Exception ex)
             {
                 throw new BusinessRuleViolationException(ex.Message, ex);
-            }
-        }
-
-        /// <summary>
-        ///  Adds multiple projects to a specific experience of the admin user.
-        /// </summary>
-        /// <param name="expID"></param>
-        /// <param name="values"></param>
-        /// <exception cref="BusinessRuleViolationException"></exception>
-        public void AddProject(Guid expID, IEnumerable<Project> values)
-        {
-            foreach (var value in values)
-            {
-                AddProject(expID, value);
             }
         }
 
@@ -468,6 +446,26 @@ namespace PortfolioEAI.Domain.Entities
         }
 
         /// <summary>
+        /// Validates the role of the user.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        /// <exception cref="BusinessRuleViolationException"></exception>
+        private static Roles ValidateRole(string? value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+                throw new BusinessRuleViolationException("Role is required.", new ArgumentNullException(nameof(value)));
+
+            return value switch
+            {
+                "Admin" => Roles.Admin,
+                "User" => Roles.User,
+                "Visitor" => Roles.Visitor,
+                _ => throw new BusinessRuleViolationException("Invalid role.", new ArgumentException(nameof(value))),
+            };
+        }
+
+        /// <summary>
         /// Validates the description of the user.
         /// </summary>
         /// <param name="value"></param>
@@ -477,6 +475,19 @@ namespace PortfolioEAI.Domain.Entities
         {
             if (string.IsNullOrWhiteSpace(value))
                 throw new BusinessRuleViolationException("Description is required.", new ArgumentNullException(nameof(value)));
+
+            return value;
+        }
+
+        /// <summary>
+        /// Validates the profession of the user.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        private static string ValidateProfession (string? value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+                throw new BusinessRuleViolationException("Profession is required.", new ArgumentNullException(nameof(value)));
 
             return value;
         }

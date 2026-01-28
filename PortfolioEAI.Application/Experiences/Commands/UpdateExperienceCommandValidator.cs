@@ -1,4 +1,5 @@
 using FluentValidation;
+using PortfolioEAI.Application.Experiences.DTOs;
 using PortfolioEAI.Application.Interfaces;
 
 namespace PortfolioEAI.Application.Experiences.Commands
@@ -7,18 +8,12 @@ namespace PortfolioEAI.Application.Experiences.Commands
     {
         public UpdateExperienceCommandValidator()
         {
-            RuleFor(x => x.experience)
+            RuleFor(x => x.Dto)
                 .NotNull().WithMessage("Experience data must be provided.");
 
-            When(x => x.experience != null, () =>
+            When(x => x.Dto != null, () =>
             {   
-                RuleFor(x => x.experience.Id)
-                    .NotEqual(Guid.Empty).WithMessage("Experience ID must be provided.");
-                RuleFor(x => x.experience.Company)
-                    .NotEmpty().WithMessage("Company name is required.");
-                RuleFor(x => x.experience.Position)
-                    .NotEmpty().WithMessage("Position is required.");
-                // Additional rules can be added as needed
+                RuleFor(x => x.Dto).SetValidator(new ExperienceDtoValidator());
             });
         }
     }

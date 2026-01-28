@@ -1,51 +1,48 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using PortfolioEAI.Web.Application.DTOs;
-using PortfolioEAI.Web.Application.Services.Interfaces;
+using PortfolioEAI.Application.Interfaces;
+using PortfolioEAI.Web.Models;
 
 namespace PortfolioEAI.Web.Pages.Dashbord.Experiences
 {
     public class EditModel : PageModel
     {
-        private readonly IDashbordService _services;
+        private readonly IMediator _services;
+        private readonly ILogger<EditModel> _logger;
 
-        public EditModel(IDashbordService services)
+        public EditModel(IMediator services, ILogger<EditModel> logger)
         {
             _services = services;
+            _logger = logger;
         }
 
         [BindProperty]
-        public List<Tuple<string, string>> MenuModel { get; set; } = new List<Tuple<string, string>>()
-        {
-            new Tuple<string, string>("Dashbord", "/Dashbord/Home"),
-            new Tuple<string, string>("Experiences", "/Dashbord/Experiences/"),
-            new Tuple<string, string>("Skills", "/Dashbord/Skills/"),
-            new Tuple<string, string>("Setting", "/Dashbord/AdminUsers/"),
-            new Tuple<string, string>("SignOut", "/Authentication/SignInOut")
-        };
-
-        [BindProperty]
-        public ExperienceDto Experience { get; set; } = default!;
+        public EditeExperienceModel EditeExperienceModel { get; set; } = new EditeExperienceModel();
 
         public async Task<IActionResult> OnGetAsync(Guid id)
         {
             try
             {
                 // Attempt to retrieve the experience by ID
-                var experience = await _services.GetExperienceByIdAsync(id);
+                var result = await _services.Send(new GetExperienceQuery(id));
 
-                if (experience is null)
+                if (!result.IsSuccess)
                 {
-                    ModelState.AddModelError(string.Empty, "Experience not found.");
+                    ModelState.AddModelError(string.Empty, result.Info!);
+                    _logger.LogWarning(result.Info, result.Value);
                     return RedirectToPage("./Index");
                 }
                 
-                Experience = experience;
+                EditeExperienceModel.Dto = result.Value!;
+                _logger.LogInformation(result.Info, result.Value);
                 return Page();
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError(string.Empty, $"An error occurred while update experiences: {ex.Message}");
+                string msg = $"An error occurred while retrieving experience with ID {id}: {ex.Message}";
+                ModelState.AddModelError(string.Empty, msg);
+                _logger.LogError(msg);
                 return NotFound();
             }
         }
@@ -59,15 +56,24 @@ namespace PortfolioEAI.Web.Pages.Dashbord.Experiences
                 if (!ModelState.IsValid)
                 return Page();
 
-                if (await _services.ExperienceExistsAsync(Experience))
-                    return NotFound();
+                var result = await _services.Send(new UpdateExperienceCommand(EditeExperienceModel.Dto));
 
-                await _services.UpdateExperienceAsync(Experience);
+                if(!result.IsSuccess)
+                {
+                    ModelState.AddModelError(string.Empty, result.Info!);
+                    _logger.LogWarning(result.Info);
+                    return Page();
+                }
+
+                _logger.LogWarning(result.Info);
                 return RedirectToPage("./Index");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-               return NotFound();
+                string msg = $"An error occurred while updating experience: {ex.Message}";
+                ModelState.AddModelError(string.Empty, msg);
+                _logger.LogError(msg);
+                return NotFound();
             }
         }
     }

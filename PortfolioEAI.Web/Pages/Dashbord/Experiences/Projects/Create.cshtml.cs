@@ -1,56 +1,48 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using PortfolioEAI.Web.Application.DTOs;
-using PortfolioEAI.Web.Application.Services.Interfaces;
+using PortfolioEAI.Application.Interfaces;
+using PortfolioEAI.Web.Models;
 
 namespace PortfolioEAI.Web.Pages.Experiences.Projects
 {
     public class CreateModel : PageModel
     {
-        private readonly IDashbordService _services;
-        private readonly IPhotoService _photoService;
+        private readonly IMediator _services;
+        private readonly ILogger<CreateModel> _logger;
 
-        public CreateModel(IDashbordService services, IPhotoService photoService)
+        public CreateModel(IMediator services, ILogger<CreateModel> logger)
         {
             _services = services;
-            _photoService = photoService;
+            _logger = logger;
         }
 
         [BindProperty]
-        public List<Tuple<string, string>> MenuModel { get; set; } = new List<Tuple<string, string>>()
-        {
-            new Tuple<string, string>("Dashbord", "/Dashbord/Home"),
-            new Tuple<string, string>("Experiences", "/Dashbord/Experiences/"),
-            new Tuple<string, string>("Skills", "/Dashbord/Skills/"),
-            new Tuple<string, string>("Setting", "/Dashbord/AdminUsers/"),
-            new Tuple<string, string>("SignOut", "/Authentication/SignInOut")
-        };
-
-        [BindProperty]
-        public ProjectDto Project { get; set; } = default!;
-
-        [BindProperty]
-        public IFormFile? PhotoFile { get; set; }
-
-        public Guid ExperienceId { get; set; } = default!;
+        public ProjectCreateModel ProjectCreateModel { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(Guid experienceId)
         {
             try
             {
-                // Attempt to retrieve the experience by ID
-                ExperienceId = (await _services.GetExperienceByIdAsync(experienceId))?.Id??Guid.Empty;
+                ModelState.Clear();
+                var result = await _services.Send(new GetExperienceQuery(experienceId));
 
-                if (ExperienceId == Guid.Empty)
+                if(!result.IsSuccess || result.Value == null)
                 {
-                    ModelState.AddModelError(string.Empty, "Experience not found.");
-                    return RedirectToPage("./Index");
+                    ModelState.AddModelError(string.Empty, "Unable to load experience details.");
+                    _logger.LogWarning(result.Info, result.Value);
+                    return RedirectToPage("./Index");   
                 }
+
+                ProjectCreateModel.ExperienceDTO = result.Value;
+                _logger.LogInformation(result.Info, result.Value);
+
                 return Page();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                ModelState.AddModelError(string.Empty, "An error occurred while retrieving the experience details.");
+                ModelState.AddModelError(string.Empty, "An error occurred while retrieving the experience details: " + ex.Message);
+                _logger.LogError(ex, "An error occurred while retrieving the experience details.");
                 return NotFound();
             }
         }
@@ -61,45 +53,26 @@ namespace PortfolioEAI.Web.Pages.Experiences.Projects
             {
                 if (!ModelState.IsValid)
                     return Page();
-                
-                if (await ProjectExistsAsync(Project))
+
+                ProjectCreateModel.ExperienceDTO!.Projects.Add(ProjectCreateModel.DTO!);
+                var result = await _services.Send(new UpdateExperienceCommand(ProjectCreateModel.ExperienceDTO));
+
+                if (!result.IsSuccess || result.Value == Guid.Empty)
                 {
-                    ModelState.AddModelError(string.Empty, "A project with the same title and description already exists.");
+                    ModelState.AddModelError(string.Empty, result.Info!);
+                    _logger.LogWarning(result.Info, result.Value);
                     return Page();
                 }
 
-                var experience = await _services.GetExperienceByIdAsync(ExperienceId);
-                if (experience is null)
-                {
-                    ModelState.AddModelError(string.Empty, "The associated experience was not found.");
-                    return Page();
-                }
-
-                if (PhotoFile != null && _photoService.IsValidPhotoFile(PhotoFile))
-                {
-                    string photoUrl = await _photoService.UploadPhotoAsync(PhotoFile, "uploads/projects");
-                    Project.ImageUrl = photoUrl;
-                }
-
-                experience.Projects.Add(Project);
-                await _services.UpdateExperienceAsync(experience);
-                
-                TempData["SuccessMessage"] = "Projet créé avec succès.";
-                return Page();
+                //TODO: Get ID of created project and handle photo upload
+                _logger.LogInformation(result.Info, result.Value);
+                return RedirectToPage("./Index", new { experienceId = result.Value });
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, $"An error occurred while creating the project: {ex.Message}");
                 return NotFound();
             }
-        }
-
-        private async Task<bool> ProjectExistsAsync(ProjectDto dto)
-        {
-            var projects = await _services.GetAllProjectsAsync();
-            var existingProject = projects.FirstOrDefault(e => e.Title == dto.Title && e.Description == dto.Description);
-
-            return existingProject != null;
         }
     }
 }

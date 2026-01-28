@@ -60,20 +60,20 @@ namespace PortfolioEAI.Infrastructure.Persistance
 
             var projectsParagon = new Project[]
             {
-                Project.Create("Logiciel de gestion d'impression de carte NFT.", "Pour répondre à un besoin d'externalisation d'un procédé d'impression et d'encodage de cartes, Paragon ID a développé un progiciel S-Printbox. Cette solution de gestion des impressions et d'encodage qui permet au client d'accéder aux services d'impression spécifique et d'utiliser les imprimantes dédiées.", DateOnly.Parse("2018/6/10"), DateOnly.Parse("2021/9/25"))
+                Project.Create("Logiciel de gestion d'impression de carte NFT.", "Pour répondre à un besoin d'externalisation d'un procédé d'impression et d'encodage de cartes, Paragon ID a développé un progiciel S-Printbox. Cette solution de gestion des impressions et d'encodage qui permet au client d'accéder aux services d'impression spécifique et d'utiliser les imprimantes dédiées.", "Consultant It", DateOnly.Parse("2018/6/10"), DateOnly.Parse("2021/9/25"))
             };
 
             var projectsEID = new Project[]
             {
-                Project.Create("Application de gestion des interventions de maintenance.", "Dans le cadre d'une digitalisation des processus internes, Euro Information a mis en place une application web de gestion des interventions de maintenance. Cette application permet de planifier, suivre et documenter les interventions de maintenance sur les équipements informatiques de l'entreprise.", DateOnly.Parse("2022/3/1"), DateOnly.Parse("2024/12/31")),
-                Project.Create("Système de reporting automatisé.", "Pour améliorer la prise de décision basée sur les données, Euro Information a développé un système de reporting automatisé. Ce système collecte des données à partir de diverses sources, les analyse et génère des rapports détaillés pour les équipes de gestion.", DateOnly.Parse("2022/3/1"), DateOnly.Parse("2024/12/31")),
-                Project.Create("Plateforme de formation en ligne pour les employés.", "Afin de favoriser le développement des compétences internes, Euro Information a lancé une plateforme de formation en ligne. Cette plateforme offre une variété de cours et de ressources éducatives pour aider les employés à améliorer leurs compétences techniques et professionnelles.", DateOnly.Parse("2022/3/1"), DateOnly.Parse("2024/12/31"))
+                Project.Create("Application de gestion des interventions de maintenance.", "Dans le cadre d'une digitalisation des processus internes, Euro Information a mis en place une application web de gestion des interventions de maintenance. Cette application permet de planifier, suivre et documenter les interventions de maintenance sur les équipements informatiques de l'entreprise.","Apprentis manager en systèmes d’information", DateOnly.Parse("2022/3/1"), DateOnly.Parse("2024/12/31")),
+                Project.Create("Système de reporting automatisé.", "Pour améliorer la prise de décision basée sur les données, Euro Information a développé un système de reporting automatisé. Ce système collecte des données à partir de diverses sources, les analyse et génère des rapports détaillés pour les équipes de gestion.", "Apprentis manager en systèmes d’information", DateOnly.Parse("2022/3/1"), DateOnly.Parse("2024/12/31")),
+                Project.Create("Plateforme de formation en ligne pour les employés.", "Afin de favoriser le développement des compétences internes, Euro Information a lancé une plateforme de formation en ligne. Cette plateforme offre une variété de cours et de ressources éducatives pour aider les employés à améliorer leurs compétences techniques et professionnelles.", "Apprentis manager en systèmes d’information", DateOnly.Parse("2022/3/1"), DateOnly.Parse("2024/12/31"))
             };
             
-            var expOne = Experience.Create("Euro Information", "Consultant It", "Développement d'applications web");
+            var expOne = Experience.Create("Euro Information", "Développement d'applications web");
             projectsEID.ToList().ForEach(p => expOne.AddProject(p));
             
-            var expTwo = Experience.Create("Paragon ID", "Apprentis manager en systèmes d’information", "Développement d'applications logiciel");
+            var expTwo = Experience.Create("Paragon ID", "Développement d'applications logiciel");
             projectsParagon.ToList().ForEach(p => expTwo.AddProject(p));
 
             var experiences = new Experience[]

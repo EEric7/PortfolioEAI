@@ -1,50 +1,55 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using PortfolioEAI.Web.Application.DTOs;
-using PortfolioEAI.Web.Application.Services.Interfaces;
+using PortfolioEAI.Application.Interfaces;
+using PortfolioEAI.Web.Models;
 
 namespace PortfolioEAI.Web.Pages.Dashbord.Experiences
 {
     public class DetailsModel : PageModel
     {
-        private readonly IDashbordService _services;
+        // Dependencies
+        private readonly IMediator _services;
+        private readonly ILogger<DetailsModel> _logger;
 
-        public DetailsModel(IDashbordService services)
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="logger"></param>
+        public DetailsModel(IMediator services, ILogger<DetailsModel> logger)
         {
             _services = services;
+            _logger = logger;
         }
 
         [BindProperty]
-        public List<Tuple<string, string>> MenuModel { get; set; } = new List<Tuple<string, string>>()
-        {
-            new Tuple<string, string>("Dashbord", "/Dashbord/Home"),
-            new Tuple<string, string>("Experiences", "/Dashbord/Experiences/"),
-            new Tuple<string, string>("Skills", "/Dashbord/Skills/"),
-            new Tuple<string, string>("Setting", "/Dashbord/AdminUsers/"),
-            new Tuple<string, string>("SignOut", "/Authentication/SignInOut")
-        };
-
-        public ExperienceDto Experience { get; set; } = default!;
+        public DetailsExperienceModel DetailsExperienceModel { get; set; } = new DetailsExperienceModel();
 
         public async Task<IActionResult> OnGetAsync(Guid id)
         {
             try
             {
+                ModelState.Clear();
                 // Attempt to retrieve the experience by ID
-                var experienceDto = await _services.GetExperienceByIdAsync(id);
+                var result = await _services.Send(new GetExperienceQuery(id));
 
-                if (experienceDto is null)
+                if (!result.IsSuccess)
                 {
                     ModelState.AddModelError(string.Empty, "Experience not found.");
+                    _logger.LogError(result.Info!);
                     return RedirectToPage("./Index");
                 }
 
-                Experience = experienceDto;
+                DetailsExperienceModel.DTO = result.Value!;
+                _logger.LogInformation("Experience retrieved successfully: {ExperienceId}", id);
                 return Page();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                ModelState.AddModelError(string.Empty, "An error occurred while retrieving the experience details.");
+                string msg = "An error occurred while retrieving the experience details. : " + ex.Message;
+                ModelState.AddModelError(string.Empty, msg);
+                _logger.LogError(msg);
                 return NotFound();
             }
         }

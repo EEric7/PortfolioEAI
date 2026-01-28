@@ -1,13 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
-using PortfolioEAI.Web.Domain.Ressources;
-using PortfolioEAI.Web.Application.DTOs;
+using PortfolioEAI.Application.DTOs;
+using PortfolioEAI.Web.Models;
 
 namespace PortfolioEAI.Web.Application.Models
 {
     public class AccueilModel 
     {
         [BindProperty]
-        public AdminUserModel? AdminUserModel { get; set; } = default;
+        public UserModel? DTO { get; set; } = default;
         [BindProperty]
         public List<SkillModel> SkillsModelLanguages { get; set; } = new List<SkillModel>();
         [BindProperty]
@@ -19,30 +19,31 @@ namespace PortfolioEAI.Web.Application.Models
 
         public AccueilModel() {}
 
-        public AccueilModel(AdminUserDto dto)
+        public void SetUserModel(UserDto userDto)
         {
-            AdminUserModel = new AdminUserModel(dto);
-
-            SkillsModelLanguages = AdminUserModel.Skills.Select(x => new SkillModel(x))
-                                    .Where(s => s.Category == Domain.Enums.SkillCategory.Languages)
-                                    .OrderBy(z => z.Name)
-                                    .ToList();
-
-            SkillsModelFrameworks = AdminUserModel.Skills.Select(x => new SkillModel(x))
-                                    .Where(s => s.Category == Domain.Enums.SkillCategory.Framwork)
-                                    .OrderBy(z => z.Name)
-                                    .ToList();
-
-            SkillsModelDesign = AdminUserModel.Skills.Select(x => new SkillModel(x))
-                                .Where(s => s.Category == Domain.Enums.SkillCategory.Design)
-                                .OrderBy(z => z.Name)
-                                .ToList();
-
-            ProjectModelDisplay = AdminUserModel.Experiences.SelectMany(e => e.Projects)
-                                    .Select(x => new ProjectModel(x))
-                                    .Take(3)
-                                    .ToList() ?? new List<ProjectModel>();
+            DTO = new UserModel(userDto);
+            SetSkills(userDto.Skills);
         }
-        
+
+        private void SetSkills(IList<SkillDto> DTOs)
+        {
+            SkillsModelLanguages = DTOs
+                .Where(s => s.Category == "Languages")
+                .Select(s => new SkillModel(s))
+                .OrderBy(z => z.Name)
+                .ToList();
+
+            SkillsModelFrameworks = DTOs
+                .Where(s => s.Category == "Framework")
+                .Select(s => new SkillModel(s))
+                .OrderBy(z => z.Name)
+                .ToList();
+
+            SkillsModelDesign = DTOs
+                .Where(s => s.Category == "Design")
+                .Select(s => new SkillModel(s))
+                .OrderBy(z => z.Name)
+                .ToList();
+        }
     }
 }

@@ -4,14 +4,14 @@
 @using PortfolioEAI.Web.Ressources
 @model IndexModel
 @{
-    ViewData["Title"] = Model.AccueilModel?.UserModel?.UserName ?? UIText.DefaultTitle;
-    ViewData["SubTitle"] = Model.AccueilModel?.UserModel?.Profession ?? UIText.DefaultProfession;
-    ViewData["UserName"] = Model.AccueilModel?.UserModel?.UserName;
-    ViewData["Description"] = Model.AccueilModel?.UserModel?.Description;
-    ViewData["Address"] = Model.AccueilModel?.UserModel?.Address;
-    ViewData["GITEmail"] = Model.AccueilModel?.UserModel?.EmailGitHub;
-    ViewData["EMail"] = Model.AccueilModel?.UserModel?.Email;
-    ViewData["PhoneNumber"] = Model.AccueilModel?.UserModel?.PhoneNumber;
+    ViewData["Title"] = Model.AccueilModel?.DTO?.UserName ?? UIText.DefaultTitle;
+    ViewData["SubTitle"] = Model.AccueilModel?.DTO?.Profession ?? UIText.DefaultProfession;
+    ViewData["UserName"] = Model.AccueilModel?.DTO?.UserName;
+    ViewData["Description"] = Model.AccueilModel?.DTO?.Description;
+    ViewData["Address"] = Model.AccueilModel?.DTO?.Address;
+    ViewData["GITEmail"] = Model.AccueilModel?.DTO?.EmailGitHub;
+    ViewData["EMail"] = Model.AccueilModel?.DTO?.Email;
+    ViewData["PhoneNumber"] = Model.AccueilModel?.DTO?.PhoneNumber;
 
     // Determine if there are skills and projects to display
     Boolean hasSkills = Model.AccueilModel?.SkillsModelLanguages is null ? false : Model.AccueilModel.SkillsModelLanguages.Any();
