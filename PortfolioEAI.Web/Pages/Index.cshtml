@@ -19,7 +19,7 @@
     int dispatch = Model.AccueilModel?.ProjectModelDisplay is null ? 0 : Model.AccueilModel.ProjectModelDisplay.Count();
 }
 
-@await Html.PartialAsync("_Menu")
+@await Html.PartialAsync("_Menu", Model.AccueilModel?.MenuModel)
 
 <!--Master Head-->
 <header class="masthead">

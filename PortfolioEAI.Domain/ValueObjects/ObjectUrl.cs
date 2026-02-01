@@ -68,10 +68,9 @@ namespace PortfolioEAI.Domain.ValueObjects
             if (string.IsNullOrWhiteSpace(value))
                 throw new BusinessRuleViolationException("The project URL is required.", new ArgumentNullException(nameof(value)));
 
-#if !DEBUG
             if (!Uri.IsWellFormedUriString(value, UriKind.Absolute))
                 throw new BusinessRuleViolationException("The project URL is invalid.", new ArgumentException(nameof(value)));
-#endif
+                
             return value;
         }
     }

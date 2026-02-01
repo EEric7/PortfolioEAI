@@ -8,8 +8,7 @@ namespace PortfolioEAI.Infrastructure.Persistance.Configurations
     {
         public void Configure(EntityTypeBuilder<Experience> builder)
         {
-            builder.HasKey(e => e.Id)
-                .HasName("IdExperience");
+            builder.HasKey(e => e.Id);
 
             builder.Property(e => e.Company)
                 .IsRequired()
@@ -23,37 +22,36 @@ namespace PortfolioEAI.Infrastructure.Persistance.Configurations
                 .HasColumnType("varchar(1000)")
                 .HasColumnName("Description");
 
-            builder.OwnsOne(a => a.ImageUrl, imageUrl =>
+            builder.OwnsOne(a => a.Image, img =>
             {
-                imageUrl.Property(p => p.Name)
+                img.Property(p => p.Name)
                     .IsRequired(true)
                     .HasMaxLength(255)
                     .HasColumnType("varchar(255)");
 
-                imageUrl.Property(p => p.Type)
+                img.Property(p => p.Type)
                     .IsRequired(true)
                     .HasColumnType("varchar(127)")
                     .HasMaxLength(127);
                 
-                imageUrl.Property(p => p.Size)
+                img.Property(p => p.Size)
                     .IsRequired(true)
                     .HasColumnType("bigint")
                     .HasMaxLength(500);
 
-                imageUrl.Property(p => p.Content)
+                img.Property(p => p.Content)
                     .IsRequired(true)
                     .HasColumnType("LONGBLOB");
                     
-
-                imageUrl.HasIndex(p => p.UploadedAt)
+                img.HasIndex(p => p.UploadedAt)
                     .IsUnique();
             });
 
-            builder.Navigation("_projects")
+            builder.Navigation(e => e.Projects)
                 .HasField("_projects")
                 .UsePropertyAccessMode(PropertyAccessMode.Field);
 
-            builder.HasMany<Project>("_projects")
+            builder.HasMany(e => e.Projects)
                 .WithOne()
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasForeignKey("IdExperience")

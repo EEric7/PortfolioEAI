@@ -44,7 +44,10 @@ namespace PortfolioEAI.Domain.ValueObjects
             {
                 // Validate the password
                 string password = Validate(value);
-
+                
+                if(Equal(password, HashValue))
+                    return;
+                
                 // Generate salt and hash the password
                 using var algorithm = new Rfc2898DeriveBytes(password,SaltSize,Iterations,HashAlgorithmName.SHA256);
                 var salt = algorithm.Salt;
@@ -62,20 +65,26 @@ namespace PortfolioEAI.Domain.ValueObjects
         }
 
         /// <summary>
-        /// Verifies if a plain text password matches the stored hash.
+        ///     Compares a plain text password with the stored hashed password.
         /// </summary>
-        /// <param name="value">The plain text password to verify.</param>
-        /// <returns>True if the password matches, false otherwise.</returns>
-        public bool Verify(string value)
+        /// <param name="value"></param>
+        /// <param name="hash"></param>
+        /// <returns></returns>
+        /// <exception cref="BusinessRuleViolationException"></exception>
+        private static bool Equal(string value, string hash)
         {
             try
             {
+                if (string.IsNullOrEmpty(hash))
+                    return false;
+                    
                 // Extract salt and stored key from the hash
-                var hashBytes = Convert.FromBase64String(HashValue);
+                var hashBytes = Convert.FromBase64String(hash);
                 var salt = hashBytes[..SaltSize];
                 var storedKey = hashBytes[SaltSize..];
                 using var algorithm = new Rfc2898DeriveBytes(value,salt,Iterations,HashAlgorithmName.SHA256);
                 var computedKey = algorithm.GetBytes(KeySize);
+
                 return CryptographicOperations.FixedTimeEquals(storedKey, computedKey);
             }
             catch (Exception ex)

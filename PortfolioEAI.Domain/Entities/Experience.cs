@@ -12,7 +12,7 @@ namespace PortfolioEAI.Domain.Entities
         /// It allows for the association of multiple projects with a single experience,
         /// enabling better organization and retrieval of related information.
         /// </summary>
-        private List<Project> _projects = new();
+        private readonly List<Project> _projects = new();
     
         /// <summary>
         /// Name of the company where the experience was gained.
@@ -33,7 +33,7 @@ namespace PortfolioEAI.Domain.Entities
         /// This property holds the URL of an image associated with the experience.
         /// It is typically used to display a visual representation of the experience in user interfaces.
         /// </summary>
-        public StoredFile? ImageUrl { get; private set; } = default;
+        public StoredFile? Image { get; private set; } = default;
 
         /// <summary>
         /// Collection of projects associated with the experience.

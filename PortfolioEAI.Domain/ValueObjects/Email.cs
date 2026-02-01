@@ -14,7 +14,7 @@ namespace PortfolioEAI.Domain.ValueObjects
         /// It is important that the email address is valid, and it is validated upon instantiation.
         /// If the email address is not well-formed, an exception will be thrown.
         /// </summary>
-        private readonly Regex EmailRegex = new(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        private static readonly Regex EmailRegex = new(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         /// <summary>
         /// Gets the email address value.
@@ -78,10 +78,10 @@ namespace PortfolioEAI.Domain.ValueObjects
 
             if (value.Length > 254)
                 throw new  BusinessRuleViolationException("The email exceeds the maximum length of 254 characters.",new ArgumentException(nameof(value)));
-#if !DEBUG                  
+                
             if (!EmailRegex.IsMatch(value))
-                throw new BusinessRuleViolationException("The email format is invalid.", new ArgumentException(nameof(value));
-#endif  
+                throw new BusinessRuleViolationException("The email format is invalid.", new ArgumentException(nameof(value)));
+
             return value;
         }
     }

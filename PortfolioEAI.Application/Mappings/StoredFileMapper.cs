@@ -5,26 +5,20 @@ namespace PortfolioEAI.Application.Mappings
 {
     internal class StoredFileMapper
     {
+        /// <summary>
+        /// Maps a StoredFile entity to a StoredFileDto.
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public static StoredFileDto ToDto(StoredFile entity) 
         {
             return new StoredFileDto{
-            Name = entity.Name ?? string.Empty,
-            Type = entity.Type ?? string.Empty,
-            Size = entity.Size,
-            Content = entity.Content,
-            UploadedAt = entity.UploadedAt
+                Name = entity.Name ?? string.Empty,
+                Type = entity.Type ?? string.Empty,
+                Size = entity.Size,
+                Content = entity.Content,
+                UploadedAt = entity.UploadedAt
             };
-        }
-
-        public static StoredFile ToEntity(StoredFileDto? dto) 
-        {
-            return StoredFile.Create(
-                dto!.Name,
-                dto!.Type,
-                dto!.Size,
-                dto!.Content,
-                dto!.UploadedAt
-            );
         }
     }
 }

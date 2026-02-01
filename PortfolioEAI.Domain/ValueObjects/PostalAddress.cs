@@ -1,11 +1,10 @@
-using System.Dynamic;
 using System.Text.RegularExpressions;
 using PortfolioEAI.Domain.Common;
 using PortfolioEAI.Domain.Exceptions;
 
 namespace PortfolioEAI.Domain.ValueObjects
 {
-    public class PostalAddress
+    public class PostalAddress : ValueObject
     {
         public string Street { get; private set; } = string.Empty;
         public string City { get; private set; } = string.Empty;
@@ -15,6 +14,14 @@ namespace PortfolioEAI.Domain.ValueObjects
 #pragma warning disable CS8618 //
         private PostalAddress(){}
 #pragma warning restore CS8618 //
+
+        protected override IEnumerable<object?> GetEqualityComponents()
+        {
+            yield return Street;
+            yield return City;
+            yield return PostalCode;
+            yield return Country;
+        }
 
         /// <summary>
         ///     Creates a new instance of the <see cref="PostalAddress"/> class with the specified properties.

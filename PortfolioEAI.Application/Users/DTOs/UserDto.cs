@@ -82,6 +82,14 @@ namespace PortfolioEAI.Application.DTOs
         /// File name of the photo
         /// </summary>
         public StoredFileDto? ProfilePhoto { get; set; }
+
+        /// <summary>
+        /// GitHub URL of the admin user.
+        /// This property holds the URL to the admin user's GitHub profile.
+        /// It is used to showcase the user's projects and contributions on GitHub.
+        /// The URL should be a valid web address pointing to the user's GitHub page.
+        /// </summary>
+        public string? GitHubUrl { get; set; }
         
         /// <summary>
         /// Indicates whether the admin user is active.
@@ -115,6 +123,7 @@ namespace PortfolioEAI.Application.DTOs
             FirstName = dto.FirstName;
             LastName = dto.LastName;
             Profession = dto.Profession;
+            GitHubUrl = dto.GitHubUrl;
             Address = dto.Address;
             IsActive = dto.IsActive;
             Skills = dto.Skills;

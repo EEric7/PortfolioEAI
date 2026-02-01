@@ -1,3 +1,5 @@
+using PortfolioEAI.Application.StoredFiles.DTOs;
+
 namespace PortfolioEAI.Application.DTOs
 {
     public class ProjectDto
@@ -47,7 +49,7 @@ namespace PortfolioEAI.Application.DTOs
         /// It is typically used to display a visual representation of the project in user interfaces.
         /// The URL should point to a valid image resource.
         /// </summary>
-        public string ImageUrl { get; set; } = string.Empty;
+        public StoredFileDto? ImageUrl { get; set; } = new StoredFileDto();
 
         /// <summary>
         /// URL of the project.

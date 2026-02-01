@@ -1,26 +1,18 @@
 using PortfolioEAI.Infrastructure;
 using PortfolioEAI.Application;
 
-// Log.Logger = new LoggerConfiguration()
-//     .WriteTo.Console()
-//     .WriteTo.File(Path.Combine(AppContext.BaseDirectory,"Logs", $"Log-{DateTime.Now:ddMMyyyy}.txt"),
-//     rollingInterval: RollingInterval.Day)
-//     .CreateLogger();
-
 var builder = WebApplication.CreateBuilder(args);
 
-// Utilise Serilog comme logger principal
-//builder.Host.UseSerilog();
+var isDesignTime = AppContext.GetData("EFCORE_DESIGN_TIME") is bool isDesignTimeFlag && isDesignTimeFlag;
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 
 // Configure Entity Framework Core based on the environment
-var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? throw new InvalidOperationException($"Unknown environment: {Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}");
+var environment = builder.Environment.EnvironmentName;
 
-// Load configuration files based on the environment
 builder.Configuration
-    .SetBasePath(Path.Combine(AppContext.BaseDirectory, "Properties"))
+    .SetBasePath(Path.Combine(builder.Environment.ContentRootPath, "Properties"))
     .AddJsonFile($"appsettings.{environment}.json", optional: false, reloadOnChange: true);
 
 // Infrastructure layer
@@ -30,10 +22,10 @@ builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
 
 // Configure authentication and authorization
-builder.Services.AddAuthentication("MyCookieAuth")
-    .AddCookie("MyCookieAuth", options =>
+builder.Services.AddAuthentication("PEAICookieAuth")
+    .AddCookie("PEAICookieAuth", options =>
     {
-        options.Cookie.Name = "MyCookieAuth";
+        options.Cookie.Name = "PEAICookieAuth";
         options.Cookie.HttpOnly = true;
         options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
         options.SlidingExpiration = true;

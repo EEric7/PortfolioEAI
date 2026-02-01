@@ -8,8 +8,7 @@ namespace PortfolioEAI.Infrastructure.Persistance.Configurations
     {
         public void Configure(EntityTypeBuilder<Project> builder)
         {
-            builder.HasKey(p => p.Id)
-                .HasName("IdProject");
+            builder.HasKey(p => p.Id);
 
             builder.Property(c => c.Title)
                 .IsRequired()
@@ -25,41 +24,40 @@ namespace PortfolioEAI.Infrastructure.Persistance.Configurations
                 .HasColumnType("varchar(100)");
 
             builder.Property(e => e.StartDate)
-                .IsRequired()
-                .HasColumnType("date");
+                .IsRequired(true);
 
             builder.Property(e => e.EndDate)
-                .HasColumnType("date");
+                .IsRequired(false);
 
-            builder.OwnsOne(a => a.ImageUrl, imageUrl =>
+            builder.OwnsOne(a => a.Image, img =>
             {
-                imageUrl.Property(p => p.Name)
+                img.Property(p => p.Name)
                     .IsRequired(true)
                     .HasMaxLength(255)
                     .HasColumnType("varchar(255)");
 
-                imageUrl.Property(p => p.Type)
+                img.Property(p => p.Type)
                     .IsRequired(true)
                     .HasColumnType("varchar(127)")
                     .HasMaxLength(127);
                 
-                imageUrl.Property(p => p.Size)
+                img.Property(p => p.Size)
                     .IsRequired(true)
                     .HasColumnType("bigint")
                     .HasMaxLength(500);
 
-                imageUrl.Property(p => p.Content)
+                img.Property(p => p.Content)
                     .IsRequired(true)
                     .HasColumnType("LONGBLOB");
                     
 
-                imageUrl.HasIndex(p => p.UploadedAt)
+                img.HasIndex(p => p.UploadedAt)
                     .IsUnique();
             });
 
-            builder.OwnsOne(c => c.Url, email =>
+            builder.OwnsOne(c => c.Url, url =>
             {
-                email.Property(e => e.Value)
+                url.Property(e => e.Value)
                     .HasColumnName("Url");
             });
         }

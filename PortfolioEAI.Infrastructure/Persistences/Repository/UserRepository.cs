@@ -37,7 +37,8 @@ namespace PortfolioEAI.Infrastructure.Persistance.Repositories
         /// <param name="predicate"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
-        public async Task<bool> Exists(Expression<Func<User, bool>> predicate, CancellationToken ct) => await _context.Users.AnyAsync(predicate, ct);
+        public async Task<bool> Exists(Expression<Func<User, bool>> predicate, CancellationToken ct) 
+            => await _context.Users.AnyAsync(predicate, ct);
 
         /// <summary>
         ///  Gets a user by a specified predicate.
@@ -45,7 +46,12 @@ namespace PortfolioEAI.Infrastructure.Persistance.Repositories
         /// <param name="predicate"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
-        public async Task<User?> Get(Expression<Func<User, bool>> predicate, CancellationToken ct) => await _context.Users.FirstOrDefaultAsync(predicate, ct);
+        public async Task<User?> Get(Expression<Func<User, bool>> predicate, CancellationToken ct) 
+            => await _context.Users
+                .Include(u => u.Skills)
+                .Include(u => u.Experiences)
+                .ThenInclude(e => e.Projects)
+                .FirstOrDefaultAsync(predicate, ct);
 
         /// <summary>
         ///     Gets all users that match a specified predicate.
@@ -53,7 +59,13 @@ namespace PortfolioEAI.Infrastructure.Persistance.Repositories
         /// <param name="predicate"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<User>> GetAllBy(Expression<Func<User, bool>> predicate, CancellationToken ct) => await _context.Users.Where(predicate).ToListAsync(ct);
+        public async Task<IEnumerable<User>> GetAllBy(Expression<Func<User, bool>> predicate, CancellationToken ct) 
+            => await _context.Users
+                .Where(predicate)
+                .Include(u => u.Skills)
+                .Include(u => u.Experiences)
+                .ThenInclude(e => e.Projects)
+                .ToListAsync(ct);
 
         /// <summary>
         ///   Removes a user from the repository.
@@ -61,7 +73,8 @@ namespace PortfolioEAI.Infrastructure.Persistance.Repositories
         /// <param name="entity"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
-        public async Task Remove(User entity, CancellationToken ct) => await Task.Run(() => _context.Users.Remove(entity), ct);
+        public async Task Remove(User entity, CancellationToken ct) => await Task.Run(() 
+            => _context.Users.Remove(entity), ct);
 
         /// <summary>
         ///  Updates an existing user in the repository.
@@ -69,6 +82,7 @@ namespace PortfolioEAI.Infrastructure.Persistance.Repositories
         /// <param name="entity"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
-        public async Task Update(User entity, CancellationToken ct) => await Task.Run(() => _context.Users.Update(entity), ct);
+        public async Task Update(User entity, CancellationToken ct) => await Task.Run(() 
+            => _context.Users.Update(entity), ct);
     }
 }

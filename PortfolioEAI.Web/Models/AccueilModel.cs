@@ -4,7 +4,7 @@ using PortfolioEAI.Web.Models;
 
 namespace PortfolioEAI.Web.Application.Models
 {
-    public class AccueilModel 
+    public class AccueilModel : AMenuModel
     {
         [BindProperty]
         public UserModel? DTO { get; set; } = default;

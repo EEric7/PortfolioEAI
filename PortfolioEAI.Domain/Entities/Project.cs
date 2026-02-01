@@ -51,7 +51,7 @@ namespace PortfolioEAI.Domain.Entities
         /// It is important to ensure that the image URL is accessible and points to a valid image file format (e.g., JPEG, PNG).
         /// This property is used to enhance the visual appeal of the project and provide users with a quick overview of its appearance.
         /// </summary>
-        public StoredFile? ImageUrl { get; private set; } = default!;
+        public StoredFile? Image { get; private set; } = default!;
 
         /// <summary>
         /// URL of the project.

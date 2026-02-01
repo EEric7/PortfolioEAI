@@ -17,8 +17,11 @@ namespace PortfolioEAI.Application.Mappings
                 Id = p.Id,
                 Title = p.Title,
                 Description = p.Description,
-                //TODO: verify if ImageUrl should be Uri type
-                Url = p.Url!.Value?? string.Empty
+                Position = p.Position,
+                StartDate = p.StartDate,
+                EndDate = p.EndDate,
+                ImageUrl = p.Image != null ? StoredFileMapper.ToDto(p.Image) : default,
+                //Url = p.Url
             };        
         }
     }

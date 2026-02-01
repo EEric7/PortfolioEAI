@@ -41,6 +41,7 @@ public class IndexModel : PageModel
             }
 
             // Set the user model in the AccueilModel
+            _logger.LogInformation(result.Info);
             AccueilModel.SetUserModel(result.Value!.First());
         }
         catch (Exception)

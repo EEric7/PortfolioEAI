@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PortfolioEAI.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5a73e62270978df8ae1acc99351cdbb9f70db65e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+496844c30ed314e0e8d336dfaf42c21716764361")]
 [assembly: System.Reflection.AssemblyProductAttribute("PortfolioEAI.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PortfolioEAI.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

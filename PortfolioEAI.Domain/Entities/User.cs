@@ -18,6 +18,7 @@ namespace PortfolioEAI.Domain.Entities
         public Email Email { get; private set; }
         public Password Password { get; private set; }
         public StoredFile? ProfilePhoto { get; private set; } = default;
+        public ObjectUrl? GitHubUrl { get; private set; } = default;
         public Roles Role { get; private set; } = Roles.Visitor;
         public PostalAddress? Address { get; private set; } = default;
         public IReadOnlyCollection<Skill> Skills => _skills.AsReadOnly();       
@@ -36,8 +37,8 @@ namespace PortfolioEAI.Domain.Entities
         public static User Create(string? email, string? password)
         {
             var user = new User();
-            user.Email.SetEmail(email);
-            user.Password.SetPassword(password);
+            user.SetEmail(email);
+            user.SetPassword(password);
             return user;
         }
         
@@ -146,7 +147,10 @@ namespace PortfolioEAI.Domain.Entities
         /// <exception cref="BusinessRuleViolationException"></exception>
         public void SetEmail(string? value)
         {
-            Email.SetEmail(value);
+            if (Email is null)
+                Email = Email.Create(value);
+            else
+                Email.SetEmail(value);
         }
 
         /// <summary>
@@ -160,7 +164,10 @@ namespace PortfolioEAI.Domain.Entities
         /// <exception cref="BusinessRuleViolationException"></exception>
         public void SetPassword(string? value)
         {
-            Password.SetPassword(value);
+            if (Password is null)
+                Password = Password.Create(value);
+            else
+                Password.SetPassword(value);
         }
 
         /// <summary>
@@ -184,7 +191,6 @@ namespace PortfolioEAI.Domain.Entities
         /// Sets the profile photo of the admin user.
         /// This method allows you to set or update the profile photo of the admin user.
         /// If the photo is null, the profile photo will be set to null.
-        /// If a valid photo is provided, it will be assigned to the ProfilePhoto property.
         /// </summary>
         /// <param name="photo"></param>
         public void SetProfilePhoto(StoredFile? photo)
@@ -193,6 +199,20 @@ namespace PortfolioEAI.Domain.Entities
                 ProfilePhoto = null;
             else
                 ProfilePhoto = photo;
+        }
+
+        /// <summary>
+        /// Sets the GitHub URL of the admin user.
+        /// This method allows you to set or update the GitHub URL of the admin user.
+        /// If the URL is null, the GitHub URL will be set to null.
+        /// </summary>
+        /// <param name="value"></param>
+        public void SetGitHubUrl(string? value)
+        {
+            if (GitHubUrl is null)
+                GitHubUrl = ObjectUrl.Create(value);
+            else
+                GitHubUrl.SetValue(value);
         }
 
         /// <summary>
@@ -211,31 +231,6 @@ namespace PortfolioEAI.Domain.Entities
             {
                 throw new BusinessRuleViolationException(ex.Message, ex);
             }
-        }
-
-        /// <summary>
-        ///    Sets the skills of the admin user.
-        ///    This method allows you to set or update the skills assigned to the admin user.
-        ///    It clears any existing skills and adds the provided skills to the user's skill collection.
-        /// </summary>
-        /// <param name="skills"></param>
-        public void SetSkills(IEnumerable<Skill> skills)
-        {    
-            _skills.Clear();
-            foreach (var skill in skills)
-                AddSkill(skill);
-        }
-        /// <summary>
-        ///    Sets the experiences of the admin user.
-        ///    This method allows you to set or update the experiences assigned to the admin user.
-        ///    It clears any existing experiences and adds the provided experiences to the user's experience collection.
-        /// </summary>
-        /// <param name="experiences"></param>
-        public void SetExperiences(IEnumerable<Experience> experiences)
-        {
-            _experiences.Clear();
-            foreach (var experience in experiences)
-                AddExperience(experience);
         }
 
         /// <summary>

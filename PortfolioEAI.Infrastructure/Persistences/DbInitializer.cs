@@ -13,9 +13,7 @@ namespace PortfolioEAI.Infrastructure.Persistance
             switch (environment)
             {
                 case "Development":
-
-                    if (context.Database.EnsureCreated())
-                        context.Database.Migrate();
+                    context.Database.Migrate();
 
                     if (context.Users.Any())
                         context.Users.RemoveRange(context.Users);
@@ -87,14 +85,16 @@ namespace PortfolioEAI.Infrastructure.Persistance
                                     Je maîtrise des technologies telles que C#, SQL, HTML5/CSS3 et des frameworks comme ASP.NET Core,MVC et Blazor, en intégrant des bases de données complexes grâce à SQL Server et des outils comme Entity Framework.\r\n
                                     Mon expertise s’étend également aux méthodes Agiles, aux principes SOLID et aux design patterns.";
                                     
-            var userAdmin =  User.Create("elembaadi@icloud.com","admin321");
+            var userAdmin =  User.Create("elembaadi@icloud.com","Admin321");
+            userAdmin.SetRole("Admin");
             userAdmin.SetFirstname("ELEMBA ADI");
             userAdmin.SetLastname("Eric");
+            userAdmin.SetDisplayName("ELEMBA ADi Eric");
             userAdmin.SetDescription(description);
-            userAdmin.Address?.SetStreet("25 rue des carmes");
-            userAdmin.Address?.SetPostalCode("67100");
-            userAdmin.Address?.SetCity("Strasbourg");
-            userAdmin.Address?.SetCountry("France");
+            userAdmin.SetAddress("25 rue des carmes, 67100 Strasbourg, France");
+            userAdmin.SetProfession("Développeur .NET");
+            //userAdmin.SetPhoneNumber("+33 6 52 34 12 78");
+            //userAdmin.SetURL("https://github.com/EEric7");
 
             skills.ToList().ForEach(s => userAdmin.AddSkill(s));
             experiences.ToList().ForEach(e => userAdmin.AddExperience(e));

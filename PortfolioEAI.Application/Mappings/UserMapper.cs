@@ -17,6 +17,9 @@ namespace PortfolioEAI.Application.Mappings
             Email = user.Email.Value,
             Description = user.Description,
             Address = user.Address?.GetFullAddress(),
+            Profession = user.Profession,
+            GitHubUrl = user.GitHubUrl?.Value,
+            
             Skills = user.Skills.Select(SkillMapper.ToDto).ToList(),
             Experiences = user.Experiences.Select(ExperienceMapper.ToDto).ToList(),
         };
