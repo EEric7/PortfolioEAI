@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PortfolioEAI.Domain.Entities;
+using PortfolioEAI.Domain.Enums;
 
 namespace PortfolioEAI.Infrastructure.Persistance.Configurations
 {
@@ -57,14 +58,15 @@ namespace PortfolioEAI.Infrastructure.Persistance.Configurations
                     .IsUnique();
             });
 
-            builder.OwnsOne(u => u.Role, role =>
-            {
-                role.Property(p => p.Name)
-                    .HasColumnName("Role")
-                    .HasColumnType("varchar(30)")
-                    .HasMaxLength(30)
-                    .IsRequired(true);
-            });
+            builder.Property(u => u.Role)
+                .HasConversion(
+                    role => role.Name,
+                    value => value == "Admin" ? Roles.Admin : value == "User"
+                                                ? Roles.User : Roles.Visitor)
+                .HasColumnName("Role")
+                .HasColumnType("varchar(30)")
+                .HasMaxLength(30)
+                .IsRequired(true);
 
            builder.OwnsOne(a => a.ProfilePhoto, img =>
             {
@@ -92,14 +94,12 @@ namespace PortfolioEAI.Infrastructure.Persistance.Configurations
                     .IsUnique();
             });
 
-            builder.OwnsOne(a => a.Role, Role =>
+            builder.OwnsOne(c => c.GitHubUrl, url =>
             {
-                Role.Property(p => p.Name)
-                    .HasColumnType("varchar(20)")
-                    .HasMaxLength(20)
-                    .IsRequired(false);
+                url.Property(e => e.Value)
+                    .HasColumnName("Url");
             });
-            
+
             builder.OwnsOne(a => a.Address, address =>
             {
                 address.Property(a => a.Street)
