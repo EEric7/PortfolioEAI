@@ -32,15 +32,15 @@
                     </div>
 
                     <div class="col-md-8">
-                        <label asp-for="EditeExperienceModel.Dto.ImageUrl" class="form-label"></label>
-                        <input asp-for="EditeExperienceModel.Dto.ImageUrl" class="form-control" placeholder="URL du logo / image (optionnel)" />
-                        <span asp-validation-for="EditeExperienceModel.Dto.ImageUrl" class="text-danger small"></span>
+                        <label asp-for="EditeExperienceModel.Dto.Enseigne" class="form-label"></label>
+                        <input asp-for="EditeExperienceModel.Dto.Enseigne" class="form-control" placeholder="URL du logo / image (optionnel)" />
+                        <span asp-validation-for="EditeExperienceModel.Dto.Enseigne" class="text-danger small"></span>
                     </div>
 
                     <div class="col-md-4 d-flex align-items-center justify-content-center">
-                        @if (!string.IsNullOrEmpty(Model.EditeExperienceModel.Dto.ImageUrl))
+                        @if (!string.IsNullOrEmpty(Model.EditeExperienceModel.Dto.Enseigne?.ImageDataUrl))
                         {
-                            <img src="@Model.EditeExperienceModel.Dto.ImageUrl" alt="Aperçu" class="img-fluid rounded shadow-sm" style="max-height:100px;" />
+                            <img src="@Model.EditeExperienceModel.Dto.Enseigne!.ImageDataUrl" alt="Aperçu" class="img-fluid rounded shadow-sm" style="max-height:100px;" />
                         }
                         else
                         {

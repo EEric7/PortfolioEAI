@@ -1,17 +1,15 @@
 ﻿@page
-@using Microsoft.EntityFrameworkCore.Metadata.Internal
 @using PortfolioEAI.Web.Models
-@using PortfolioEAI.Web.Ressources
 @model IndexModel
 @{
-    ViewData["Title"] = Model.AccueilModel?.DTO?.UserName ?? UIText.DefaultTitle;
-    ViewData["SubTitle"] = Model.AccueilModel?.DTO?.Profession ?? UIText.DefaultProfession;
-    ViewData["UserName"] = Model.AccueilModel?.DTO?.UserName;
-    ViewData["Description"] = Model.AccueilModel?.DTO?.Description;
-    ViewData["Address"] = Model.AccueilModel?.DTO?.Address;
-    ViewData["GITEmail"] = Model.AccueilModel?.DTO?.EmailGitHub;
-    ViewData["EMail"] = Model.AccueilModel?.DTO?.Email;
-    ViewData["PhoneNumber"] = Model.AccueilModel?.DTO?.PhoneNumber;
+    ViewData["Title"] = Model.AccueilModel?.UserModel?.DTO?.UserName ?? UIText.DefaultTitle;
+    ViewData["SubTitle"] = Model.AccueilModel?.UserModel?.DTO?.Profession ?? UIText.DefaultProfession;
+    ViewData["UserName"] = Model.AccueilModel?.UserModel?.DTO?.UserName;
+    ViewData["Description"] = Model.AccueilModel?.UserModel?.DTO?.Description;
+    ViewData["Address"] = Model.AccueilModel?.UserModel?.DTO?.Address;
+    ViewData["GITEmail"] = Model.AccueilModel?.UserModel?.DTO?.GitHubUrl;
+    ViewData["EMail"] = Model.AccueilModel?.UserModel?.DTO?.Email;
+    ViewData["PhoneNumber"] = Model.AccueilModel?.PhoneNumber;
 
     // Determine if there are skills and projects to display
     Boolean hasSkills = Model.AccueilModel?.SkillsModelLanguages is null ? false : Model.AccueilModel.SkillsModelLanguages.Any();
@@ -65,10 +63,10 @@ About-->
                             <div class="col-md-6">
                                 @foreach (var skill in Model.AccueilModel?.SkillsModelLanguages!)
                                 {
-                                    <h3 class="progressbar-title">@skill.Name</h3>
+                                    <h3 class="progressbar-title">@skill.DTO?.Name</h3>
                                     <div class="progress">
-                                        <div class="progress-bar" style="width:@(int.TryParse(skill.Level, out var level) ? level : 0)%; background:@skill.LevelBackgroundColor;">
-                                            <span class="progress-value">@skill.Level</span>
+                                        <div class="progress-bar" style="width:@(int.TryParse(skill.DTO?.Level, out var level) ? level : 0)%; background:@skill.LevelBackgroundColor;">
+                                            <span class="progress-value">@skill.DTO?.Level</span>
                                             <span class="progress-icon" style="border-bottom-color:@skill.LevelBackgroundColor;"></span>
                                         </div>
                                     </div>
@@ -77,10 +75,10 @@ About-->
                             <div class="col-md-6">
                                 @foreach (var skill in Model.AccueilModel.SkillsModelFrameworks!)
                                 {
-                                    <h3 class="progressbar-title">@skill.Name</h3>
+                                    <h3 class="progressbar-title">@skill.DTO?.Name</h3>
                                     <div class="progress">
-                                        <div class="progress-bar" style="width:@(int.TryParse(skill.Level, out var level) ? level : 0)%; background:@skill.LevelBackgroundColor;">
-                                            <span class="progress-value">@skill.Level</span>
+                                        <div class="progress-bar" style="width:@(int.TryParse(skill.DTO?.Level, out var level) ? level : 0)%; background:@skill.LevelBackgroundColor;">
+                                            <span class="progress-value">@skill.DTO?.Level</span>
                                             <span class="progress-icon" style="border-bottom-color:@skill.LevelBackgroundColor;"></span>
                                         </div>
                                     </div>
@@ -95,10 +93,10 @@ About-->
                             <div class="col-md-6">
                                 @foreach (var skill in Model.AccueilModel.SkillsModelDesign!)
                                 {
-                                    <h3 class="progressbar-title">@skill.Name</h3>
+                                    <h3 class="progressbar-title">@skill.DTO?.Name</h3>
                                     <div class="progress">
-                                        <div class="progress-bar" style="width:@(int.TryParse(skill.Level, out var level) ? level : 0)%; background:@skill.LevelBackgroundColor;">
-                                            <span class="progress-value">@skill.Level</span>
+                                        <div class="progress-bar" style="width:@(int.TryParse(skill.DTO?.Level, out var level) ? level : 0)%; background:@skill.LevelBackgroundColor;">
+                                            <span class="progress-value">@skill.DTO?Level</span>
                                             <span class="progress-icon" style="border-bottom-color:@skill.LevelBackgroundColor;"></span>
                                         </div>
                                     </div>
@@ -127,15 +125,15 @@ About-->
                     <!-- Project One Row-->
                     <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
                         <div class="col-lg-6">
-                            <img class="img-fluid" src=@(project.ImageUrl) alt="@UIText.ProjectImageAlt" />
+                            <img class="img-fluid" src=@(project.DTO?.ImageUrl) alt="@UIText.ProjectImageAlt" />
                         </div>
                         <div class="col-lg-6">
                             <div class="bg-black text-center h-100 project">
                                 <div class="d-flex h-100">
                                     <div class="project-text w-100 my-auto text-center text-lg-left">
-                                        <h4 class="text-white">@(project.Title)</h4>
+                                        <h4 class="text-white">@(project.DTO?.Title)</h4>
                                         <p class="mb-0 text-white-50">
-                                            @(project.Description)
+                                            @(project.DTO?.Description)
                                         </p>
                                     </div>
                                 </div>
@@ -147,17 +145,17 @@ About-->
                     <!-- Project Two Row-->
                     <div class="row gx-0 justify-content-center">
                         <div class="col-lg-6">
-                            <img class="img-fluid" src=@(project.ImageUrl) alt="@UIText.ProjectImageAlt" />
+                            <img class="img-fluid" src=@(project.DTO?.ImageUrl) alt="@UIText.ProjectImageAlt" />
                         </div>
                         <div class="col-lg-6 order-lg-first">
                             <div class="bg-black text-center h-100 project">
                                 <div class="d-flex h-100">
                                     <div class="project-text w-100 my-auto text-center text-lg-right">
                                         <h4 class="text-white">
-                                            @(project.Title)
+                                            @(project.DTO?.Title)
                                         </h4>
                                         <p class="mb-0 text-white-50">
-                                            @(project.Description)
+                                            @(project.DTO?.Description)
                                         </p>
                                     </div>
                                 </div>

@@ -67,9 +67,9 @@
                         <div class="text-center">
                             <h6 class="mb-3">Aperçu</h6>
                             <div class="border rounded p-2 mb-2" style="min-height:160px; display:flex; align-items:center; justify-content:center;">
-                                @if (!string.IsNullOrEmpty(Model.ProjectDetailsModel.DTO.ImageUrl))
+                                @if (!string.IsNullOrEmpty(Model.ProjectDetailsModel.DTO.ImageUrl?.ImageDataUrl))
                                 {
-                                    <img src="@Model.ProjectDetailsModel.DTO.ImageUrl" alt="@Model.ProjectDetailsModel.DTO.Title" class="img-fluid rounded" style="max-height:140px;" />
+                                    <img src="@Model.ProjectDetailsModel.DTO.ImageUrl!.ImageDataUrl" alt="@Model.ProjectDetailsModel.DTO.Title" class="img-fluid rounded" style="max-height:140px;" />
                                 }
                                 else
                                 {

@@ -18,13 +18,15 @@ namespace PortfolioEAI.Web.Pages.Dashbord.Skills
             _logger = logger;
         }
 
-        [BindProperty]
-        public SkillDetailsModel SkillDetailsModel { get; set; } = new SkillDetailsModel();
+        public SkillDetailsModel SkillDetails { get; set; } = new SkillDetailsModel();
 
         public async Task<IActionResult> OnGetAsync(Guid id)
         {
             try
             {
+                // Clear any existing model state errors before fetching data
+                ModelState.Clear();
+
                 var result = await _services.Send(new GetSkillQuery(id));
 
                 if (!result.IsSuccess || result.Value is null)
@@ -35,7 +37,7 @@ namespace PortfolioEAI.Web.Pages.Dashbord.Skills
                 }
 
                 // Populate the SkillDetailsModel with the retrieved data
-                SkillDetailsModel.DTO = result.Value;
+                SkillDetails.DTO = result.Value;
                 _logger.LogInformation(result.Info, result.Value);
 
                 return Page();

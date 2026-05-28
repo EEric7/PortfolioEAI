@@ -1,3 +1,5 @@
+using PortfolioEAI.Application.StoredFiles.DTOs;
+
 namespace PortfolioEAI.Application.DTOs
 {
     public class ExperienceDto
@@ -25,7 +27,7 @@ namespace PortfolioEAI.Application.DTOs
         /// <summary>
         /// URL of the image associated with the experience.
         /// </summary>
-        public string? ImageUrl { get; set; }
+        public StoredFileDto? Enseigne { get; set; }
 
         /// <summary>
         /// List of project identifiers associated with the experience.
@@ -39,7 +41,7 @@ namespace PortfolioEAI.Application.DTOs
             Id = experienceDto.Id;
             Company = experienceDto.Company;
             Description = experienceDto.Description;
-            ImageUrl = experienceDto.ImageUrl;
+            Enseigne = experienceDto.Enseigne;
             Projects = experienceDto.Projects;
         }
     }

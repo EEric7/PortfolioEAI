@@ -10,14 +10,16 @@ namespace PortfolioEAI.Web.Pages.Dashbord.Users
     {
         private readonly IMediator _services;
 
-        public IndexModel(IMediator services)
+        private readonly ILogger<IndexModel> _logger;
+
+        public IndexModel(IMediator services, ILogger<IndexModel> logger)
         {
             _services = services;
-            UserIndexModel = new UserIndexModel();
+            _logger = logger;
         }
 
         [BindProperty]
-        public UserIndexModel UserIndexModel { get; set; }
+        public UserIndexModel UserIndexModel { get; set; } = new();
 
         public async Task OnGetAsync()
         {
@@ -29,13 +31,17 @@ namespace PortfolioEAI.Web.Pages.Dashbord.Users
                 if (!result.IsSuccess)
                 {
                     ModelState.AddModelError(string.Empty, "User not found.");
+                    _logger.LogWarning(result.Info, result.Value); return;  
                 }
 
-                UserIndexModel.DTOs = result.Value!.ToList();
+                UserIndexModel.UserModels.Clear();
+                UserIndexModel.UserModels.AddRange(result.Value!.Select(dto => new UserModel { DTO = dto }));
+                _logger.LogInformation(result.Info, result.Value);
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, $"An error occurred while retrieving users: {ex.Message}");
+                _logger.LogError(ex, "An error occurred while retrieving users.");
             }
         }
     }

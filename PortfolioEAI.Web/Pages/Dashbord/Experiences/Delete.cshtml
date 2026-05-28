@@ -39,9 +39,9 @@
 
                             <dt class="col-sm-4">Image</dt>
                             <dd class="col-sm-8">
-                                @if (!string.IsNullOrEmpty(Model.ExperienceDeleteModel.Experience.ImageUrl))
+                                @if (!string.IsNullOrEmpty(Model.ExperienceDeleteModel.Experience.Enseigne?.ImageDataUrl))
                                 {
-                                    <img src="@Model.ExperienceDeleteModel.Experience.ImageUrl" alt="Image expérience" class="img-fluid rounded shadow-sm" style="max-height:120px;" />
+                                    <img src="@Model.ExperienceDeleteModel.Experience.Enseigne!.ImageDataUrl" alt="Image expérience" class="img-fluid rounded shadow-sm" style="max-height:120px;" />
                                 }
                                 else
                                 {

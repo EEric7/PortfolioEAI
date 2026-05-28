@@ -24,7 +24,7 @@ namespace PortfolioEAI.Web.Pages.Dashbord.Users
         }
 
         [BindProperty]
-        public UserEditModel UserEditeModel { get; set; } = new UserEditModel();
+        public UserEditModel UserEditeModel { get; set; } = new();
 
         /// <summary>
         /// Fetch the admin user details for editing.
@@ -36,6 +36,7 @@ namespace PortfolioEAI.Web.Pages.Dashbord.Users
             try
             {
                 //Fetch the admin user by ID
+                ModelState.Clear();
                 var result = await _services.Send(new GetUserByIdQuery(id));
 
                 if (!result.IsSuccess)
@@ -46,7 +47,7 @@ namespace PortfolioEAI.Web.Pages.Dashbord.Users
                 }
 
                 _logger.LogInformation(result.Info, result.Value);
-                UserEditeModel.DTO = result.Value!;
+                UserEditeModel.UserModel.DTO = result.Value;
                 return Page();
             }
             catch (Exception ex)
@@ -66,7 +67,7 @@ namespace PortfolioEAI.Web.Pages.Dashbord.Users
             try
             {
                 //Fetch the admin user by ID
-                var result = await _services.Send(new UpdateUserCommand(UserEditeModel.DTO));
+                var result = await _services.Send(new UpdateUserCommand(UserEditeModel.UserModel.DTO!));
 
                 if (!result.IsSuccess)
                 {

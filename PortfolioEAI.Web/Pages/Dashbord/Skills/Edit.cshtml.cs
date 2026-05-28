@@ -18,15 +18,16 @@ namespace PortfolioEAI.Web.Pages.Dashbord.Skills
             _logger = logger;
         }
 
-        [BindProperty]
-        public SkillEditeModel SkillEditeModel { get; set; } = new SkillEditeModel();
+        public SkillEditeModel SkillEdite { get; set; } = new();
 
         public async Task<IActionResult> OnGetAsync(Guid id)
         {
             try
             {
+                // Clear any existing model state errors before fetching data
                 ModelState.Clear();
-                
+
+                // Fetch the skill details using the provided ID
                 var result =  await _services.Send(new GetSkillQuery(id));
                 if (!result.IsSuccess || result.Value is null)
                 {
@@ -35,9 +36,9 @@ namespace PortfolioEAI.Web.Pages.Dashbord.Skills
                     return RedirectToPage("./Index");
                 }
 
-                SkillEditeModel.DTO = result.Value;
+                // Populate the SkillModel with the retrieved data
+                SkillEdite.SkillModel = new SkillModel(result.Value);
                 _logger.LogInformation(result.Info, result.Value);
-
                 return Page();
             }
             catch (Exception ex)
@@ -51,18 +52,20 @@ namespace PortfolioEAI.Web.Pages.Dashbord.Skills
         {
             try
             {
+                // Validate the model state before attempting to update the skill
                 if (!ModelState.IsValid)
                     return Page();
 
-                var result = await _services.Send(new UpdateSkillCommand(SkillEditeModel.DTO));
-
+                // Send the update command to the mediator with the data from the form
+                var result = await _services.Send(new UpdateSkillCommand(SkillEdite.SkillModel.DTO!));
                 if (!result.IsSuccess)
                 {
                     ModelState.AddModelError(string.Empty, result.Info!);
                     _logger.LogWarning(result.Info, result.Value);
                     return RedirectToPage("./Index");
                 }
-            
+
+                // If the update is successful, log the information and redirect to the index page
                 _logger.LogInformation(result.Info, result.Value);
                 return Page();
             }

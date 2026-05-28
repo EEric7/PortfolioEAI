@@ -1,13 +1,11 @@
-
-
+using Microsoft.AspNetCore.Mvc;
 using PortfolioEAI.Application.DTOs;
 
 namespace PortfolioEAI.Web.Models
 {
-    public class ProjectModel : ProjectDto
+    public class ProjectModel : APhotoFileModel
     {
-        public ProjectModel(ProjectDto dto) : base(dto)
-        {
-        }
+        [BindProperty]
+        public ProjectDto? DTO { get; set;} = default;
     }
 }

@@ -17,16 +17,16 @@
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="UserEditeModel.DTO.Id" />
+            <input type="hidden" asp-for="UserEditeModel.UserModel.DTO.Id" />
             <div class="form-group">
-                <label asp-for="UserEditeModel.DTO.UserName" class="control-label"></label>
-                <input asp-for="UserEditeModel.DTO.UserName" class="form-control" />
-                <span asp-validation-for="UserEditeModel.DTO.UserName" class="text-danger"></span>
+                <label asp-for="UserEditeModel.UserModel.DTO.UserName" class="control-label"></label>
+                <input asp-for="UserEditeModel.UserModel.DTO.UserName" class="form-control" />
+                <span asp-validation-for="UserEditeModel.UserModel.DTO.UserName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="UserEditeModel.DTO.Password" class="control-label"></label>
-                <input asp-for="UserEditeModel.DTO.Password" class="form-control" />
-                <span asp-validation-for="UserEditeModel.DTO.Password" class="text-danger"></span>
+                <label asp-for="UserEditeModel.UserModel.DTO.Password" class="control-label"></label>
+                <input asp-for="UserEditeModel.UserModel.DTO.Password" class="form-control" />
+                <span asp-validation-for="UserEditeModel.UserModel.DTO.Password" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
@@ -39,6 +39,7 @@
     <a asp-page="./Index">Back to List</a>
 </div>
 
-@section Scripts {
+@section Scripts 
+{
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

@@ -9,9 +9,6 @@ namespace PortfolioEAI.Web.Models
         public ProjectDto? DTO { get; set; } = default!;
 
         [BindProperty]
-        public IFormFile? PhotoFile { get; set; }
-
-        [BindProperty]
         public ExperienceDto? ExperienceDTO { get; set; } = default!;
         
     }

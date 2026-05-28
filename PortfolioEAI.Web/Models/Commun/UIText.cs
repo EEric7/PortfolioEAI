@@ -1,4 +1,4 @@
-namespace PortfolioEAI.Web.Ressources
+namespace PortfolioEAI.Web.Models
 {
     /// <summary>
     /// Contains all user interface text resources for the application

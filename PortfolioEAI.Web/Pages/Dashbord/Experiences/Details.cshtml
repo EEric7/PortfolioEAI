@@ -39,9 +39,9 @@
 
                             <dt class="col-sm-4">Image</dt>
                             <dd class="col-sm-8">
-                                @if (!string.IsNullOrEmpty(Model.DetailsExperienceModel.DTO.ImageUrl))
+                                @if (!string.IsNullOrEmpty(Model.DetailsExperienceModel.DTO.Enseigne?.ImageDataUrl))
                                 {
-                                    <img src="@Model.DetailsExperienceModel.DTO.ImageUrl" alt="Image expérience"
+                                    <img src="@Model.DetailsExperienceModel.DTO.Enseigne!.ImageDataUrl" alt="Image expérience"
                                         class="img-fluid rounded shadow-sm" style="max-height:160px;" />
                                 }
                                 else

@@ -3,9 +3,9 @@ using PortfolioEAI.Application.DTOs;
 
 namespace PortfolioEAI.Web.Models
 {
-    public class IndexExperienceModel : AMenuDashbordModel
+    public class UserModel : APhotoFileModel
     {
         [BindProperty]
-        public IList<ExperienceDto> DTOs { get;set; } = new List<ExperienceDto>();
+        public UserDto? DTO { get; set; } = default;
     }
 }

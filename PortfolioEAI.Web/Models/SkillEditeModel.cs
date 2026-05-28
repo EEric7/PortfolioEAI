@@ -1,15 +1,12 @@
-
-
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using PortfolioEAI.Application.DTOs;
 
 namespace PortfolioEAI.Web.Models
 {
     public class SkillEditeModel : AMenuDashbordModel
     {
         [BindProperty]
-        public SkillDto DTO { get; set; } = default!;
+        public SkillModel SkillModel { get; set; } = new();
 
         [BindProperty]
         public List<SelectListItem>? LevelOptions { get; }  = new List<SelectListItem>

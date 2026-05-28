@@ -74,7 +74,11 @@
                             <div class="card-body text-center">
                                 <h6 class="card-title">Aperçu image</h6>
                                 <div class="border rounded p-2 mb-2" style="min-height:140px; display:flex; align-items:center; justify-content:center;">
-                                    @if (!string.IsNullOrEmpty(Model.ProjectUpdateModel.DTO.ImageUrl))
+                                    @if (!string.IsNullOrEmpty(Model.ProjectUpdateModel.PhotoFile?.FileName))
+                                    {
+                                        <img id="imagePreview" src="data:@Model.ProjectUpdateModel.PhotoFile.ContentType;base64,@Convert.ToBase64String((Model.ProjectUpdateModel.PhotoFile.OpenReadStream() as MemoryStream)?.ToArray() ?? Array.Empty<byte>())" alt="Aperçu" class="img-fluid rounded" style="max-height:120px;" />
+                                    }
+                                    else
                                     {
                                         <img id="imagePreview" src="@Model.ProjectUpdateModel.DTO.ImageUrl" alt="Aperçu" class="img-fluid rounded" style="max-height:120px;" />
                                     }

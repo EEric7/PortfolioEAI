@@ -4,7 +4,6 @@ using PortfolioEAI.Application.Interfaces;
 using PortfolioEAI.Application.Mappings;
 using PortfolioEAI.Domain.Entities;
 using PortfolioEAI.Domain.Entities.Ports;
-using PortfolioEAI.Domain.ValueObjects;
 
 namespace PortfolioEAI.Application.Users.Commands;
 

@@ -5,7 +5,7 @@
     ViewData["Title"] = "Users";
 }
 
-@await Html.PartialAsync("_MenuHome", Model)
+@await Html.PartialAsync("_MenuHome", Model.UserIndexModel.MenuModel)
 
 <h1>Index</h1>
 
@@ -16,10 +16,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.UserIndexModel.DTOs[0].UserName)
+                @Html.DisplayNameFor(model => model.UserIndexModel.UserModels[0].DTO!.UserName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.UserIndexModel.DTOs[0].Password)
+                @Html.DisplayNameFor(model => model.UserIndexModel.UserModels[0].DTO!.Password)
             </th>
             <th>
                 
@@ -27,18 +27,18 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.UserIndexModel.DTOs) {
+@foreach (var item in Model.UserIndexModel.UserModels) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.UserName)
+                @Html.DisplayFor(modelItem => item.DTO!.UserName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Password)
+                @Html.DisplayFor(modelItem => item.DTO!.Password)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-page="./Edit" asp-route-id="@item.DTO!.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.DTO!.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.DTO!.Id">Delete</a>
             </td>
         </tr>
 }

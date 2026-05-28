@@ -1,13 +1,11 @@
+using Microsoft.AspNetCore.Mvc;
 using PortfolioEAI.Application.DTOs;
 
 namespace PortfolioEAI.Web.Models
 {
-    public class ExperienceModel : ExperienceDto
+    public class ExperienceModel : APhotoFileModel
     {
-        public List<ProjectModel> ProjectsModel { get; set; } = new List<ProjectModel>();
-        public ExperienceModel(ExperienceDto dto) : base(dto)
-        {
-            ProjectsModel = dto.Projects.Select(projectDto => new ProjectModel(projectDto)).ToList();
-        }
+        [BindProperty]
+        public ExperienceDto? DTO { get; set;} = default;
     }
 }

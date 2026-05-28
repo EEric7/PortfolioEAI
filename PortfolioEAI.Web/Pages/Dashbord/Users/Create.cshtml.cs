@@ -2,7 +2,6 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PortfolioEAI.Application.Interfaces;
-using PortfolioEAI.Application.StoredFiles.DTOs;
 using PortfolioEAI.Web.Models;
 
 namespace PortfolioEAI.Web.Pages.Dashbord.Users
@@ -20,7 +19,7 @@ namespace PortfolioEAI.Web.Pages.Dashbord.Users
 
         // Bind the UserCreateModel property to the page.
         [BindProperty]
-        public UserCreateModel UserCreateModel { get; set; } = new UserCreateModel();
+        public UserCreateModel UserCreateModel { get; set; } = new();
 
         public IActionResult OnGet()
         {
@@ -38,14 +37,11 @@ namespace PortfolioEAI.Web.Pages.Dashbord.Users
                     return Page();
 
                 // Handle file storage if a photo file is provided.
-                if(!await UserCreateModel.StoredFiles())
-                {
-                    ModelState.AddModelError(string.Empty, "There was an error processing the uploaded photo.");
-                    return Page();
-                }
+                if(UserCreateModel.UserModel.DTO != null)
+                    UserCreateModel.UserModel.DTO.ProfilePhoto = await UserCreateModel.UserModel.StoredFiles();
 
                 // Call the service to create the user.
-                var result = await _services.Send(new CreateUserCommand(UserCreateModel.DTO!));
+                var result = await _services.Send(new CreateUserCommand(UserCreateModel!.UserModel!.DTO!));
 
                 if (!result.IsSuccess)
                 {

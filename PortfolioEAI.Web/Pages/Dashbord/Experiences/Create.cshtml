@@ -25,21 +25,21 @@
                         <div asp-validation-summary="ModelOnly" class="alert alert-danger d-none" id="validationSummary"></div>
 
                         <div class="mb-3">
-                            <label asp-for="ExperienceCreateModel.Experience.Company" class="form-label"></label>
-                            <input asp-for="ExperienceCreateModel.Experience.Company" class="form-control" placeholder="Nom de l'entreprise" />
-                            <span asp-validation-for="ExperienceCreateModel.Experience.Company" class="text-danger small"></span>
+                            <label asp-for="ExperienceCreateModel.DTO.Company" class="form-label"></label>
+                            <input asp-for="ExperienceCreateModel.DTO.Company" class="form-control" placeholder="Nom de l'entreprise" />
+                            <span asp-validation-for="ExperienceCreateModel.DTO.Company" class="text-danger small"></span>
                         </div>
 
                         <div class="mb-3 mt-3">
-                            <label asp-for="ExperienceCreateModel.Experience.Description" class="form-label"></label>
-                            <textarea asp-for="ExperienceCreateModel.Experience.Description" class="form-control" rows="4" placeholder="Résumé de la mission / responsabilités"></textarea>
-                            <span asp-validation-for="ExperienceCreateModel.Experience.Description" class="text-danger small"></span>
+                            <label asp-for="ExperienceCreateModel.DTO.Description" class="form-label"></label>
+                            <textarea asp-for="ExperienceCreateModel.DTO.Description" class="form-control" rows="4" placeholder="Résumé de la mission / responsabilités"></textarea>
+                            <span asp-validation-for="ExperienceCreateModel.DTO.Description" class="text-danger small"></span>
                         </div>
 
                         <div class="mb-3">
-                            <label asp-for="ExperienceCreateModel.Experience.ImageUrl" class="form-label"></label>
-                            <input asp-for="ExperienceCreateModel.Experience.ImageUrl" name="PhotoFile" type="file" class="form-control" placeholder="URL du logo / image (optionnel)"/>
-                            <span asp-validation-for="ExperienceCreateModel.Experience.ImageUrl" class="text-danger small"></span>
+                            <label asp-for="ExperienceCreateModel.DTO.Enseigne" class="form-label"></label>
+                            <input asp-for="ExperienceCreateModel.DTO.Enseigne" name="PhotoFile" type="file" class="form-control" placeholder="URL du logo / image (optionnel)"/>
+                            <span asp-validation-for="ExperienceCreateModel.DTO.Enseigne" class="text-danger small"></span>
                         </div>
 
                         <div class="d-flex gap-2">
@@ -68,24 +68,5 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script>
-        (function () {
-            const fileInput = document.querySelector('input[name="PhotoFile"]');
-            const preview = document.getElementById('photoPreview');
-
-            if (fileInput){
-                fileInput.addEventListener('change', function () {
-                    if (this.files && this.files[0]) {
-                        const reader = new FileReader();
-                        reader.onload = function (e) {
-                            preview.innerHTML = `<img src="${e.target.result}" style="max-height:100%; max-width:100%; object-fit:contain;" />`;
-                        };
-                        reader.readAsDataURL(this.files[0]);
-                    } else {
-                        preview.innerHTML = '<p class="text-muted">Aucune image sélectionnée</p>';
-                    }
-                });
-            }
-        })();
-    </script>
+    @{await Html.RenderPartialAsync("_FileInputScriptsPartial");}
 }

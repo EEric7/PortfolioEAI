@@ -1,0 +1,20 @@
+<script>
+    (function () {
+        const fileInput = document.querySelector('input[name="PhotoFile"]');
+        const preview = document.getElementById('photoPreview');
+
+        if (fileInput){
+            fileInput.addEventListener('change', function () {
+                if (this.files && this.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        preview.innerHTML = `<img src="${e.target.result}" style="max-height:100%; max-width:100%; object-fit:contain;" />`;
+                    };
+                    reader.readAsDataURL(this.files[0]);
+                } else {
+                    preview.innerHTML = '<p class="text-muted">Aucune image sélectionnée</p>';
+                }
+            });
+        }
+    })();
+</script>

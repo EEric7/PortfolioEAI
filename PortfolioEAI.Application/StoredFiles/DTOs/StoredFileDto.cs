@@ -26,5 +26,22 @@ namespace PortfolioEAI.Application.StoredFiles.DTOs
         /// Date and time when the photo was uploaded
         /// </summary>
         public DateTimeOffset? UploadedAt { get; set; }
+
+        /// <summary>
+        /// Data URL ready for use in an img src attribute.
+        /// </summary>
+        public string? ImageDataUrl
+        {
+            get
+            {
+                if (Content == null || Content.Length == 0)
+                {
+                    return null;
+                }
+
+                var mimeType = string.IsNullOrWhiteSpace(Type) ? "image/jpeg" : Type;
+                return $"data:{mimeType};base64,{Convert.ToBase64String(Content)}";
+            }
+        }
     }
 }

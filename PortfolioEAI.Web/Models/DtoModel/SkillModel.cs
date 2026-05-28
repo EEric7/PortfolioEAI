@@ -1,19 +1,27 @@
+using Microsoft.AspNetCore.Mvc;
 using PortfolioEAI.Application.DTOs;
 
 namespace PortfolioEAI.Web.Models
 {
-    public class SkillModel : SkillDto
+    public class SkillModel
     {
-        public string? LevelBackgroundColor { get; set; }
+        [BindProperty]
+        public SkillDto? DTO { get; set; } = default;
 
-        public SkillModel(SkillDto skillDto) : base(skillDto)
+        [BindProperty]
+        public string? LevelBackgroundColor { get; set; } = default;
+
+        public SkillModel(SkillDto value)
         {
+            DTO = value;
             SetLevelBackgroundColor();
         }
+        
+        public SkillModel() { }
 
-        public void SetLevelBackgroundColor()
+        private void SetLevelBackgroundColor()
         {
-            LevelBackgroundColor = Level switch
+            LevelBackgroundColor = DTO?.Level switch
             {
                 "Beginner" => " #67c29c",
                 "Intermediate" => " #0d6efd",

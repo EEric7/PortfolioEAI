@@ -1,5 +1,4 @@
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PortfolioEAI.Application.Interfaces;
 using PortfolioEAI.Web.Models;
@@ -8,8 +7,8 @@ namespace PortfolioEAI.Web.Pages.Dashbord.Skills
 {
     public class IndexModel : PageModel
     {
+        // Dependency injection for the mediator and logger
         private readonly IMediator _services;
-
         private readonly ILogger<IndexModel> _logger;
 
         public IndexModel(IMediator services, ILogger<IndexModel> logger)
@@ -18,13 +17,13 @@ namespace PortfolioEAI.Web.Pages.Dashbord.Skills
             _logger = logger;
         }
 
-        [BindProperty]
-        public SkillIndexModel SkillIndexModel { get; set; } = new SkillIndexModel();
+        public SkillIndexModel SkillIndexModel { get; set; } = new();
 
         public async Task OnGetAsync()
         {
             try
             {
+                // Clear any existing model state errors before fetching data
                 ModelState.Clear();
                 var result = await _services.Send(new GetAllSkillsQuery(SkillIndexModel.Query));
 
@@ -35,7 +34,7 @@ namespace PortfolioEAI.Web.Pages.Dashbord.Skills
                     return;
                 }
                 
-                SkillIndexModel.DTOs = result.Value!.ToList();
+                SkillIndexModel.SkillModels.AddRange(result.Value!.Select(dto => new SkillModel(dto)));
                 _logger.LogInformation(result.Info, result.Value);
             }
             catch (Exception ex)

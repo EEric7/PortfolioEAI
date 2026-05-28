@@ -47,7 +47,7 @@
         </div>
     </div>
 
-    @if (Model.SkillIndexModel.DTOs == null || !Model.SkillIndexModel.DTOs.Any())
+    @if (Model.SkillIndexModel.SkillModels == null || !Model.SkillIndexModel.SkillModels.Any())
     {
         <div class="alert alert-info">Aucune compétence trouvée. Cliquez sur <strong>Nouvelle compétence</strong> pour en ajouter.</div>
     }
@@ -58,13 +58,13 @@
                 <thead class="table-light">
                     <tr>
                         <th style="width:40%;">
-                            @Html.DisplayNameFor(model => Model.SkillIndexModel.DTOs[0].Name)
+                            @Html.DisplayNameFor(model => Model.SkillIndexModel.SkillModels[0].DTO!.Name)
                         </th>
                         <th class="text-center" style="width:120px;">
-                            @Html.DisplayNameFor(model => Model.SkillIndexModel.DTOs[0].Level)
+                            @Html.DisplayNameFor(model => Model.SkillIndexModel.SkillModels[0].DTO!.Level)
                         </th>
                         <th style="width:25%;">
-                            @Html.DisplayNameFor(model => Model.SkillIndexModel.DTOs[0].Category)
+                            @Html.DisplayNameFor(model => Model.SkillIndexModel.SkillModels[0].DTO!.Category)
                         </th>
                         <th class="text-end" style="width:180px;">
                             Actions
@@ -72,30 +72,30 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model.SkillIndexModel.DTOs)
+                    @foreach (var item in Model.SkillIndexModel.SkillModels)
                     {
                         <tr>
                             <td class="align-middle">
                                 <div class="d-flex flex-column">
-                                    <strong>@Html.DisplayFor(modelItem => item.Name)</strong>
-                                    <small class="text-muted">@item.Id</small>
+                                    <strong>@Html.DisplayFor(modelItem => item.DTO!.Name)</strong>
+                                    <small class="text-muted">@item.DTO!.Id</small>
                                 </div>
                             </td>
                             <td class="align-middle text-center">
-                                @Html.DisplayFor(modelItem => item.Level)
+                                @Html.DisplayFor(modelItem => item.DTO!.Level)
                             </td>
                             <td class="align-middle">
-                                @Html.DisplayFor(modelItem => item.Category)
+                                @Html.DisplayFor(modelItem => item.DTO!.Category)
                             </td>
                             <td class="align-middle text-end">
                                 <div class="btn-group" role="group" aria-label="Actions">
-                                    <a asp-page="./Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary" title="Détails">
+                                    <a asp-page="./Details" asp-route-id="@item.DTO!.Id" class="btn btn-sm btn-outline-primary" title="Détails">
                                         <i class="fas fa-eye"></i>
                                     </a>
-                                    <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning text-white" title="Modifier">
+                                    <a asp-page="./Edit" asp-route-id="@item.DTO!.Id" class="btn btn-sm btn-warning text-white" title="Modifier">
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                    <form method="post" asp-page-handler="Delete" asp-route-id="@item.Id" onsubmit="return confirm('Confirmez-vous la suppression de cette compétence ?');" style="display:inline;">
+                                    <form method="post" asp-page-handler="Delete" asp-route-id="@item.DTO!.Id" onsubmit="return confirm('Confirmez-vous la suppression de cette compétence ?');" style="display:inline;">
                                         <button type="submit" class="btn btn-sm btn-danger" title="Supprimer">
                                             <i class="fas fa-trash-alt"></i>
                                         </button>

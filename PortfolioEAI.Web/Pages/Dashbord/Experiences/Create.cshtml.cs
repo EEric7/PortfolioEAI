@@ -32,7 +32,7 @@ namespace PortfolioEAI.Web.Pages.Dashbord.Experiences
 
                 //TODO: Set the PhotoFile if exists
 
-                var result = await _services.Send(new AddExpUserCommand(ExperienceCreateModel.UserId, ExperienceCreateModel.Experience));
+                var result = await _services.Send(new AddExpUserCommand(ExperienceCreateModel.UserId, ExperienceCreateModel.DTO));
 
                 if (!result.IsSuccess)
                 {

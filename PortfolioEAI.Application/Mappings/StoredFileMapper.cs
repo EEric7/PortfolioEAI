@@ -20,5 +20,21 @@ namespace PortfolioEAI.Application.Mappings
                 UploadedAt = entity.UploadedAt
             };
         }
+
+        /// <summary>
+        /// Maps a StoredFileDto to a StoredFile entity.
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        public static StoredFile ToEntity(StoredFileDto? dto) 
+        {
+            return StoredFile.Create(
+                dto?.Name ?? string.Empty,
+                dto?.Type ?? string.Empty,
+                dto?.Size ?? 0,
+                dto?.Content ?? Array.Empty<byte>(),
+                dto?.UploadedAt ?? DateTimeOffset.UtcNow
+            );
+        }
     }
 }

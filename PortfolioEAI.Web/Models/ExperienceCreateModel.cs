@@ -9,9 +9,6 @@ namespace PortfolioEAI.Web.Models
         public Guid UserId { get; set; }
 
         [BindProperty]
-        public ExperienceDto Experience { get; set; } = default!;
-        
-        [BindProperty]
-        public IFormFile? PhotoFile { get; set; }
+        public ExperienceDto DTO { get; set; } = default!;
     }
 }

@@ -195,7 +195,7 @@ namespace PortfolioEAI.Domain.Entities
         /// <param name="photo"></param>
         public void SetProfilePhoto(StoredFile? photo)
         {
-            if (photo is null)
+            if (photo is null || string.IsNullOrWhiteSpace(photo.Name) || photo.Content.Length == 0)
                 ProfilePhoto = null;
             else
                 ProfilePhoto = photo;

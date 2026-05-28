@@ -34,7 +34,7 @@ namespace PortfolioEAI.Domain.ValueObjects
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static ObjectUrl Create(string value)
+        public static ObjectUrl Create(string? value)
         {
             var objectUrl = new ObjectUrl();
             objectUrl.SetValue(value);
@@ -70,7 +70,7 @@ namespace PortfolioEAI.Domain.ValueObjects
 
             if (!Uri.IsWellFormedUriString(value, UriKind.Absolute))
                 throw new BusinessRuleViolationException("The project URL is invalid.", new ArgumentException(nameof(value)));
-                
+
             return value;
         }
     }
